@@ -1,5 +1,5 @@
-import connect from '../../../utils/middleware/mongoClient';
-import PodcastModel from '../../../models/podcast';
+import connect from '../../utils/middleware/mongoClient';
+import PodcastModel from '../../models/podcast';
 
 const getNewReleases = async (req, res) => {
   if (req.method == 'GET') {
@@ -8,8 +8,8 @@ const getNewReleases = async (req, res) => {
       .sort({ createdAt: -1 })
       .catch(console.error);
     if (allAudio) {
-      console.log('audio file:', allAudio[2]);
-      console.log('creatorId:', allAudio[2].creatorId);
+      // console.log('audio file:', allAudio[0]);
+      // console.log('creatorId:', allAudio[0].creatorId);
       res.json({
         allAudio,
       });
