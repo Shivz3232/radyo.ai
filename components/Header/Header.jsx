@@ -1,5 +1,6 @@
 import React from 'react';
 
-export const Header = () => {
+function Header() {
   return <div>navbar component</div>;
-};
+}
+export default Header;

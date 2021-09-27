@@ -1,0 +1,35 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  .container {
+    position: relative;
+    margin: 1rem auto;
+    max-width: $screen-laptop-max !important;
+  }
+  .container-narrow {
+    position: relative;
+    margin: 1rem auto;
+    max-width: $width-container-narrow !important;
+  }
+  .hide {
+    display: none;
+  }
+  // Styles
+  .gradient-azure-lane {
+    color: $color-white;
+    background-image: linear-gradient(to right, #7f7fd5, #86a8e7, #91eae4);
+  }
+  .gradient-mojito {
+    color: $color-white;
+    background-image: linear-gradient(to right, #1d976c, #93f9b9);
+  }
+  .gradient-flare {
+    color: $color-white;
+    background-image: linear-gradient(to right, #f12711, #f5af19);
+  }
+  .gradient-timber {
+    color: $color-white;
+    background-image: linear-gradient(to right, #fc00ff, #00dbde);
+  }
+}

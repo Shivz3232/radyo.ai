@@ -1,4 +1,4 @@
-// eslint-disable-next-line @next/next/no-document-import-in-page
+// _document.js
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 
 class MyDocument extends Document {
@@ -11,6 +11,8 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <style>{`body { display: block !important }`}</style>
+          <script>0</script>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
             rel="preconnect"
