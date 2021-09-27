@@ -1,18 +1,32 @@
 {
+  "name": "radyo.ai",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -p $PORT",
+    "lint": "next lint",
+    "format": "prettier \"./**/*.+(js|jsx|css|less|scss|ts|tsx|md)\" --write"
   },
   "dependencies": {
     "next": "latest",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "sass": "^1.42.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.2.6",
+    "eslint": "^7.32.0",
+    "eslint-config-next": "^11.1.2",
+    "husky": "^7.0.2",
     "postcss": "^8.3.5",
-    "tailwindcss": "^2.2.4"
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-import": "^14.0.2",
+    "postcss-preset-env": "^6.7.0",
+    "precss": "^4.0.0",
+    "prettier": "^2.4.1",
+    "pretty-quick": "^3.1.1",
+    "tailwindcss": "^2.2.16"
   }
 }
