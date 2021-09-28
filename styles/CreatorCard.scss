@@ -1,0 +1,133 @@
+.creator-card {
+  display: flex;
+  width: 600px;
+  flex-flow: column nowrap;
+  justify-content: space-evenly;
+  background-color: $color-white;
+  align-self: center;
+  padding: 1rem;
+  margin: 3rem auto 2rem auto;
+  box-shadow: 1px 1px 6px 0px $color-grey-400;
+  cursor: default;
+  border-radius: 0.3rem;
+  &.max {
+    height: 700px;
+  }
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    &--image {
+      flex: 30%;
+      .creator-card__roundedimage {
+        max-width: 150px;
+        height: 125px;
+        object-fit: cover;
+        margin-top: 1.5rem;
+        margin-left: 1rem;
+      }
+    }
+    &--items {
+      flex: 70%;
+      display: flex;
+      flex-direction: column;
+      font-size: 1.2rem;
+      margin-left: 0.8rem;
+      .creator-card__header--item {
+        margin: 0.3rem 0.1rem;
+      }
+      .creator-card__author {
+        color: $color-black-700;
+        margin-top: 1.7rem;
+      }
+      .creator-card__aboutme {
+        height: 5rem;
+        width: 300px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 1.1rem;
+        font-weight: bold;
+        font-family: Roboto;
+        border: 1px solid $color-indigo-500;
+        border-radius: 0.3rem;
+      }
+    }
+  }
+
+  .subscribe-btn {
+    border: 1px solid white;
+    border-radius: 0.5rem;
+    outline: none;
+    font-size: 1rem;
+    background-color: $color-indigo-500;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    margin: 0.6rem;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    align-self: flex-end;
+  }
+  .creator-card__action--row {
+    display: flex;
+    text-align: center;
+    justify-content: space-around;
+    .creator-card__action {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 1.15rem;
+      //margin: 1.5rem auto 0.5rem auto;
+      margin: 1rem 1.5rem;
+      &--item {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 0.2rem;
+        cursor: pointer;
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: $mobile-res) {
+  .creator-card {
+    margin: 2rem auto 2rem auto;
+
+    max-width: 325px;
+    &__header {
+      &--image {
+        flex: 30%;
+        .creator-card__image {
+          width: 110px;
+          //margin-right:1rem;
+          //margin-top:1rem;
+        }
+      }
+      &--items {
+        flex: 70%;
+        //margin-left: 0.8rem;
+        margin-left: 2rem;
+        font-size: 1.08rem;
+        .creator-card__author {
+        }
+        .creator-card__aboutme {
+          width: 180px;
+        }
+      }
+    }
+  }
+
+  .creator-card__action--row {
+    .creator-card__action {
+      font-size: 1rem;
+
+      &--item {
+        margin: 0 0.1rem;
+      }
+    }
+  }
+}

@@ -26,7 +26,7 @@ const SearchBar = ({ setData, category, data }) => {
     //@ts-ignore
     if (query) {
       axios
-        .get(`/api/podcasts/search?query=${query}`)
+        .get(`/api/search?query=${query}`)
         .then(res => {
           setData({
             searched: true,

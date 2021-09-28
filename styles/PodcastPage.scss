@@ -1,0 +1,14 @@
+.podcast-page {
+  .container {
+    position: relative;
+    margin: 1rem auto;
+    max-width: $screen-laptop-max !important;
+  }
+  .audio-player-dashboard {
+    width: 100%;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    z-index: 1;
+  }
+}

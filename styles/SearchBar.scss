@@ -1,0 +1,19 @@
+.podcast-search-bar {
+  display: flex;
+  margin-top: 1.5rem;
+  margin: 1rem;
+  justify-content: center;
+  //   border: 1px red solid;
+  .search-input-field {
+    // width: 80vw;
+    flex-grow: 1;
+    .size-full {
+      width: 100%;
+      //   width: 80vw;
+    }
+    // border: 1px black solid;
+  }
+  .search-btn {
+    box-shadow: none;
+  }
+}

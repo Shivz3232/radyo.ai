@@ -56,7 +56,7 @@ const AudioCard = ({ cardItemData, playAudio }) => {
           >
             {capitalizeFirstLetter(category)}
           </div>
-          <Link href={`/podcast/audio/${cardItemData._id}`} locale={false}>
+          <Link href={`/audio/${cardItemData._id}`} locale={false}>
             <a style={{ textDecoration: 'none', color: 'inherit' }}>
               <div className="audio-card__header--item audio-card__title">
                 <LinesEllipsis
