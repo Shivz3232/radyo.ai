@@ -1,0 +1,40 @@
+.ad-over-audio-player {
+  height: 12vh !important;
+}
+@media only screen and (max-width: $mobile-res) {
+  .ad-over-audio-player {
+    height: 10vh !important;
+  }
+}
+.audio-player {
+  // position: fixed;
+  // bottom: 0;
+  // left: 0;
+  width: 100%;
+  display: flex;
+  .track-info {
+    @media only screen and (max-width: 1024px) {
+      display: none;
+    }
+    background-color: #e3ddcc;
+    width: 20vw;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    .track-info__cover {
+      box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2),
+        0 8px 22px 0 rgba(0, 0, 0, 0.19);
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      object-position: center;
+    }
+    .track-info__title {
+      margin: 0 0 0 1rem;
+      font-family: 'Segoe UI';
+    }
+  }
+  .player {
+    box-shadow: none;
+  }
+}

@@ -45,12 +45,16 @@ export const getAllAudio = async () => {
 
 export const getAudioCategories = async () => {
   const categories = await PodcastModel.find({}, '-_id category');
-  if (categories) return categories;
-  else return [];
+  if (categories) {
+    let temp = JSON.stringify(categories);
+    return JSON.parse(temp);
+  } else return [];
 };
 
 export const getAudioIds = async () => {
-  return await PodcastModel.find({ status: 'approved' }, '_id')
+  const ids = await PodcastModel.find({ status: 'approved' }, '_id')
     .limit(100)
     .catch(console.error);
+  if (ids) return ids;
+  else return undefined;
 };

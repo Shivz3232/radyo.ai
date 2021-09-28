@@ -8,6 +8,7 @@ import dbConnect from '../utils/dbConnect';
 import { Result } from '../components/PodcastSearch/Result';
 import SearchBar from '../components/PodcastSearch/SearchBar';
 import AudioPlayer from '../components/AudioPlayer/AudioPlayer';
+import { PodcastCategoriesLinks } from './../components/NavBar/categories';
 
 const Podcast = ({ audioCards, allCategories }) => {
   const [searchResults, setSearchResults] = useState({
@@ -50,14 +51,14 @@ const Podcast = ({ audioCards, allCategories }) => {
               categoryName="New Releases"
               cardItems={audioCards.slice(0, 15)}
             />
-            {allCategories.map((cat, i) => {
-              if (audioCards.filter(e => e.category === cat).length) {
+            {PodcastCategoriesLinks.map((elem, i) => {
+              if (audioCards.filter(e => e.category === elem.id).length) {
                 return (
                   <AudioCards
                     playAudio={playAudio}
                     key={i}
-                    categoryName={cat}
-                    cardItems={audioCards.filter(e => e.category === cat)}
+                    categoryName={elem.label}
+                    cardItems={audioCards.filter(e => e.category === elem.id)}
                   />
                 );
               }

@@ -1,0 +1,223 @@
+.button-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  .play-btn {
+    border: 1px solid white;
+    border-radius: 0.3rem;
+    outline: none;
+    font-size: 1rem;
+    background-color: $color-indigo-500;
+    font-weight: bold;
+    padding: 0.7rem 1rem;
+    margin: 0.6rem;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 305px;
+    cursor: pointer;
+  }
+  .share-btn {
+    border: 1px solid $color-indigo-500;
+    border-radius: 0.3rem;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0.7rem 1rem;
+    margin: 0.6rem;
+    color: $color-indigo-500;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 280px;
+    cursor: pointer;
+    /*.shareIcon {
+          border-radius: 50%;
+          margin-left: 0.7rem;
+          color:black
+        }*/
+    .action__row {
+      display: flex;
+      justify-content: space-around;
+      // background-color: rgb(0, 0, 0, 0.4);
+      padding: 0px 11px;
+      border-radius: 30px;
+      //   padding-top: 0.5rem;
+      .action {
+        &.action__facebook,
+        &.action__whatsapp,
+        &.action__telegram {
+          width: 20px;
+          height: 20px;
+          margin: 0 5px;
+          img {
+            width: 20px;
+            height: 20px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.audioPage-card {
+  display: flex;
+  width: 600px;
+  flex-flow: column nowrap;
+  justify-content: space-evenly;
+  background-color: $color-white;
+  align-self: center;
+  padding: 1rem;
+  //margin: 1rem;
+  margin: 2rem auto;
+  box-shadow: 1px 1px 6px 0px $color-grey-400;
+  cursor: default;
+  border-radius: 0.3rem;
+  &.max {
+    min-height: 350px;
+  }
+  .audioPage-card__category {
+    margin: 0rem -1rem;
+    padding: 0.2rem 2.4rem;
+    position: relative;
+    background-color: $color-indigo-500;
+    color: $color-white;
+    text-align: center;
+    align-self: flex-end;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    &--image {
+      flex: 30%;
+      .audioPage-card__roundedimage {
+        margin-left: 1.5rem;
+        margin-top: 1rem;
+        width: 125px;
+        height: 135px;
+        object-fit: cover;
+      }
+    }
+
+    &--items {
+      flex: 70%;
+      display: flex;
+      flex-direction: column;
+      font-size: 1.2rem;
+      justify-content: space-around;
+      margin-left: 0.8rem;
+      .audioPage-card__header--item {
+        margin: 0.3rem;
+      }
+
+      .audioPage-card__title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: bold;
+        font-family: Roboto;
+      }
+
+      .audioPage-card__author {
+        color: $color-black-700;
+      }
+    }
+  }
+  .audioPage-card__action--row {
+    display: flex;
+    justify-content: space-around;
+    .audioPage-card__action {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      font-size: 1.15rem;
+      margin: 1.5rem auto 0.5rem auto;
+      &--item {
+        margin: 0 0.2rem;
+        cursor: pointer;
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+}
+
+.comment-box-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $color-grey-200;
+  align-self: center;
+  justify-content: center;
+  width: 600px;
+  padding: 1rem;
+  //margin:1rem;
+  margin: 2rem auto;
+  .fb-comments {
+    margin: 1rem;
+  }
+}
+
+@media only screen and (max-width: $mobile-res) {
+  .audioPage-card {
+    margin: 1rem auto;
+    max-width: 325px;
+    &__header {
+      &--image {
+        flex: 30%;
+        .audioPage-card__image {
+          width: 110px;
+          margin-right: 0.2rem;
+          margin-left: 0rem;
+        }
+        .audioPage-card__category {
+          margin: 0rem -0.5rem;
+          padding: 0.5rem 2.4rem;
+          color: $color-white;
+          text-align: center;
+          align-self: flex-end;
+        }
+      }
+      &--items {
+        flex: 70%;
+        //margin-left: 0.8rem;
+        margin-left: 0.2rem;
+        font-size: 1.08rem;
+      }
+    }
+    .audioPage-card__action--row {
+      .audioPage-card__action {
+        font-size: 1rem;
+        &--item {
+          margin: 0 0.1rem;
+        }
+      }
+    }
+  }
+
+  .button-row {
+    flex: 50%;
+    .play-btn,
+    .share-btn {
+      flex-wrap: wrap;
+      width: 355px;
+    }
+    .share-btn {
+      flex-wrap: wrap;
+      width: 315px;
+    }
+  }
+
+  .comment-box-container {
+    width: 325px;
+
+    .fb-comments {
+      flex: 70%;
+      max-width: 300px;
+    }
+  }
+}
