@@ -30,9 +30,7 @@ export const Result = ({ data, loading, category, query, playAudio }) => {
       const lastPodcastId =
         results.allResults[results.allResults.length - 1]._id;
       axios
-        .get(
-          `/api/podcasts/search?query=${query}&lastPodcastId=${lastPodcastId}`
-        )
+        .get(`/api/search?query=${query}&lastPodcastId=${lastPodcastId}`)
         .then(response => {
           let d, c;
           if (category) {

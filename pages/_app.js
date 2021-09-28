@@ -5,6 +5,10 @@ import '../styles/AudioCard.scss';
 import '../styles/AudioCardsVerticalScroll.scss';
 import '../styles/global.css';
 import '../styles/style.scss';
+import '../styles/PodcastPage.scss';
+import '../styles/AudioCategoryColors.scss';
+import '../styles/SearchBar.scss';
+import '../styles/SearchResults.scss';
 
 function App({ Component, pageProps }) {
   return (
