@@ -1,10 +1,8 @@
 import React from 'react'
-import Navbar from '../../components/UserNavbar/userNavbar'
 
 const myProfile = () => {
    return (
      <>
-       <Navbar />
        <div className="text-indigo-600 flex flex-column mt-7 w-11/12 sm:w-3/6 mx-auto p-6 bg-gray-300 rounded-md shadow-xl">
          <form
            action=""

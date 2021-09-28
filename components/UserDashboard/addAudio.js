@@ -1,17 +1,15 @@
 import React from 'react';
-import Navbar from '../../components/UserNavbar/userNavbar';
-import RecordAudio from '../../components/RecordAudio/recordAudio';
+import RecordAudio from '../RecordAudio/recordAudio';
 
 const addAudio = () => {
   return (
     <>
-      <Navbar />
       <div className="text-indigo-600 flex flex-column mt-7 w-11/12 sm:w-3/6 mx-auto p-6 bg-gray-300 rounded-md shadow-xl">
         <form
           action=""
           className="space-y-3 mx-auto text-gray-900 w-5/6 lg:w-4/6"
         >
-          <p className="mx-auto text-indigo-600 text-lg">
+          <p className="mx-auto text-indigo-600 text-lg font-semibold">
             Share your talent, have fun, win prizes, get a fan following​!
           </p>
           <select
