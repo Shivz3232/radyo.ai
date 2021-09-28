@@ -8,16 +8,14 @@ import '../styles/style.scss';
 
 function App({ Component, pageProps }) {
   return (
-    <>
+    <main>
       <Head>
         <title>radyo.ai</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="app">
-        {!pageProps.hideNavBar && <Header />}
-        <Component {...pageProps} />
-      </div>
-    </>
+      {!pageProps.hideNavBar && <Header />}
+      <Component {...pageProps} />
+    </main>
   );
 }
 
