@@ -8,48 +8,47 @@ const myProfile = () => {
            action=""
            className="space-y-3 mx-auto text-gray-900 w-5/6 lg:w-4/6"
          >
-       <p className="mx-auto text-indigo-600 text-lg">Tell us more about you</p>
+           <p className="mx-auto text-indigo-600 text-lg font-semibold">
+             Tell us more about you!
+           </p>
            <input
-             className="w-full border-2 border-indigo-600 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+             className="w-full border-2 border-indigo-500 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-600"
              type="text"
              name="FullName"
              placeholder="Full name"
            />
            <br />
            <input
-             className="w-full border-2 border-indigo-600 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+             className="w-full border-2 border-indigo-500 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-600"
              type="text"
              name="UserId"
              placeholder="User ID"
            />
            <br />
            <input
-             className="w-full border-2 border-indigo-600 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+             className="w-full border-2 border-indigo-500 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-600"
              type="number"
              name="contact"
              placeholder="Contact number"
            />
            <br />
            <input
-             className="w-full border-2 border-indigo-600 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+             className="w-full border-2 border-indigo-500 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-600"
              type="email"
              name="email"
              placeholder="Email id"
            />
            <br />
-           {/* <label
-            className="w-full border-2 border-indigo-600 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-            for="img"
-          >
-            Upload your profile picture
-          </label>
-          <input
-            className="w-full border-2 border-indigo-600 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-            type="file"
-            id="img"
-            name="img"
-            accept="image/*"
-          /> */}
+           <p className="mx-auto text-indigo-600 font-semibold">
+             Upload your profile picture:
+           </p>
+           <input
+             className="w-full bg-white border-2 border-indigo-500 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-600"
+             type="file"
+             id="img"
+             name="img"
+             accept="image/*"
+           />
            <button
              className="px-5 py-2 shadow-lg bg-indigo-600 text-white rounded-md uppercase tracking-wider font-semibold text-sm"
              type="submit"

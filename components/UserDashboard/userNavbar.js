@@ -14,7 +14,7 @@ const userNavbar = () => {
       id: 1,
       content: MyProfile,
     },
-    'Add an Audio': {
+    'Add Audio': {
       id: 2,
       content: AddAudio,
     },
@@ -26,7 +26,7 @@ const userNavbar = () => {
 
   return (
     <Tab.Group>
-      <div className="w-full max-w-md px-4 py-8 sm:px-0 mx-auto">
+      <div className="w-full max-w-md px-4 py-5 sm:px-0 mx-auto">
         <Tab.List className="flex p-1 space-x-1 bg-indigo-600 rounded-xl">
           {Object.keys(categories).map(category => (
             <Tab
