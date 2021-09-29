@@ -6,9 +6,9 @@ const myProfile = () => {
        <div className="text-indigo-600 flex flex-column mt-7 w-11/12 sm:w-3/6 mx-auto p-6 bg-gray-300 rounded-md shadow-xl">
          <form
            action=""
-           className="space-y-3 mx-auto text-gray-900 w-5/6 lg:w-4/6"
+           className="space-y-3 mx-auto text-gray-900 w-11/12 lg:w-4/6"
          >
-           <p className="mx-auto text-indigo-600 text-lg font-semibold">
+           <p className="text-center text-indigo-600 text-lg font-semibold">
              Tell us more about you!
            </p>
            <input
@@ -27,7 +27,8 @@ const myProfile = () => {
            <br />
            <input
              className="w-full border-2 border-indigo-500 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-600"
-             type="number"
+             type="tel"
+             pattern="[0-9]{10}"
              name="contact"
              placeholder="Contact number"
            />
@@ -49,6 +50,14 @@ const myProfile = () => {
              name="img"
              accept="image/*"
            />
+           <textarea
+             className="w-full border-2 border-indigo-500 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-600 p-2"
+             name="about"
+             id=""
+             rows="4"
+             placeholder="About yourself (50 words)"
+           ></textarea>
+           <br />
            <button
              className="px-5 py-2 shadow-lg bg-indigo-600 text-white rounded-md uppercase tracking-wider font-semibold text-sm"
              type="submit"

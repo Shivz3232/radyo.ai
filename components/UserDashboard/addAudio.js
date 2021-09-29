@@ -20,9 +20,9 @@ const addAudio = () => {
       <div className="text-indigo-600 flex flex-column mt-7 w-11/12 sm:w-3/6 mx-auto p-6 bg-gray-300 rounded-md shadow-xl">
         <form
           action=""
-          className="space-y-3 mx-auto text-gray-900 w-5/6 lg:w-4/6"
+          className="space-y-3 mx-auto text-gray-900 w-11/12 lg:w-4/6"
         >
-          <p className="mx-auto text-indigo-600 text-lg font-semibold">
+          <p className="text-center text-indigo-600 text-lg font-semibold">
             Share your talent, have fun, win prizes, get a fan following​!
           </p>
           <p className="mx-auto text-indigo-600 text-md font-semibold">
@@ -53,9 +53,10 @@ const addAudio = () => {
             placeholder="Enter comma separate keywords, hashtags​"
           />
           <br />
+          <hr className="border-0 border-b-2 border-indigo-600 mx-auto h-2 w-36" />
           <RecordAudio />
           <p className="mx-auto text-indigo-600 font-semibold">
-            Upload cover photo of the audio :
+            Upload cover photo of the audio:
           </p>
           <input
             className="w-full bg-white border-2 border-indigo-500 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-600"
