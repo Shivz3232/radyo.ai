@@ -3,11 +3,7 @@ import React, { useState } from 'react';
 import Navbar from '../../components/UserDashboard/userNavbar';
 
 const dashboard = () => {
-  return (
-    <div>
-      <Navbar />
-    </div>
-  );
+  return <Navbar />;
 };
 
 export default dashboard;

@@ -3,16 +3,20 @@ import MicIcon from '@material-ui/icons/Mic';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 import PlayArrowRoundedIcon from '@material-ui/icons/PlayArrowRounded';
 import StopRoundedIcon from '@material-ui/icons/StopRounded';
+import Button from '@material-ui/core/Button';
 import Timer from './timer';
 
+var mediaRecorder = null;
+
 const recordAudio = () => {
-  const [showRec, setShowRec] = useState(false);
   const [audioSrc, setAudioSrc] = useState('');
   const [uploadedAudioSrc, setUploadedAudioSrc] = useState('');
+  const [showRec, setShowRec] = useState(false);
   const [recordingOn, setRecordingOn] = useState(false);
   const [fileUploaded, setfileUploaded] = useState(false);
-  const stopRecording = useRef();
-  
+  const stopRec = useRef();
+  const startRec = useRef();
+
   const handleChange = e => {
     const file = e.target.files[0];
     if (file) {
@@ -24,19 +28,33 @@ const recordAudio = () => {
     }
   };
 
-  const RecordFromMic = () => {
-    navigator.mediaDevices
-      .getUserMedia({ audio: true, video: false })
-      .then(handleSuccess);
+  const reset = () => {
+    setAudioSrc('');
+    stopRec.current.removeEventListener('click', null); //can be removed
+    startRec.current.disabled = false;
   };
 
-  const handleSuccess = stream => {
-    const options = { mimeType: 'audio/webm' };
-    const recordedChunks = [];
-    const mediaRecorder = new MediaRecorder(stream, options);
+  const RecordFromMic = async () => {
+    console.log("Start clicked");
+    if (!mediaRecorder) {
+      await navigator.mediaDevices
+        .getUserMedia({
+          audio: true,
+          video: false,
+        })
+        .then(stream => {
+          const options = { mimeType: 'audio/webm' };
+          mediaRecorder = new MediaRecorder(stream, options);
+        });
+    }
+    handleSuccess();
+  };
 
+  const handleSuccess = () => {
     setRecordingOn(true);
+    stopRec.current.disabled = false;
 
+    let recordedChunks = [];
     mediaRecorder.addEventListener('dataavailable', function (e) {
       if (e.data.size > 0) recordedChunks.push(e.data);
     });
@@ -44,15 +62,16 @@ const recordAudio = () => {
     mediaRecorder.addEventListener('stop', function () {
       setAudioSrc(URL.createObjectURL(new Blob(recordedChunks)));
     });
-
     mediaRecorder.start();
-
-    stopRecording.current.addEventListener('click', () => {
-      setRecordingOn(false);
-      stopRecording.current.disabled = true;
-      mediaRecorder.stop();
-    });
   };
+
+  const handleStopRec = () => {
+    console.log("Stop Clicked");
+    mediaRecorder.stop();
+    setRecordingOn(false);
+    stopRec.current.disabled = true;
+    startRec.current.disabled = true;
+  }
 
   return (
     <div className="space-y-3">
@@ -93,13 +112,15 @@ const recordAudio = () => {
               className="w-full rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 text-white bg-indigo-600 font-semibold"
               onClick={RecordFromMic}
               type="button"
+              ref={startRec}
             >
               <PlayArrowRoundedIcon className="mr-1" />
               Start Recording
             </button>
             <button
               className="w-full rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 text-white bg-indigo-600 font-semibold"
-              ref={stopRecording}
+              onClick={handleStopRec}
+              ref={stopRec}
               type="button"
             >
               <StopRoundedIcon className="mr-1" />
@@ -112,17 +133,22 @@ const recordAudio = () => {
               <Timer />
             </div>
           )}
-          
+
           <p className="mx-auto text-indigo-600 font-semibold ml-1">
             Recorded Audio
           </p>
-          <audio
-            className="w-full"
-            id="player1"
-            controls
-            src={audioSrc}
-          ></audio>
-          <br />
+          <div className="space-y-3 text-center">
+            <audio
+              className="w-full sm:"
+              id="player1"
+              controls
+              src={audioSrc}
+            />
+            <Button onClick={reset} size="large">
+              <RotateLeftIcon />
+              Record Again
+            </Button>
+          </div>
         </>
       )}
     </div>
@@ -130,4 +156,3 @@ const recordAudio = () => {
 };
 
 export default recordAudio;
-{/* <RotateLeftIcon /> */}
