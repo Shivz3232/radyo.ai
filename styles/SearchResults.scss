@@ -1,0 +1,17 @@
+.search-results {
+  .result-heading {
+    font-size: 2rem;
+    width: 80%;
+    color: $color-indigo-500;
+    margin: 1rem 1rem 1.25rem 0;
+    // margin-bottom: 1.25rem !important;
+  }
+}
+@media only screen and (max-width: $mobile-res) {
+  .search-results {
+    .result-heading {
+      margin: 1rem 1rem 1.25rem 1rem;
+      font-size: 1.5rem;
+    }
+  }
+}

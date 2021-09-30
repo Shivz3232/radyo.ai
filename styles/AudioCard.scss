@@ -6,7 +6,7 @@
     font-size: 2rem;
     // font-family: 'quicksand';
     width: 80%;
-    color: $color-indigo-500;
+    color: #4527a0;
     margin: 0rem;
   }
 }
@@ -46,7 +46,7 @@
   flex-flow: column nowrap;
   justify-content: center;
   background-color: $color-white;
-  padding: 1rem;
+  padding: 0.5rem;
   margin: 1rem;
   box-shadow: 1px 1px 6px 0px $color-grey-400;
   cursor: default;
@@ -86,8 +86,11 @@
         margin: 0.3rem;
       }
       .audio-card__category {
+        // max-height: 22px;
+        font-size: 1.1rem;
+        font-style: bold;
         margin: 0.2rem -0.5rem;
-        padding: 0.2rem 2.4rem;
+        padding: 0.1rem 2.4rem;
         color: $color-white;
         text-align: center;
         align-self: flex-end;
@@ -95,6 +98,7 @@
       .audio-card__title {
         height: 2.5rem;
         overflow: hidden;
+        line-height: 1.4rem;
         // text-overflow: ellipsis;
         font-size: 1.1rem;
         font-weight: bold;
@@ -114,7 +118,7 @@
       justify-content: space-around;
       align-items: center;
       font-size: 1.15rem;
-      margin: 0.5rem auto 0.5rem auto;
+      margin: 0.2rem auto 0.2rem auto;
       &--item {
         margin: 0 0.2rem;
         cursor: pointer;
