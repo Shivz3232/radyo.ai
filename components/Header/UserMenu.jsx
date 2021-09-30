@@ -68,10 +68,10 @@ import { userMenuLinks } from './menuData';
 export default function UserMenu({ data }) {
   const router = useRouter();
   return (
-    <div className="">
+    <div>
       <Menu as="div" className="relative -mb-1 mt-1">
         <div>
-          <Menu.Button className="">
+          <Menu.Button>
             <HeaderAvatar data={data} />
           </Menu.Button>
         </div>
@@ -91,11 +91,11 @@ export default function UserMenu({ data }) {
                   <div key={i}>
                     <Menu.Item>
                       {({ active }) => (
-                        <div
+                        <button
                           onClick={() => {
                             router.push(data.url);
                           }}
-                          className={`px-4 py-2 hover:bg-gray-200 cursor-pointer ${
+                          className={`px-4 py-2 hover:bg-gray-200 cursor-pointer w-full ${
                             i === 0
                               ? 'rounded-t-md'
                               : i === userMenuLinks.length - 1
@@ -103,17 +103,8 @@ export default function UserMenu({ data }) {
                               : ''
                           }`}
                         >
-                          <Link href={data.url}>
-                            <a
-                              style={{
-                                textDecoration: 'none',
-                                color: 'inherit',
-                              }}
-                            >
-                              {data.label}
-                            </a>
-                          </Link>
-                        </div>
+                          {data.label}
+                        </button>
                       )}
                     </Menu.Item>
                   </div>

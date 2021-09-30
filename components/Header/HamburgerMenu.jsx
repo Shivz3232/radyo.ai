@@ -35,11 +35,11 @@ export default function HamburgerMenu({ loggedIn }) {
                   <div key={i}>
                     <Menu.Item>
                       {({ active }) => (
-                        <div
+                        <button
                           onClick={() => {
                             router.push(data.url);
                           }}
-                          className={`px-4 py-2 hover:bg-gray-200 cursor-pointer ${
+                          className={`px-4 py-2 hover:bg-gray-200 cursor-pointer w-full ${
                             i === 0
                               ? 'rounded-t-md'
                               : loggedIn && i === menuLinks.length - 1
@@ -47,17 +47,8 @@ export default function HamburgerMenu({ loggedIn }) {
                               : ''
                           }`}
                         >
-                          <Link href={data.url}>
-                            <a
-                              style={{
-                                textDecoration: 'none',
-                                color: 'inherit',
-                              }}
-                            >
-                              {data.label}
-                            </a>
-                          </Link>
-                        </div>
+                          {data.label}
+                        </button>
                       )}
                     </Menu.Item>
                   </div>
@@ -68,23 +59,14 @@ export default function HamburgerMenu({ loggedIn }) {
               <div>
                 <Menu.Item>
                   {({ active }) => (
-                    <div
+                    <button
                       onClick={() => {
                         router.push('/login');
                       }}
                       className={`px-4 py-2 hover:bg-gray-200 cursor-pointer ${'rounded-b-md'}`}
                     >
-                      <Link href={'/login'}>
-                        <a
-                          style={{
-                            textDecoration: 'none',
-                            color: 'inherit',
-                          }}
-                        >
-                          Login/SignUp
-                        </a>
-                      </Link>
-                    </div>
+                      Login/SignUp
+                    </button>
                   )}
                 </Menu.Item>
               </div>
