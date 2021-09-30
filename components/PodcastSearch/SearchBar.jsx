@@ -35,6 +35,25 @@ const SearchBar = ({ setData, category, data }) => {
         .catch(err => console.log(err));
       //@ts-ignore
       val.current.blur();
+      //////////scroll to search bar
+      var element = document.getElementById('search-bar-start');
+      if (element) element.classList.remove('hidden');
+      if (element)
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest',
+        });
+      // val.current.scrollIntoView({
+      //   behavior: 'smooth',
+      //   block: 'start',
+      //   inline: 'nearest',
+      // });
+      var time;
+      time = setTimeout(() => {
+        if (element) element.classList.add('hidden');
+        clearTimeout(time);
+      }, 600);
     }
   }
   return (

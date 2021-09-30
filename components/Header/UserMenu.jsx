@@ -95,7 +95,7 @@ export default function UserMenu({ data }) {
                           onClick={() => {
                             router.push(data.url);
                           }}
-                          className={`px-4 py-2 hover:bg-gray-200 cursor-pointer w-full ${
+                          className={`px-6 py-3 text-left text-lg hover:bg-gray-200 cursor-pointer w-full ${
                             i === 0
                               ? 'rounded-t-md'
                               : i === userMenuLinks.length - 1
