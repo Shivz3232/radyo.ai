@@ -146,7 +146,7 @@ const recordAudio = () => {
             />
             <Button onClick={reset} size="large">
               <RotateLeftIcon />
-              Record Again
+              <p className="text-gray-800">Record Again</p>
             </Button>
           </div>
         </>
