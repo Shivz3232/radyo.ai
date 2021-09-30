@@ -20,10 +20,12 @@ function App({ Component, pageProps }) {
   return (
     <main className="app">
       <Head>
-        <title>radyo.ai</title>
+        <title>Radyo.ai</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {!pageProps.hideNavBar && <Header />}
+      {!pageProps.hideNavBar && (
+        <Header activeTab={pageProps.activeTab} data={{ loggedIn: true }} />
+      )}
       <Component {...pageProps} />
     </main>
   );

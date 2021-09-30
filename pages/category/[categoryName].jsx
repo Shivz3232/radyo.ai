@@ -110,6 +110,7 @@ export async function getStaticProps({ params }) {
       props: {
         category: category,
         audioCards,
+        activeTab: '/category/cat-1',
       },
       revalidate: 30 * 60,
     };
