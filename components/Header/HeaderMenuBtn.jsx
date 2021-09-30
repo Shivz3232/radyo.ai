@@ -1,6 +1,5 @@
-import { Router } from '@material-ui/icons';
-import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import React from 'react';
 
 const HeaderMenuBtn = ({ data, activeTab }) => {
   return (
