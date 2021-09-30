@@ -1,9 +1,13 @@
 import React, { useState, useRef } from 'react';
-import MicIcon from '@material-ui/icons/Mic';
-import RotateLeftIcon from '@material-ui/icons/RotateLeft';
-import PlayArrowRoundedIcon from '@material-ui/icons/PlayArrowRounded';
-import StopRoundedIcon from '@material-ui/icons/StopRounded';
-import Button from '@material-ui/core/Button';
+// import MicIcon from '@material-ui/icons/Mic';
+// import RotateLeftIcon from '@material-ui/icons/RotateLeft';
+// import PlayArrowRoundedIcon from '@material-ui/icons/PlayArrowRounded';
+// import StopRoundedIcon from '@material-ui/icons/StopRounded';
+// import Button from '@material-ui/core/Button';
+// import VscDebugRestart from 'react-icons';
+// import ImMic from 'react-icons';
+// import BsFillStopFill from 'react-icons';
+// import FaPlay from 'react-icons'
 import Timer from './timer';
 
 var mediaRecorder = null;
@@ -114,7 +118,7 @@ const recordAudio = () => {
               type="button"
               ref={startRec}
             >
-              <PlayArrowRoundedIcon className="mr-1" />
+              {/* <FaPlay className="mr-1" /> */}
               Start Recording
             </button>
             <button
@@ -123,13 +127,13 @@ const recordAudio = () => {
               ref={stopRec}
               type="button"
             >
-              <StopRoundedIcon className="mr-1" />
+              {/* <BsFillStopFill className="mr-1" /> */}
               Stop Recording
             </button>
           </div>
           {recordingOn && (
             <div className="text-center space-x-3 bg-gray-200 rounded-md">
-              <MicIcon />
+              {/* <ImMic /> */}
               <Timer />
             </div>
           )}
@@ -144,10 +148,16 @@ const recordAudio = () => {
               controls
               src={audioSrc}
             />
-            <Button onClick={reset} size="large">
-              <RotateLeftIcon />
+            <button
+              onClick={e => {
+                e.preventDefault();
+                reset();
+              }}
+              className="rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-indigo-600 font-semibold"
+            >
+              {/* <VscDebugRestart /> */}
               <p className="text-gray-800">Record Again</p>
-            </Button>
+            </button>
           </div>
         </>
       )}
@@ -156,3 +166,11 @@ const recordAudio = () => {
 };
 
 export default recordAudio;
+
+
+{
+  /* <Button onClick={reset} size="large">
+              <VscDebugRestart />
+              <p className="text-gray-800">Record Again</p>
+            </Button> */
+}

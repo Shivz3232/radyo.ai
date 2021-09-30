@@ -1,5 +1,4 @@
 import React from 'react';
-import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
 import ReactStopwatch from 'react-stopwatch';
 
 const timer = () => {
