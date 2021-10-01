@@ -8,7 +8,7 @@ import { getCreatorAudio, getCreatorIds } from '../../controllers/creator';
 import { getAllAudio } from '../../controllers/podcast';
 import dbConnect from '../../utils/dbConnect';
 
-const CreatorPage = ({ info, audioCards }) => {
+const CreatorPage = ({ info, audioCards, play }) => {
   const data = info;
   const [trackInfo, setTrackInfo] = useState({
     audioSrc: '',
@@ -18,6 +18,7 @@ const CreatorPage = ({ info, audioCards }) => {
 
   const playAudio = info => {
     setTrackInfo(info);
+    play(info);
   };
   //marginBottom for audio player
   return (
@@ -36,24 +37,32 @@ const CreatorPage = ({ info, audioCards }) => {
 
           {/*Audio Cards horizontal scroll section*/}
           {audioCards &&
-            audioCards.filter(e => e.creatorId.creatorName === data.creatorName)
-              .length && (
-              <AudioCards
-                playAudio={playAudio}
-                categoryName="More by the creator"
-                cardItems={audioCards.filter(
-                  e => e.creatorId.creatorName === data.creatorName
-                )}
-              />
-            )}
+          audioCards.filter(e => e.creatorId.creatorName === data.creatorName)
+            .length ? (
+            <AudioCards
+              playAudio={playAudio}
+              categoryName={`Other creations from ${data.creatorName}`}
+              cardItems={audioCards.filter(
+                e => e.creatorId.creatorName === data.creatorName
+              )}
+            />
+          ) : null}
+          {audioCards && (
+            <AudioCards
+              playAudio={playAudio}
+              categoryName={`Trending Audios`}
+              //most view in last 5 days logic here
+              cardItems={audioCards.slice(0, 15)}
+            />
+          )}
         </div>
       </div>
-      <div
+      {/* <div
         className="audio-player-dashboard"
         style={{ display: trackInfo.audioSrc ? '' : 'none' }}
       >
         <AudioPlayer trackInfo={trackInfo} />
-      </div>
+      </div> */}
     </>
   );
 };
@@ -63,9 +72,7 @@ export const getStaticProps = async ({ params }) => {
   await dbConnect();
   const data = await getCreatorAudio(id).catch(console.error);
   const audioCards = await getAllAudio().catch(console.error);
-  //const user = JSON.stringify(data.allAudio[0]);
   if (audioCards && data) {
-    // console.log('user', data);
     return {
       props: {
         info: data,

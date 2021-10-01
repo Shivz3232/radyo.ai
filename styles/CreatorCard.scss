@@ -36,6 +36,7 @@
         margin: 0.3rem 0.1rem;
       }
       .creator-card__author {
+        font-weight: bold;
         color: $color-black-700;
         margin-top: 1.7rem;
       }
@@ -45,9 +46,10 @@
         overflow: hidden;
         text-overflow: ellipsis;
         font-size: 1.1rem;
-        font-weight: bold;
+        // font-weight: bold;
         // font-family: Roboto;
-        border: 1px solid $color-indigo-500;
+        border: 1px solid $color-grey-400;
+        padding: 2px 5px;
         border-radius: 0.3rem;
       }
     }

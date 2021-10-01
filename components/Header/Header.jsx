@@ -6,12 +6,9 @@ import AddAudioBtn from './AddAudioBtn';
 import UserMenu from './UserMenu';
 
 function Header({ activeTab, data }) {
-  function openMenu() {
-    console.log('click');
-  }
   return (
     <>
-      <div className="z-20 bg-gray-50 shadow-md flex w-full flex-row  items-center sticky top-0 px-4 py-2">
+      <div className="z-20 bg-white shadow-md flex w-full flex-row  items-center sticky top-0 px-4 py-2">
         <HeaderBrand />
         <HeaderMenu activeTab={activeTab} data={data} />
         <div className="md:hidden flex flex-1 justify-end items-center">
