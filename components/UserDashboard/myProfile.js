@@ -5,7 +5,9 @@ const myProfile = () => {
      <>
        <div className="text-indigo-600 flex flex-column w-11/12 sm:w-3/6 mx-auto p-6 bg-gray-300 rounded-md shadow-xl">
          <form
-           action="/api/myProfile" method="POST"
+           action="/api/myProfile"
+           method="POST"
+           encType="multipart/form-data"
            className="space-y-3 mx-auto text-gray-900 w-11/12 lg:w-4/6"
          >
            <p className="text-center text-indigo-600 text-lg font-semibold">
@@ -47,7 +49,7 @@ const myProfile = () => {
              className="w-full bg-white border-2 border-indigo-600 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-600"
              type="file"
              id="img"
-             name="img"
+             name="profile_img"
              accept="image/*"
            />
            <textarea
