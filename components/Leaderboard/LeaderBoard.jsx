@@ -38,7 +38,7 @@ const LeaderBoard=()=>{
       setSortedData(mappedData);
     }
     handleChange();
-     },2000)
+     },10000)
       
       //return()=> clearInterval(timer); 
   },[])
