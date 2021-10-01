@@ -79,9 +79,9 @@ const recordAudio = () => {
 
   return (
     <div className="space-y-3">
-      <p className="text-indigo-600 font-semibold">Upload your Audio File:</p>
+      <p className="text-indigo-650 font-semibold">Upload your Audio File:</p>
       <input
-        className="w-full border-2 border-indigo-600 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white"
+        className="w-full border-2 border-indigo-650 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white"
         type="file"
         accept="audio/*"
         id="uploadedAudio"
@@ -89,7 +89,7 @@ const recordAudio = () => {
       />
       {fileUploaded && (
         <>
-          <h3 className="text-indigo-600 font-semibold">Uploaded Audio:</h3>
+          <h3 className="text-indigo-650 font-semibold">Uploaded Audio:</h3>
           <audio
             className="w-full"
             id="player2"
@@ -99,9 +99,9 @@ const recordAudio = () => {
         </>
       )}
 
-      <p className="text-center text-indigo-600 font-semibold">OR</p>
+      <p className="text-center text-indigo-650 font-semibold">OR</p>
       <button
-        className="w-full rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 text-white bg-indigo-600 font-semibold"
+        className="w-full rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 text-white bg-indigo-650 font-semibold"
         onClick={e => {
           e.preventDefault();
           setShowRec(true);
@@ -113,7 +113,7 @@ const recordAudio = () => {
         <>
           <div className="flex mx-auto space-x-2">
             <button
-              className="w-full rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 text-white bg-indigo-600 font-semibold"
+              className="w-full rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 text-white bg-indigo-650 font-semibold"
               onClick={RecordFromMic}
               type="button"
               ref={startRec}
@@ -122,7 +122,7 @@ const recordAudio = () => {
               Start Recording
             </button>
             <button
-              className="w-full rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 text-white bg-indigo-600 font-semibold"
+              className="w-full rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 text-white bg-indigo-650 font-semibold"
               onClick={handleStopRec}
               ref={stopRec}
               type="button"
@@ -138,7 +138,7 @@ const recordAudio = () => {
             </div>
           )}
 
-          <p className="mx-auto text-indigo-600 font-semibold ml-1">
+          <p className="mx-auto text-indigo-650 font-semibold ml-1">
             Recorded Audio
           </p>
           <div className="space-y-3 text-center">
@@ -153,7 +153,7 @@ const recordAudio = () => {
                 e.preventDefault();
                 reset();
               }}
-              className="rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-indigo-600 font-semibold"
+              className="rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-indigo-650 font-semibold"
             >
               {/* <VscDebugRestart /> */}
               <p className="text-gray-800">Record Again</p>

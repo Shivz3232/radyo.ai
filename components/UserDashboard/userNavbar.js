@@ -27,7 +27,7 @@ const userNavbar = () => {
   return (
     <Tab.Group>
       <div className="w-full max-w-md px-4 py-5 sm:px-0 mx-auto">
-        <Tab.List className="flex p-1 space-x-1 bg-indigo-600 rounded-xl">
+        <Tab.List className="flex p-1 space-x-1 bg-indigo-650 rounded-xl">
           {Object.keys(categories).map(category => (
             <Tab
               key={category}

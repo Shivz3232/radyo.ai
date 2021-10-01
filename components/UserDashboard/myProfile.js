@@ -3,32 +3,32 @@ import React from 'react'
 const myProfile = () => {
    return (
      <>
-       <div className="text-indigo-600 flex flex-column w-11/12 sm:w-3/6 mx-auto p-6 bg-gray-300 rounded-md shadow-xl">
+       <div className="text-indigo-650 flex flex-column w-11/12 sm:w-3/6 mx-auto p-6 bg-gray-300 rounded-md shadow-xl">
          <form
            action="/api/myProfile"
            method="POST"
            encType="multipart/form-data"
            className="space-y-3 mx-auto text-gray-900 w-11/12 lg:w-4/6"
          >
-           <p className="text-center text-indigo-600 text-lg font-semibold">
+           <p className="text-center text-indigo-650 text-lg font-semibold">
              Tell us more about you!
            </p>
            <input
-             className="w-full border-2 border-indigo-600 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-600"
+             className="w-full border-2 border-indigo-650 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-650"
              type="text"
              name="fullName"
              placeholder="Full name"
            />
            <br />
            <input
-             className="w-full border-2 border-indigo-600 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-600"
+             className="w-full border-2 border-indigo-650 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-650"
              type="text"
              name="userId"
              placeholder="User ID"
            />
            <br />
            <input
-             className="w-full border-2 border-indigo-600 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-600"
+             className="w-full border-2 border-indigo-650 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-650"
              type="tel"
              pattern="[0-9]{10}"
              name="contact"
@@ -36,24 +36,24 @@ const myProfile = () => {
            />
            <br />
            <input
-             className="w-full border-2 border-indigo-600 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-600"
+             className="w-full border-2 border-indigo-650 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-650"
              type="email"
              name="email"
              placeholder="Email id"
            />
            <br />
-           <p className="mx-auto text-indigo-600 font-semibold">
+           <p className="mx-auto text-indigo-650 font-semibold">
              Upload your profile picture:
            </p>
            <input
-             className="w-full bg-white border-2 border-indigo-600 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-600"
+             className="w-full bg-white border-2 border-indigo-650 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-650"
              type="file"
              id="img"
              name="profile_img"
              accept="image/*"
            />
            <textarea
-             className="w-full border-2 border-indigo-600 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-600 p-2"
+             className="w-full border-2 border-indigo-650 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-650 p-2"
              name="about"
              id=""
              rows="4"
@@ -61,7 +61,7 @@ const myProfile = () => {
            ></textarea>
            <br />
            <button
-             className="px-5 py-2 shadow-lg bg-indigo-600 text-white rounded-md uppercase tracking-wider font-semibold text-sm"
+             className="px-5 py-2 shadow-lg bg-indigo-650 text-white rounded-md uppercase tracking-wider font-semibold text-sm"
              type="submit"
            >
              Submit
