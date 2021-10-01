@@ -1,10 +1,7 @@
-import { TextField } from '@material-ui/core';
-import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-import SearchIcon from '@material-ui/icons/Search';
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
+import { BiArrowBack } from 'react-icons/bi';
+import { GrSearch } from 'react-icons/gr';
 
 const SearchBar = ({ setData, category, data }) => {
   const val = useRef();
@@ -38,48 +35,68 @@ const SearchBar = ({ setData, category, data }) => {
         .catch(err => console.log(err));
       //@ts-ignore
       val.current.blur();
+      //////////scroll to search bar
+      var element = document.getElementById('search-bar-start');
+      if (element) element.classList.remove('hidden');
+      if (element)
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest',
+        });
+      // val.current.scrollIntoView({
+      //   behavior: 'smooth',
+      //   block: 'start',
+      //   inline: 'nearest',
+      // });
+      var time;
+      time = setTimeout(() => {
+        if (element) element.classList.add('hidden');
+        clearTimeout(time);
+      }, 600);
     }
   }
   return (
     <div className="podcast-search-bar">
       <div className="search-input-field">
-        <TextField
-          className="size-full"
-          label="Search podcast"
-          variant="outlined"
-          inputRef={val}
-          onKeyPress={e => {
-            const keyCode = e.code || e.key;
-            if (keyCode === 'Enter') loadResults();
-          }}
-          value={query}
-          onChange={handleChange}
-          InputProps={{
-            startAdornment: !data.searched ? null : (
-              <InputAdornment position="start">
-                <IconButton
-                  onClick={() => {
-                    setData({ searched: false });
-                    setQuery(null);
-                    //@ts-ignore
-                    val.current.value = '';
-                    //@ts-ignore
-                    val.current.blur();
-                  }}
-                >
-                  <KeyboardBackspaceIcon />
-                </IconButton>
-              </InputAdornment>
-            ),
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={loadResults}>
-                  <SearchIcon />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
+        <div className="relative flex w-full flex-wrap items-stretch mb-3 align-center">
+          {data.searched && (
+            <span className="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-300 absolute bg-transparent rounded text-lg items-center justify-center w-8 pl-3 py-3">
+              <BiArrowBack
+                color="grey"
+                className="inline cursor-pointer"
+                onClick={() => {
+                  setData({ searched: false });
+                  setQuery(null);
+                  //@ts-ignore
+                  val.current.value = '';
+                  //@ts-ignore
+                  val.current.blur();
+                }}
+              />
+            </span>
+          )}
+          <input
+            type="text"
+            ref={val}
+            onKeyPress={e => {
+              const keyCode = e.code || e.key;
+              if (keyCode === 'Enter') loadResults();
+            }}
+            value={query}
+            onChange={handleChange}
+            placeholder="Search podcast"
+            className={`${'px-3 py-4 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-base border-0 shadow outline-none focus:outline-none focus:ring-2 focus:ring-indigo-650 w-full pr-10'} ${
+              data.searched ? 'pl-10' : ''
+            }`}
+          />
+          <span className="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-300 absolute bg-transparent rounded text-lg items-center justify-center w-8 right-3 pr-3 py-4">
+            <GrSearch
+              className="inline mb-1 cursor-pointer"
+              onClick={loadResults}
+            />
+          </span>
+        </div>
       </div>
     </div>
   );

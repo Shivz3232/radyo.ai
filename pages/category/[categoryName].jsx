@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import AudioCardsVerticalScroll from '../../components/AudioCard/AudioCardsVerticalScroll';
 import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
+import CategoryNavBar from '../../components/CategoryNavBar/CategoryNavBar';
 import { Result } from '../../components/PodcastSearch/Result';
 import SearchBar from '../../components/PodcastSearch/SearchBar';
 import {
@@ -51,8 +52,7 @@ const PodcastCategory = props => {
   }
   return (
     <div className="podcast-category-page">
-      {/* <Banner size="sm" /> */}
-      {/* <PillsNav category={props.category} type="podcast" /> */}
+      <CategoryNavBar category={props.category} />
       <div className="container">
         <SearchBar
           category={props.category}
@@ -110,6 +110,7 @@ export async function getStaticProps({ params }) {
       props: {
         category: category,
         audioCards,
+        activeTab: '/category/cat-1',
       },
       revalidate: 30 * 60,
     };

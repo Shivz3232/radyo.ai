@@ -1,14 +1,13 @@
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import AudioCards from '../components/AudioCard/AudioCards';
-// import PillsNav from './../../components/PillsNav/PillsNav';
-// import Banner from './../../components/Banner/Banner';
-import { getAllAudio, getAudioCategories } from '../controllers/podcast';
-import dbConnect from '../utils/dbConnect';
+import AudioPlayer from '../components/AudioPlayer/AudioPlayer';
+import CategoryNavBar from '../components/CategoryNavBar/CategoryNavBar';
 import { Result } from '../components/PodcastSearch/Result';
 import SearchBar from '../components/PodcastSearch/SearchBar';
-import AudioPlayer from '../components/AudioPlayer/AudioPlayer';
+import { getAllAudio, getAudioCategories } from '../controllers/podcast';
+import dbConnect from '../utils/dbConnect';
 import { PodcastCategoriesLinks } from './../components/NavBar/categories';
+import HomeCarousel from './../components/HomeCarousel/HomeCarousel';
 
 const Podcast = ({ audioCards, allCategories }) => {
   const [searchResults, setSearchResults] = useState({
@@ -22,15 +21,27 @@ const Podcast = ({ audioCards, allCategories }) => {
     coverSrc: '',
     title: '',
   });
+  const images = [
+    'https://via.placeholder.com/411x256',
+    'https://via.placeholder.com/1024x320',
+    'https://via.placeholder.com/411x256',
+    'https://via.placeholder.com/1024x320',
+  ];
 
   const playAudio = info => {
     setTrackInfo(info);
   };
   return (
     <div className="podcast-page">
-      {/* <Banner size="sm" /> */}
-      {/* <PillsNav category="all" type="podcast" /> */}
+      <CategoryNavBar category="all" />
       <div className="container">
+        <div className="flex justify-center md:mt-8">
+          <HomeCarousel images={images} />
+        </div>
+        {/* ////////EXPERIMENTAL */}
+        <div className="h-16 w-0 text-white hidden" id="search-bar-start">
+          ....
+        </div>
         <SearchBar
           category={'category'}
           data={searchResults}

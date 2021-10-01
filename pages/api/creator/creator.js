@@ -5,9 +5,7 @@ import PodcastCreatorModel from '../../../models/podcastCreator';
 const getCreatorAudio = async (req, res) => {
   if (req.method == 'GET') {
     //const creatorId = req.query.creatorId;
-    const allAudio = await PodcastCreatorModel.find({
-      
-    })
+    const allAudio = await PodcastCreatorModel.find({})
       .sort({ createdAt: -1 })
       .catch(console.error);
     if (allAudio) {

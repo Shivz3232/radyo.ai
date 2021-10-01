@@ -1,8 +1,9 @@
 import React from 'react';
+import { decode } from 'html-entities';
 import ReactH5Player from 'react-h5-audio-player';
-import 'react-h5-audio-player/lib/styles.css';
 import { FaPause, FaPlay, FaVolumeMute, FaVolumeUp } from 'react-icons/fa';
 import { ImLoop } from 'react-icons/im';
+import LinesEllipsis from 'react-lines-ellipsis';
 // import { GoogleCard } from './../AdCard/GoogleCard';
 const AudioPlayer = ({ trackInfo, autoplay }) => {
   return (
@@ -19,7 +20,15 @@ const AudioPlayer = ({ trackInfo, autoplay }) => {
             src={trackInfo.coverSrc}
             alt="cover"
           />
-          <p className="track-info__title">{trackInfo.title}</p>
+          <p className="track-info__title">
+            <LinesEllipsis
+              text={decode(trackInfo.title)}
+              maxLine="2"
+              ellipsis="..."
+              trimRight
+              basedOn="letters"
+            />
+          </p>
         </div>
         <ReactH5Player
           src={trackInfo.audioSrc}
