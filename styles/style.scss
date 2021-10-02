@@ -6,4 +6,8 @@
 .submit-btn{
    @apply px-5 py-2 shadow-lg bg-indigo-650 text-white rounded-md uppercase tracking-wider font-semibold text-sm hover:-translate-y-0.5 transform transition
 }
+
+.btn{
+   @apply w-full rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 text-white bg-indigo-650 font-semibold
+}
 @import '~tailwindcss/utilities';

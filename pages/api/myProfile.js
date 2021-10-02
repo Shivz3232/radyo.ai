@@ -41,12 +41,6 @@ postMyProfile.post(async (req, res) => {
 
 export default postMyProfile;
 // (upload.single('profile_img')
-// console.log(req.body.fullName);
-// console.log(req.body.email);
-// console.log(req.body.contact);
-// console.log(req.body.about);
-// console.log(req.body.userId);
-// console.log(req.body.img);
 
 export const config = {
   api: {
