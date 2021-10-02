@@ -40,14 +40,14 @@ const addAudio = () => {
             options={LanOptions}
           />
           <input
-            className="w-full border-2 border-indigo-650 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-650"
+            className="input"
             type="text"
             name="Title"
             placeholder="Enter title of the submission (max 10 words)​"
           />
           <br />
           <input
-            className="w-full border-2 border-indigo-650 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-650"
+            className="input"
             type="text"
             name="hastags"
             placeholder="Enter comma separate keywords, hashtags​"
@@ -60,14 +60,14 @@ const addAudio = () => {
             Upload cover photo of the audio:
           </p>
           <input
-            className="w-full bg-white border-2 border-indigo-650 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-650"
+            className="input bg-white"
             type="file"
             id="img"
             name="img"
             accept="image/*"
           />
           <button
-            className="px-5 py-2 shadow-lg bg-indigo-650 text-white rounded-md uppercase tracking-wider font-semibold text-sm"
+            className="submit-btn"
             type="submit"
           >
             Submit

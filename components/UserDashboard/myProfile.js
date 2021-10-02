@@ -14,21 +14,21 @@ const myProfile = () => {
              Tell us more about you!
            </p>
            <input
-             className="w-full border-2 border-indigo-650 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-650"
+             className="input"
              type="text"
              name="fullName"
              placeholder="Full name"
            />
            <br />
            <input
-             className="w-full border-2 border-indigo-650 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-650"
+             className="input"
              type="text"
              name="userId"
              placeholder="User ID"
            />
            <br />
            <input
-             className="w-full border-2 border-indigo-650 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-650"
+             className="input"
              type="tel"
              pattern="[0-9]{10}"
              name="contact"
@@ -36,7 +36,7 @@ const myProfile = () => {
            />
            <br />
            <input
-             className="w-full border-2 border-indigo-650 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-650"
+             className="input"
              type="email"
              name="email"
              placeholder="Email id"
@@ -46,14 +46,14 @@ const myProfile = () => {
              Upload your profile picture:
            </p>
            <input
-             className="w-full bg-white border-2 border-indigo-650 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-650"
+             className="input bg-white"
              type="file"
              id="img"
              name="profile_img"
              accept="image/*"
            />
            <textarea
-             className="w-full border-2 border-indigo-650 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-650 p-2"
+             className="input p-2"
              name="about"
              id=""
              rows="4"
@@ -61,7 +61,7 @@ const myProfile = () => {
            ></textarea>
            <br />
            <button
-             className="px-5 py-2 shadow-lg bg-indigo-650 text-white rounded-md uppercase tracking-wider font-semibold text-sm"
+             className="submit-btn"
              type="submit"
            >
              Submit
