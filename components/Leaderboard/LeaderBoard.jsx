@@ -7,7 +7,7 @@ import colorValues from './colorValues'
 const LeaderBoard=()=>{
     const [data, setData]= useState([]);
     const [sortedData, setSortedData]= useState([])
-    const {width}= useViewport();
+    const {width}= useViewport(200);
 
     function getCreatorScore(audioplayCount, likesCount,subscriberCount ){
         const creatorScore=(5*audioplayCount) + (3*likesCount)+(subscriberCount)
@@ -53,11 +53,11 @@ const LeaderBoard=()=>{
                    data={sortedData}
                    backgroundColor='#FFF'
                    width={width}
-                   padding={12}
-                   itemHeight={30}
-                   gap={20}
-                   titleStyle={{ font: 'normal 400 16px Arial', color: '#000' }}
-                   valueStyle={{ font: 'normal 400 13px Arial', color: '#000' }}
+                   padding={3}
+                   itemHeight={15}
+                   gap={5}
+                   titleStyle={{ font: 'normal 400 6px Poppins', color: '#000' }}
+                   valueStyle={{ font: 'normal 400 4px Poppins', color: '#000' }}
                  />
               </div>
               

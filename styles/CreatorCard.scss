@@ -15,11 +15,12 @@
   }
   &__header {
     display: flex;
-    justify-content: space-between;
+    //justify-content: space-between;
+    justify-content: space-evenly;
     &--image {
       flex: 30%;
       .creator-card__roundedimage {
-        max-width: 150px;
+        width: 150px;
         height: 125px;
         object-fit: cover;
         margin-top: 1.5rem;
@@ -31,7 +32,8 @@
       display: flex;
       flex-direction: column;
       font-size: 1.2rem;
-      margin-left: 0.8rem;
+      //margin-left: 0.8rem;
+      margin-left:2rem;
       .creator-card__header--item {
         margin: 0.3rem 0.1rem;
       }
@@ -78,8 +80,8 @@
       flex-direction: column;
       align-items: center;
       font-size: 1.15rem;
-      //margin: 1.5rem auto 0.5rem auto;
-      margin: 1rem 1.5rem;
+      //margin:1rem 1.5rem;
+      margin: 1rem 0.5rem;
       &--item {
         display: flex;
         flex-wrap: wrap;
@@ -101,30 +103,31 @@
     &__header {
       &--image {
         flex: 30%;
-        .creator-card__image {
-          width: 110px;
-          //margin-right:1rem;
-          //margin-top:1rem;
+        .creator-card__roundedimage {
+          //width:110px;
+          min-width: 100px;
+          margin-left: 0.2rem;
         }
       }
       &--items {
         flex: 70%;
         //margin-left: 0.8rem;
-        margin-left: 2rem;
+        margin-left: 1.2rem;
         font-size: 1.08rem;
-        .creator-card__author {
-        }
         .creator-card__aboutme {
-          width: 180px;
+          //width:180px;
+          width: 165px;
         }
       }
     }
   }
 
   .creator-card__action--row {
+    //padding:0.5rem;
+    
     .creator-card__action {
       font-size: 1rem;
-
+      
       &--item {
         margin: 0 0.1rem;
       }
