@@ -1,13 +1,8 @@
 import React, { useState, useRef } from 'react';
-// import MicIcon from '@material-ui/icons/Mic';
-// import RotateLeftIcon from '@material-ui/icons/RotateLeft';
-// import PlayArrowRoundedIcon from '@material-ui/icons/PlayArrowRounded';
-// import StopRoundedIcon from '@material-ui/icons/StopRounded';
-// import Button from '@material-ui/core/Button';
-// import VscDebugRestart from 'react-icons';
-// import ImMic from 'react-icons';
-// import BsFillStopFill from 'react-icons';
-// import FaPlay from 'react-icons'
+import { ImMic } from 'react-icons/im';
+import { FaStop } from 'react-icons/fa';
+import { FaPlay } from 'react-icons/fa';
+import { FaRedo } from 'react-icons/fa';
 import Timer from './timer';
 
 var mediaRecorder = null;
@@ -34,12 +29,11 @@ const recordAudio = () => {
 
   const reset = () => {
     setAudioSrc('');
-    stopRec.current.removeEventListener('click', null); //can be removed
+    stopRec.current.removeEventListener('click', null);
     startRec.current.disabled = false;
   };
 
   const RecordFromMic = async () => {
-    console.log("Start clicked");
     if (!mediaRecorder) {
       await navigator.mediaDevices
         .getUserMedia({
@@ -70,12 +64,11 @@ const recordAudio = () => {
   };
 
   const handleStopRec = () => {
-    console.log("Stop Clicked");
     mediaRecorder.stop();
     setRecordingOn(false);
     stopRec.current.disabled = true;
     startRec.current.disabled = true;
-  }
+  };
 
   return (
     <div className="space-y-3">
@@ -102,10 +95,8 @@ const recordAudio = () => {
       <p className="text-center text-indigo-650 font-semibold">OR</p>
       <button
         className="w-full rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 text-white bg-indigo-650 font-semibold"
-        onClick={e => {
-          e.preventDefault();
-          setShowRec(true);
-        }}
+        onClick={() => setShowRec(true)}
+        type="button"
       >
         Click here to record your audio directly
       </button>
@@ -118,7 +109,7 @@ const recordAudio = () => {
               type="button"
               ref={startRec}
             >
-              {/* <FaPlay className="mr-1" /> */}
+              <FaPlay className="inline mr-2 mb-1" />
               Start Recording
             </button>
             <button
@@ -127,13 +118,13 @@ const recordAudio = () => {
               ref={stopRec}
               type="button"
             >
-              {/* <BsFillStopFill className="mr-1" /> */}
+              <FaStop className="inline mr-2 mb-1" />
               Stop Recording
             </button>
           </div>
           {recordingOn && (
             <div className="text-center space-x-3 bg-gray-200 rounded-md">
-              {/* <ImMic /> */}
+              <ImMic className="inline mr-2 mb-1" />
               <Timer />
             </div>
           )}
@@ -149,14 +140,12 @@ const recordAudio = () => {
               src={audioSrc}
             />
             <button
-              onClick={e => {
-                e.preventDefault();
-                reset();
-              }}
-              className="rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-indigo-650 font-semibold"
+              onClick={() => reset}
+              type="button"
+              className="text-white bg-gray-500 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white bg-indigo-650 font-semibold hover:bg-gray-600 transition "
             >
-              {/* <VscDebugRestart /> */}
-              <p className="text-gray-800">Record Again</p>
+              <FaRedo className="inline mr-2 mb-1" />
+              <p className="inline">Record Again</p>
             </button>
           </div>
         </>
@@ -166,11 +155,3 @@ const recordAudio = () => {
 };
 
 export default recordAudio;
-
-
-{
-  /* <Button onClick={reset} size="large">
-              <VscDebugRestart />
-              <p className="text-gray-800">Record Again</p>
-            </Button> */
-}

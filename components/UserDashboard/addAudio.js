@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Select from 'react-select';
 import RecordAudio from '../RecordAudio/recordAudio';
 
@@ -79,24 +79,3 @@ const addAudio = () => {
 };
 
 export default addAudio;
-
-
-{/* <select
-            className="w-full border-2 border-indigo-650 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-            name="cars"
-            id="cars"
-          >
-            <option value="">Select Category</option>
-            <option value="Cat1">Category 1</option>
-            <option value="Cat2">Category 2</option>
-            <option value="Cat3">Category 3</option>
-          </select>
-          <select
-            className="w-full border-2 border-indigo-650 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-            name="cars"
-            id="cars"
-          >
-            <option value="">Select Language</option>
-            <option value="Cat1">English</option>
-            <option value="Cat2">Hindi</option>
-          </select> */}
