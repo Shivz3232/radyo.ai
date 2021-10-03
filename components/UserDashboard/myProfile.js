@@ -5,7 +5,7 @@ const myProfile = () => {
      <>
        <div className="text-indigo-650 flex flex-column w-11/12 sm:w-3/6 mx-auto p-6 bg-gray-300 rounded-md shadow-xl">
          <form
-           action="/api/myProfile"
+           action="/api/userProfile"
            method="POST"
            encType="multipart/form-data"
            className="space-y-3 mx-auto text-gray-900 w-11/12 lg:w-4/6"
