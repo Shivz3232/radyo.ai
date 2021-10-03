@@ -23,7 +23,11 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-lines-ellipsis": "^0.15.0",
     "react-responsive-carousel": "^3.2.21",
-    "sass": "^1.42.1"
+    "sass": "^1.42.1",
+    "firebase": "^8.10.0",
+    "firebase-admin": "^9.12.0",
+    "nookies": "^2.4.0",
+    "react-social-login-buttons": "^3.5.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.2.6",
@@ -37,6 +41,10 @@
     "precss": "^4.0.0",
     "prettier": "^2.4.1",
     "pretty-quick": "^3.1.1",
-    "tailwindcss": "^2.2.16"
+    "tailwindcss": "^2.2.16",
+    "firebase": "^8.10.0",
+    "firebase-admin": "^9.12.0",
+    "nookies": "^2.4.0",
+    "react-social-login-buttons": "^3.5.1"
   }
 }
