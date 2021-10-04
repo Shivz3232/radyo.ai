@@ -1,4 +1,4 @@
-import { debounce } from '@material-ui/core';
+import debounce from 'lodash.debounce'
 import React, {useState, useEffect} from 'react'
 
 const useViewport =(divWidth) =>{
