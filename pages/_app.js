@@ -24,6 +24,8 @@ import '../styles/style.scss';
 import '../styles/AdminAuthPage.scss';
 import '../styles/AdminDashboard.scss';
 import '../styles/PodcastReviewCard.scss';
+import { AuthProvider } from '../controllers/auth';
+
 function App({ Component, pageProps }) {
   const [trackInfo, setTrackInfo] = useState({
     audioSrc: '',
@@ -36,6 +38,7 @@ function App({ Component, pageProps }) {
   };
   return (
     <main className="app">
+      <AuthProvider>
       <Head>
         <title>Radyo.ai</title>
         <link rel="icon" href="/favicon.ico" />
@@ -52,6 +55,7 @@ function App({ Component, pageProps }) {
       >
         <AudioPlayer trackInfo={trackInfo} play={playAudioP} />
       </div>
+      </AuthProvider>
     </main>
   );
 }
