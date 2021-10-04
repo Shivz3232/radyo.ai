@@ -12,7 +12,7 @@ import { CgPlayListAdd, CgPlayListCheck } from 'react-icons/cg';
 export function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
-const AudioCard = ({ cardItemData, playAudio }) => {
+const AudioCard = ({ cardItemData, categoryName, playAudio }) => {
   const trackInfo = {
     coverSrc: `${cardItemData.coverImage}`,
     audioSrc: cardItemData.audioSrc,
@@ -30,7 +30,10 @@ const AudioCard = ({ cardItemData, playAudio }) => {
   } = cardItemData;
 
   return (
-    <div className="audio-card mini generic-card">
+    <div
+      className="audio-card mini generic-card"
+      id={`${categoryName}-${cardItemData._id}`}
+    >
       <div className="audio-card__header">
         <div className="audio-card__header--image">
           <img
