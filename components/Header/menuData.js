@@ -37,9 +37,4 @@ export const userMenuLinks = [
     label: 'Submit an Audio',
     url: '/submit-audio',
   },
-  {
-    id: 'logout',
-    label: 'Logout',
-    url: '/logout',
-  },
 ];
