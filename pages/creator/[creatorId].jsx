@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import PillsNav from '../../components/PillsNav/PillsNav';
 import AudioCards from '../../components/AudioCard/AudioCards';
 import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
@@ -20,6 +20,12 @@ const CreatorPage = ({ info, audioCards, play }) => {
     setTrackInfo(info);
     play(info);
   };
+  //to fix the audio player to bottom after it has been rendered on this page
+  useEffect(() => {
+    const player = document.querySelector('#audio-player');
+    player.classList.remove('absolute');
+    player.classList.add('fixed');
+  }, []);
   //marginBottom for audio player
   return (
     <>

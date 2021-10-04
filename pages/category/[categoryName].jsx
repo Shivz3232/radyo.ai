@@ -33,14 +33,16 @@ const PodcastCategory = props => {
     setTrackInfo(info);
     props.play(info);
   };
-  useEffect(() => {
-    const scrollRestoration = history.scrollRestoration;
-    if (scrollRestoration === 'manual') {
-      console.log(
-        'The location on the page is not restored, user will need to scroll manually.'
-      );
-    } else console.log(scrollRestoration);
-  }, []);
+
+  // useEffect(() => {
+  //   const scrollRestoration = history.scrollRestoration;
+  //   if (scrollRestoration === 'manual') {
+  //     console.log(
+  //       'The location on the page is not restored, user will need to scroll manually.'
+  //     );
+  //   } else console.log(scrollRestoration);
+  // }, []);
+
   //to fix the audio player to bottom after it has been rendered on this page
   useEffect(() => {
     const player = document.querySelector('#audio-player');

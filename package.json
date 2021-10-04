@@ -10,13 +10,18 @@
     "format": "prettier \"./**/*.+(js|jsx|css|less|scss|ts|tsx|md)\" --write"
   },
   "dependencies": {
+    "@hapi/iron": "^6.0.0",
     "@headlessui/react": "^1.4.1",
     "@loadable/component": "^5.15.0",
     "axios": "^0.21.4",
+    "cookie": "^0.4.1",
     "dayjs": "^1.10.7",
     "html-entities": "^2.3.2",
     "mongoose": "^5.13.7",
     "next": "^11.1.0",
+    "next-connect": "^0.10.2",
+    "passport": "^0.5.0",
+    "passport-local": "^1.0.0",
     "react": "^17.0.2",
     "react-chart-race": "^0.0.3",
     "react-dom": "^17.0.2",
@@ -25,7 +30,8 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-lines-ellipsis": "^0.15.0",
     "react-responsive-carousel": "^3.2.21",
-    "sass": "^1.42.1"
+    "sass": "^1.42.1",
+    "swr": "^1.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.2.6",

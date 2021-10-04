@@ -15,12 +15,15 @@ import '../styles/CategoryNavBar.scss';
 import '../styles/CreatorCard.scss';
 import '../styles/CreatorPage.scss';
 import '../styles/global.css';
-import '../styles/Leaderboard.scss'
+import '../styles/Leaderboard.scss';
 import '../styles/PodcastCategory.scss';
 import '../styles/PodcastPage.scss';
 import '../styles/SearchBar.scss';
 import '../styles/SearchResults.scss';
 import '../styles/style.scss';
+import '../styles/AdminAuthPage.scss';
+import '../styles/AdminDashboard.scss';
+import '../styles/PodcastReviewCard.scss';
 function App({ Component, pageProps }) {
   const [trackInfo, setTrackInfo] = useState({
     audioSrc: '',

@@ -39,10 +39,6 @@ const Podcast = ({ audioCards, allCategories, play }) => {
     player.classList.add('fixed');
   }, []);
 
-  // useEffect(() => {
-  //   console.log(window.history);
-  // }, []);
-
   return (
     <div className="podcast-page">
       <CategoryNavBar category="all" />
@@ -50,7 +46,7 @@ const Podcast = ({ audioCards, allCategories, play }) => {
         <div className="flex justify-center">
           <HomeCarousel images={images} />
         </div>
-        {/* ////////EXPERIMENTAL */}
+        {/* ////////EXPERIMENTAL this is to add space above scroll bar when scrollto element is called */}
         <div className="h-16 w-0 text-white hidden" id="search-bar-start">
           ....
         </div>

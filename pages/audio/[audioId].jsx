@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import AdCard from '../../../components/AdCard/AdCard';
 import AudioCards from '../../components/AudioCard/AudioCards';
 import AudioPageComponent from '../../components/AudioPage/AudioPage';
@@ -17,6 +17,12 @@ const PodcastAudio = ({ data, audioCards, play }) => {
     setTrackInfo(info);
     play(info);
   };
+  //to fix the audio player to bottom after it has been rendered on this page
+  useEffect(() => {
+    const player = document.querySelector('#audio-player');
+    player.classList.remove('absolute');
+    player.classList.add('fixed');
+  }, []);
 
   return (
     <div className="audio-page" id="audioPage">
