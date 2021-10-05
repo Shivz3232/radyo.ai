@@ -93,21 +93,22 @@ const loginWithFacebook = async () => {
     var credential = result.credential;
     var user = result.user;
     var accessToken = credential.accessToken;
-  }).catch((error) => {
+  }).catch(async (error) => {
     var errorCode = error.code;
     var errorMessage = error.message;
     var email = error.email;
     if(errorCode === "auth/account-exists-with-different-credential"){
-      loginWithGoogleRedirection();
+      await loginWithGoogleRedirection();
     }
     var credential = error.credential;
   });
 }
 
 const Login = () => {
+  
   firebase.auth().onAuthStateChanged(user => {
     if(user) {
-      window.location = '/login';
+      window.location="/";
     }
   });
 
@@ -121,10 +122,10 @@ const Login = () => {
                 Be a part of community of listeners and creators, all connected through the power of creativity &amp; talent.
               </div>
               <div>
-                <FacebookLoginButton onClick={()=>{loginWithFacebook()}} />
+                <FacebookLoginButton onClick={async ()=>{await loginWithFacebook().then(()=>{window.location="/login"})}} />
               </div>
               <div>
-                <GoogleLoginButton onClick={()=>{loginWithGoogle()}} />
+                <GoogleLoginButton onClick={async ()=>{await loginWithGoogle().then(()=>window.location="/login")}} />
               </div>
               <div className="text-xs break-words text-center">
                 By signing up and logging in I agree to <a href="#" className="underline">Terms and Conditions</a> and <a href="#" className="underline">Privacy Policy</a>.
