@@ -59,6 +59,7 @@ const recordAudio = () => {
 
     mediaRecorder.addEventListener('stop', function () {
       setAudioSrc(URL.createObjectURL(new Blob(recordedChunks)));
+      setUploadedAudioSrc(URL.createObjectURL(new Blob(recordedChunks)));
     });
     mediaRecorder.start();
   };
@@ -79,6 +80,7 @@ const recordAudio = () => {
         accept="audio/*"
         id="uploadedAudio"
         onChange={handleChange}
+        src={uploadedAudioSrc}
       />
       {fileUploaded && (
         <>
@@ -93,11 +95,7 @@ const recordAudio = () => {
       )}
 
       <p className="text-center text-indigo-650">OR</p>
-      <button
-        className="btn"
-        onClick={() => setShowRec(true)}
-        type="button"
-      >
+      <button className="btn" onClick={() => setShowRec(true)} type="button">
         Click here to record your audio directly
       </button>
       {showRec && (
@@ -129,16 +127,9 @@ const recordAudio = () => {
             </div>
           )}
 
-          <p className="mx-auto text-indigo-650 ml-1">
-            Recorded Audio
-          </p>
+          <p className="mx-auto text-indigo-650 ml-1">Recorded Audio</p>
           <div className="space-y-3 text-center">
-            <audio
-              className="w-full"
-              id="player1"
-              controls
-              src={audioSrc}
-            />
+            <audio className="w-full" id="player1" controls src={audioSrc} />
             <button
               onClick={() => reset()}
               type="button"
