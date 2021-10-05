@@ -12,6 +12,8 @@ import { FACEBOOK_APP_ID } from '../../constants';
 // import { Event } from '../Tracking/Tracking';
 import Link from 'next/link';
 import { capitalizeFirstLetter } from '../AudioCard/AudioCard';
+import { FiFlag } from 'react-icons/fi';
+import axios from 'axios';
 
 dayjs.extend(relativeTime);
 dayjs.extend(localeData);
@@ -79,6 +81,17 @@ const AudioPageComponent = ({ data, playAudio }) => {
     document.body.appendChild(fbScript);
   }, []);
 
+  function reportAudio() {
+    // console.log(data._id);
+    axios
+      .get(`/api/update_count/${data._id}`)
+      .then(res => {
+        console.log(res);
+        alert('Audio has been reported successfully');
+      })
+      .catch(console.error);
+  }
+
   return (
     <>
       {/*AudioCard*/}
@@ -130,6 +143,12 @@ const AudioPageComponent = ({ data, playAudio }) => {
             <span className="audioPage-card__action--item">
               {dayjs().to(dayjs(data.createdAt))}
             </span>
+          </div>
+          <div className="audioPage-card__action">
+            <FiFlag
+              onClick={reportAudio}
+              className="audioPage-card__action--item"
+            />
           </div>
         </div>
       </div>
