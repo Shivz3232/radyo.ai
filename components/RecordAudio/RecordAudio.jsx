@@ -3,7 +3,7 @@ import { ImMic } from 'react-icons/im';
 import { FaStop } from 'react-icons/fa';
 import { FaPlay } from 'react-icons/fa';
 import { FaRedo } from 'react-icons/fa';
-import Timer from './timer';
+import Timer from './Timer';
 
 var mediaRecorder = null;
 

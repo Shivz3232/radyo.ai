@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Tab } from '@headlessui/react';
-import MyProfile from './myProfile';
-import AddAudio from './addAudio';
-import MySubmissions from './mySubmissions';
+import MyProfile from './MyProfile';
+import AddAudio from './AddAudio';
+import MySubmissions from './MySubmissions';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -48,11 +48,7 @@ const userNavbar = () => {
       </div>
       <Tab.Panels className="">
         {Object.values(categories).map((Tabs, idx) => (
-          <Tab.Panel
-            key={idx}
-          >
-            {<Tabs.content key={Tabs.id} />}
-          </Tab.Panel>
+          <Tab.Panel key={idx}>{<Tabs.content key={Tabs.id} />}</Tab.Panel>
         ))}
       </Tab.Panels>
     </Tab.Group>

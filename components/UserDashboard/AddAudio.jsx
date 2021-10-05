@@ -1,6 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
-import RecordAudio from '../RecordAudio/recordAudio';
+import RecordAudio from '../RecordAudio/RecordAudio';
 
 const addAudio = () => {
 

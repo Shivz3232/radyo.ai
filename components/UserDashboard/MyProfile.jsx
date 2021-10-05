@@ -18,6 +18,7 @@ const myProfile = () => {
              type="text"
              name="fullName"
              placeholder="Full name"
+             required
            />
            <br />
            <input
@@ -25,6 +26,7 @@ const myProfile = () => {
              type="text"
              name="userId"
              placeholder="User ID"
+             required
            />
            <br />
            <input
@@ -33,6 +35,7 @@ const myProfile = () => {
              pattern="[0-9]{10}"
              name="contact"
              placeholder="Contact number"
+             required
            />
            <br />
            <input
@@ -40,6 +43,7 @@ const myProfile = () => {
              type="email"
              name="email"
              placeholder="Email id"
+             required
            />
            <br />
            <p className="mx-auto text-indigo-650">
