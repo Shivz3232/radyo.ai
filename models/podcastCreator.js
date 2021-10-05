@@ -22,8 +22,10 @@ const numberRequired = {
 
 const PodcastCreatorSchema = new Schema({
   creatorName: stringRequired,
-  avatarImage: String,
-  about: stringRequired,
+  avatarImage: stringRequired,
+  email: stringRequired,
+  uid: stringRequired,
+  about: String,
   audiosPublished: numberRequired,
   playCount: numberRequired,
   subscriberCount: numberRequired,
