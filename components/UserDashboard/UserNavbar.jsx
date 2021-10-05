@@ -4,7 +4,7 @@ import MyProfile from './myProfile';
 import AddAudio from './addAudio';
 import MySubmissions from './mySubmissions';
 
-function classNames(...classes) {
+export function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
