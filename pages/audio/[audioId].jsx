@@ -1,17 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import AdCard from '../../../components/AdCard/AdCard';
-// import PillsNav from '../../../components/PillsNav/PillsNav';
 import AudioCards from '../../components/AudioCard/AudioCards';
 import AudioPageComponent from '../../components/AudioPage/AudioPage';
 import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
 import { getAllAudio, getAudio, getAudioIds } from '../../controllers/podcast';
 import dbConnect from '../../utils/dbConnect';
-// import Banner from '../../../components/Banner/Banner';
 
-const PodcastAudio = ({ data, audioCards }) => {
-  //   const data =  data;
-  // console.log('data in page',  data);
-
+const PodcastAudio = ({ data, audioCards, play }) => {
   const [trackInfo, setTrackInfo] = useState({
     audioSrc: '',
     coverSrc: '',
@@ -20,44 +15,45 @@ const PodcastAudio = ({ data, audioCards }) => {
 
   const playAudio = info => {
     setTrackInfo(info);
+    play(info);
   };
-  // console.log('Trackinfo in page ', trackInfo);
+  //to fix the audio player to bottom after it has been rendered on this page
+  useEffect(() => {
+    const player = document.querySelector('#audio-player');
+    player.classList.remove('absolute');
+    player.classList.add('fixed');
+  }, []);
 
   return (
-    <>
-      <div className="audio-page" id="audioPage">
-        {/* <Banner size="sm" /> */}
-        {/* {<PillsNav category="all" type="podcast" />} */}
+    <div className="audio-page" id="audioPage">
+      <div className="container">
+        <AudioPageComponent data={data} playAudio={playAudio} />
 
-        <div className="container">
-          <AudioPageComponent data={data} playAudio={playAudio} />
-
-          {/*Audio Cards horizontal scroll section*/}
-          {audioCards && (
-            <AudioCards
-              playAudio={playAudio}
-              categoryName="You may also like"
-              cardItems={audioCards.filter(e => e.category === data.category)}
-            />
-          )}
-
+        {/*Audio Cards horizontal scroll section*/}
+        {audioCards && (
           <AudioCards
             playAudio={playAudio}
-            categoryName={data.creatorId.creatorName}
-            cardItems={audioCards.filter(
-              e => e.creatorId.creatorName === data.creatorId.creatorName
-            )}
+            categoryName="You may also like"
+            cardItems={audioCards.filter(e => e.category === data.category)}
           />
-          {/*Audio Player Popup */}
-          <div
-            className="audio-player-dashboard"
-            style={{ display: trackInfo.audioSrc ? '' : 'none' }}
-          >
-            {<AudioPlayer trackInfo={trackInfo} />}
-          </div>
-        </div>
+        )}
+
+        <AudioCards
+          playAudio={playAudio}
+          categoryName={`Other creations by ${data.creatorId.creatorName}`}
+          cardItems={audioCards.filter(
+            e => e.creatorId.creatorName === data.creatorId.creatorName
+          )}
+        />
+        {/*Audio Player Popup */}
+        {/* <div
+          className="audio-player-dashboard"
+          style={{ display: trackInfo.audioSrc ? '' : 'none' }}
+        >
+          {<AudioPlayer trackInfo={trackInfo} />}
+        </div> */}
       </div>
-    </>
+    </div>
   );
 };
 

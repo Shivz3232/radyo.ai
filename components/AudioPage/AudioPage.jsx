@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import localeData from 'dayjs/plugin/localeData';
+import updateLocale from 'dayjs/plugin/updateLocale';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { decode } from 'html-entities';
 import React, { useEffect, useState } from 'react';
@@ -14,6 +15,25 @@ import { capitalizeFirstLetter } from '../AudioCard/AudioCard';
 
 dayjs.extend(relativeTime);
 dayjs.extend(localeData);
+dayjs.extend(updateLocale);
+
+dayjs.updateLocale('en', {
+  relativeTime: {
+    future: 'in %s',
+    past: '%s ago',
+    s: 'a few seconds',
+    m: 'a minute',
+    mm: '%dmin',
+    h: 'an hour',
+    hh: '%dh',
+    d: '1d',
+    dd: '%dd',
+    M: '1m',
+    MM: '%dm',
+    y: '1y',
+    yy: '%dy',
+  },
+});
 
 const AudioPageComponent = ({ data, playAudio }) => {
   const trackInfo = {
@@ -72,7 +92,7 @@ const AudioPageComponent = ({ data, playAudio }) => {
             <div className="audioPage-card__header--item audioPage-card__title">
               {data.title}
             </div>
-            <Link href={`/creator/${data.creatorId._id}`} locale={false}>
+            <Link href={`/creator/${data.creatorId._id}`}>
               <a style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div className="audioPage-card__header--item audioPage-card__author">
                   By : {data.creatorId.creatorName}
@@ -96,9 +116,8 @@ const AudioPageComponent = ({ data, playAudio }) => {
 
         <div className="audioPage-card__action--row">
           <div className="audioPage-card__action">
-            <FaPlay className="audioPage-card__action--item" />
             <span className="audioPage-card__action--item">
-              {data.playCount}
+              Played {data.playCount} times
             </span>
           </div>
           <div className="audioPage-card__action">
@@ -110,7 +129,6 @@ const AudioPageComponent = ({ data, playAudio }) => {
           <div className="audioPage-card__action">
             <span className="audioPage-card__action--item">
               {dayjs().to(dayjs(data.createdAt))}
-              {/* {new Date(data.createdAt).toLocaleDateString()} */}
             </span>
           </div>
         </div>
@@ -127,22 +145,20 @@ const AudioPageComponent = ({ data, playAudio }) => {
         >
           Play Now
         </button>
-        <div className="share-btn">
-          Share with Friends
-          {/*<FaShareAlt className="shareIcon" />*/}
-          <div className="action__row">
-            <div style={{ flexGrow: 1 }}>{/*div for spacing*/}</div>
-            <div className="action action__facebook">
+        <div className="share-btn flex border rounded p-2 m-2">
+          <div className="mx-1">Share with Friends</div>
+          <div className="flex">
+            <div className="h-8 w-8 mx-1">
               <a href={getFacebookShareLink()} target="_blank" rel="noreferrer">
                 <FaFacebook size="small" color="#4267B2" />
               </a>
             </div>
-            <div className="action action__telegram">
+            <div className="h-8 w-8 mx-1">
               <a href={getTelegramShareLink()} target="_blank" rel="noreferrer">
                 <img src={logoTelegram.src} alt="Share on Telegram" />
               </a>
             </div>
-            <div className="action action__whatsapp">
+            <div className="h-8 w-8 mx-1">
               <a href={getWhatsAppShareLink()} target="_blank" rel="noreferrer">
                 <img src={logoWhatsapp.src} alt="Share on Whatsapp" />
               </a>

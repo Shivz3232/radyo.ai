@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { Fragment, useRef } from 'react';
 import HeaderAvatar from './HeaderAvatar';
 import { userMenuLinks } from './menuData';
+import firebase from 'firebase';
 
 // export function UsearMenu({ data }) {
 //   return (
@@ -95,7 +96,7 @@ export default function UserMenu({ data }) {
                           onClick={() => {
                             router.push(data.url);
                           }}
-                          className={`px-4 py-2 hover:bg-gray-200 cursor-pointer w-full ${
+                          className={`px-4 py-3 text-left text-lg hover:bg-gray-200 cursor-pointer w-full ${
                             i === 0
                               ? 'rounded-t-md'
                               : i === userMenuLinks.length - 1
@@ -111,6 +112,20 @@ export default function UserMenu({ data }) {
                 );
               })}
             </div>
+                  <div key="logout">
+                    <Menu.Item>
+                        <button
+                          onClick={async () => {
+                            await firebase.auth().signOut().then(()=>{
+                              router.push("/");
+                            })
+                          }}
+                          className={"px-4 py-3 text-left text-lg hover:bg-gray-200 cursor-pointer w-full 'rounded-b-md"}
+                        >
+                          Logout
+                        </button>
+                    </Menu.Item>
+                  </div>
           </Menu.Items>
         </Transition>
       </Menu>

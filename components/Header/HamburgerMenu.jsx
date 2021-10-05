@@ -1,17 +1,16 @@
 import { Menu, Transition } from '@headlessui/react';
-import { GiHamburgerMenu } from 'react-icons/gi';
-import { Fragment } from 'react';
-import { menuLinks } from './menuData';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { Fragment } from 'react';
+import { GiHamburgerMenu } from 'react-icons/gi';
+import { menuLinks } from './menuData';
 
 export default function HamburgerMenu({ loggedIn }) {
   const router = useRouter();
   return (
-    <div className="">
+    <div>
       <Menu as="div" className="relative mt-1">
         <div>
-          <Menu.Button className="">
+          <Menu.Button>
             <GiHamburgerMenu
               fontSize="1.75rem"
               className={`text-black ml-3`}
@@ -39,7 +38,7 @@ export default function HamburgerMenu({ loggedIn }) {
                           onClick={() => {
                             router.push(data.url);
                           }}
-                          className={`px-4 py-2 hover:bg-gray-200 cursor-pointer w-full ${
+                          className={`px-6 py-3 text-left text-lg  hover:bg-gray-200 cursor-pointer w-full ${
                             i === 0
                               ? 'rounded-t-md'
                               : loggedIn && i === menuLinks.length - 1
@@ -63,7 +62,7 @@ export default function HamburgerMenu({ loggedIn }) {
                       onClick={() => {
                         router.push('/login');
                       }}
-                      className={`px-4 py-2 hover:bg-gray-200 cursor-pointer ${'rounded-b-md'}`}
+                      className={`px-6 py-3 text-left text-lg hover:bg-gray-200 cursor-pointer ${'rounded-b-md'}`}
                     >
                       Login/SignUp
                     </button>

@@ -1,9 +1,13 @@
 /* Audio Card Styling */
-
+.audio-cards-section {
+  margin-bottom: 1.5rem;
+}
 .audio-cards-outer-container {
   // margin: 1rem auto;
   .heading {
-    font-size: 2rem;
+    font-size: 1.65rem;
+    // font-size: 1.25rem;
+    // line-height: 1.75rem;
     // font-family: 'quicksand';
     width: 80%;
     color: #4527a0;
@@ -47,7 +51,8 @@
   justify-content: center;
   background-color: $color-white;
   padding: 0.5rem;
-  margin: 1rem;
+  padding-bottom: 0;
+  margin: 0.5rem 1rem;
   box-shadow: 1px 1px 6px 0px $color-grey-400;
   cursor: default;
   border-radius: 0.3rem;
@@ -102,24 +107,27 @@
         // text-overflow: ellipsis;
         font-size: 1.1rem;
         font-weight: bold;
-        font-family: Roboto;
+        // font-family: Roboto;
       }
       .audio-card__author {
         font-size: 1rem;
-        color: $color-black-700;
+        color: $color-grey-600;
       }
     }
   }
   .audio-card__action--row {
     display: flex;
     justify-content: space-around;
+    padding: 0.5rem 0;
     .audio-card__action {
       display: flex;
       justify-content: space-around;
       align-items: center;
-      font-size: 1.15rem;
+      font-size: 1rem;
       margin: 0.2rem auto 0.2rem auto;
       &--item {
+        color: $color-grey-600;
+        // color: #525252;
         margin: 0 0.2rem;
         cursor: pointer;
         &:hover {
@@ -139,7 +147,7 @@
     }
     .heading {
       margin: 0 1rem;
-      font-size: 1.5rem;
+      font-size: 1.35rem;
     }
     .audio-card__swipe--left,
     .audio-card__swipe--right {
@@ -160,7 +168,7 @@
       &--image {
         flex: 30%;
         .audio-card__image {
-          width: 110px;
+          max-width: 110px;
         }
       }
       &--items {

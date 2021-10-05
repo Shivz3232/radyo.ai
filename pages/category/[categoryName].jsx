@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import AudioCardsVerticalScroll from '../../components/AudioCard/AudioCardsVerticalScroll';
 import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
+import CategoryNavBar from '../../components/CategoryNavBar/CategoryNavBar';
 import { Result } from '../../components/PodcastSearch/Result';
 import SearchBar from '../../components/PodcastSearch/SearchBar';
 import {
@@ -30,7 +31,24 @@ const PodcastCategory = props => {
 
   const playAudio = info => {
     setTrackInfo(info);
+    props.play(info);
   };
+
+  // useEffect(() => {
+  //   const scrollRestoration = history.scrollRestoration;
+  //   if (scrollRestoration === 'manual') {
+  //     console.log(
+  //       'The location on the page is not restored, user will need to scroll manually.'
+  //     );
+  //   } else console.log(scrollRestoration);
+  // }, []);
+
+  //to fix the audio player to bottom after it has been rendered on this page
+  useEffect(() => {
+    const player = document.querySelector('#audio-player');
+    player.classList.remove('absolute');
+    player.classList.add('fixed');
+  }, [props.category]);
 
   useEffect(() => {
     setAudioCards(props.audioCards);
@@ -51,9 +69,11 @@ const PodcastCategory = props => {
   }
   return (
     <div className="podcast-category-page">
-      {/* <Banner size="sm" /> */}
-      {/* <PillsNav category={props.category} type="podcast" /> */}
+      <CategoryNavBar category={props.category} />
       <div className="container">
+        {/* <button onClick={() => {}} className="border-2">
+          back
+        </button> */}
         <SearchBar
           category={props.category}
           data={searchResults}
@@ -92,12 +112,12 @@ const PodcastCategory = props => {
           </div>
         </InfiniteScroll>
       )}
-      <div
+      {/* <div
         className="audio-player-dashboard"
         style={{ display: trackInfo.audioSrc ? '' : 'none' }}
       >
         <AudioPlayer trackInfo={trackInfo} />
-      </div>
+      </div> */}
     </div>
   );
 };
