@@ -5,12 +5,39 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import nookies from "nookies";
 import { verifyIdToken } from '../utils/firebase/firebaseAdmin';
+import connect from '../utils/middleware/mongoClient';
+import PodcastCreatorModel from '../models/podcastCreator';
+
+const createUser = async (token) => {
+  var user = new PodcastCreatorModel({
+    creatorName: token.name,
+    email: token.email,
+    uid: token.uid,
+    avatarImage: token.picture,
+    about: token.name,
+    audiosPublished: 0,
+    playCount: 0,
+    subscriberCount: 0
+  });
+
+  await PodcastCreatorModel.find({"email": token.email}).then(async (userExists)=>{
+    if(userExists.length==0){
+      await user.save().then(()=>{console.log("User added");}).catch(()=>{console.log("User not added");})
+    }
+  })
+};
 
 export const getServerSideProps = async(context) => {
   try {
     const cookies = nookies.get(context);
     const token = await verifyIdToken(cookies.token);
     const { uid, email } = token;
+    try{
+      connect(createUser(token));
+    }
+    catch(err){
+      console.log(err);
+    }
     return {
       redirect: {
         permanent: false,
@@ -21,7 +48,8 @@ export const getServerSideProps = async(context) => {
   }
   catch (err) {
     console.log("User not authenticated");
-    return { props: {} };
+    return { 
+      props: {} };
   }
 }
 
@@ -65,12 +93,12 @@ const loginWithFacebook = async () => {
     var credential = result.credential;
     var user = result.user;
     var accessToken = credential.accessToken;
-  }).catch(async (error) => {
+  }).catch((error) => {
     var errorCode = error.code;
     var errorMessage = error.message;
     var email = error.email;
     if(errorCode === "auth/account-exists-with-different-credential"){
-        loginWithGoogleRedirection();
+      loginWithGoogleRedirection();
     }
     var credential = error.credential;
   });
@@ -79,7 +107,7 @@ const loginWithFacebook = async () => {
 const Login = () => {
   firebase.auth().onAuthStateChanged(user => {
     if(user) {
-      window.location = '/'; //After successful login, user will be redirected to /
+      window.location = '/login';
     }
   });
 
