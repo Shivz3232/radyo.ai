@@ -55,7 +55,6 @@ const myProfile = () => {
            <textarea
              className="input p-2"
              name="about"
-             id=""
              rows="4"
              placeholder="About yourself (50 words)"
            ></textarea>

@@ -3,7 +3,7 @@ import UserProfileModel from '../../models/userProfile';
 import DataURIParser from 'datauri/parser';
 import nextConnect from 'next-connect';
 import multerUpload from '../../utils/middleware/multer';
-import {uploads} from '../../utils/cloudinary';
+import { uploads } from '../../utils/cloudinary';
 import path from 'path';
 
 const parser = new DataURIParser();
@@ -21,19 +21,25 @@ const uploadMiddleware = multerUpload.single('profile_img');
 uploader.use(uploadMiddleware);
 
 uploader.post(async (req, res) => {
-  console.log(req.file);
-  console.log(req.body);
   const file64 = formatBufferto64(req.file);
-  const uploadResult = await uploads(file64.content, 'profile_images');
-  console.log(uploadResult);
 
-  res.status(200).json({
-    message: 'Image Uploaded Successfully',
+  await uploads(file64.content, 'profile_images').then(uploadResult => {
+    let userProfile = new UserProfileModel({
+      email: req.body.email,
+      userName: req.body.fullName,
+      userId: req.body.userId,
+      about: req.body.about,
+      contact: req.body.contact,
+      img: uploadResult,
+    });
+    const saved = userProfile.save();
   });
+  
+  res.status(200).json('Image Uploaded Successfully');
   res.status(200).json({ data: 'success' });
 });
 
-export default uploader;
+export default connect(uploader);
 
 export const config = {
   api: {
