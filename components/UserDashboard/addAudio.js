@@ -22,17 +22,17 @@ const addAudio = () => {
           action=""
           className="space-y-3 mx-auto text-gray-900 w-11/12 lg:w-4/6"
         >
-          <p className="text-center text-indigo-650 text-lg font-semibold">
+          <p className="text-center text-indigo-650 text-lg">
             Share your talent, have fun, win prizes, get a fan following​!
           </p>
-          <p className="mx-auto text-indigo-650 text-md font-semibold">
+          <p className="mx-auto text-indigo-650 text-md">
             Select Category :
           </p>
           <Select
             className="border-2 border-indigo-650 rounded-md focus:ring-1 focus:ring-indigo-650"
             options={CatOptions}
           />
-          <p className="mx-auto text-indigo-650 text-md font-semibold">
+          <p className="mx-auto text-indigo-650 text-md">
             Select Language :
           </p>
           <Select
@@ -56,7 +56,7 @@ const addAudio = () => {
           <hr className="border-0 border-b-2 border-indigo-650 mx-auto h-2 w-36" />
           <RecordAudio />
           <hr className="border-0 border-b-2 border-indigo-650 mx-auto h-2 w-36" />
-          <p className="mx-auto text-indigo-650 font-semibold">
+          <p className="mx-auto text-indigo-650">
             Upload cover photo of the audio:
           </p>
           <input

@@ -10,7 +10,7 @@ const myProfile = () => {
            encType="multipart/form-data"
            className="space-y-3 mx-auto text-gray-900 w-11/12 lg:w-4/6"
          >
-           <p className="text-center text-indigo-650 text-lg font-semibold">
+           <p className="text-center text-indigo-650 text-lg">
              Tell us more about you!
            </p>
            <input
@@ -42,7 +42,7 @@ const myProfile = () => {
              placeholder="Email id"
            />
            <br />
-           <p className="mx-auto text-indigo-650 font-semibold">
+           <p className="mx-auto text-indigo-650">
              Upload your profile picture:
            </p>
            <input

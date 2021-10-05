@@ -72,7 +72,7 @@ const recordAudio = () => {
 
   return (
     <div className="space-y-3">
-      <p className="text-indigo-650 font-semibold">Upload your Audio File:</p>
+      <p className="text-indigo-650">Upload your Audio File:</p>
       <input
         className="input bg-white"
         type="file"
@@ -82,7 +82,7 @@ const recordAudio = () => {
       />
       {fileUploaded && (
         <>
-          <h3 className="text-indigo-650 font-semibold">Uploaded Audio:</h3>
+          <h3 className="text-indigo-650">Uploaded Audio:</h3>
           <audio
             className="w-full"
             id="player2"
@@ -92,7 +92,7 @@ const recordAudio = () => {
         </>
       )}
 
-      <p className="text-center text-indigo-650 font-semibold">OR</p>
+      <p className="text-center text-indigo-650">OR</p>
       <button
         className="btn"
         onClick={() => setShowRec(true)}
@@ -129,7 +129,7 @@ const recordAudio = () => {
             </div>
           )}
 
-          <p className="mx-auto text-indigo-650 font-semibold ml-1">
+          <p className="mx-auto text-indigo-650 ml-1">
             Recorded Audio
           </p>
           <div className="space-y-3 text-center">
@@ -142,7 +142,7 @@ const recordAudio = () => {
             <button
               onClick={() => reset()}
               type="button"
-              className="text-white bg-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white font-semibold hover:bg-gray-700 transition"
+              className="text-white bg-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white hover:bg-gray-700 transition"
             >
               <FaRedo className="inline mr-2 mb-1" />
               <p className="inline">Record Again</p>
