@@ -7,7 +7,7 @@ import Timer from './timer';
 
 var mediaRecorder = null;
 
-const recordAudio = () => {
+const RecordAudio = () => {
   const [audioSrc, setAudioSrc] = useState('');
   const [uploadedAudioSrc, setUploadedAudioSrc] = useState('');
   const [showRec, setShowRec] = useState(false);
@@ -93,11 +93,7 @@ const recordAudio = () => {
       )}
 
       <p className="text-center text-indigo-650">OR</p>
-      <button
-        className="btn"
-        onClick={() => setShowRec(true)}
-        type="button"
-      >
+      <button className="btn" onClick={() => setShowRec(true)} type="button">
         Click here to record your audio directly
       </button>
       {showRec && (
@@ -129,16 +125,9 @@ const recordAudio = () => {
             </div>
           )}
 
-          <p className="mx-auto text-indigo-650 ml-1">
-            Recorded Audio
-          </p>
+          <p className="mx-auto text-indigo-650 ml-1">Recorded Audio</p>
           <div className="space-y-3 text-center">
-            <audio
-              className="w-full"
-              id="player1"
-              controls
-              src={audioSrc}
-            />
+            <audio className="w-full" id="player1" controls src={audioSrc} />
             <button
               onClick={() => reset()}
               type="button"
@@ -154,4 +143,4 @@ const recordAudio = () => {
   );
 };
 
-export default recordAudio;
+export default RecordAudio;

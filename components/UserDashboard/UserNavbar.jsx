@@ -8,7 +8,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-const userNavbar = () => {
+const UserNavbar = () => {
   let [categories] = useState({
     'My Profile': {
       id: 1,
@@ -48,15 +48,11 @@ const userNavbar = () => {
       </div>
       <Tab.Panels className="">
         {Object.values(categories).map((Tabs, idx) => (
-          <Tab.Panel
-            key={idx}
-          >
-            {<Tabs.content key={Tabs.id} />}
-          </Tab.Panel>
+          <Tab.Panel key={idx}>{<Tabs.content key={Tabs.id} />}</Tab.Panel>
         ))}
       </Tab.Panels>
     </Tab.Group>
   );
 };
 
-export default userNavbar;
+export default UserNavbar;
