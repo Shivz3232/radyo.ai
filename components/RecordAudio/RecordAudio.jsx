@@ -7,7 +7,7 @@ import Timer from './Timer';
 
 var mediaRecorder = null;
 
-const recordAudio = () => {
+const recordAudio = ({AudioData}) => {
   const [audioSrc, setAudioSrc] = useState('');
   const [uploadedAudioSrc, setUploadedAudioSrc] = useState('');
   const [showRec, setShowRec] = useState(false);
@@ -22,6 +22,7 @@ const recordAudio = () => {
       const url = URL.createObjectURL(file);
       setUploadedAudioSrc(url);
       setfileUploaded(true);
+      AudioData(file);
     } else {
       setfileUploaded(false);
     }
@@ -59,7 +60,8 @@ const recordAudio = () => {
 
     mediaRecorder.addEventListener('stop', function () {
       setAudioSrc(URL.createObjectURL(new Blob(recordedChunks)));
-      setUploadedAudioSrc(URL.createObjectURL(new Blob(recordedChunks)));
+      // setUploadedAudioSrc(URL.createObjectURL(new Blob(recordedChunks)));
+      AudioData(new Blob(recordedChunks));
     });
     mediaRecorder.start();
   };
@@ -78,16 +80,13 @@ const recordAudio = () => {
         className="input bg-white"
         type="file"
         accept="audio/*"
-        id="uploadedAudio"
         onChange={handleChange}
-        src={uploadedAudioSrc}
       />
       {fileUploaded && (
         <>
           <h3 className="text-indigo-650">Uploaded Audio:</h3>
           <audio
             className="w-full"
-            id="player2"
             controls
             src={uploadedAudioSrc}
           ></audio>
@@ -120,6 +119,7 @@ const recordAudio = () => {
               Stop Recording
             </button>
           </div>
+
           {recordingOn && (
             <div className="text-center space-x-3 bg-gray-200 rounded-md">
               <ImMic className="inline mr-2 mb-1" />
@@ -129,7 +129,7 @@ const recordAudio = () => {
 
           <p className="mx-auto text-indigo-650 ml-1">Recorded Audio</p>
           <div className="space-y-3 text-center">
-            <audio className="w-full" id="player1" controls src={audioSrc} />
+            <audio className="w-full" controls src={audioSrc} />
             <button
               onClick={() => reset()}
               type="button"

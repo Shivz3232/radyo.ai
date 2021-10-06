@@ -1,25 +1,91 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useRef, useState } from 'react';
 import Select from 'react-select';
 import RecordAudio from '../RecordAudio/RecordAudio';
+// --------------------------------------------------------------------------------
+const CatOptions = [
+  { value: 'Cat1', label: 'Category1' },
+  { value: 'Cat2', label: 'Category2' },
+  { value: 'Cat3', label: 'Category3' },
+];
+
+const LanOptions = [
+  { value: 'eng', label: 'English' },
+  { value: 'hin', label: 'Hindi' },
+];
+// --------------------------------------------------------------------------------
+// const [selectFields, setSelectFields] = useState({ cat: '', lan: '' });
+// const handleSelectChange = e => {
+//   console.log(e);
+//   console.log(selectFields);
+//   const { label, value } = e;
+//   setSelectFields(prevValue => {
+//     return {
+//       ...prevValue,
+//       [label]: value,
+//     };
+//   });
+// };
 
 const addAudio = () => {
+  const [lanSelect, setLanSelect] = useState('');
+  const [catSelect, setCatSelect] = useState('');
+  const [audio, setAudio] = useState('');
+  const [textFields, setTextFields] = useState({
+    title: '',
+    hashTags: '',
+  });
+  const [coverImg, setCoverImg] = useState('');
 
-  const CatOptions = [
-    { value: 'Cat1', label: 'Category 1' },
-    { value: 'Cat2', label: 'Category 2' },
-    { value: 'Cat3', label: 'Category 3' },
-  ];
+  const setAudioData = data => {
+    // console.log(data);
+    setAudio(data);
+  };
 
-  const LanOptions = [
-    { value: 'eng', label: 'English' },
-    { value: 'hin', label: 'Hindi' },
-  ];
 
+  const handleTextChange = e => {
+    const { name, value } = e.target;
+    setTextFields(prevValue => {
+      return {
+        ...prevValue,
+        [name]: value,
+      };
+    });
+  };
+
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    let formData = new FormData();
+    formData.append('cat',catSelect);
+    formData.append('lan',lanSelect);
+    formData.append('title',textFields.title);
+    formData.append('hashTags',textFields.hashTags);
+    formData.append('audiofile',audio);
+    formData.append('coverImg',coverImg);
+    await axios({
+      method: 'post',
+      url: '/api/temp',
+      data: formData,
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
+      .then(function (response) {
+        //handle success
+        console.log(response);
+      })
+      .catch(function (response) {
+        //handle error
+        console.log(response);
+      });
+
+  };
+  // --------------------------------------------------------------------------------
+  
   return (
     <>
       <div className="text-indigo-650 flex flex-column w-11/12 sm:w-3/6 mx-auto p-6 bg-gray-300 rounded-md shadow-xl">
         <form
-          action="/api/addAudio"
+          action=""
           method="POST"
           encType="multipart/form-data"
           className="space-y-3 mx-auto text-gray-900 w-11/12 lg:w-4/6"
@@ -31,30 +97,38 @@ const addAudio = () => {
           <Select
             className="border-2 border-indigo-650 rounded-md focus:ring-1 focus:ring-indigo-650"
             options={CatOptions}
+            name="cat"
+            onChange={e => setCatSelect(e.value)}
           />
           <p className="mx-auto text-indigo-650 text-md">Select Language :</p>
           <Select
             className="border-2 border-indigo-650 rounded-md focus:ring-1 focus:ring-indigo-650"
             options={LanOptions}
+            name="lan"
+            onChange={e => setLanSelect(e.value)}
           />
           <input
             className="input"
             type="text"
-            name="Title"
+            name="title"
             placeholder="Enter title of the submission (max 10 words)​"
+            onChange={handleTextChange}
+            value={textFields.title}
             required
           />
           <br />
           <input
             className="input"
             type="text"
-            name="hastags"
+            name="hashTags"
             placeholder="Enter comma separate keywords, hashtags​"
+            onChange={handleTextChange}
+            value={textFields.hashTags}
             required
           />
           <br />
           <hr className="border-0 border-b-2 border-indigo-650 mx-auto h-2 w-36" />
-          <RecordAudio />
+          <RecordAudio AudioData={setAudioData} />
           <hr className="border-0 border-b-2 border-indigo-650 mx-auto h-2 w-36" />
           <p className="mx-auto text-indigo-650">
             Upload cover photo of the audio:
@@ -63,10 +137,14 @@ const addAudio = () => {
             className="input bg-white"
             type="file"
             id="img"
-            name="img"
+            name="coverImg"
             accept="image/*"
+            onChange={e => {
+              setCoverImg(e.target.files[0]);
+              console.log(e.target.files[0]);
+            }}
           />
-          <button className="submit-btn" type="submit">
+          <button className="submit-btn" onClick={handleSubmit}>
             Submit
           </button>
         </form>
@@ -76,3 +154,21 @@ const addAudio = () => {
 };
 
 export default addAudio;
+
+// const handleMediaChange = e => {
+  //   console.log(mediaFields);
+  //   const { name, files } = e.target;
+  //   setMediaFields(prevValue => {
+    //     return {
+      //       ...prevValue,
+      //       [name]: files[0],
+      //     };
+      //   });
+      // };
+
+
+      // console.log(audio);
+      // console.log(textFields);
+      // console.log(coverImg);
+      // console.log(lanSelect);
+      // console.log(catSelect);
