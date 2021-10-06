@@ -3,6 +3,7 @@ import 'react-h5-audio-player/lib/styles.css';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import Header from '../components/Header/Header';
 import '../styles/App.scss';
+import '../styles/AboutUs.scss'
 import '../styles/AudioCard.scss';
 import '../styles/AudioCardsVerticalScroll.scss';
 import '../styles/AudioCategoryColors.scss';
