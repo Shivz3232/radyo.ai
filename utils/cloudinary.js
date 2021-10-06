@@ -12,7 +12,7 @@ export const uploads = (file, folder) => {
       file,
       { folder: folder, resource_type: 'auto' },
       (error, result) => {
-        // console.log(result);
+        console.log(result);
         resolve({
           url: result.secure_url,
           id: result.public_id,

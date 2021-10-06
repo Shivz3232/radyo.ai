@@ -55,7 +55,7 @@ const addAudio = () => {
 
   
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     let formData = new FormData();
     formData.append('cat',catSelect);
     formData.append('lan',lanSelect);
@@ -65,7 +65,7 @@ const addAudio = () => {
     formData.append('coverImg',coverImg);
     await axios({
       method: 'post',
-      url: '/api/temp',
+      url: '/api/addAudio',
       data: formData,
       headers: { 'Content-Type': 'multipart/form-data' },
     })

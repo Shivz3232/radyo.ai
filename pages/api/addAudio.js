@@ -1,6 +1,6 @@
 import connect from '../../utils/middleware/mongoClient';
-import multer from 'multer';
 import nextConnect from 'next-connect';
+import multer from 'multer';
 import { uploads } from '../../utils/cloudinary';
 import path from 'path';
 
@@ -12,7 +12,7 @@ const uploader = nextConnect({
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, '/uploads');
+    cb(null, 'uploads');
   },
   filename: function (req, file, cb) {
     cb(
@@ -25,15 +25,18 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 
 const uploadMiddleware = upload.fields([
-  { name: 'audio', maxCount: 1 },
-  { name: 'cover_img', maxCount: 1 },
+  { name: 'audiofile', maxCount: 1 },
+  { name: 'coverImg', maxCount: 1 },
 ]);
 uploader.use(uploadMiddleware);
 
 uploader.post(async (req, res) => {
   if (req.method === 'POST') {
-    let audioFilePath = req.files.audio[0].path;
-    let coverImgPath = req.files.cover_img[0].path;
+    console.log("hiiiii");
+    console.log(req.files);
+    console.log(req.body);
+    let audioFilePath = req.files.audiofile[0].path;
+    let coverImgPath = req.files.coverImg[0].path;
 
     console.log(audioFilePath);
     console.log(coverImgPath);
