@@ -11,6 +11,5 @@ const FIREBASE_CONFIG = {
 export default function firebaseClient() {
   if (!firebase.apps.length) {
     firebase.initializeApp(FIREBASE_CONFIG);
-    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
   }
 }
