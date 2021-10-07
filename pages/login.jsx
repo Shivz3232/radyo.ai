@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import RCG from 'referral-code-generator';
 import {
   FacebookLoginButton,
@@ -11,19 +11,19 @@ import nookies from 'nookies';
 import { verifyIdToken } from '../utils/firebase/firebaseAdmin';
 import connect from '../utils/middleware/mongoClient';
 import PodcastCreatorModel from '../models/podcastCreator';
-import Modal from '../components/Modal/Modal';
+import { useAuth } from '../controllers/auth';
 
 export const getServerSideProps = async context => {
   try {
     const cookies = nookies.get(context);
-    console.log(cookies);
     const token = await verifyIdToken(cookies.token);
     const { uid, email } = token;
     try {
-      connect(createUser(token, 'rcode'));
+      connect(createUser(token, 'NONE'));
     } catch (err) {
       console.log(err);
     }
+    console.log('User authenticated');
     return {
       redirect: {
         permanent: false,
@@ -32,7 +32,6 @@ export const getServerSideProps = async context => {
       props: {},
     };
   } catch (err) {
-    console.log(err);
     console.log('User not authenticated');
     return {
       props: {},
@@ -41,9 +40,6 @@ export const getServerSideProps = async context => {
 };
 
 const createUser = async (token, rcode) => {
-  if (rcode == '') {
-    rcode = 'NONE';
-  }
   const user = new PodcastCreatorModel({
     creatorName: token.name,
     email: token.email,
@@ -54,7 +50,7 @@ const createUser = async (token, rcode) => {
     playCount: 0,
     subscriberCount: 0,
     referralCode: RCG.alpha('lowercase', 6),
-    referrerCode: rcode,
+    referrerCode: 'NONE',
   });
 
   await PodcastCreatorModel.find({ email: token.email }).then(
@@ -74,9 +70,22 @@ const createUser = async (token, rcode) => {
 };
 
 const Login = () => {
-  const [showModalonLogin, setshowModalonLogin] = useState('invisible');
-  const [modalusername, setmodalusername] = useState('User');
+  // const [showModalonLogin, setshowModalonLogin] = useState('invisible');
+  // const [modalusername, setmodalusername] = useState('User');
+  const [showLoginLoader, setshowLoginLoader] = useState('hidden');
+  const [showLoginForm, setshowLoginForm] = useState('visible');
   const router = useRouter();
+  const { userid } = useAuth();
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(() => {
+      if (userid) {
+        setshowLoginLoader('visible');
+        setshowLoginForm('hidden');
+        router.push('/login');
+      }
+    });
+  });
 
   const loginWithGoogle = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -85,6 +94,7 @@ const Login = () => {
       .signInWithPopup(provider)
       .then(result => {
         const { credential, user, accessToken } = result;
+        /*
         if (result.additionalUserInfo.isNewUser == true) {
           setshowModalonLogin('visible');
           setmodalusername(user.displayName);
@@ -92,6 +102,7 @@ const Login = () => {
         } else {
           router.push('/');
         }
+        */
       })
       .catch(error => {
         const { code, message, email, credential } = error;
@@ -105,7 +116,6 @@ const Login = () => {
       .signInWithRedirect(provider)
       .then(result => {
         const { credential, user, accessToken } = result;
-        router.push('/');
       })
       .catch(error => {
         const { code, message, email, credential } = error;
@@ -120,6 +130,7 @@ const Login = () => {
       .signInWithPopup(provider)
       .then(result => {
         const { credential, user, accessToken } = result;
+        /*
         if (result.additionalUserInfo.isNewUser == true) {
           setshowModalonLogin('visible');
           setmodalusername(user);
@@ -127,19 +138,20 @@ const Login = () => {
         } else {
           router.push('/');
         }
+        */
       })
-      .catch(async error => {
+      .catch(error => {
         const { code, message, email, credential } = error;
         if (code === 'auth/account-exists-with-different-credential') {
-          await loginWithGoogleRedirection();
-          router.push('/');
+          loginWithGoogleRedirection();
         }
       });
   };
   /*
       <div>
         <Modal showModal={showModalonLogin} modalusername={modalusername} />
-      </div>*/
+      </div>
+  */
   return (
     <>
       <div className="relative flex-auto items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 bg-gray-100 bg-no-repeat bg-cover relative items-center">
@@ -152,10 +164,15 @@ const Login = () => {
               Be a part of community of listeners and creators, all connected
               through the power of creativity &amp; talent.
             </div>
-            <div>
+            <div className={showLoginLoader}>
+              <div className=" flex justify-center items-center z-40">
+                <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-purple-500"></div>
+              </div>
+            </div>
+            <div className={showLoginForm}>
               <FacebookLoginButton onClick={loginWithFacebook} />
             </div>
-            <div>
+            <div className={showLoginForm}>
               <GoogleLoginButton onClick={loginWithGoogle} />
             </div>
             <div className="text-xs break-words text-center">
