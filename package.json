@@ -41,6 +41,7 @@
     "react-select": "^5.0.0",
     "react-social-login-buttons": "^3.5.1",
     "react-stopwatch": "^2.0.4",
+    "referral-code-generator": "^1.0.8",
     "sass": "^1.42.1",
     "swr": "^1.0.1"
   },
