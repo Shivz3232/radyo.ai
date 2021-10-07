@@ -41,6 +41,10 @@ const PodcastSchema = new Schema(
       enum: ['inreview', 'approved', 'rejected'],
       default: 'inreview',
     },
+    reported: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     // TODO : check if date is added automatically when audio is uploaded, not working for manual entry

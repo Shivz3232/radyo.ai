@@ -3,7 +3,13 @@ import playButton from '../../assets/playbtn.png';
 // import { Button } from '@material-ui/core';
 import { formatDuration } from '../../utils/formatDuration';
 
-const PodcastReviewCard = ({ podcast, playAudio, approve, reject }) => {
+const PodcastReviewCard = ({
+  podcast,
+  playAudio,
+  approve,
+  reject,
+  showReport,
+}) => {
   const trackInfo = {
     coverSrc: `${podcast.coverImage}`,
     audioSrc: `${podcast.audioSrc}`,
@@ -15,20 +21,29 @@ const PodcastReviewCard = ({ podcast, playAudio, approve, reject }) => {
       <section className="section-1 flex flex-col justify-between md:border-green ">
         <h2 className="font-bold">{podcast.title}</h2>
         <h4 className="">{podcast.creatorId.creatorName}</h4>
+        {showReport && podcast.reported && podcast.reported > 0 && (
+          <span className="text-red-800">
+            Reported {podcast.reported} times{' '}
+          </span>
+        )}
         <div className="descision__buttons">
-          <button
-            className="border-2 border-indigo-650 rounded-md p-2 bg-indigo-650 text-white hover:bg-white hover:text-indigo-650"
-            style={{ marginRight: '1rem' }}
-            onClick={e => approve(podcast._id)}
-          >
-            Approve
-          </button>
-          <button
-            className="border-2 border-red-500 rounded-md p-2 bg-red-500 text-white hover:bg-white hover:text-red-500"
-            onClick={e => reject(podcast._id)}
-          >
-            Reject
-          </button>
+          {approve && (
+            <button
+              className="border-2 border-indigo-650 rounded-md p-2 bg-indigo-650 text-white hover:bg-white hover:text-indigo-650"
+              style={{ marginRight: '1rem' }}
+              onClick={e => approve(podcast._id)}
+            >
+              Approve
+            </button>
+          )}
+          {reject && (
+            <button
+              className="border-2 border-red-500 rounded-md p-2 bg-red-500 text-white hover:bg-white hover:text-red-500"
+              onClick={e => reject(podcast._id)}
+            >
+              Reject
+            </button>
+          )}
         </div>
       </section>
       <section className="section-2 flex flex-col justify-between">

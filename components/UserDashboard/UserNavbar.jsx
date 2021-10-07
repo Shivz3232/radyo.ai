@@ -4,11 +4,11 @@ import MyProfile from './MyProfile';
 import AddAudio from './AddAudio';
 import MySubmissions from './MySubmissions';
 
-function classNames(...classes) {
+export function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-const userNavbar = () => {
+const UserNavbar = () => {
   let [categories] = useState({
     'My Profile': {
       id: 1,
@@ -55,4 +55,4 @@ const userNavbar = () => {
   );
 };
 
-export default userNavbar;
+export default UserNavbar;

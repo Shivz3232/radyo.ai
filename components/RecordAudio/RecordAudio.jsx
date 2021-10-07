@@ -145,4 +145,4 @@ const recordAudio = ({AudioData}) => {
   );
 };
 
-export default recordAudio;
+export default RecordAudio;

@@ -9,7 +9,10 @@ const BarChartRace1 = loadable(() => import('../../components/Leaderboard/Leader
             
         return(
            <>
-                <BarChartRace1/>
+                <div className="lb-box-container">
+                    <BarChartRace1/>
+                </div>
+                
            </>
          )
     }

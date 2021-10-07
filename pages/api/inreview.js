@@ -11,11 +11,21 @@ const getPodcastsInReview = async (req, res) => {
   }
 
   if (req.method == 'GET') {
+    const type = req.query.status;
+    let filter = {
+      status: type,
+    };
+    // console.log(type);
+    if (type === 'reported') {
+      filter = {
+        status: 'approved',
+        reported: { $gte: 1 },
+      };
+    }
     const podCasts = await PodcastModel.find(
-      { status: 'inreview' },
+      filter,
       '-playCount -shareCount -likeCount'
     )
-      // @TODO creator name will be got after population, once the creatorId field is integrated, this will be followed by line 31 of  /components/PodcastReivewCard/PodcastReviewCard.tsx
       .populate('creatorId', 'creatorName', 'users')
       .catch(console.error);
 

@@ -1,7 +1,15 @@
 import React from 'react';
+import HomeCarousel from '../components/HomeCarousel/HomeCarousel';
 
 const AboutUs = () => {
-  return <div>About us page</div>;
+  return (
+    <>
+       <div>
+               
+
+            </div>
+    </>
+  )
 };
 
 export async function getStaticProps() {

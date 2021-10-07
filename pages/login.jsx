@@ -5,12 +5,39 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import nookies from "nookies";
 import { verifyIdToken } from '../utils/firebase/firebaseAdmin';
+import connect from '../utils/middleware/mongoClient';
+import PodcastCreatorModel from '../models/podcastCreator';
+
+const createUser = async (token) => {
+  var user = new PodcastCreatorModel({
+    creatorName: token.name,
+    email: token.email,
+    uid: token.uid,
+    avatarImage: token.picture,
+    about: token.name,
+    audiosPublished: 0,
+    playCount: 0,
+    subscriberCount: 0
+  });
+
+  await PodcastCreatorModel.find({"email": token.email}).then(async (userExists)=>{
+    if(userExists.length==0){
+      await user.save().then(()=>{console.log("User added");}).catch(()=>{console.log("User not added");})
+    }
+  })
+};
 
 export const getServerSideProps = async(context) => {
   try {
     const cookies = nookies.get(context);
     const token = await verifyIdToken(cookies.token);
     const { uid, email } = token;
+    try{
+      connect(createUser(token));
+    }
+    catch(err){
+      console.log(err);
+    }
     return {
       redirect: {
         permanent: false,
@@ -21,7 +48,8 @@ export const getServerSideProps = async(context) => {
   }
   catch (err) {
     console.log("User not authenticated");
-    return { props: {} };
+    return { 
+      props: {} };
   }
 }
 
@@ -70,16 +98,17 @@ const loginWithFacebook = async () => {
     var errorMessage = error.message;
     var email = error.email;
     if(errorCode === "auth/account-exists-with-different-credential"){
-        loginWithGoogleRedirection();
+      await loginWithGoogleRedirection();
     }
     var credential = error.credential;
   });
 }
 
 const Login = () => {
+  
   firebase.auth().onAuthStateChanged(user => {
     if(user) {
-      window.location = '/'; //After successful login, user will be redirected to /
+      window.location="/";
     }
   });
 
@@ -93,10 +122,10 @@ const Login = () => {
                 Be a part of community of listeners and creators, all connected through the power of creativity &amp; talent.
               </div>
               <div>
-                <FacebookLoginButton onClick={()=>{loginWithFacebook()}} />
+                <FacebookLoginButton onClick={async ()=>{await loginWithFacebook().then(()=>{window.location="/login"})}} />
               </div>
               <div>
-                <GoogleLoginButton onClick={()=>{loginWithGoogle()}} />
+                <GoogleLoginButton onClick={async ()=>{await loginWithGoogle().then(()=>window.location="/login")}} />
               </div>
               <div className="text-xs break-words text-center">
                 By signing up and logging in I agree to <a href="#" className="underline">Terms and Conditions</a> and <a href="#" className="underline">Privacy Policy</a>.
