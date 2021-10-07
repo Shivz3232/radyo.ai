@@ -1,8 +1,8 @@
 import axios from 'axios';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Select from 'react-select';
 import RecordAudio from '../RecordAudio/RecordAudio';
-// --------------------------------------------------------------------------------
+
 const CatOptions = [
   { value: 'Cat1', label: 'Category1' },
   { value: 'Cat2', label: 'Category2' },
@@ -13,19 +13,6 @@ const LanOptions = [
   { value: 'eng', label: 'English' },
   { value: 'hin', label: 'Hindi' },
 ];
-// --------------------------------------------------------------------------------
-// const [selectFields, setSelectFields] = useState({ cat: '', lan: '' });
-// const handleSelectChange = e => {
-//   console.log(e);
-//   console.log(selectFields);
-//   const { label, value } = e;
-//   setSelectFields(prevValue => {
-//     return {
-//       ...prevValue,
-//       [label]: value,
-//     };
-//   });
-// };
 
 const addAudio = () => {
   const [lanSelect, setLanSelect] = useState('');
@@ -36,13 +23,12 @@ const addAudio = () => {
     hashTags: '',
   });
   const [coverImg, setCoverImg] = useState('');
-
+  
   const setAudioData = data => {
-    // console.log(data);
     setAudio(data);
   };
-
-
+  
+  
   const handleTextChange = e => {
     const { name, value } = e.target;
     setTextFields(prevValue => {
@@ -52,10 +38,10 @@ const addAudio = () => {
       };
     });
   };
-
+  
   
   const handleSubmit = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     let formData = new FormData();
     formData.append('cat',catSelect);
     formData.append('lan',lanSelect);
@@ -69,17 +55,16 @@ const addAudio = () => {
       data: formData,
       headers: { 'Content-Type': 'multipart/form-data' },
     })
-      .then(function (response) {
-        //handle success
-        console.log(response);
-      })
-      .catch(function (response) {
-        //handle error
-        console.log(response);
-      });
-
+    .then(function (response) {
+      //handle success
+      console.log(response);
+    })
+    .catch(function (response) {
+      //handle error
+      console.log(response);
+    });
+    
   };
-  // --------------------------------------------------------------------------------
   
   return (
     <>
@@ -154,21 +139,3 @@ const addAudio = () => {
 };
 
 export default addAudio;
-
-// const handleMediaChange = e => {
-  //   console.log(mediaFields);
-  //   const { name, files } = e.target;
-  //   setMediaFields(prevValue => {
-    //     return {
-      //       ...prevValue,
-      //       [name]: files[0],
-      //     };
-      //   });
-      // };
-
-
-      // console.log(audio);
-      // console.log(textFields);
-      // console.log(coverImg);
-      // console.log(lanSelect);
-      // console.log(catSelect);

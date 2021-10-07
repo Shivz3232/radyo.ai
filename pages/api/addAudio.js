@@ -32,14 +32,10 @@ uploader.use(uploadMiddleware);
 
 uploader.post(async (req, res) => {
   if (req.method === 'POST') {
-    console.log("hiiiii");
     console.log(req.files);
     console.log(req.body);
     let audioFilePath = req.files.audiofile[0].path;
     let coverImgPath = req.files.coverImg[0].path;
-
-    console.log(audioFilePath);
-    console.log(coverImgPath);
 
     try {
       var audioFile = await uploads(audioFilePath, 'audio_files');

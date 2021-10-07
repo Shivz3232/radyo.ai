@@ -60,7 +60,6 @@ const RecordAudio = ({AudioData}) => {
 
     mediaRecorder.addEventListener('stop', function () {
       setAudioSrc(URL.createObjectURL(new Blob(recordedChunks)));
-      // setUploadedAudioSrc(URL.createObjectURL(new Blob(recordedChunks)));
       AudioData(new Blob(recordedChunks));
     });
     mediaRecorder.start();
