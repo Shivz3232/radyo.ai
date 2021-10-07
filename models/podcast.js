@@ -1,15 +1,6 @@
 import mongoose, { Model, model, Schema, Document } from 'mongoose';
+import { stringRequired, numberRequired } from './schemaFieldTypes';
 import PodcastCreatorModel from './podcastCreator';
-
-const stringRequired = {
-  type: String,
-  required: true,
-};
-
-const numberRequired = {
-  type: Number,
-  required: true,
-};
 
 const PodcastSchema = new Schema(
   {

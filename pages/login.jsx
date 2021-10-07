@@ -1,15 +1,50 @@
-import React from 'react';
-import { FacebookLoginButton } from "react-social-login-buttons";
-import { GoogleLoginButton } from "react-social-login-buttons";
-import firebase from "firebase/app";
-import "firebase/auth";
-import nookies from "nookies";
+import { React, useState } from 'react';
+import RCG from 'referral-code-generator';
+import {
+  FacebookLoginButton,
+  GoogleLoginButton,
+} from 'react-social-login-buttons';
+import { useRouter } from 'next/router';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import nookies from 'nookies';
 import { verifyIdToken } from '../utils/firebase/firebaseAdmin';
 import connect from '../utils/middleware/mongoClient';
 import PodcastCreatorModel from '../models/podcastCreator';
+import Modal from '../components/Modal/Modal';
 
-const createUser = async (token) => {
-  var user = new PodcastCreatorModel({
+export const getServerSideProps = async context => {
+  try {
+    const cookies = nookies.get(context);
+    console.log(cookies);
+    const token = await verifyIdToken(cookies.token);
+    const { uid, email } = token;
+    try {
+      connect(createUser(token, 'rcode'));
+    } catch (err) {
+      console.log(err);
+    }
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/',
+      },
+      props: {},
+    };
+  } catch (err) {
+    console.log(err);
+    console.log('User not authenticated');
+    return {
+      props: {},
+    };
+  }
+};
+
+const createUser = async (token, rcode) => {
+  if (rcode == '') {
+    rcode = 'NONE';
+  }
+  const user = new PodcastCreatorModel({
     creatorName: token.name,
     email: token.email,
     uid: token.uid,
@@ -17,119 +52,123 @@ const createUser = async (token) => {
     about: token.name,
     audiosPublished: 0,
     playCount: 0,
-    subscriberCount: 0
+    subscriberCount: 0,
+    referralCode: RCG.alpha('lowercase', 6),
+    referrerCode: rcode,
   });
 
-  await PodcastCreatorModel.find({"email": token.email}).then(async (userExists)=>{
-    if(userExists.length==0){
-      await user.save().then(()=>{console.log("User added");}).catch(()=>{console.log("User not added");})
+  await PodcastCreatorModel.find({ email: token.email }).then(
+    async userExists => {
+      if (userExists.length == 0) {
+        await user
+          .save()
+          .then(() => {
+            return true;
+          })
+          .catch(err => {
+            return false;
+          });
+      }
     }
-  })
+  );
 };
 
-export const getServerSideProps = async(context) => {
-  try {
-    const cookies = nookies.get(context);
-    const token = await verifyIdToken(cookies.token);
-    const { uid, email } = token;
-    try{
-      connect(createUser(token));
-    }
-    catch(err){
-      console.log(err);
-    }
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/"
-      },
-      props: {},
-    };
-  }
-  catch (err) {
-    console.log("User not authenticated");
-    return { 
-      props: {} };
-  }
-}
-
-const loginWithGoogle = async () => { 
-  var provider = new firebase.auth.GoogleAuthProvider();
-  await firebase.auth()
-  .signInWithPopup(provider)
-  .then((result) => {
-    var credential = result.credential;
-    var token = credential.accessToken;
-    var user = result.user;
-  }).catch((error) => {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    var email = error.email;
-    var credential = error.credential;
-  });
-}
-
-const loginWithGoogleRedirection = async () => { 
-  var provider = new firebase.auth.GoogleAuthProvider();
-  await firebase.auth()
-  .signInWithRedirect(provider)
-  .then((result) => {
-    var credential = result.credential;
-    var token = credential.accessToken;
-    var user = result.user;
-  }).catch((error) => {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    var email = error.email;
-    var credential = error.credential;
-  });
-}
-
-const loginWithFacebook = async () => { 
-  var provider = new firebase.auth.FacebookAuthProvider();
-  await firebase.auth()
-  .signInWithPopup(provider)
-  .then((result) => {
-    var credential = result.credential;
-    var user = result.user;
-    var accessToken = credential.accessToken;
-  }).catch(async (error) => {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    var email = error.email;
-    if(errorCode === "auth/account-exists-with-different-credential"){
-      await loginWithGoogleRedirection();
-    }
-    var credential = error.credential;
-  });
-}
-
 const Login = () => {
-  
-  firebase.auth().onAuthStateChanged(user => {
-    if(user) {
-      window.location="/";
-    }
-  });
+  const [showModalonLogin, setshowModalonLogin] = useState('invisible');
+  const [modalusername, setmodalusername] = useState('User');
+  const router = useRouter();
 
-  return(
+  const loginWithGoogle = async () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    await firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(result => {
+        const { credential, user, accessToken } = result;
+        if (result.additionalUserInfo.isNewUser == true) {
+          setshowModalonLogin('visible');
+          setmodalusername(user.displayName);
+          router.push('/login');
+        } else {
+          router.push('/');
+        }
+      })
+      .catch(error => {
+        const { code, message, email, credential } = error;
+      });
+  };
+
+  const loginWithGoogleRedirection = async () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    await firebase
+      .auth()
+      .signInWithRedirect(provider)
+      .then(result => {
+        const { credential, user, accessToken } = result;
+        router.push('/');
+      })
+      .catch(error => {
+        const { code, message, email, credential } = error;
+      });
+  };
+
+  const loginWithFacebook = async () => {
+    const provider = new firebase.auth.FacebookAuthProvider();
+    // Maybe use signin with redirect instead of signin with
+    await firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(result => {
+        const { credential, user, accessToken } = result;
+        if (result.additionalUserInfo.isNewUser == true) {
+          setshowModalonLogin('visible');
+          setmodalusername(user);
+          router.push('/login');
+        } else {
+          router.push('/');
+        }
+      })
+      .catch(async error => {
+        const { code, message, email, credential } = error;
+        if (code === 'auth/account-exists-with-different-credential') {
+          await loginWithGoogleRedirection();
+          router.push('/');
+        }
+      });
+  };
+  /*
+      <div>
+        <Modal showModal={showModalonLogin} modalusername={modalusername} />
+      </div>*/
+  return (
     <>
       <div className="relative flex-auto items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 bg-gray-100 bg-no-repeat bg-cover relative items-center">
-      <div className="mt-2 items-center z-10">
+        <div className="mt-2 items-center z-10">
           <form className="p-14 bg-white max-w-sm mx-auto rounded-xl shadow-xl overflow-hidden p-6 space-y-10">
-              <h2 className="text-4xl font-bold text-center text-indigo-600">Login</h2>
-              <div className="break-words text-center">
-                Be a part of community of listeners and creators, all connected through the power of creativity &amp; talent.
-              </div>
-              <div>
-                <FacebookLoginButton onClick={async ()=>{await loginWithFacebook().then(()=>{window.location="/login"})}} />
-              </div>
-              <div>
-                <GoogleLoginButton onClick={async ()=>{await loginWithGoogle().then(()=>window.location="/login")}} />
-              </div>
-              <div className="text-xs break-words text-center">
-                By signing up and logging in I agree to <a href="#" className="underline">Terms and Conditions</a> and <a href="#" className="underline">Privacy Policy</a>.
-              </div>
+            <h2 className="text-4xl font-bold text-center text-indigo-600">
+              Login
+            </h2>
+            <div className="break-words text-center">
+              Be a part of community of listeners and creators, all connected
+              through the power of creativity &amp; talent.
+            </div>
+            <div>
+              <FacebookLoginButton onClick={loginWithFacebook} />
+            </div>
+            <div>
+              <GoogleLoginButton onClick={loginWithGoogle} />
+            </div>
+            <div className="text-xs break-words text-center">
+              By signing up and logging in I agree to{' '}
+              <a href="#" className="underline">
+                Terms and Conditions
+              </a>{' '}
+              and{' '}
+              <a href="#" className="underline">
+                Privacy Policy
+              </a>
+              .
+            </div>
           </form>
         </div>
       </div>
