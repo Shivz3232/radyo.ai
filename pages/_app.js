@@ -36,26 +36,25 @@ function App({ Component, pageProps }) {
   const playAudioP = info => {
     setTrackInfo(info);
   };
-
   return (
     <main className="app">
       <AuthProvider>
-        <Head>
-          <title>Radyo.ai</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-        {!pageProps.hideNavBar && (
-          <Header activeTab={pageProps.activeTab} data={{ loggedIn: true }} />
-        )}
-        <Component {...pageProps} play={playAudioP} />
-        <div
-          // className="audio-player-dashboard"
-          id="audio-player"
-          className="absolute w-full bottom-0 left-0 z-20"
-          style={{ display: trackInfo.audioSrc ? '' : 'none' }}
-        >
-          <AudioPlayer trackInfo={trackInfo} play={playAudioP} />
-        </div>
+      <Head>
+        <title>Radyo.ai</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      {!pageProps.hideNavBar && (
+        <Header activeTab={pageProps.activeTab} data={{ loggedIn: true }} />
+      )}
+      <Component {...pageProps} play={playAudioP} />
+      <div
+        // className="audio-player-dashboard"
+        id="audio-player"
+        className="absolute w-full bottom-0 left-0 z-20"
+        style={{ display: trackInfo.audioSrc ? '' : 'none' }}
+      >
+        <AudioPlayer trackInfo={trackInfo} play={playAudioP} />
+      </div>
       </AuthProvider>
     </main>
   );
