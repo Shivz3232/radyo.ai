@@ -1,13 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import firebase from 'firebase';
+import axios from 'axios';
 
 const myProfile = () => {
   const [inputData, setInputData] = useState({
-    fullName: '',
-    userId: '',
+    creatorName: '',
+    uid: '',
     contact: '',
     email: '',
     about: '',
   });
+
+  useEffect(() => {
+    // try {
+    //   const user = firebase.auth().currentUser;
+    //   console.log(user);
+    // } catch (error) {
+    //   console.log(error);
+    // }
+
+    setTimeout(async () => {
+      const user = await firebase.auth().currentUser.email;
+      const data = {
+        user: user,
+      }
+      console.log(user);
+      if (user) {
+        await axios({
+          method: 'post',
+          url: '/api/getUserProfile',
+          data: data,
+          headers: { 'Content-Type': 'application/json' },
+        })
+          .then((response) => {
+            // inputData.creatorName = response.data[0].creatorName;
+            // inputData.email = response.data[0].email;
+            // inputData.uid = response.data[0].uid;
+            // inputData.about = response.data[0].about;
+            const userData = {
+              creatorName: response.data[0].creatorName,
+              uid: response.data[0].uid,
+              contact: '',
+              email: response.data[0].email,
+              about: response.data[0].about,
+            };
+            setInputData(userData);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    }, 1000);
+  }, []);
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -34,20 +78,20 @@ const myProfile = () => {
           <input
             className="input"
             type="text"
-            name="fullName"
+            name="creatorName"
             placeholder="Full name"
             onChange={handleChange}
-            value={inputData.fullName}
+            value={inputData.creatorName}
             required
           />
           <br />
           <input
             className="input"
             type="text"
-            name="userId"
+            name="uid"
             placeholder="User ID"
             onChange={handleChange}
-            value={inputData.userId}
+            value={inputData.uid}
             required
           />
           <br />
