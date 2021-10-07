@@ -55,20 +55,18 @@ const addAudio = () => {
       data: formData,
       headers: { 'Content-Type': 'multipart/form-data' },
     })
-    .then(function (response) {
-      //handle success
+    .then((response) => {
       console.log(response);
     })
-    .catch(function (response) {
-      //handle error
-      console.log(response);
+    .catch((error) => {
+      console.log(error);
     });
-    
+
   };
   
   return (
     <>
-      <div className="text-indigo-650 flex flex-column w-11/12 sm:w-3/6 mx-auto p-6 bg-gray-300 rounded-md shadow-xl">
+      <div className="text-indigo-650 flex flex-column w-11/12 sm:w-3/6 mx-auto p-6 bg-white rounded-md shadow-xl">
         <form
           action=""
           method="POST"
@@ -80,7 +78,7 @@ const addAudio = () => {
           </p>
           <p className="mx-auto text-indigo-650 text-md">Select Category :</p>
           <Select
-            className="border-2 border-indigo-650 rounded-md focus:ring-1 focus:ring-indigo-650"
+            className="border-2 bg-gray-100 border-indigo-650 rounded-md focus:ring-1 focus:ring-indigo-650"
             options={CatOptions}
             name="cat"
             onChange={e => setCatSelect(e.value)}
@@ -93,7 +91,7 @@ const addAudio = () => {
             onChange={e => setLanSelect(e.value)}
           />
           <input
-            className="input"
+            className="input bg-white"
             type="text"
             name="title"
             placeholder="Enter title of the submission (max 10 words)​"
@@ -103,7 +101,7 @@ const addAudio = () => {
           />
           <br />
           <input
-            className="input"
+            className="input bg-white"
             type="text"
             name="hashTags"
             placeholder="Enter comma separate keywords, hashtags​"

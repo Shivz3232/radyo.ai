@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import firebase from 'firebase';
+import avatar from '../../assets/Avatar.png';
 import axios from 'axios';
 
 const myProfile = () => {
   const [inputData, setInputData] = useState({
     creatorName: '',
-    uid: '',
     contact: '',
     email: '',
     about: '',
   });
+  const [imgSrc, setImgSrc] = useState(avatar.src)
 
   useEffect(() => {
     // try {
@@ -20,37 +21,33 @@ const myProfile = () => {
     // }
 
     setTimeout(async () => {
-      const user = await firebase.auth().currentUser.email;
-      const data = {
-        user: user,
-      }
-      console.log(user);
-      if (user) {
+      if (firebase.auth().currentUser) {
+        const user = await firebase.auth().currentUser.email;
+        const data = {
+          user: user,
+        };
         await axios({
           method: 'post',
           url: '/api/getUserProfile',
           data: data,
           headers: { 'Content-Type': 'application/json' },
         })
-          .then((response) => {
-            // inputData.creatorName = response.data[0].creatorName;
-            // inputData.email = response.data[0].email;
-            // inputData.uid = response.data[0].uid;
-            // inputData.about = response.data[0].about;
+          .then(user => {
+            const details = user.data[0];
             const userData = {
-              creatorName: response.data[0].creatorName,
-              uid: response.data[0].uid,
+              creatorName: details.creatorName,
               contact: '',
-              email: response.data[0].email,
-              about: response.data[0].about,
+              email: details.email,
+              about: details.about,
             };
             setInputData(userData);
+            setImgSrc(details.avatarImage);
           })
-          .catch((error) => {
+          .catch(error => {
             console.log(error);
           });
       }
-    }, 1000);
+    }, 3000);
   }, []);
 
   const handleChange = e => {
@@ -65,7 +62,14 @@ const myProfile = () => {
 
   return (
     <>
-      <div className="text-indigo-650 flex flex-column w-11/12 sm:w-3/6 mx-auto p-6 bg-gray-300 rounded-md shadow-xl">
+      <div className="text-indigo-650 flex flex-column w-11/12 sm:w-3/6 mx-auto p-6 bg-white rounded-md shadow-xl">
+        <div className="flex flex-column items-center cursor-pointer">
+          <img
+            src={imgSrc}
+            alt="avatar"
+            className="h-12 w-12 rounded-full bg-gray-200 align-middle block"
+          />
+        </div>
         <form
           action="/api/userProfile"
           method="POST"
@@ -85,15 +89,6 @@ const myProfile = () => {
             required
           />
           <br />
-          <input
-            className="input"
-            type="text"
-            name="uid"
-            placeholder="User ID"
-            onChange={handleChange}
-            value={inputData.uid}
-            required
-          />
           <br />
           <input
             className="input"
@@ -145,3 +140,13 @@ const myProfile = () => {
 };
 
 export default myProfile;
+
+//  <input
+//   className="input"
+//   type="text"
+//   name="uid"
+//   placeholder="User ID"
+//   onChange={handleChange}
+//   value={inputData.uid}
+//   required
+// /> 
