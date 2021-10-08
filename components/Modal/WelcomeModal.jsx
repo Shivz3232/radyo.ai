@@ -42,7 +42,12 @@ const WelcomeModal = props => {
           Enjoy...
         </div>
         <div className="text-center text-2xl mt-10 mb-2">
-          <button className="bg-white text-opacity-0 font-bold py-2 px-4 rounded-full">
+          <button
+            className="bg-white text-opacity-0 font-bold py-2 px-4 rounded-full"
+            onClick={() => {
+              router.push('/trending');
+            }}
+          >
             Play Now
           </button>
         </div>
