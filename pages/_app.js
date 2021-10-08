@@ -57,7 +57,7 @@ function App({ Component, pageProps }) {
             console.log(error);
           });
       }
-    }, 2000);
+    }, 1000);
   }, []);
 
   const playAudioP = info => {

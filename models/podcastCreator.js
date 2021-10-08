@@ -29,7 +29,7 @@ const PodcastCreatorSchema = new Schema({
   audiosPublished: numberRequired,
   playCount: numberRequired,
   subscriberCount: numberRequired,
-  contact: stringRequired,
+  contact: String,
 });
 
 const PodcastCreatorModel =

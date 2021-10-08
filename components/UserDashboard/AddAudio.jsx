@@ -110,11 +110,8 @@ const addAudio = () => {
             required
           />
           <br />
-          <hr className="border-0 border-b-2 border-indigo-650 mx-auto h-2 w-36" />
-          <RecordAudio AudioData={setAudioData} />
-          <hr className="border-0 border-b-2 border-indigo-650 mx-auto h-2 w-36" />
           <p className="mx-auto text-indigo-650">
-            Upload cover photo of the audio:
+            Upload cover photo of the audio :
           </p>
           <input
             className="input bg-white"
@@ -127,6 +124,9 @@ const addAudio = () => {
               console.log(e.target.files[0]);
             }}
           />
+          <hr className="border-0 border-b-2 border-indigo-650 mx-auto h-2 w-36" />
+          <RecordAudio AudioData={setAudioData} />
+          <hr className="border-0 border-b-2 border-indigo-650 mx-auto h-2 w-36" />
           <button className="submit-btn" onClick={handleSubmit}>
             Submit
           </button>

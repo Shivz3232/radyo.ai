@@ -37,7 +37,7 @@ const myProfile = () => {
             const details = user.data[0];
             const userData = {
               creatorName: details.creatorName,
-              contact: '',
+              contact: details.contact,
               email: details.email,
               about: details.about,
             };
@@ -48,7 +48,7 @@ const myProfile = () => {
             console.log(error);
           });
       }
-    }, 2000);
+    }, 1000);
   }, []);
 
   const handleChange = e => {
@@ -100,7 +100,6 @@ const myProfile = () => {
               placeholder="Contact number"
               onChange={handleChange}
               value={inputData.contact}
-              required
             />
             <br />
             <p className="mx-auto text-indigo-650">Change profile picture:</p>

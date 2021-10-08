@@ -74,7 +74,7 @@ const RecordAudio = ({AudioData}) => {
 
   return (
     <div className="space-y-3">
-      <p className="text-indigo-650">Upload your Audio File:</p>
+      <p className="text-indigo-650">Upload your Audio File :</p>
       <input
         className="input bg-white"
         type="file"
@@ -83,12 +83,8 @@ const RecordAudio = ({AudioData}) => {
       />
       {fileUploaded && (
         <>
-          <h3 className="text-indigo-650">Uploaded Audio:</h3>
-          <audio
-            className="w-full"
-            controls
-            src={uploadedAudioSrc}
-          ></audio>
+          <h3 className="text-indigo-650">Uploaded Audio :</h3>
+          <audio className="w-full" controls src={uploadedAudioSrc}></audio>
         </>
       )}
 
@@ -100,7 +96,7 @@ const RecordAudio = ({AudioData}) => {
         <>
           <div className="flex mx-auto space-x-2">
             <button
-              className="btn"
+              className={recordingOn ? 'btn bg-gray-500' : 'btn'}
               onClick={RecordFromMic}
               type="button"
               ref={startRec}
@@ -109,7 +105,7 @@ const RecordAudio = ({AudioData}) => {
               Start Recording
             </button>
             <button
-              className="btn"
+              className={recordingOn ? 'btn' : 'btn bg-gray-500'}
               onClick={handleStopRec}
               ref={stopRec}
               type="button"
@@ -120,7 +116,7 @@ const RecordAudio = ({AudioData}) => {
           </div>
 
           {recordingOn && (
-            <div className="text-center space-x-3 bg-gray-200 rounded-md">
+            <div className="text-center space-x-3 bg-gray-200 rounded-md shadow-md">
               <ImMic className="inline mr-2 mb-1" />
               <Timer />
             </div>
@@ -129,14 +125,19 @@ const RecordAudio = ({AudioData}) => {
           <p className="mx-auto text-indigo-650 ml-1">Recorded Audio</p>
           <div className="space-y-3 text-center">
             <audio className="w-full" controls src={audioSrc} />
-            <button
-              onClick={() => reset()}
-              type="button"
-              className="text-white bg-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white hover:bg-gray-700 transition"
-            >
-              <FaRedo className="inline mr-2 mb-1" />
-              <p className="inline">Record Again</p>
-            </button>
+            {audioSrc && (
+              <>
+              <p>Not happy with Recording?</p>
+              <button
+                onClick={() => reset()}
+                type="button"
+                className="text-white bg-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white hover:bg-gray-700 transition"
+              >
+                <FaRedo className="inline mr-2 mb-1" />
+                <p className="inline"> Record Again</p>
+              </button>
+              </>
+            )}
           </div>
         </>
       )}
