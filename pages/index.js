@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Component } from 'react';
 import AudioCards from '../components/AudioCard/AudioCards';
 import AudioPlayer from '../components/AudioPlayer/AudioPlayer';
 import CategoryNavBar from '../components/CategoryNavBar/CategoryNavBar';
@@ -8,8 +8,11 @@ import { getAllAudio, getAudioCategories } from '../controllers/podcast';
 import dbConnect from '../utils/dbConnect';
 import { categoryDataLinks } from '../components/CategoryNavBar/categoryData';
 import HomeCarousel from './../components/HomeCarousel/HomeCarousel';
+import WelcomeModal from '../components/Modal/WelcomeModal';
+import { useLocalStorage } from '../hooks/localStorage';
 
 const Podcast = ({ audioCards, allCategories, play }) => {
+  const [showWelcomeModal, setshowWelcomeModal] = useState('hidden');
   const [searchResults, setSearchResults] = useState({
     searched: false,
     loading: false,
@@ -21,6 +24,7 @@ const Podcast = ({ audioCards, allCategories, play }) => {
     coverSrc: '',
     title: '',
   });
+  const [showmodal, setShowModal] = useLocalStorage('endModalSession', false);
   const images = [
     'https://via.placeholder.com/411x256',
     'https://via.placeholder.com/1024x320',
@@ -34,64 +38,76 @@ const Podcast = ({ audioCards, allCategories, play }) => {
   };
 
   useEffect(() => {
+    if (showmodal != true) {
+      setShowModal(true);
+      setTimeout(() => {
+        setshowWelcomeModal('visible');
+      }, 2000);
+    }
     const player = document.querySelector('#audio-player');
     player.classList.remove('absolute');
     player.classList.add('fixed');
   }, []);
 
   return (
-    <div className="podcast-page">
-      <CategoryNavBar category="all" />
-      <div className="container">
-        <div className="flex justify-center">
-          <HomeCarousel images={images} />
-        </div>
-        {/* ////////EXPERIMENTAL this is to add space above scroll bar when scrollto element is called */}
-        <div className="h-16 w-0 text-white hidden" id="search-bar-start">
-          ....
-        </div>
-        <SearchBar
-          category={'category'}
-          data={searchResults}
-          setData={setSearchResults}
-        />
-        {searchResults.searched ? (
-          <Result
-            playAudio={playAudio}
-            query={searchResults.query}
-            data={searchResults.data}
-            loading={searchResults.loading}
-            category={false}
+    <>
+      <WelcomeModal
+        showWelcomeModal={showWelcomeModal}
+        setshowWelcomeModal={setshowWelcomeModal}
+      />
+      <div className="podcast-page">
+        <CategoryNavBar category="all" />
+        <div className="container">
+          <div className="flex justify-center">
+            <HomeCarousel images={images} />
+          </div>
+          {/* ////////EXPERIMENTAL this is to add space above scroll bar when scrollto element is called */}
+          <div className="h-16 w-0 text-white hidden" id="search-bar-start">
+            ....
+          </div>
+          <SearchBar
+            category={'category'}
+            data={searchResults}
+            setData={setSearchResults}
           />
-        ) : audioCards ? (
-          <>
-            <AudioCards
+          {searchResults.searched ? (
+            <Result
               playAudio={playAudio}
-              categoryName="New Releases"
-              cardItems={audioCards.slice(0, 15)}
+              query={searchResults.query}
+              data={searchResults.data}
+              loading={searchResults.loading}
+              category={false}
             />
-            {categoryDataLinks.map((elem, i) => {
-              if (audioCards.filter(e => e.category === elem.id).length) {
-                return (
-                  <AudioCards
-                    playAudio={playAudio}
-                    key={i}
-                    categoryName={elem.label}
-                    cardItems={audioCards.filter(e => e.category === elem.id)}
-                  />
-                );
-              }
-            })}
-          </>
-        ) : null}
-      </div>
-      {/* <div
+          ) : audioCards ? (
+            <>
+              <AudioCards
+                playAudio={playAudio}
+                categoryName="New Releases"
+                cardItems={audioCards.slice(0, 15)}
+              />
+              {categoryDataLinks.map((elem, i) => {
+                if (audioCards.filter(e => e.category === elem.id).length) {
+                  return (
+                    <AudioCards
+                      playAudio={playAudio}
+                      key={i}
+                      categoryName={elem.label}
+                      cardItems={audioCards.filter(e => e.category === elem.id)}
+                    />
+                  );
+                }
+              })}
+            </>
+          ) : null}
+        </div>
+        {/* <div
         className="audio-player-dashboard"
         style={{ display: trackInfo.audioSrc ? '' : 'none' }}
       >
         <AudioPlayer trackInfo={trackInfo} />
       </div> */}
-    </div>
+      </div>
+    </>
   );
 };
 
