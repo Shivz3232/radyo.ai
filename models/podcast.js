@@ -45,9 +45,18 @@ const PodcastSchema = new Schema(
       type: Number,
       default: 0,
     },
+    reportedBy: {
+      type: [
+        {
+          userId: String,
+          reportText: String,
+        },
+      ],
+      default: [],
+      required: true,
+    },
   },
   {
-    // TODO : check if date is added automatically when audio is uploaded, not working for manual entry
     timestamps: {
       createdAt: 'createdAt',
     },
