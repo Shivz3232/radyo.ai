@@ -40,18 +40,18 @@ dayjs.updateLocale('en', {
 });
 
 const AudioPageComponent = ({ data, playAudio }) => {
-  // const { userid } = useAuth();
+  const { userid } = useAuth();
   const [report, setReport] = useState(() => {
     if (data.reportedBy) return false;
   });
   useEffect(() => {
-    // data.reportedBy.forEach(e => {
-    //   if (e.userId === userid) {
-    //     // console.log(e);
-    //     setReport(true);
-    //     return;
-    //   }
-    // });
+    data.reportedBy.forEach(e => {
+      if (e.userId === userid) {
+        // console.log(e);
+        setReport(true);
+        return;
+      }
+    });
     // console.log(report);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
