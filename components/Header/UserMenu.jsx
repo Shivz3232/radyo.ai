@@ -8,6 +8,14 @@ import firebase from 'firebase';
 
 export default function UserMenu({ data }) {
   const router = useRouter();
+  const signOutHandler = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        router.push('/');
+      });
+  };
   return (
     <div>
       <Menu as="div" className="relative -mb-1 mt-1">
@@ -55,16 +63,9 @@ export default function UserMenu({ data }) {
             <div key="logout">
               <Menu.Item>
                 <button
-                  onClick={async () => {
-                    await firebase
-                      .auth()
-                      .signOut()
-                      .then(() => {
-                        router.push('/');
-                      });
-                  }}
+                  onClick={signOutHandler}
                   className={
-                    "px-4 py-3 text-left text-lg hover:bg-gray-200 cursor-pointer w-full 'rounded-b-md"
+                    'px-4 py-3 text-left text-lg hover:bg-gray-200 cursor-pointer w-full rounded-b-md'
                   }
                 >
                   Logout
