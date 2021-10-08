@@ -6,7 +6,7 @@ import multerUpload from '../../utils/middleware/multer';
 import { uploads } from '../../utils/cloudinary';
 import path from 'path';
 
-var parser = new DataURIParser();
+const parser = new DataURIParser();
 
 const formatBufferto64 = file =>
   parser.format(path.extname(file.originalname).toString(), file.buffer);
@@ -44,9 +44,9 @@ uploader.post(async (req, res) => {
       console.log(error);
     }
   } else {
-     res.status(405);
-     res.setHeader('Access-Control-Allow-Methods', 'GET');
-     res.end();
+    res.status(405);
+    res.setHeader('Access-Control-Allow-Methods', 'GET');
+    res.end();
   }
 });
 
