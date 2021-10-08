@@ -1,7 +1,6 @@
 import { React } from 'react';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { session } from 'passport';
 
 const WelcomeModal = props => {
   const [closingCounter, setclosingCounter] = useState(12);
@@ -20,11 +19,11 @@ const WelcomeModal = props => {
   return (
     <div
       className={
-        'fixed pin flex items-center h-screen w-screen z-30 ' +
+        'z-30 fixed flex pin h-full w-full bg-gray-100 bg-opacity-20 ' +
         props.showWelcomeModal
       }
     >
-      <div className="p-5 pb-1 z-50 welcome_modal_bg z-30">
+      <div className="p-5 pb-1 z-50 welcome_modal_bg z-40">
         <div className="flex justify-end mb-6">
           <button
             onClick={() => {
