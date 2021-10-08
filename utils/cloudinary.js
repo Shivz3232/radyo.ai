@@ -16,7 +16,7 @@ export const uploads = (file, folder) => {
           console.log(result);
           resolve({
             url: result.secure_url,
-            id: result.public_id,
+            // id: result.public_id,
           });
         } else {
           reject(console.log(error))

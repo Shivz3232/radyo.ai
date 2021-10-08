@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import firebase from 'firebase';
 import avatar from '../../assets/Avatar.png';
 import axios from 'axios';
+import { useAuth } from '../../controllers/auth';
 
 const myProfile = () => {
   const [inputData, setInputData] = useState({
@@ -10,7 +11,7 @@ const myProfile = () => {
     email: '',
     about: '',
   });
-  const [imgSrc, setImgSrc] = useState(avatar.src)
+  const [imgSrc, setImgSrc] = useState(avatar.src);
 
   useEffect(() => {
     // try {
@@ -47,7 +48,7 @@ const myProfile = () => {
             console.log(error);
           });
       }
-    }, 3000);
+    }, 2000);
   }, []);
 
   const handleChange = e => {
@@ -73,7 +74,7 @@ const myProfile = () => {
         </div>
         <div>
           <form
-            action="/api/userProfile"
+            action="/api/updateUserProfile"
             method="POST"
             encType="multipart/form-data"
             className="space-y-3 mx-auto text-gray-900 w-11/12 lg:w-4/6"
@@ -107,7 +108,7 @@ const myProfile = () => {
               className="input bg-white"
               type="file"
               id="img"
-              name="profile_img"
+              name="avatarImage"
               accept="image/*"
             />
             <textarea
@@ -119,6 +120,7 @@ const myProfile = () => {
               onChange={handleChange}
             ></textarea>
             <br />
+            <input type="hidden" name="email" value={inputData.email} />
             <button className="submit-btn" type="submit">
               Save Profile
             </button>
@@ -130,23 +132,3 @@ const myProfile = () => {
 };
 
 export default myProfile;
-
-//  <input
-//   className="input"
-//   type="text"
-//   name="uid"
-//   placeholder="User ID"
-//   onChange={handleChange}
-//   value={inputData.uid}
-//   required
-// /> 
-
-{/* <input
-  className="input"
-  type="email"
-  name="email"
-  placeholder="Email id"
-  onChange={handleChange}
-  value={inputData.email}
-  required
-/>; */}
