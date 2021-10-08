@@ -24,13 +24,13 @@ const WelcomeModal = props => {
       }
     >
       <div className="p-5 pb-1 z-50 welcome_modal_bg z-40">
-        <div className="flex justify-end mb-6">
+        <div className="flex justify-end mb-6 text-white">
           <button
             onClick={() => {
               props.setshowWelcomeModal('hidden');
             }}
           >
-            <span className="mr-2 text-white">X</span>
+            &times;
           </button>
         </div>
         <div className="text-center text-4xl text-white leading-normal">
