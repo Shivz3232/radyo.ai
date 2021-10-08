@@ -24,6 +24,7 @@ import '../styles/style.scss';
 import '../styles/AdminAuthPage.scss';
 import '../styles/AdminDashboard.scss';
 import '../styles/PodcastReviewCard.scss';
+import '../styles/welcomemodal.scss';
 import { AuthProvider } from '../controllers/auth';
 
 function App({ Component, pageProps }) {
@@ -39,22 +40,22 @@ function App({ Component, pageProps }) {
   return (
     <main className="app">
       <AuthProvider>
-      <Head>
-        <title>Radyo.ai</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      {!pageProps.hideNavBar && (
-        <Header activeTab={pageProps.activeTab} data={{ loggedIn: true }} />
-      )}
-      <Component {...pageProps} play={playAudioP} />
-      <div
-        // className="audio-player-dashboard"
-        id="audio-player"
-        className="absolute w-full bottom-0 left-0 z-20"
-        style={{ display: trackInfo.audioSrc ? '' : 'none' }}
-      >
-        <AudioPlayer trackInfo={trackInfo} play={playAudioP} />
-      </div>
+        <Head>
+          <title>Radyo.ai</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        {!pageProps.hideNavBar && (
+          <Header activeTab={pageProps.activeTab} data={{ loggedIn: true }} />
+        )}
+        <Component {...pageProps} play={playAudioP} />
+        <div
+          // className="audio-player-dashboard"
+          id="audio-player"
+          className="absolute w-full bottom-0 left-0 z-20"
+          style={{ display: trackInfo.audioSrc ? '' : 'none' }}
+        >
+          <AudioPlayer trackInfo={trackInfo} play={playAudioP} />
+        </div>
       </AuthProvider>
     </main>
   );
