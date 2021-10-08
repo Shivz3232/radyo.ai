@@ -20,7 +20,7 @@ const myProfile = () => {
     // } catch (error) {
     //   console.log(error);
     // }
-
+    
     setTimeout(async () => {
       if (firebase.auth().currentUser) {
         const user = await firebase.auth().currentUser.email;

@@ -127,15 +127,16 @@ const RecordAudio = ({AudioData}) => {
             <audio className="w-full" controls src={audioSrc} />
             {audioSrc && (
               <>
-              <p>Not happy with Recording?</p>
-              <button
-                onClick={() => reset()}
-                type="button"
-                className="text-white bg-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white hover:bg-gray-700 transition"
-              >
-                <FaRedo className="inline mr-2 mb-1" />
-                <p className="inline"> Record Again</p>
-              </button>
+                <button
+                  onClick={() => reset()}
+                  type="button"
+                  className="text-white bg-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white hover:bg-gray-700 transition"
+                >
+                  <FaRedo className="inline mr-2 mb-1" />
+                  <p className="inline">
+                    Not happy with Recording? Record Again
+                  </p>
+                </button>
               </>
             )}
           </div>

@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import Select from 'react-select';
 import RecordAudio from '../RecordAudio/RecordAudio';
+import { useAuth } from '../../controllers/auth';
 
 const CatOptions = [
   { value: 'Cat1', label: 'Category1' },
@@ -10,11 +11,12 @@ const CatOptions = [
 ];
 
 const LanOptions = [
-  { value: 'eng', label: 'English' },
-  { value: 'hin', label: 'Hindi' },
+  { value: 'english', label: 'English' },
+  { value: 'hindi', label: 'Hindi' },
 ];
 
 const addAudio = () => {
+  const { useremail } = useAuth();
   const [lanSelect, setLanSelect] = useState('');
   const [catSelect, setCatSelect] = useState('');
   const [audio, setAudio] = useState('');
@@ -47,8 +49,9 @@ const addAudio = () => {
     formData.append('lan',lanSelect);
     formData.append('title',textFields.title);
     formData.append('hashTags',textFields.hashTags);
-    formData.append('audiofile',audio);
-    formData.append('coverImg',coverImg);
+    formData.append('audioSrc',audio);
+    formData.append('coverImg', coverImg);
+    formData.append('email', useremail);
     await axios({
       method: 'post',
       url: '/api/addAudio',

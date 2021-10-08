@@ -85,10 +85,3 @@ export const config = {
     bodyParser: false, // Disallow body parsing, consume as stream
   },
 };
-// let userProfile = new UserProfileModel({
-//   creatorName: req.body.creatorName,
-//   about: req.body.about,
-//   contact: req.body.contact,
-//   profile_img: uploadResult,
-// });
-// const saved = userProfile.save();
