@@ -25,8 +25,6 @@ import '../styles/AdminAuthPage.scss';
 import '../styles/AdminDashboard.scss';
 import '../styles/PodcastReviewCard.scss';
 import { AuthProvider } from '../controllers/auth';
-import firebase from 'firebase';
-import axios from 'axios';
 
 function App({ Component, pageProps }) {
   const [trackInfo, setTrackInfo] = useState({
@@ -34,31 +32,6 @@ function App({ Component, pageProps }) {
     coverSrc: '',
     title: '',
   });
-
-  const [avatarImage, setAvatarImage] = useState(null);
-
-  useEffect(() => {
-    setTimeout(async () => {
-      if (firebase.auth().currentUser) {
-        const user = firebase.auth().currentUser.email;
-        const data = {
-          user: user,
-        };
-        await axios({
-          method: 'post',
-          url: '/api/getUserProfile',
-          data: data,
-          headers: { 'Content-Type': 'application/json' },
-        })
-          .then(user => {
-            setAvatarImage(user.data[0].avatarImage);
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      }
-    }, 1000);
-  }, []);
 
   const playAudioP = info => {
     setTrackInfo(info);
@@ -73,7 +46,7 @@ function App({ Component, pageProps }) {
         {!pageProps.hideNavBar && (
           <Header
             activeTab={pageProps.activeTab}
-            data={{ loggedIn: true, avatarImage: avatarImage }}
+            data={{ loggedIn: true }}
           />
         )}
         <Component {...pageProps} play={playAudioP} />
