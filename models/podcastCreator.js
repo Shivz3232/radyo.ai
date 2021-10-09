@@ -1,4 +1,5 @@
 import mongoose, { Model, model, Schema, Document } from 'mongoose';
+import { stringRequired, numberRequired } from './schemaFieldTypes';
 
 // export interface CreatorI extends Document {
 //   creatorName: String;
@@ -9,27 +10,18 @@ import mongoose, { Model, model, Schema, Document } from 'mongoose';
 //   subscriberCount: Number;
 // }
 
-const stringRequired = {
-  type: String,
-  required: true,
-};
-
-const numberRequired = {
-  type: Number,
-  default: 0,
-  required: true,
-};
-
 const PodcastCreatorSchema = new Schema({
   creatorName: stringRequired,
-  avatarImage: stringRequired,
-  email: stringRequired,
-  uid: stringRequired,
-  about: String,
+  avatarImage: String,
+  about: stringRequired,
   audiosPublished: numberRequired,
   playCount: numberRequired,
   subscriberCount: numberRequired,
   contact: String,
+  referralCode: stringRequired,
+  referrerCode: stringRequired,
+  uid: stringRequired,
+  email: stringRequired,
 });
 
 const PodcastCreatorModel =

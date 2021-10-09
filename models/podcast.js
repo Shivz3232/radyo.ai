@@ -1,15 +1,6 @@
 import mongoose, { Model, model, Schema, Document } from 'mongoose';
+import { stringRequired, numberRequired } from './schemaFieldTypes';
 import PodcastCreatorModel from './podcastCreator';
-
-const stringRequired = {
-  type: String,
-  required: true,
-};
-
-const numberRequired = {
-  type: Number,
-  required: true,
-};
 
 const PodcastSchema = new Schema(
   {
@@ -45,9 +36,18 @@ const PodcastSchema = new Schema(
       type: Number,
       default: 0,
     },
+    reportedBy: {
+      type: [
+        {
+          userId: String,
+          reportText: String,
+        },
+      ],
+      default: [],
+      required: true,
+    },
   },
   {
-    // TODO : check if date is added automatically when audio is uploaded, not working for manual entry
     timestamps: {
       createdAt: 'createdAt',
     },

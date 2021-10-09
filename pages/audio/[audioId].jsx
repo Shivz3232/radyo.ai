@@ -45,13 +45,6 @@ const PodcastAudio = ({ data, audioCards, play }) => {
             e => e.creatorId.creatorName === data.creatorId.creatorName
           )}
         />
-        {/*Audio Player Popup */}
-        {/* <div
-          className="audio-player-dashboard"
-          style={{ display: trackInfo.audioSrc ? '' : 'none' }}
-        >
-          {<AudioPlayer trackInfo={trackInfo} />}
-        </div> */}
       </div>
     </div>
   );

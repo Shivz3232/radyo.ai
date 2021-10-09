@@ -24,6 +24,7 @@ import '../styles/style.scss';
 import '../styles/AdminAuthPage.scss';
 import '../styles/AdminDashboard.scss';
 import '../styles/PodcastReviewCard.scss';
+import '../styles/welcomemodal.scss';
 import { AuthProvider } from '../controllers/auth';
 
 function App({ Component, pageProps }) {
@@ -44,10 +45,7 @@ function App({ Component, pageProps }) {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         {!pageProps.hideNavBar && (
-          <Header
-            activeTab={pageProps.activeTab}
-            data={{ loggedIn: true }}
-          />
+          <Header activeTab={pageProps.activeTab} data={{ loggedIn: true }} />
         )}
         <Component {...pageProps} play={playAudioP} />
         <div

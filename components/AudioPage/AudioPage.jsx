@@ -1,19 +1,21 @@
+import axios from 'axios';
 import dayjs from 'dayjs';
 import localeData from 'dayjs/plugin/localeData';
-import updateLocale from 'dayjs/plugin/updateLocale';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import updateLocale from 'dayjs/plugin/updateLocale';
 import { decode } from 'html-entities';
-import React, { useEffect, useState } from 'react';
+// import { Event } from '../Tracking/Tracking';
+import Link from 'next/link';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import 'react-h5-audio-player/lib/styles.css';
-import { FaFacebook, FaHeart, FaPlay } from 'react-icons/fa';
+import { FaFacebook, FaHeart } from 'react-icons/fa';
 import logoTelegram from '../../assets/telegram.svg';
 import logoWhatsapp from '../../assets/whatsapp.svg';
 import { FACEBOOK_APP_ID } from '../../constants';
-// import { Event } from '../Tracking/Tracking';
-import Link from 'next/link';
+import { useAuth } from '../../controllers/auth';
 import { capitalizeFirstLetter } from '../AudioCard/AudioCard';
-import { FiFlag } from 'react-icons/fi';
-import axios from 'axios';
+import ReportPopover from './ReportPopover';
+import { MdOutlineReportProblem } from 'react-icons/md';
 
 dayjs.extend(relativeTime);
 dayjs.extend(localeData);
@@ -38,6 +40,22 @@ dayjs.updateLocale('en', {
 });
 
 const AudioPageComponent = ({ data, playAudio }) => {
+  const { userid } = useAuth();
+  const [report, setReport] = useState(() => {
+    if (data.reportedBy) return false;
+  });
+  useEffect(() => {
+    data.reportedBy.forEach(e => {
+      if (e.userId === userid) {
+        // console.log(e);
+        setReport(true);
+        return;
+      }
+    });
+    // console.log(report);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const trackInfo = {
     coverSrc: data.coverImage,
     audioSrc: '/lovebytes/audio/Audio1.mp3',
@@ -80,17 +98,6 @@ const AudioPageComponent = ({ data, playAudio }) => {
     fbScript.src = `https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v12.0&appId=${FACEBOOK_APP_ID}&autoLogAppEvents=1`;
     document.body.appendChild(fbScript);
   }, []);
-
-  function reportAudio() {
-    // console.log(data._id);
-    axios
-      .get(`/api/update_count/${data._id}`)
-      .then(res => {
-        console.log(res);
-        alert('Audio has been reported successfully');
-      })
-      .catch(console.error);
-  }
 
   return (
     <>
@@ -144,11 +151,17 @@ const AudioPageComponent = ({ data, playAudio }) => {
               {dayjs().to(dayjs(data.createdAt))}
             </span>
           </div>
-          <div className="audioPage-card__action">
-            <FiFlag
-              onClick={reportAudio}
-              className="audioPage-card__action--item"
-            />
+          <div className="audioPage-card__action has-tooltip">
+            {report ? (
+              <>
+                <span className="hidden md:inline tooltip bottom-full w-max text-white bg-gray-700 p-1 rounded-sm text-sm shadow">
+                  Audio has been reported
+                </span>
+                <MdOutlineReportProblem className="text-red-500 audioPage-card__action--item" />
+              </>
+            ) : (
+              <ReportPopover data={data} setReport={setReport} />
+            )}
           </div>
         </div>
       </div>
