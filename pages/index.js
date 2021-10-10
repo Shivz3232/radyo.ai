@@ -9,7 +9,7 @@ import dbConnect from '../utils/dbConnect';
 import { categoryDataLinks } from '../components/CategoryNavBar/categoryData';
 import HomeCarousel from './../components/HomeCarousel/HomeCarousel';
 import WelcomeModal from '../components/Modal/WelcomeModal';
-import { useLocalStorage } from '../hooks/localStorage';
+import { useSessionStorage } from '../hooks/sessionStorage';
 
 const Podcast = ({ audioCards, allCategories, play }) => {
   const [showWelcomeModal, setshowWelcomeModal] = useState('hidden');
@@ -24,7 +24,7 @@ const Podcast = ({ audioCards, allCategories, play }) => {
     coverSrc: '',
     title: '',
   });
-  const [showmodal, setShowModal] = useLocalStorage('endModalSession', false);
+  const [showmodal, setShowModal] = useSessionStorage('endModalSession', false);
   const images = [
     'https://via.placeholder.com/411x256',
     'https://via.placeholder.com/1024x320',
