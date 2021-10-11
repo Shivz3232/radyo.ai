@@ -3,7 +3,7 @@ import AudioCards from '../AudioCard/AudioCards';
 import { useAuth } from '../../controllers/auth';
 import axios from 'axios';
 
-const mySubmissions = () => {
+const MySubmissions = () => {
   const { useremail } = useAuth();
 
   useEffect(() => {
@@ -25,4 +25,4 @@ const mySubmissions = () => {
   );
 };
 
-export default mySubmissions;
+export default MySubmissions;

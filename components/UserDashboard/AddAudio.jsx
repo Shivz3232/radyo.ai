@@ -15,7 +15,7 @@ const LanOptions = [
   { value: 'hindi', label: 'Hindi' },
 ];
 
-const addAudio = () => {
+const AddAudio = () => {
   const { useremail } = useAuth();
   const [lanSelect, setLanSelect] = useState('');
   const [catSelect, setCatSelect] = useState('');
@@ -150,4 +150,4 @@ const addAudio = () => {
   );
 };
 
-export default addAudio;
+export default AddAudio;
