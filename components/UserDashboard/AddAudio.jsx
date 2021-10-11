@@ -44,7 +44,7 @@ const addAudio = () => {
   
   
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     let formData = new FormData();
     formData.append('cat',catSelect);
     formData.append('lan',lanSelect);

@@ -24,7 +24,28 @@ var storage = multer.diskStorage({
   },
 });
 
-var upload = multer({ storage: storage });
+const allowed_formats = [
+  'audio/mp3',
+  'audio/wav',
+  'audio/webm',
+  'image/jpg',
+  'image/png',
+  'image/jpeg',
+];
+
+const fileFilter = (req, file, cb) => {
+  if (allowed_formats.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb({ message: 'Unsupported File Format' }, false);
+  }
+};
+
+var upload = multer({
+  storage: storage,
+  limits: { fileSize: 1024 * 1024 * 10 },
+  fileFilter: fileFilter,
+});
 
 const uploadMiddleware = upload.fields([
   { name: 'audioSrc', maxCount: 1 },
@@ -34,9 +55,10 @@ uploader.use(uploadMiddleware);
 
 uploader.post(async (req, res) => {
   if (req.method === 'POST') {
+    console.log(req.files);
     let audioFilePath = req.files.audioSrc[0].path;
     let coverImgPath = req.files.coverImg[0].path;
-    
+
     var audioFile = await uploads(audioFilePath, 'audio_files');
     var coverImg = await uploads(coverImgPath, 'cover_images');
     console.log(audioFile, coverImg);
@@ -46,7 +68,7 @@ uploader.post(async (req, res) => {
         if (err) {
           console.log(err);
         } else {
-          console.log(result);
+          console.log("user found");
         }
       }
     );
