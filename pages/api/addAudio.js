@@ -5,7 +5,6 @@ import { uploads } from '../../utils/cloudinary';
 import path from 'path';
 import PodcastCreatorModel from '../../models/podcastCreator';
 import PodcastModel from '../../models/podcast';
-import { isValidObjectId } from 'mongoose';
 
 const uploader = nextConnect({
   onNoMatch(req, res) {
@@ -35,12 +34,9 @@ uploader.use(uploadMiddleware);
 
 uploader.post(async (req, res) => {
   if (req.method === 'POST') {
-    console.log(req.files);
-    console.log(req.body);
     let audioFilePath = req.files.audioSrc[0].path;
     let coverImgPath = req.files.coverImg[0].path;
-    console.log(audioFilePath);
-    console.log(coverImgPath);
+    
     var audioFile = await uploads(audioFilePath, 'audio_files');
     var coverImg = await uploads(coverImgPath, 'cover_images');
     console.log(audioFile, coverImg);
@@ -60,7 +56,7 @@ uploader.post(async (req, res) => {
       coverImage: coverImg.url,
       category: req.body.cat,
       title: req.body.title,
-      description: '',
+      description: req.body.description,
       playCount: 0,
       likeCount: 0,
       shareCount: 0,
@@ -69,9 +65,6 @@ uploader.post(async (req, res) => {
       audioSrc: audioFile.url,
       // fileSize: '',
       // duration: 0,
-      // audioDescription: '',
-      // status: 'inreview',
-      // reported: 0,
     });
     console.log(newPodcast);
     await newPodcast.save().catch(err => {

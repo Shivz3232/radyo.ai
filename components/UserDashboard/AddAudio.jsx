@@ -23,6 +23,7 @@ const addAudio = () => {
   const [textFields, setTextFields] = useState({
     title: '',
     hashTags: '',
+    description: '',
   });
   const [coverImg, setCoverImg] = useState('');
   
@@ -49,6 +50,7 @@ const addAudio = () => {
     formData.append('lan',lanSelect);
     formData.append('title',textFields.title);
     formData.append('hashTags',textFields.hashTags);
+    formData.append('description', textFields.description);
     formData.append('audioSrc',audio);
     formData.append('coverImg', coverImg);
     formData.append('email', useremail);
@@ -110,6 +112,15 @@ const addAudio = () => {
             placeholder="Enter comma separate keywords, hashtags​"
             onChange={handleTextChange}
             value={textFields.hashTags}
+            required
+          />
+          <input
+            className="input bg-white"
+            type="text"
+            name="description"
+            placeholder="Enter Audio Description"
+            onChange={handleTextChange}
+            value={textFields.description}
             required
           />
           <br />
