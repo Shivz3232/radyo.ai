@@ -50,6 +50,7 @@ const AudioPlayer = props => {
           </div>
         </div>
         <ReactH5Player
+          ref={props.audioRef}
           src={trackInfo.audioSrc}
           style={{
             background: '#e3ddcc',

@@ -11,7 +11,7 @@ import HomeCarousel from './../components/HomeCarousel/HomeCarousel';
 import WelcomeModal from '../components/Modal/WelcomeModal';
 import { useSessionStorage } from '../hooks/sessionStorage';
 
-const Podcast = ({ audioCards, allCategories, play }) => {
+const Podcast = ({ audioCards, allCategories, play, setPlaylist }) => {
   const [showWelcomeModal, setshowWelcomeModal] = useState('hidden');
   const [searchResults, setSearchResults] = useState({
     searched: false,
@@ -61,10 +61,9 @@ const Podcast = ({ audioCards, allCategories, play }) => {
           <div className="flex justify-center">
             <HomeCarousel images={images} />
           </div>
-          {/* ////////EXPERIMENTAL this is to add space above scroll bar when scrollto element is called */}
-          <div className="h-16 w-0 text-white hidden" id="search-bar-start">
+          {/* <div className="h-16 w-0 text-white hidden" id="search-bar-start">
             ....
-          </div>
+          </div> */}
           <SearchBar
             category={'category'}
             data={searchResults}
@@ -81,6 +80,7 @@ const Podcast = ({ audioCards, allCategories, play }) => {
           ) : audioCards ? (
             <>
               <AudioCards
+                setPlaylist={setPlaylist}
                 playAudio={playAudio}
                 categoryName="New Releases"
                 cardItems={audioCards.slice(0, 15)}
@@ -89,6 +89,7 @@ const Podcast = ({ audioCards, allCategories, play }) => {
                 if (audioCards.filter(e => e.category === elem.id).length) {
                   return (
                     <AudioCards
+                      setPlaylist={setPlaylist}
                       playAudio={playAudio}
                       key={i}
                       categoryName={elem.label}

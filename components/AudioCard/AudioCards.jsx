@@ -6,7 +6,7 @@ import {
 } from '../CategoryNavBar/CategoryNavBar';
 import AudioCard, { capitalizeFirstLetter } from './AudioCard';
 
-const AudioCards = ({ cardItems, categoryName, playAudio }) => {
+const AudioCards = ({ cardItems, categoryName, playAudio, setPlaylist }) => {
   const audioCards = useRef();
   const [scrollArrowHide, setScrollArrowHide] = useState(() => {
     try {
@@ -68,6 +68,10 @@ const AudioCards = ({ cardItems, categoryName, playAudio }) => {
         <h2 className="heading">{capitalizeFirstLetter(categoryName)}</h2>
         {cardItems && cardItems.length ? (
           <div
+            onClick={() => {
+              setPlaylist(cardItems);
+              // console.log('audiocards', cardItems);
+            }}
             ref={audioCards}
             onScroll={checkArrowAndHide}
             className="audio-cards-container"
