@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactStopwatch from 'react-stopwatch';
 
-const timer = () => {
+const Timer = () => {
   return (
     <ReactStopwatch
       seconds={0}
@@ -20,4 +20,4 @@ const timer = () => {
   );
 };
 
-export default timer;
+export default Timer;

@@ -4,7 +4,7 @@ import avatar from '../../assets/Avatar.png';
 import axios from 'axios';
 import { useAuth } from '../../controllers/auth';
 
-const myProfile = () => {
+const MyProfile = () => {
   const [inputData, setInputData] = useState({
     creatorName: '',
     contact: '',
@@ -130,4 +130,4 @@ const myProfile = () => {
   );
 };
 
-export default myProfile;
+export default MyProfile;

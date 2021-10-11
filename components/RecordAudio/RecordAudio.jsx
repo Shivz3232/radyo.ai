@@ -5,7 +5,7 @@ import { FaPlay } from 'react-icons/fa';
 import { FaRedo } from 'react-icons/fa';
 import Timer from './Timer';
 
-const mediaRecorder = null;
+var mediaRecorder = null;
 
 const RecordAudio = ({AudioData}) => {
   const [audioSrc, setAudioSrc] = useState('');

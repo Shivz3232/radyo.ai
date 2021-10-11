@@ -21,34 +21,36 @@ const uploadMiddleware = multerUpload.single('avatarImage');
 uploader.use(uploadMiddleware);
 
 uploader.post(async (req, res) => {
-  console.log(req.body);
-  console.log(req.file);
+  // console.log(req.body);
+  // console.log(req.file);
   if (req.method === 'POST') {
     try {
       if (req.file) {
         const file64 = formatBufferto64(req.file);
         parser = null;
-        await uploads(file64.content, 'profile_images').then(async(uploadResult) => {
-          console.log(uploadResult);
-          let UpdateProfile = await PodcastCreatorModel.updateOne(
-            { email: req.body.email },
-            {
-              creatorName: req.body.creatorName,
-              about: req.body.about,
-              contact: req.body.contact,
-              avatarImage: uploadResult.url,
-            },
-            (err, result) => {
-              if (err) {
-                console.log(err);
-              } else {
-                console.log(result);
+        await uploads(file64.content, 'profile_images').then(
+          async uploadResult => {
+            console.log(uploadResult);
+            let UpdateProfile = await PodcastCreatorModel.updateOne(
+              { email: req.body.email },
+              {
+                creatorName: req.body.creatorName,
+                about: req.body.about,
+                contact: req.body.contact,
+                avatarImage: uploadResult.url,
+              },
+              (err, result) => {
+                if (err) {
+                  console.log(err);
+                } else {
+                  res.status(200).json('Profile Updated Successfully');
+                  // console.log(result);
+                }
               }
-            }
-          );
-        });
-      }
-      else{
+            );
+          }
+        );
+      } else {
         let UpdateProfile = await PodcastCreatorModel.updateOne(
           { email: req.body.email },
           {
@@ -60,13 +62,13 @@ uploader.post(async (req, res) => {
             if (err) {
               console.log(err);
             } else {
-              console.log(result);
+              res.status(200).json('Profile Updated Successfully');
+              // console.log(result);
             }
           }
         );
       }
-    
-      res.status(200).json('Profile Updated Successfully');
+
       res.end();
     } catch (error) {
       console.log(error);
