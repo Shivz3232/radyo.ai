@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Tab } from '@headlessui/react';
-import MyProfile from './myProfile';
-import AddAudio from './addAudio';
-import MySubmissions from './mySubmissions';
+import MyProfile from './MyProfile';
+import AddAudio from './AddAudio';
+import MySubmissions from './MySubmissions';
 
 export function classNames(...classes) {
   return classes.filter(Boolean).join(' ');

@@ -17,6 +17,7 @@ const PodcastCreatorSchema = new Schema({
   audiosPublished: numberRequired,
   playCount: numberRequired,
   subscriberCount: numberRequired,
+  contact: String,
   referralCode: stringRequired,
   referrerCode: stringRequired,
   uid: stringRequired,

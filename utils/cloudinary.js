@@ -7,13 +7,21 @@ cloudinary.config({
 });
 
 export const uploads = (file, folder) => {
-  return new Promise(resolve => {
-    cloudinary.v2.uploader.upload(file, { folder: folder }, (error, result) => {
-      // console.log(result);
-      resolve({
-        url: result.secure_url,
-        id: result.public_id,
-      });
-    });
+  return new Promise((resolve,reject) => {
+    cloudinary.v2.uploader.upload(
+      file,
+      { folder: folder, resource_type: 'auto' },
+      (error, result) => {
+        if (!error) {
+          console.log(result);
+          resolve({
+            url: result.secure_url,
+            // id: result.public_id,
+          });
+        } else {
+          reject(console.log(error))
+        }
+      }
+    );
   });
 };

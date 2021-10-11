@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import 'react-h5-audio-player/lib/styles.css';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import AudioPlayer from '../components/AudioPlayer/AudioPlayer';
