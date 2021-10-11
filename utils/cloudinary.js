@@ -13,6 +13,7 @@ export const uploads = (file, folder) => {
       { folder: folder, resource_type: 'auto' },
       (error, result) => {
         if (!error) {
+          console.log(result);
           resolve({
             url: result.secure_url,
           });
