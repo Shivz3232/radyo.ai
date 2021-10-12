@@ -23,8 +23,7 @@ const getMySubmissions = async (req, res) => {
         }
       }
     );
-    console.log(podcast);
-    res.status(200);
+    res.status(200).json(podcast);
     res.end();
   } else {
     res.status(405);

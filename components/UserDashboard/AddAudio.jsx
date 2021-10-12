@@ -5,9 +5,9 @@ import RecordAudio from '../RecordAudio/RecordAudio';
 import { useAuth } from '../../controllers/auth';
 
 const CatOptions = [
-  { value: 'Cat1', label: 'Category1' },
-  { value: 'Cat2', label: 'Category2' },
-  { value: 'Cat3', label: 'Category3' },
+  { value: 'cat-1', label: 'Category1' },
+  { value: 'cat-2', label: 'Category2' },
+  { value: 'cat-3', label: 'Category3' },
 ];
 
 const LanOptions = [
