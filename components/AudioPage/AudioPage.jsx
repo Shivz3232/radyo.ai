@@ -16,7 +16,7 @@ import { useAuth } from '../../controllers/auth';
 import { capitalizeFirstLetter } from '../AudioCard/AudioCard';
 import ReportPopover from './ReportPopover';
 import { MdOutlineReportProblem } from 'react-icons/md';
-import { useAudio } from './../../controllers/AudioProvider';
+import { usePlaylist } from '../../controllers/PlaylistProvider';
 
 dayjs.extend(relativeTime);
 dayjs.extend(localeData);
@@ -42,7 +42,7 @@ dayjs.updateLocale('en', {
 
 const AudioPageComponent = ({ data }) => {
   const { userid } = useAuth();
-  const { playAudio } = useAudio();
+  const { playAudio } = usePlaylist();
   const [report, setReport] = useState(() => {
     if (data.reportedBy) return false;
   });

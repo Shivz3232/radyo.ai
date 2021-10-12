@@ -6,11 +6,9 @@ import { ImLoop } from 'react-icons/im';
 import LinesEllipsis from 'react-lines-ellipsis';
 import { GrFormClose } from 'react-icons/gr';
 import { usePlaylist } from '../../controllers/PlaylistProvider';
-import { useAudio } from '../../controllers/AudioProvider';
 // import { GoogleCard } from './../AdCard/GoogleCard';
 const AudioPlayer = props => {
-  const { getNextTrack } = usePlaylist();
-  const { trackInfo, playAudio, isPlaying } = useAudio();
+  const { trackInfo, playAudio, isPlaying,getNextTrack } = usePlaylist();
   const audioRef = useRef();
 
   function playNext() {
@@ -29,23 +27,13 @@ const AudioPlayer = props => {
     console.log(err);
   }
 
-  useEffect(() => {
-    const player = document.querySelector('#audio-player');
-    player.classList.remove('absolute');
-    player.classList.add('fixed');
-  }, []);
-
-  useEffect(() => {
-    props.hidePlayer(trackInfo);
-
-    // const audioPlayerContainer = document.getElementById('audio-player');
-    // audioPlayerContainer.classList.toggle('hidden', !isPlaying());
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [trackInfo]);
 
   return (
-    <>
+    <div
+      id="audio-player"
+      className={`fixed w-full bottom-0 left-0 z-20`}
+      style={{ display: trackInfo && trackInfo.audioSrc ? '' : 'none' }}
+    >
       {/* {trackInfo.audioSrc && (
         <div className="ad-over-audio-player">
           <GoogleCard />
@@ -101,7 +89,7 @@ const AudioPlayer = props => {
           }}
         />
       </div>
-    </>
+    </div>
   );
 };
 

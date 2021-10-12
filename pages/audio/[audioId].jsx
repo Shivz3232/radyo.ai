@@ -3,17 +3,10 @@ import React, { useState, useEffect } from 'react';
 import AudioCards from '../../components/AudioCard/AudioCards';
 import AudioPageComponent from '../../components/AudioPage/AudioPage';
 import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
-import { useAudio } from '../../controllers/AudioProvider';
 import { getAllAudio, getAudio, getAudioIds } from '../../controllers/podcast';
 import dbConnect from '../../utils/dbConnect';
 
 const PodcastAudio = ({ data, audioCards, play }) => {
-  const [trackInfo, setTrackInfo] = useState({
-    audioSrc: '',
-    coverSrc: '',
-    title: '',
-  });
-
 
   return (
     <div className="audio-page" id="audioPage">

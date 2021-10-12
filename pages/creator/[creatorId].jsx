@@ -4,18 +4,12 @@ import AudioCards from '../../components/AudioCard/AudioCards';
 import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
 // import Banner from '../../components/Banner/Banner';
 import CreatorCard from '../../components/Creator/CreatorCard';
-import { useAudio } from '../../controllers/AudioProvider';
 import { getCreatorAudio, getCreatorIds } from '../../controllers/creator';
 import { getAllAudio } from '../../controllers/podcast';
 import dbConnect from '../../utils/dbConnect';
 
 const CreatorPage = ({ info, audioCards, play }) => {
   const data = info;
-  const [trackInfo, setTrackInfo] = useState({
-    audioSrc: '',
-    coverSrc: '',
-    title: '',
-  });
 
   return (
     <>

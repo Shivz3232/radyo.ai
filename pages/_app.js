@@ -27,19 +27,12 @@ import '../styles/PodcastReviewCard.scss';
 import '../styles/welcomemodal.scss';
 import { AuthProvider } from '../controllers/auth';
 import { PlaylistProvider } from '../controllers/PlaylistProvider';
-import { AudioProvider } from '../controllers/AudioProvider';
 
 function App({ Component, pageProps }) {
-  const [trackInfo, setTrackInfo] = useState({
-    audioSrc: '',
-    coverSrc: '',
-    title: '',
-  });
 
   return (
     <main className="app">
       <PlaylistProvider>
-        <AudioProvider>
           <AuthProvider>
             <Head>
               <title>Radyo.ai</title>
@@ -49,17 +42,14 @@ function App({ Component, pageProps }) {
               activeTab={pageProps.activeTab}
               data={{ loggedIn: false }}
             />
-            <div className={trackInfo.audioSrc ? 'mb-16 mobile:mb-20' : 'm-0'}>
+            {/* <div
+              className={`${trackInfo.audioSrc ? 'mb-16 mobile:mb-20' : 'm-0'}`}
+            > */}
               <Component {...pageProps} />
-            </div>
-            <div
-              id="audio-player"
-              className="absolute w-full bottom-0 left-0 z-20 hidden"
-            >
-              <AudioPlayer hidePlayer={setTrackInfo} />
-            </div>
+            {/* </div> */}
+
+            <AudioPlayer/>
           </AuthProvider>
-        </AudioProvider>
       </PlaylistProvider>
     </main>
   );

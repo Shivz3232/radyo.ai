@@ -42,12 +42,40 @@ export const PlaylistProvider = ({ children }) => {
     }
   }
 
+  const [trackInfo, setTrackInfo] = useLocalStorage('currentTrack', {
+    audioSrc: '',
+    coverSrc: '',
+    title: '',
+  });
+  useEffect(() => {
+    setTrackInfo({
+      audioSrc: '',
+      coverSrc: '',
+      title: '',
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const isPlaying = () => {
+    if (trackInfo.audioSrc !== '') return true;
+    else return false;
+  };
+
+  const playAudio = (info, id) => {
+    setTrackInfo(info);
+    if (id)
+      axios
+        .post(`/api/update_count/${id}`, { update: { playCount: 1 } })
+        // .then(res => console.log(res))
+        .catch(err => console.log(err));
+  };
+
   return (
     <PlaylistContext.Provider
       value={{
         contextPlaylist,
         setContextPlaylist,
         getNextTrack,
+        trackInfo, playAudio, isPlaying
       }}
     >
       {children}

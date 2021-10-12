@@ -1,6 +1,6 @@
 import React from 'react';
 import playButton from '../../assets/playbtn.png';
-import { useAudio } from '../../controllers/AudioProvider';
+import { usePlaylist } from '../../controllers/PlaylistProvider';
 // import { Button } from '@material-ui/core';
 import { formatDuration } from '../../utils/formatDuration';
 
@@ -10,7 +10,7 @@ const PodcastReviewCard = ({ podcast, approve, reject, showReport }) => {
     audioSrc: `${podcast.audioSrc}`,
     title: podcast.title,
   };
-  const { playAudio } = useAudio();
+  const { playAudio } = usePlaylist();
   return (
     <div className="podcast-review-card shadow-lg border ">
       <section className="section-1 flex flex-col justify-between md:border-green ">

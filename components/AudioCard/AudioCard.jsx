@@ -8,7 +8,7 @@ import LinesEllipsis from 'react-lines-ellipsis';
 // import { Event } from '../../../nuzpapr-next/components/Tracking/Tracking';
 import playButton from '../../assets/playbtn.png';
 import { CgPlayListAdd, CgPlayListCheck } from 'react-icons/cg';
-import { useAudio } from '../../controllers/AudioProvider';
+import { usePlaylist } from '../../controllers/PlaylistProvider';
 
 export function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -20,7 +20,7 @@ const AudioCard = ({ cardItemData, categoryName }) => {
     title: cardItemData.title,
   };
 
-  const { playAudio } = useAudio();
+  const { playAudio } = usePlaylist();
   // Destructuring the props item
   const {
     creatorId,
