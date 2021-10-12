@@ -4,10 +4,11 @@ import { FaStop } from 'react-icons/fa';
 import { FaPlay } from 'react-icons/fa';
 import { FaRedo } from 'react-icons/fa';
 import Timer from './Timer';
+import { allowed_formats } from './audioFormats';
 
 var mediaRecorder = null;
 
-const RecordAudio = ({AudioData}) => {
+const RecordAudio = ({ AudioData }) => {
   const [audioSrc, setAudioSrc] = useState('');
   const [uploadedAudioSrc, setUploadedAudioSrc] = useState('');
   const [showRec, setShowRec] = useState(false);
@@ -18,13 +19,23 @@ const RecordAudio = ({AudioData}) => {
 
   const handleChange = e => {
     const file = e.target.files[0];
-    if (file) {
-      const url = URL.createObjectURL(file);
-      setUploadedAudioSrc(url);
-      setfileUploaded(true);
-      AudioData(file);
+    let fileSize = Math.round(file.size / 1000000);
+
+    if (fileSize < 9) {
+      if (allowed_formats.includes(file.type)) {
+        if (file) {
+          const url = URL.createObjectURL(file);
+          setUploadedAudioSrc(url);
+          setfileUploaded(true);
+          AudioData(file);
+        } else {
+          setfileUploaded(false);
+        }
+      } else {
+        alert('Only mp3, wav, ogg formats are allowed!');
+      }
     } else {
-      setfileUploaded(false);
+      alert('File too Big, please select a file less than 10Mb');
     }
   };
 
@@ -59,6 +70,8 @@ const RecordAudio = ({AudioData}) => {
     });
 
     mediaRecorder.addEventListener('stop', function () {
+      var blob = new Blob(recordedChunks);
+      console.log(blob);
       setAudioSrc(URL.createObjectURL(new Blob(recordedChunks)));
       AudioData(new Blob(recordedChunks));
     });

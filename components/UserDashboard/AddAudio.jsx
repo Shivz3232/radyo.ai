@@ -26,12 +26,11 @@ const AddAudio = () => {
     description: '',
   });
   const [coverImg, setCoverImg] = useState('');
-  
+
   const setAudioData = data => {
     setAudio(data);
   };
-  
-  
+
   const handleTextChange = e => {
     const { name, value } = e.target;
     setTextFields(prevValue => {
@@ -41,34 +40,41 @@ const AddAudio = () => {
       };
     });
   };
-  
-  
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    let formData = new FormData();
-    formData.append('cat',catSelect);
-    formData.append('lan',lanSelect);
-    formData.append('title',textFields.title);
-    formData.append('hashTags',textFields.hashTags);
-    formData.append('description', textFields.description);
-    formData.append('audioSrc',audio);
-    formData.append('coverImg', coverImg);
-    formData.append('email', useremail);
-    await axios({
-      method: 'post',
-      url: '/api/addAudio',
-      data: formData,
-      headers: { 'Content-Type': 'multipart/form-data' },
-    })
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
 
+  const handleSubmit = async e => {
+    e.preventDefault();
+
+    if (audio) {
+      if (Math.round(file.size / 1000000) < 9) {
+        let formData = new FormData();
+        formData.append('cat', catSelect);
+        formData.append('lan', lanSelect);
+        formData.append('title', textFields.title);
+        formData.append('hashTags', textFields.hashTags);
+        formData.append('description', textFields.description);
+        formData.append('audioSrc', audio);
+        formData.append('coverImg', coverImg);
+        formData.append('email', useremail);
+        await axios({
+          method: 'post',
+          url: '/api/addAudio',
+          data: formData,
+          headers: { 'Content-Type': 'multipart/form-data' },
+        })
+          .then(response => {
+            console.log(response);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      } else {
+        alert('File too Big, please upload a file less than 10Mb');
+      }
+    } else {
+      alert('Only mp3, wav, ogg formats with size less than 10Mb are allowed!');
+    }
   };
-  
+
   return (
     <>
       <div className="text-indigo-650 flex flex-column w-11/12 sm:w-3/6 mx-auto p-6 bg-white rounded-md shadow-xl">
