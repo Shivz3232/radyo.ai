@@ -16,6 +16,7 @@ import { useAuth } from '../../controllers/auth';
 import { capitalizeFirstLetter } from '../AudioCard/AudioCard';
 import ReportPopover from './ReportPopover';
 import { MdOutlineReportProblem } from 'react-icons/md';
+import { usePlaylist } from '../../controllers/PlaylistProvider';
 
 dayjs.extend(relativeTime);
 dayjs.extend(localeData);
@@ -39,8 +40,9 @@ dayjs.updateLocale('en', {
   },
 });
 
-const AudioPageComponent = ({ data, playAudio }) => {
+const AudioPageComponent = ({ data }) => {
   const { userid } = useAuth();
+  const { playAudio } = usePlaylist();
   const [report, setReport] = useState(() => {
     if (data.reportedBy) return false;
   });
@@ -171,7 +173,7 @@ const AudioPageComponent = ({ data, playAudio }) => {
         <button
           className="play-btn"
           onClick={() => {
-            playAudio(trackInfo);
+            playAudio(trackInfo, data._id.toString());
             // Event('Audio', 'Play button clicked', data.title);
           }}
         >

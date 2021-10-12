@@ -11,21 +11,6 @@ const Dash = props => {
   // Check if authorized, else redirect to login
   const user = useUser({ redirectTo: '/admin/login', redirectIfFound: false });
 
-  const [trackInfo, setTrackInfo] = useState({
-    audioSrc: '',
-    coverSrc: '',
-    title: '',
-  });
-  useEffect(() => {
-    const player = document.querySelector('#audio-player');
-    player.classList.remove('absolute');
-    player.classList.add('fixed');
-  }, []);
-
-  function playAudio(info) {
-    setTrackInfo(info);
-    props.play(info);
-  }
 
   const logout = async e => {
     e.preventDefault();
@@ -90,13 +75,7 @@ const Dash = props => {
       <Tab.Panels className="">
         {Object.values(categories).map((Tabs, idx) => (
           <Tab.Panel key={idx}>
-            {
-              <Tabs.content
-                key={Tabs.id}
-                status={Tabs.status}
-                playAudio={playAudio}
-              />
-            }
+            {<Tabs.content key={Tabs.id} status={Tabs.status} />}
           </Tab.Panel>
         ))}
       </Tab.Panels>
@@ -106,7 +85,7 @@ const Dash = props => {
 
 export default Dash;
 
-export function Inreview({ playAudio, status }) {
+export function Inreview({ status }) {
   const [podcasts, setPodcasts] = useState([]);
   const [errMsg, setErrMsg] = useState('');
 
@@ -155,7 +134,6 @@ export function Inreview({ playAudio, status }) {
         <h1 className="hero">{capitalizeFirstLetter(status)} Podcasts</h1>
         <PodcastReviewCards
           podcasts={podcasts}
-          playAudio={playAudio}
           approve={['approved', 'reported'].includes(status) ? false : approve}
           reject={['rejected'].includes(status) ? false : reject}
           showReport={['reported'].includes(status)}

@@ -5,9 +5,11 @@ import {
   sideScroll,
 } from '../CategoryNavBar/CategoryNavBar';
 import AudioCard, { capitalizeFirstLetter } from './AudioCard';
+import { usePlaylist } from './../../controllers/PlaylistProvider';
 
-const AudioCards = ({ cardItems, categoryName, playAudio, setPlaylist }) => {
+const AudioCards = ({ cardItems, categoryName }) => {
   const audioCards = useRef();
+  const { setContextPlaylist } = usePlaylist();
   const [scrollArrowHide, setScrollArrowHide] = useState(() => {
     try {
       // console.log(window.screen.width);
@@ -69,7 +71,7 @@ const AudioCards = ({ cardItems, categoryName, playAudio, setPlaylist }) => {
         {cardItems && cardItems.length ? (
           <div
             onClick={() => {
-              setPlaylist(cardItems);
+              setContextPlaylist(cardItems);
               // console.log('audiocards', cardItems);
             }}
             ref={audioCards}
@@ -102,7 +104,6 @@ const AudioCards = ({ cardItems, categoryName, playAudio, setPlaylist }) => {
               return (
                 <AudioCard
                   categoryName={categoryName}
-                  playAudio={playAudio}
                   key={cardItemData._id}
                   cardItemData={cardItemData}
                 />

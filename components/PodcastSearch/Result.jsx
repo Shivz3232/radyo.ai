@@ -4,7 +4,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import AudioCards from '../AudioCard/AudioCards';
 import AudioCardsVerticalScroll from '../AudioCard/AudioCardsVerticalScroll';
 
-export const Result = ({ data, loading, category, query, playAudio }) => {
+export const Result = ({ data, loading, category, query }) => {
   const [results, setResults] = useState({
     categoryResults: [],
     allResults: [],
@@ -54,7 +54,6 @@ export const Result = ({ data, loading, category, query, playAudio }) => {
     <div className="search-results">
       {category && (
         <AudioCards
-          playAudio={playAudio}
           categoryName={`${category} (${results.categoryResults.length})`}
           cardItems={results.categoryResults}
         />
@@ -69,10 +68,7 @@ export const Result = ({ data, loading, category, query, playAudio }) => {
           height="75vh"
           loader={<p></p>}
         >
-          <AudioCardsVerticalScroll
-            playAudio={playAudio}
-            audioCards={[...results.allResults]}
-          />
+          <AudioCardsVerticalScroll audioCards={[...results.allResults]} />
         </InfiniteScroll>
       )}
     </div>

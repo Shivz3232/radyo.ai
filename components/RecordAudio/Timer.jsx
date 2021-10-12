@@ -10,11 +10,7 @@ const Timer = () => {
       limit="00:05:00"
       onCallback={() => console.log('Finish')}
       render={({ formatted }) => {
-        return (
-          <>
-              {formatted}
-          </>
-        );
+        return <>{formatted}</>;
       }}
     />
   );

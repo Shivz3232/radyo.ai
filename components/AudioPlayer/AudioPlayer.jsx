@@ -1,22 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { decode } from 'html-entities';
 import ReactH5Player from 'react-h5-audio-player';
 import { FaPause, FaPlay, FaVolumeMute, FaVolumeUp } from 'react-icons/fa';
 import { ImLoop } from 'react-icons/im';
 import LinesEllipsis from 'react-lines-ellipsis';
 import { GrFormClose } from 'react-icons/gr';
+import { usePlaylist } from '../../controllers/PlaylistProvider';
 // import { GoogleCard } from './../AdCard/GoogleCard';
 const AudioPlayer = props => {
-  const [trackInfo, setTrackInfo] = useState({
-    audioSrc: '',
-    coverSrc: '',
-    title: '',
-  });
-  useEffect(() => {
-    setTrackInfo(props.trackInfo);
-  }, [props.trackInfo]);
+  const { trackInfo, playAudio, isPlaying,getNextTrack } = usePlaylist();
+  const audioRef = useRef();
+
+  function playNext() {
+    // const nextTrack = getNextTrack(trackInfo);
+    playAudio(() => {
+      return getNextTrack(trackInfo);
+    });
+  }
+  try {
+    if (audioRef.current) {
+      audioRef.current.audio.current.onended = e => {
+        playNext();
+      };
+    }
+  } catch (err) {
+    console.log(err);
+  }
+
+
   return (
-    <>
+    <div
+      id="audio-player"
+      className={`fixed w-full bottom-0 left-0 z-20`}
+      style={{ display: trackInfo && trackInfo.audioSrc ? '' : 'none' }}
+    >
       {/* {trackInfo.audioSrc && (
         <div className="ad-over-audio-player">
           <GoogleCard />
@@ -26,7 +43,7 @@ const AudioPlayer = props => {
         <GrFormClose
           className="absolute right-4 top-1 cursor-pointer"
           onClick={() => {
-            props.play({
+            playAudio({
               audioSrc: '',
               coverSrc: '',
               title: '',
@@ -36,12 +53,18 @@ const AudioPlayer = props => {
         <div className="track-info">
           <img
             className="track-info__cover"
-            src={trackInfo.coverSrc}
+            src={
+              trackInfo && trackInfo.audioSrc
+                ? trackInfo.coverSrc
+                : '/lovebytes/images/Picture1.jpg'
+            }
             alt="cover"
           />
           <div className="track-info__title max-h-20 overflow-clip">
             <LinesEllipsis
-              text={decode(trackInfo.title)}
+              text={
+                trackInfo && trackInfo.audioSrc ? decode(trackInfo.title) : ''
+              }
               maxLine="2"
               ellipsis="..."
               trimRight
@@ -50,8 +73,8 @@ const AudioPlayer = props => {
           </div>
         </div>
         <ReactH5Player
-          ref={props.audioRef}
-          src={trackInfo.audioSrc}
+          ref={audioRef}
+          src={trackInfo && trackInfo.audioSrc ? trackInfo.audioSrc : ''}
           style={{
             background: '#e3ddcc',
           }}
@@ -66,7 +89,7 @@ const AudioPlayer = props => {
           }}
         />
       </div>
-    </>
+    </div>
   );
 };
 

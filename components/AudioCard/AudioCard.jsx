@@ -8,16 +8,19 @@ import LinesEllipsis from 'react-lines-ellipsis';
 // import { Event } from '../../../nuzpapr-next/components/Tracking/Tracking';
 import playButton from '../../assets/playbtn.png';
 import { CgPlayListAdd, CgPlayListCheck } from 'react-icons/cg';
+import { usePlaylist } from '../../controllers/PlaylistProvider';
 
 export function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
-const AudioCard = ({ cardItemData, categoryName, playAudio }) => {
+const AudioCard = ({ cardItemData, categoryName }) => {
   const trackInfo = {
     coverSrc: `${cardItemData.coverImage}`,
     audioSrc: cardItemData.audioSrc,
     title: cardItemData.title,
   };
+
+  const { playAudio } = usePlaylist();
   // Destructuring the props item
   const {
     creatorId,
@@ -47,8 +50,7 @@ const AudioCard = ({ cardItemData, categoryName, playAudio }) => {
             src={playButton.src}
             alt="play button"
             onClick={() => {
-              playAudio(trackInfo);
-              // console.log(cardItemData);
+              playAudio(trackInfo, cardItemData._id.toString());
               // Event('Podcast', 'Play button clicked', cardItemData.title);
             }}
             className="play__button"

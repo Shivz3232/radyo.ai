@@ -26,12 +26,11 @@ const AddAudio = () => {
     description: '',
   });
   const [coverImg, setCoverImg] = useState('');
-  
+
   const setAudioData = data => {
     setAudio(data);
   };
-  
-  
+
   const handleTextChange = e => {
     const { name, value } = e.target;
     setTextFields(prevValue => {
@@ -41,17 +40,16 @@ const AddAudio = () => {
       };
     });
   };
-  
-  
-  const handleSubmit = async (e) => {
+
+  const handleSubmit = async e => {
     // e.preventDefault();
     let formData = new FormData();
-    formData.append('cat',catSelect);
-    formData.append('lan',lanSelect);
-    formData.append('title',textFields.title);
-    formData.append('hashTags',textFields.hashTags);
+    formData.append('cat', catSelect);
+    formData.append('lan', lanSelect);
+    formData.append('title', textFields.title);
+    formData.append('hashTags', textFields.hashTags);
     formData.append('description', textFields.description);
-    formData.append('audioSrc',audio);
+    formData.append('audioSrc', audio);
     formData.append('coverImg', coverImg);
     formData.append('email', useremail);
     await axios({
@@ -60,15 +58,14 @@ const AddAudio = () => {
       data: formData,
       headers: { 'Content-Type': 'multipart/form-data' },
     })
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
-  
+
   return (
     <>
       <div className="text-indigo-650 flex flex-column w-11/12 sm:w-3/6 mx-auto p-6 bg-white rounded-md shadow-xl">
