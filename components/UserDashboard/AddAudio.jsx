@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Select from 'react-select';
 import RecordAudio from '../RecordAudio/RecordAudio';
 import { useAuth } from '../../controllers/auth';
+import { BsPatchCheckFill } from 'react-icons/bs';
 
 const CatOptions = [
   { value: 'cat-1', label: 'Category1' },
@@ -26,6 +27,7 @@ const AddAudio = () => {
     description: '',
   });
   const [coverImg, setCoverImg] = useState('');
+  const [submitted, setSubmitted] = useState(false);
 
   const setAudioData = data => {
     setAudio(data);
@@ -45,7 +47,7 @@ const AddAudio = () => {
     e.preventDefault();
 
     if (audio) {
-      if (Math.round(file.size / 1000000) < 9) {
+      if (Math.round(audio.size / 1000000) < 9) {
         let formData = new FormData();
         formData.append('cat', catSelect);
         formData.append('lan', lanSelect);
@@ -55,6 +57,7 @@ const AddAudio = () => {
         formData.append('audioSrc', audio);
         formData.append('coverImg', coverImg);
         formData.append('email', useremail);
+        setSubmitted(true);
         await axios({
           method: 'post',
           url: '/api/addAudio',
@@ -149,9 +152,15 @@ const AddAudio = () => {
             <RecordAudio AudioData={setAudioData} />
             <hr className="border-0 border-b-2 border-indigo-650 mx-auto h-2 w-36" />
             <div className="pt-7">
-              <button className="submit-btn" onClick={handleSubmit}>
+              <button className="submit-btn " onClick={handleSubmit}>
                 Submit
               </button>
+              {submitted && (
+                <h2 className="inline ml-3 text-green-600 text-lg">
+                  <BsPatchCheckFill className="md:inline mr-2 text-xl" />
+                  Audio Submitted
+                </h2>
+              )}
             </div>
           </form>
         </div>

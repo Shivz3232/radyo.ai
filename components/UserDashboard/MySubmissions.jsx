@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import AudioCards from '../AudioCard/AudioCards';
+import AudioCardsVerticalScroll from '../AudioCard/AudioCardsVerticalScroll';
 import { useAuth } from '../../controllers/auth';
 import axios from 'axios';
 
@@ -33,10 +33,19 @@ const MySubmissions = () => {
           If you have recently submitted an entry, it will be under review and
           will appear here within 2 business days​.
         </h1>
+        <div className="text-indigo-650 text-center text-xl m-10">
+          My Submissions
+        </div>
         <div className="container">
-          <AudioCards
+          {/* <AudioCards
             categoryName="My Submissions"
             cardItems={audioCards}
+            playAudio={playAudio}
+          /> */}
+
+          {/* Play Audio Functionality not added */}
+          <AudioCardsVerticalScroll
+            audioCards={audioCards}
             playAudio={playAudio}
           />
         </div>
