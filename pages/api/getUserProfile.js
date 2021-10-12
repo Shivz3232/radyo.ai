@@ -7,11 +7,11 @@ const getUserProfile = async (req, res) => {
     const userProfile = await PodcastCreatorModel.find(
       { email: req.body.user },
       (error, result) => {
-         if (!error) {
-            console.log("user found");
-         } else {
-            console.log(error);
-         }
+        if (!error) {
+          console.log('user found');
+        } else {
+          console.log(error);
+        }
       }
     );
     res.json(userProfile);

@@ -4,12 +4,9 @@ import HomeCarousel from '../components/HomeCarousel/HomeCarousel';
 const AboutUs = () => {
   return (
     <>
-       <div>
-               
-
-            </div>
+      <div></div>
     </>
-  )
+  );
 };
 
 export async function getStaticProps() {

@@ -7,7 +7,7 @@ import Timer from './Timer';
 
 var mediaRecorder = null;
 
-const RecordAudio = ({AudioData}) => {
+const RecordAudio = ({ AudioData }) => {
   const [audioSrc, setAudioSrc] = useState('');
   const [uploadedAudioSrc, setUploadedAudioSrc] = useState('');
   const [showRec, setShowRec] = useState(false);

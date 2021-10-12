@@ -68,7 +68,7 @@ uploader.post(async (req, res) => {
         if (err) {
           console.log(err);
         } else {
-          console.log("user found");
+          console.log('user found');
         }
       }
     );
