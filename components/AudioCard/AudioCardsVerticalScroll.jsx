@@ -2,7 +2,7 @@ import React from 'react';
 import { usePlaylist } from '../../controllers/PlaylistProvider';
 import AudioCard from './AudioCard';
 
-const AudioCardsVerticalScroll = ({ audioCards, playAudio }) => {
+const AudioCardsVerticalScroll = ({ audioCards }) => {
   const { setContextPlaylist } = usePlaylist();
   return (
     <div
@@ -12,9 +12,7 @@ const AudioCardsVerticalScroll = ({ audioCards, playAudio }) => {
       }}
     >
       {audioCards.map(item => {
-        return (
-          <AudioCard playAudio={playAudio} cardItemData={item} key={item._id} />
-        );
+        return <AudioCard cardItemData={item} key={item._id} />;
       })}
     </div>
   );

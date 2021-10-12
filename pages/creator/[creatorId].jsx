@@ -4,6 +4,7 @@ import AudioCards from '../../components/AudioCard/AudioCards';
 import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
 // import Banner from '../../components/Banner/Banner';
 import CreatorCard from '../../components/Creator/CreatorCard';
+import { useAudio } from '../../controllers/AudioProvider';
 import { getCreatorAudio, getCreatorIds } from '../../controllers/creator';
 import { getAllAudio } from '../../controllers/podcast';
 import dbConnect from '../../utils/dbConnect';
@@ -16,10 +17,6 @@ const CreatorPage = ({ info, audioCards, play }) => {
     title: '',
   });
 
-  const playAudio = info => {
-    setTrackInfo(info);
-    play(info);
-  };
   //to fix the audio player to bottom after it has been rendered on this page
   useEffect(() => {
     const player = document.querySelector('#audio-player');
@@ -46,7 +43,6 @@ const CreatorPage = ({ info, audioCards, play }) => {
           audioCards.filter(e => e.creatorId.creatorName === data.creatorName)
             .length ? (
             <AudioCards
-              playAudio={playAudio}
               categoryName={`Other creations from ${data.creatorName}`}
               cardItems={audioCards.filter(
                 e => e.creatorId.creatorName === data.creatorName
@@ -55,7 +51,6 @@ const CreatorPage = ({ info, audioCards, play }) => {
           ) : null}
           {audioCards && (
             <AudioCards
-              playAudio={playAudio}
               categoryName={`Trending Audios`}
               //most view in last 5 days logic here
               cardItems={audioCards.slice(0, 15)}

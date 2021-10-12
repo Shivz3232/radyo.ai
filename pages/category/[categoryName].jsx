@@ -8,6 +8,7 @@ import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
 import CategoryNavBar from '../../components/CategoryNavBar/CategoryNavBar';
 import { Result } from '../../components/PodcastSearch/Result';
 import SearchBar from '../../components/PodcastSearch/SearchBar';
+import { useAudio } from '../../controllers/AudioProvider';
 import {
   getAudioCategories,
   getCategoryAudio,
@@ -22,26 +23,6 @@ const PodcastCategory = props => {
     query: '',
     data: [],
   });
-
-  const [trackInfo, setTrackInfo] = useState({
-    audioSrc: '',
-    coverSrc: '',
-    title: '',
-  });
-
-  const playAudio = info => {
-    setTrackInfo(info);
-    props.play(info);
-  };
-
-  // useEffect(() => {
-  //   const scrollRestoration = history.scrollRestoration;
-  //   if (scrollRestoration === 'manual') {
-  //     console.log(
-  //       'The location on the page is not restored, user will need to scroll manually.'
-  //     );
-  //   } else console.log(scrollRestoration);
-  // }, []);
 
   //to fix the audio player to bottom after it has been rendered on this page
   useEffect(() => {
@@ -81,7 +62,6 @@ const PodcastCategory = props => {
         />
         {searchResults && searchResults.searched && (
           <Result
-            playAudio={playAudio}
             data={searchResults.data}
             loading={searchResults.loading}
             query={searchResults.query}
@@ -100,10 +80,7 @@ const PodcastCategory = props => {
         >
           <div className="container">
             {audioCards && audioCards.length ? (
-              <AudioCardsVerticalScroll
-                audioCards={audioCards}
-                playAudio={playAudio}
-              />
+              <AudioCardsVerticalScroll audioCards={audioCards} />
             ) : (
               <div className="not-found">
                 start adding audio to this category

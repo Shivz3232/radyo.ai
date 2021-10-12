@@ -50,8 +50,7 @@ const AudioCard = ({ cardItemData, categoryName }) => {
             src={playButton.src}
             alt="play button"
             onClick={() => {
-              playAudio(trackInfo);
-              // console.log(cardItemData);
+              playAudio(trackInfo, cardItemData._id.toString());
               // Event('Podcast', 'Play button clicked', cardItemData.title);
             }}
             className="play__button"

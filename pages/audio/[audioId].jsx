@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import AudioCards from '../../components/AudioCard/AudioCards';
 import AudioPageComponent from '../../components/AudioPage/AudioPage';
 import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
+import { useAudio } from '../../controllers/AudioProvider';
 import { getAllAudio, getAudio, getAudioIds } from '../../controllers/podcast';
 import dbConnect from '../../utils/dbConnect';
 
@@ -13,10 +14,6 @@ const PodcastAudio = ({ data, audioCards, play }) => {
     title: '',
   });
 
-  const playAudio = info => {
-    setTrackInfo(info);
-    play(info);
-  };
   //to fix the audio player to bottom after it has been rendered on this page
   useEffect(() => {
     const player = document.querySelector('#audio-player');
@@ -27,19 +24,17 @@ const PodcastAudio = ({ data, audioCards, play }) => {
   return (
     <div className="audio-page" id="audioPage">
       <div className="container">
-        <AudioPageComponent data={data} playAudio={playAudio} />
+        <AudioPageComponent data={data} />
 
         {/*Audio Cards horizontal scroll section*/}
         {audioCards && (
           <AudioCards
-            playAudio={playAudio}
             categoryName="You may also like"
             cardItems={audioCards.filter(e => e.category === data.category)}
           />
         )}
 
         <AudioCards
-          playAudio={playAudio}
           categoryName={`Other creations by ${data.creatorId.creatorName}`}
           cardItems={audioCards.filter(
             e => e.creatorId.creatorName === data.creatorId.creatorName

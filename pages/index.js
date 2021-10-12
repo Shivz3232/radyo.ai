@@ -60,7 +60,6 @@ const Podcast = ({ audioCards, allCategories }) => {
           />
           {searchResults.searched ? (
             <Result
-              playAudio={playAudio}
               query={searchResults.query}
               data={searchResults.data}
               loading={searchResults.loading}
@@ -105,6 +104,7 @@ export async function getStaticProps() {
         audioCards,
         allCategories,
       },
+      revalidate: 60,
     };
   } else {
     return {

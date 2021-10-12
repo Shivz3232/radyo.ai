@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useLocalStorage } from '../hooks/localStorage';
 
@@ -10,15 +11,19 @@ export const AudioProvider = ({ children }) => {
     coverSrc: '',
     title: '',
   });
-  //   useEffect(() => {
-  //     setTrackInfo({
-  //       audioSrc: '',
-  //       coverSrc: '',
-  //       title: '',
-  //     });
-  //     // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   }, []);
-  const playAudio = info => setTrackInfo(info);
+
+  const isPlaying = () => {
+    if (trackInfo.audioSrc !== '') return true;
+    else return false;
+  };
+
+  const playAudio = (info, id) => {
+    setTrackInfo(info);
+    axios
+      .post(`/api/update_count/${id}`, { update: { playCount: 1 } })
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  };
   return (
     <AudioContext.Provider value={{ trackInfo, playAudio }}>
       {children}

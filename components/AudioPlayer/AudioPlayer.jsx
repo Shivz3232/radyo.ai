@@ -23,7 +23,7 @@ const AudioPlayer = props => {
     if (audioRef.current) {
       audioRef.current.audio.current.onended = e => {
         playNext();
-        console.log(e);
+        // console.log(e);
       };
     }
   } catch (err) {
