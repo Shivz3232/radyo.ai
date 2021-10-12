@@ -96,13 +96,13 @@ uploader.post(async (req, res) => {
       language: req.body.lan,
       tags: createTagsArray(req.body.hashTags),
       audioSrc: audioFile.url,
-      // fileSize: '',
-      // duration: 0,
+      fileSize: `${Math.round(audioFile.bytes / 1000000)}MB`,
+      duration: Math.floor(audioFile.duration),
     });
     console.log(newPodcast);
-    await newPodcast.save().catch(err => {
-      console.log(err);
-    });
+    // await newPodcast.save().catch(err => {
+    //   console.log(err);
+    // });
 
     res.status(200).json({
       message: 'uploaded successfully',

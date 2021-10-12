@@ -151,16 +151,10 @@ const AddAudio = () => {
             <hr className="border-0 border-b-2 border-indigo-650 mx-auto h-2 w-36" />
             <RecordAudio AudioData={setAudioData} />
             <hr className="border-0 border-b-2 border-indigo-650 mx-auto h-2 w-36" />
-            <div className="pt-7">
-              <button className="submit-btn " onClick={handleSubmit}>
+            <div className="pt-7 text-center">
+              <button className="submit-btn" onClick={handleSubmit}>
                 Submit
               </button>
-              {submitted && (
-                <h2 className="inline ml-3 text-green-600 text-lg">
-                  <BsPatchCheckFill className="md:inline mr-2 text-xl" />
-                  Audio Submitted
-                </h2>
-              )}
             </div>
           </form>
         </div>
@@ -170,3 +164,10 @@ const AddAudio = () => {
 };
 
 export default AddAudio;
+
+{/* {submitted && (
+  <h2 className="inline ml-3 text-green-600 text-lg">
+    <BsPatchCheckFill className="md:inline mr-2 text-xl" />
+    Audio Submitted
+  </h2>
+)} */}
