@@ -86,76 +86,78 @@ const RecordAudio = ({ AudioData }) => {
   };
 
   return (
-    <div className="space-y-3">
-      <p className="text-indigo-650">Upload your Audio File :</p>
-      <input
-        className="input bg-white"
-        type="file"
-        accept="audio/*"
-        onChange={handleChange}
-      />
-      {fileUploaded && (
-        <>
-          <h3 className="text-indigo-650">Uploaded Audio :</h3>
-          <audio className="w-full" controls src={uploadedAudioSrc}></audio>
-        </>
-      )}
+    <>
+      <div className="space-y-3">
+        <p className="text-indigo-650">Upload your Audio File :</p>
+        <input
+          className="input bg-white"
+          type="file"
+          accept="audio/*"
+          onChange={handleChange}
+        />
+        {fileUploaded && (
+          <>
+            <h3 className="text-indigo-650">Uploaded Audio :</h3>
+            <audio className="w-full" controls src={uploadedAudioSrc}></audio>
+          </>
+        )}
 
-      <p className="text-center text-indigo-650">OR</p>
-      <button className="btn" onClick={() => setShowRec(true)} type="button">
-        Click here to record your audio directly
-      </button>
-      {showRec && (
-        <>
-          <div className="flex mx-auto space-x-2">
-            <button
-              className={recordingOn ? 'btn bg-gray-500' : 'btn'}
-              onClick={RecordFromMic}
-              type="button"
-              ref={startRec}
-            >
-              <FaPlay className="inline mr-2 mb-1" />
-              Start Recording
-            </button>
-            <button
-              className={recordingOn ? 'btn' : 'btn bg-gray-500'}
-              onClick={handleStopRec}
-              ref={stopRec}
-              type="button"
-            >
-              <FaStop className="inline mr-2 mb-1" />
-              Stop Recording
-            </button>
-          </div>
-
-          {recordingOn && (
-            <div className="text-center space-x-3 bg-gray-200 rounded-md shadow-md">
-              <ImMic className="inline mr-2 mb-1" />
-              <Timer />
+        <p className="text-center text-indigo-650">OR</p>
+        <button className="btn" onClick={() => setShowRec(true)} type="button">
+          Click here to record your audio directly
+        </button>
+        {showRec && (
+          <>
+            <div className="flex mx-auto space-x-2">
+              <button
+                className={recordingOn ? 'btn bg-gray-500' : 'btn'}
+                onClick={RecordFromMic}
+                type="button"
+                ref={startRec}
+              >
+                <FaPlay className="inline mr-2 mb-1" />
+                Start Recording
+              </button>
+              <button
+                className={recordingOn ? 'btn' : 'btn bg-gray-500'}
+                onClick={handleStopRec}
+                ref={stopRec}
+                type="button"
+              >
+                <FaStop className="inline mr-2 mb-1" />
+                Stop Recording
+              </button>
             </div>
-          )}
 
-          <p className="mx-auto text-indigo-650 ml-1">Recorded Audio</p>
-          <div className="space-y-3 text-center">
-            <audio className="w-full" controls src={audioSrc} />
-            {audioSrc && (
-              <>
-                <button
-                  onClick={() => reset()}
-                  type="button"
-                  className="text-white bg-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white hover:bg-gray-700 transition"
-                >
-                  <FaRedo className="inline mr-2 mb-1" />
-                  <p className="inline">
-                    Not happy with Recording? Record Again
-                  </p>
-                </button>
-              </>
+            {recordingOn && (
+              <div className="text-center space-x-3 bg-gray-200 rounded-md shadow-md">
+                <ImMic className="inline mr-2 mb-1" />
+                <Timer />
+              </div>
             )}
-          </div>
-        </>
-      )}
-    </div>
+
+            <p className="mx-auto text-indigo-650 ml-1">Recorded Audio</p>
+            <div className="space-y-3 text-center">
+              <audio className="w-full" controls src={audioSrc} />
+              {audioSrc && (
+                <>
+                  <button
+                    onClick={() => reset()}
+                    type="button"
+                    className="text-white bg-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white hover:bg-gray-700 transition"
+                  >
+                    <FaRedo className="inline mr-2 mb-1" />
+                    <p className="inline">
+                      Not happy with Recording? Record Again
+                    </p>
+                  </button>
+                </>
+              )}
+            </div>
+          </>
+        )}
+      </div>
+    </>
   );
 };
 

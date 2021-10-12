@@ -63,67 +63,69 @@ const MyProfile = () => {
 
   return (
     <>
-      <div className="text-indigo-650 w-11/12 sm:w-3/6 mx-auto p-6 pt-3 bg-white rounded-md shadow-xl">
-        <div className="mx-auto mb-5 hover:scale-105 transform transition max-w-xs">
-          <img
-            src={imgSrc}
-            alt="avatar"
-            className="h-20 w-20 rounded-full mx-auto bg-gray-200 align-middle block"
-          />
-          <p className="text-center text-gray-900">{inputData.email}</p>
-        </div>
-        <div>
-          <form
-            action="/api/updateUserProfile"
-            method="POST"
-            encType="multipart/form-data"
-            className="space-y-3 mx-auto text-gray-900 w-11/12 lg:w-4/6"
-          >
-            <p className="text-center text-indigo-650 text-xl">
-              Tell us more about you!
-            </p>
-            <input
-              className="input"
-              type="text"
-              name="creatorName"
-              placeholder="Full name"
-              onChange={handleChange}
-              value={inputData.creatorName}
-              required
+      <div className="h-screen">
+        <div className="text-indigo-650 w-11/12 sm:w-3/6 mx-auto p-6 pt-3 bg-white rounded-md shadow-xl">
+          <div className="mx-auto mb-5 hover:scale-105 transform transition max-w-xs">
+            <img
+              src={imgSrc}
+              alt="avatar"
+              className="h-20 w-20 rounded-full mx-auto bg-gray-200 align-middle block"
             />
-            <br />
-            <input
-              className="input"
-              type="tel"
-              pattern="[0-9]{10}"
-              name="contact"
-              placeholder="Contact number"
-              onChange={handleChange}
-              value={inputData.contact}
-            />
-            <br />
-            <p className="mx-auto text-indigo-650">Change profile picture:</p>
-            <input
-              className="input bg-white"
-              type="file"
-              id="img"
-              name="avatarImage"
-              accept="image/*"
-            />
-            <textarea
-              className="input p-2"
-              name="about"
-              rows="4"
-              placeholder="About yourself (50 words)"
-              value={inputData.about}
-              onChange={handleChange}
-            ></textarea>
-            <br />
-            <input type="hidden" name="email" value={inputData.email} />
-            <button className="submit-btn" type="submit">
-              Save Profile
-            </button>
-          </form>
+            <p className="text-center text-gray-900">{inputData.email}</p>
+          </div>
+          <div>
+            <form
+              action="/api/updateUserProfile"
+              method="POST"
+              encType="multipart/form-data"
+              className="space-y-3 mx-auto text-gray-900 w-11/12 lg:w-4/6"
+            >
+              <p className="text-center text-indigo-650 text-xl">
+                Tell us more about you!
+              </p>
+              <input
+                className="input"
+                type="text"
+                name="creatorName"
+                placeholder="Full name"
+                onChange={handleChange}
+                value={inputData.creatorName}
+                required
+              />
+              <br />
+              <input
+                className="input"
+                type="tel"
+                pattern="[0-9]{10}"
+                name="contact"
+                placeholder="Contact number"
+                onChange={handleChange}
+                value={inputData.contact}
+              />
+              <br />
+              <p className="mx-auto text-indigo-650">Change profile picture:</p>
+              <input
+                className="input bg-white"
+                type="file"
+                id="img"
+                name="avatarImage"
+                accept="image/*"
+              />
+              <textarea
+                className="input p-2"
+                name="about"
+                rows="4"
+                placeholder="About yourself (50 words)"
+                value={inputData.about}
+                onChange={handleChange}
+              ></textarea>
+              <br />
+              <input type="hidden" name="email" value={inputData.email} />
+              <button className="submit-btn" type="submit">
+                Save Profile
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </>

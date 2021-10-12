@@ -28,16 +28,18 @@ const MySubmissions = () => {
 
   return (
     <>
-      <h1 className="text-center px-2">
-        If you have recently submitted an entry, it will be under review and
-        will appear here within 2 business days​.
-      </h1>
-      <div className="container">
-        <AudioCards
-          categoryName="My Submissions"
-          cardItems={audioCards}
-          playAudio={playAudio}
-        />
+      <div className="h-screen">
+        <h1 className="text-center px-2">
+          If you have recently submitted an entry, it will be under review and
+          will appear here within 2 business days​.
+        </h1>
+        <div className="container">
+          <AudioCards
+            categoryName="My Submissions"
+            cardItems={audioCards}
+            playAudio={playAudio}
+          />
+        </div>
       </div>
     </>
   );
