@@ -10,11 +10,11 @@ import { useAudio } from '../../controllers/AudioProvider';
 // import { GoogleCard } from './../AdCard/GoogleCard';
 const AudioPlayer = props => {
   const { getNextTrack } = usePlaylist();
-  const { trackInfo, playAudio } = useAudio();
+  const { trackInfo, playAudio, isPlaying } = useAudio();
   const audioRef = useRef();
 
   function playNext() {
-    const nextTrack = getNextTrack(trackInfo);
+    // const nextTrack = getNextTrack(trackInfo);
     playAudio(() => {
       return getNextTrack(trackInfo);
     });
@@ -23,7 +23,6 @@ const AudioPlayer = props => {
     if (audioRef.current) {
       audioRef.current.audio.current.onended = e => {
         playNext();
-        // console.log(e);
       };
     }
   } catch (err) {
@@ -31,7 +30,17 @@ const AudioPlayer = props => {
   }
 
   useEffect(() => {
+    const player = document.querySelector('#audio-player');
+    player.classList.remove('absolute');
+    player.classList.add('fixed');
+  }, []);
+
+  useEffect(() => {
     props.hidePlayer(trackInfo);
+
+    // const audioPlayerContainer = document.getElementById('audio-player');
+    // audioPlayerContainer.classList.toggle('hidden', !isPlaying());
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [trackInfo]);
 

@@ -17,19 +17,9 @@ const CreatorPage = ({ info, audioCards, play }) => {
     title: '',
   });
 
-  //to fix the audio player to bottom after it has been rendered on this page
-  useEffect(() => {
-    const player = document.querySelector('#audio-player');
-    player.classList.remove('absolute');
-    player.classList.add('fixed');
-  }, []);
-  //marginBottom for audio player
   return (
     <>
-      <div
-        className="creatorpage"
-        style={{ marginBottom: trackInfo.audioSrc ? '85px' : '0px' }}
-      >
+      <div className="creatorpage">
         {/* <Banner size="sm" />
         {<PillsNav category="all" type="podcast" />} */}
 

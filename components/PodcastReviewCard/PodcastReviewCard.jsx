@@ -69,7 +69,7 @@ const PodcastReviewCard = ({ podcast, approve, reject, showReport }) => {
           src={playButton.src}
           alt="play button"
           onClick={() => {
-            playAudio(trackInfo, podcast._id);
+            playAudio(trackInfo, podcast._id.toString());
           }}
           className="play__button"
         />

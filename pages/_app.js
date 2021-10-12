@@ -54,10 +54,9 @@ function App({ Component, pageProps }) {
             </div>
             <div
               id="audio-player"
-              className="absolute w-full bottom-0 left-0 z-20"
-              style={{ display: trackInfo.audioSrc ? '' : 'none' }}
+              className="absolute w-full bottom-0 left-0 z-20 hidden"
             >
-              <AudioPlayer trackInfo={trackInfo} hidePlayer={setTrackInfo} />
+              <AudioPlayer hidePlayer={setTrackInfo} />
             </div>
           </AuthProvider>
         </AudioProvider>

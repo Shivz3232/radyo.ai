@@ -19,13 +19,14 @@ export const AudioProvider = ({ children }) => {
 
   const playAudio = (info, id) => {
     setTrackInfo(info);
-    axios
-      .post(`/api/update_count/${id}`, { update: { playCount: 1 } })
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+    if (id)
+      axios
+        .post(`/api/update_count/${id}`, { update: { playCount: 1 } })
+        // .then(res => console.log(res))
+        .catch(err => console.log(err));
   };
   return (
-    <AudioContext.Provider value={{ trackInfo, playAudio }}>
+    <AudioContext.Provider value={{ trackInfo, playAudio, isPlaying }}>
       {children}
     </AudioContext.Provider>
   );

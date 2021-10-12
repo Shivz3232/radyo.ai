@@ -36,9 +36,6 @@ const Podcast = ({ audioCards, allCategories }) => {
         setshowWelcomeModal('visible');
       }, 2000);
     }
-    const player = document.querySelector('#audio-player');
-    player.classList.remove('absolute');
-    player.classList.add('fixed');
   }, []);
 
   return (

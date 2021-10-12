@@ -173,7 +173,7 @@ const AudioPageComponent = ({ data }) => {
         <button
           className="play-btn"
           onClick={() => {
-            playAudio(trackInfo, data._id);
+            playAudio(trackInfo, data._id.toString());
             // Event('Audio', 'Play button clicked', data.title);
           }}
         >

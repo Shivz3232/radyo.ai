@@ -24,13 +24,6 @@ const PodcastCategory = props => {
     data: [],
   });
 
-  //to fix the audio player to bottom after it has been rendered on this page
-  useEffect(() => {
-    const player = document.querySelector('#audio-player');
-    player.classList.remove('absolute');
-    player.classList.add('fixed');
-  }, [props.category]);
-
   useEffect(() => {
     setAudioCards(props.audioCards);
   }, [props]);

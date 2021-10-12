@@ -11,11 +11,6 @@ const Dash = props => {
   // Check if authorized, else redirect to login
   const user = useUser({ redirectTo: '/admin/login', redirectIfFound: false });
 
-  useEffect(() => {
-    const player = document.querySelector('#audio-player');
-    player.classList.remove('absolute');
-    player.classList.add('fixed');
-  }, []);
 
   const logout = async e => {
     e.preventDefault();
