@@ -93,12 +93,12 @@ const AudioCard = ({ cardItemData, categoryName }) => {
           <FaShareAlt className="audio-card__action--item" />
           <span className="audio-card__action--item">{shareCount}</span>
         </div>
-        <div className="audio-card__action">
+        {/* <div className="audio-card__action">
           <CgPlayListAdd
             fontSize="1.65rem"
             className="audio-card__action--item"
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );
