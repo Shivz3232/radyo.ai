@@ -26,7 +26,7 @@ dayjs.updateLocale('en', {
   relativeTime: {
     future: 'in %s',
     past: '%s ago',
-    s: 'a few seconds',
+    s: 'seconds',
     m: 'a minute',
     mm: '%dmin',
     h: 'an hour',
@@ -60,7 +60,7 @@ const AudioPageComponent = ({ data }) => {
 
   const trackInfo = {
     coverSrc: data.coverImage,
-    audioSrc: '/lovebytes/audio/Audio1.mp3',
+    audioSrc: data.audioSrc,
     title: data.title,
   };
   const [origin, setOrigin] = useState();
@@ -105,7 +105,7 @@ const AudioPageComponent = ({ data }) => {
     <>
       {/*AudioCard*/}
       <div className="audioPage-card mini generic-card">
-        <div className="audioPage-card__category">
+        <div className={`audioPage-card__category ${data.category}`}>
           {capitalizeFirstLetter(data.category)}
         </div>
 
@@ -167,7 +167,13 @@ const AudioPageComponent = ({ data }) => {
           </div>
         </div>
       </div>
-
+      {data.tags.length > 0 ? <div className="tags-row">
+        {data.tags.map((elem, i) => (
+          <div key={i} className="tag-item bg-indigo-650">
+            {elem}
+          </div>
+        ))}
+      </div>:null}
       {/*Button Row*/}
       <div className="button-row">
         <button
@@ -179,7 +185,7 @@ const AudioPageComponent = ({ data }) => {
         >
           Play Now
         </button>
-        <div className="share-btn flex border rounded p-2 m-2">
+        <div className="share-btn flex border rounded p-2 mb-2">
           <div className="mx-1">Share with Friends</div>
           <div className="flex">
             <div className="h-8 w-8 mx-1">
