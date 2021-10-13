@@ -4,6 +4,7 @@ import Select from 'react-select';
 import RecordAudio from '../RecordAudio/RecordAudio';
 import { useAuth } from '../../controllers/auth';
 import { BsPatchCheckFill } from 'react-icons/bs';
+import { image_formats } from '../RecordAudio/fileFormats';
 
 const CatOptions = [
   { value: 'cat-1', label: 'Category1' },
@@ -45,6 +46,18 @@ const AddAudio = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
+
+    if ((coverImg.size / 1000000) <= 1) {
+      if (image_formats.includes(coverImg.type)) {
+        
+      } else {
+        alert('Only jpeg, jpg, png formats are allowed!');
+        return;
+      }
+    } else {
+      alert('Cover Image file too Big, Max size is 1MB');
+      return;
+    }
 
     if (audio) {
       if (Math.round(audio.size / 1000000) < 9) {
@@ -143,10 +156,7 @@ const AddAudio = () => {
               id="img"
               name="coverImg"
               accept="image/*"
-              onChange={e => {
-                setCoverImg(e.target.files[0]);
-                console.log(e.target.files[0]);
-              }}
+              onChange={e => setCoverImg(e.target.files[0])}
             />
             <hr className="border-0 border-b-2 border-indigo-650 mx-auto h-2 w-36" />
             <RecordAudio AudioData={setAudioData} />
@@ -165,9 +175,11 @@ const AddAudio = () => {
 
 export default AddAudio;
 
-{/* {submitted && (
+{
+  /* {submitted && (
   <h2 className="inline ml-3 text-green-600 text-lg">
     <BsPatchCheckFill className="md:inline mr-2 text-xl" />
     Audio Submitted
   </h2>
-)} */}
+)} */
+}

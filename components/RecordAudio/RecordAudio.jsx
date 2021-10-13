@@ -4,7 +4,7 @@ import { FaStop } from 'react-icons/fa';
 import { FaPlay } from 'react-icons/fa';
 import { FaRedo } from 'react-icons/fa';
 import Timer from './Timer';
-import { allowed_formats } from './audioFormats';
+import { audio_formats } from './fileFormats';
 
 var mediaRecorder = null;
 
@@ -22,7 +22,7 @@ const RecordAudio = ({ AudioData }) => {
     let fileSize = Math.round(file.size / 1000000);
 
     if (fileSize < 9) {
-      if (allowed_formats.includes(file.type)) {
+      if (audio_formats.includes(file.type)) {
         if (file) {
           const url = URL.createObjectURL(file);
           setUploadedAudioSrc(url);
@@ -103,7 +103,11 @@ const RecordAudio = ({ AudioData }) => {
         )}
 
         <p className="text-center text-indigo-650">OR</p>
-        <button className="btn" onClick={() => setShowRec(true)} type="button">
+        <button
+          className="btn bg-white text-gray-900 border-2 border-indigo-650 hover:text-white hover:bg-indigo-650 transition"
+          onClick={() => setShowRec(true)}
+          type="button"
+        >
           Click here to record your audio directly
         </button>
         {showRec && (

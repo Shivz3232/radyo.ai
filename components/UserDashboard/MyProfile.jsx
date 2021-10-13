@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import firebase from 'firebase';
 import avatar from '../../assets/Avatar.png';
 import axios from 'axios';
-import { useAuth } from '../../controllers/auth';
+import { image_formats } from '../RecordAudio/fileFormats';
 
 const MyProfile = () => {
   const [inputData, setInputData] = useState({
@@ -12,6 +12,7 @@ const MyProfile = () => {
     about: '',
   });
   const [imgSrc, setImgSrc] = useState(avatar.src);
+  const [profileImg, setprofileImg] = useState('');
 
   useEffect(() => {
     // try {
@@ -20,7 +21,7 @@ const MyProfile = () => {
     // } catch (error) {
     //   console.log(error);
     // }
-    
+
     setTimeout(async () => {
       if (firebase.auth().currentUser) {
         const user = await firebase.auth().currentUser.email;
@@ -51,6 +52,44 @@ const MyProfile = () => {
     }, 1000);
   }, []);
 
+  const handleSubmit = async e => {
+    // e.preventDefault();
+
+    if (profileImg) {
+      if (profileImg.size / 1000000 <= 1) {
+        if (image_formats.includes(profileImg.type)) {
+          console.log("Submitting");
+        } else {
+          alert('Only jpeg, jpg, png formats are allowed!');
+          return;
+        }
+      } else {
+        alert('File too large (Max size :1MB)');
+        return;
+      }
+    }
+
+    let formData = new FormData();
+    formData.append('email', inputData.email);
+    formData.append('creatorName', inputData.creatorName);
+    formData.append('contact', inputData.contact);
+    formData.append('about', inputData.about);
+    formData.append('avatarImage', profileImg);
+
+    await axios({
+      method: 'post',
+      url: '/api/updateUserProfile',
+      data: formData,
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   const handleChange = e => {
     const { name, value } = e.target;
     setInputData(prevValue => {
@@ -74,12 +113,7 @@ const MyProfile = () => {
             <p className="text-center text-gray-900">{inputData.email}</p>
           </div>
           <div>
-            <form
-              action="/api/updateUserProfile"
-              method="POST"
-              encType="multipart/form-data"
-              className="space-y-3 mx-auto text-gray-900 w-11/12 lg:w-4/6"
-            >
+            <div className="space-y-3 mx-auto text-gray-900 w-11/12 lg:w-4/6">
               <p className="text-center text-indigo-650 text-xl">
                 Tell us more about you!
               </p>
@@ -110,6 +144,7 @@ const MyProfile = () => {
                 id="img"
                 name="avatarImage"
                 accept="image/*"
+                onChange={e => setprofileImg(e.target.files[0])}
               />
               <textarea
                 className="input p-2"
@@ -120,11 +155,10 @@ const MyProfile = () => {
                 onChange={handleChange}
               ></textarea>
               <br />
-              <input type="hidden" name="email" value={inputData.email} />
-              <button className="submit-btn" type="submit">
+              <button className="submit-btn" onClick={handleSubmit}>
                 Save Profile
               </button>
-            </form>
+            </div>
           </div>
         </div>
       </div>
