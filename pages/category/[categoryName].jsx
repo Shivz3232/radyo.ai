@@ -62,7 +62,7 @@ const PodcastCategory = props => {
           dataLength={audioCards.length}
           next={loadMorePodcast}
           hasMore={true}
-          height="85vh"
+          height={'max-content'}
           loader={<p></p>}
         >
           <div className="container">
@@ -70,11 +70,18 @@ const PodcastCategory = props => {
               <AudioCardsVerticalScroll audioCards={audioCards} />
             ) : (
               <div className="not-found">
-                <img
-                  className="w-1/3 h-1/3"
-                  src={NoResult.src}
-                  alt="no audio found, start adding audio"
-                />
+                <div className="flex items-center justify-center flex-row">
+                  <img
+                    className="h-64"
+                    src={NoResult.src}
+                    alt="no audio found, start adding audio"
+                  />
+                </div>
+                <div className="flex items-center justify-center flex-row">
+                  <div className="mobile:w-5/6 ipad:text-2xl text-center">
+                    No audio found for this category, start adding an audio
+                  </div>
+                </div>
               </div>
             )}
           </div>

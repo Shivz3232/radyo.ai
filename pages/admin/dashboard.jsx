@@ -11,7 +11,6 @@ const Dash = props => {
   // Check if authorized, else redirect to login
   const user = useUser({ redirectTo: '/admin/login', redirectIfFound: false });
 
-
   const logout = async e => {
     e.preventDefault();
 

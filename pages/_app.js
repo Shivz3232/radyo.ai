@@ -29,27 +29,23 @@ import { AuthProvider } from '../controllers/auth';
 import { PlaylistProvider } from '../controllers/PlaylistProvider';
 
 function App({ Component, pageProps }) {
-
   return (
     <main className="app">
       <PlaylistProvider>
-          <AuthProvider>
-            <Head>
-              <title>Radyo.ai</title>
-              <link rel="icon" href="/favicon.ico" />
-            </Head>
-            <Header
-              activeTab={pageProps.activeTab}
-              data={{ loggedIn: false }}
-            />
-            {/* <div
+        <AuthProvider>
+          <Head>
+            <title>Radyo.ai</title>
+            <link rel="icon" href="/favicon.ico" />
+          </Head>
+          <Header activeTab={pageProps.activeTab} data={{ loggedIn: false }} />
+          {/* <div
               className={`${trackInfo.audioSrc ? 'mb-16 mobile:mb-20' : 'm-0'}`}
             > */}
-              <Component {...pageProps} />
-            {/* </div> */}
+          <Component {...pageProps} />
+          {/* </div> */}
 
-            <AudioPlayer/>
-          </AuthProvider>
+          <AudioPlayer />
+        </AuthProvider>
       </PlaylistProvider>
     </main>
   );

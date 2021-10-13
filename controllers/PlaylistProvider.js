@@ -6,6 +6,11 @@ const PlaylistContext = createContext({});
 export const usePlaylist = () => useContext(PlaylistContext);
 
 export const PlaylistProvider = ({ children }) => {
+  const [trackInfo, setTrackInfo] = useLocalStorage('currentTrack', {
+    audioSrc: '',
+    coverSrc: '',
+    title: '',
+  });
   const [contextPlaylist, setContextPlaylist] = useLocalStorage(
     'contextPlaylist',
     []
@@ -20,7 +25,7 @@ export const PlaylistProvider = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function getNextTrack(trackInfo) {
+  function getNextTrack() {
     if (contextPlaylist.length > 0)
       var index = contextPlaylist.findIndex(e => {
         if (e.title === trackInfo.title && e.audioSrc === trackInfo.audioSrc)
@@ -42,11 +47,28 @@ export const PlaylistProvider = ({ children }) => {
     }
   }
 
-  const [trackInfo, setTrackInfo] = useLocalStorage('currentTrack', {
-    audioSrc: '',
-    coverSrc: '',
-    title: '',
-  });
+  function getPreviousTrack() {
+    if (contextPlaylist.length > 0)
+      var index = contextPlaylist.findIndex(e => {
+        if (e.title === trackInfo.title && e.audioSrc === trackInfo.audioSrc)
+          return true;
+        else return false;
+      });
+    if (contextPlaylist && index - 1 === -1) {
+      return {
+        audioSrc: contextPlaylist[contextPlaylist.length - 1].audioSrc,
+        coverSrc: contextPlaylist[contextPlaylist.length - 1].coverImage,
+        title: contextPlaylist[contextPlaylist.length - 1].title,
+      };
+    } else if (contextPlaylist && contextPlaylist[index]) {
+      return {
+        audioSrc: contextPlaylist[index - 1].audioSrc,
+        coverSrc: contextPlaylist[index - 1].coverImage,
+        title: contextPlaylist[index - 1].title,
+      };
+    }
+  }
+
   useEffect(() => {
     setTrackInfo({
       audioSrc: '',
@@ -55,12 +77,12 @@ export const PlaylistProvider = ({ children }) => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const isPlaying = () => {
-    if (trackInfo.audioSrc !== '') return true;
-    else return false;
-  };
+
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const playAudio = (info, id) => {
+    if (info.audioSrc === '') setIsPlaying(false);
+    else setIsPlaying(true);
     setTrackInfo(info);
     if (id)
       axios
@@ -75,7 +97,10 @@ export const PlaylistProvider = ({ children }) => {
         contextPlaylist,
         setContextPlaylist,
         getNextTrack,
-        trackInfo, playAudio, isPlaying
+        trackInfo,
+        playAudio,
+        isPlaying,
+        getPreviousTrack,
       }}
     >
       {children}

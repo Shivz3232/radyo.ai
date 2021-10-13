@@ -6,8 +6,9 @@
   }
   .not-found {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    margin-top: 5rem;
+    // margin-top: 5rem;
   }
   .audio-player-dashboard {
     width: 100%;

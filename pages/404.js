@@ -10,7 +10,6 @@ const Custom404 = () => {
           src={custom404.src}
           alt="404"
         />
-        {/* 404 */}
       </div>
     </div>
   );

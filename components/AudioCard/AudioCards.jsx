@@ -6,6 +6,7 @@ import {
 } from '../CategoryNavBar/CategoryNavBar';
 import AudioCard, { capitalizeFirstLetter } from './AudioCard';
 import { usePlaylist } from './../../controllers/PlaylistProvider';
+import NoResult from '../../assets/NoResultsFound.png';
 
 const AudioCards = ({ cardItems, categoryName }) => {
   const audioCards = useRef();
@@ -111,13 +112,8 @@ const AudioCards = ({ cardItems, categoryName }) => {
             })}
           </div>
         ) : (
-          <p
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
+          <p className="flex items-center justify-center">
+            <img className="h-20" src={NoResult.src} alt="no match" />
             <strong>No match found</strong>
           </p>
         )}

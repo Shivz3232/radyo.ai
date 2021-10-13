@@ -1,17 +1,18 @@
-import React, { useEffect, useState, Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import AudioCards from '../components/AudioCard/AudioCards';
-import AudioPlayer from '../components/AudioPlayer/AudioPlayer';
+import { categoryDataLinks } from '../components/CategoryNavBar/categoryData';
 import CategoryNavBar from '../components/CategoryNavBar/CategoryNavBar';
+import WelcomeModal from '../components/Modal/WelcomeModal';
 import { Result } from '../components/PodcastSearch/Result';
 import SearchBar from '../components/PodcastSearch/SearchBar';
 import { getAllAudio, getAudioCategories } from '../controllers/podcast';
-import dbConnect from '../utils/dbConnect';
-import { categoryDataLinks } from '../components/CategoryNavBar/categoryData';
-import HomeCarousel from './../components/HomeCarousel/HomeCarousel';
-import WelcomeModal from '../components/Modal/WelcomeModal';
 import { useSessionStorage } from '../hooks/sessionStorage';
-import { usePlaylist } from '../controllers/PlaylistProvider';
-
+import dbConnect from '../utils/dbConnect';
+import HomeCarousel from './../components/HomeCarousel/HomeCarousel';
+import Banner1 from '../assets/Banner_Radyo.svg';
+import Banner2 from '../assets/Banner_English_artist.svg';
+import Banner3 from '../assets/Banner_English_Listener.svg';
+import Banner4 from '../assets/Banner_Hindi_artist.svg';
 const Podcast = ({ audioCards, allCategories }) => {
   const [showWelcomeModal, setshowWelcomeModal] = useState('hidden');
   const [searchResults, setSearchResults] = useState({
@@ -22,12 +23,7 @@ const Podcast = ({ audioCards, allCategories }) => {
   });
 
   const [showmodal, setShowModal] = useSessionStorage('endModalSession', false);
-  const images = [
-    'https://via.placeholder.com/411x256',
-    'https://via.placeholder.com/1024x320',
-    'https://via.placeholder.com/411x256',
-    'https://via.placeholder.com/1024x320',
-  ];
+  const images = [Banner1.src, Banner2.src, Banner3.src, Banner4.src];
 
   useEffect(() => {
     if (showmodal != true) {
@@ -36,6 +32,7 @@ const Podcast = ({ audioCards, allCategories }) => {
         setshowWelcomeModal('visible');
       }, 2000);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -66,6 +63,10 @@ const Podcast = ({ audioCards, allCategories }) => {
             <>
               <AudioCards
                 categoryName="New Releases"
+                cardItems={audioCards.slice(0, 15)}
+              />
+              <AudioCards
+                categoryName="Trending audios"
                 cardItems={audioCards.slice(0, 15)}
               />
               {categoryDataLinks.map((elem, i) => {
