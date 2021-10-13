@@ -2,19 +2,27 @@ import React, { useEffect, useRef, useState } from 'react';
 import { decode } from 'html-entities';
 import ReactH5Player from 'react-h5-audio-player';
 import { FaPause, FaPlay, FaVolumeMute, FaVolumeUp } from 'react-icons/fa';
+import { RiSkipForwardFill,RiSkipBackFill } from 'react-icons/ri';
 import { ImLoop } from 'react-icons/im';
 import LinesEllipsis from 'react-lines-ellipsis';
 import { GrFormClose } from 'react-icons/gr';
 import { usePlaylist } from '../../controllers/PlaylistProvider';
 // import { GoogleCard } from './../AdCard/GoogleCard';
 const AudioPlayer = props => {
-  const { trackInfo, playAudio, isPlaying,getNextTrack } = usePlaylist();
+  const { trackInfo, playAudio, isPlaying, getNextTrack, getPreviousTrack } =
+    usePlaylist();
   const audioRef = useRef();
 
   function playNext() {
     // const nextTrack = getNextTrack(trackInfo);
     playAudio(() => {
-      return getNextTrack(trackInfo);
+      return getNextTrack();
+    });
+  }
+
+  function playPrevious() {
+    playAudio(() => {
+      return getPreviousTrack();
     });
   }
   try {
@@ -27,12 +35,11 @@ const AudioPlayer = props => {
     console.log(err);
   }
 
-
   return (
     <div
       id="audio-player"
       className={`fixed w-full bottom-0 left-0 z-20`}
-      style={{ display: trackInfo && trackInfo.audioSrc ? '' : 'none' }}
+      style={{ display: isPlaying ? '' : 'none' }}
     >
       {/* {trackInfo.audioSrc && (
         <div className="ad-over-audio-player">
@@ -54,17 +61,13 @@ const AudioPlayer = props => {
           <img
             className="track-info__cover"
             src={
-              trackInfo && trackInfo.audioSrc
-                ? trackInfo.coverSrc
-                : '/lovebytes/images/Picture1.jpg'
+              isPlaying ? trackInfo.coverSrc : '/lovebytes/images/Picture1.jpg'
             }
             alt="cover"
           />
           <div className="track-info__title max-h-20 overflow-clip">
             <LinesEllipsis
-              text={
-                trackInfo && trackInfo.audioSrc ? decode(trackInfo.title) : ''
-              }
+              text={isPlaying ? decode(trackInfo.title) : ''}
               maxLine="2"
               ellipsis="..."
               trimRight
@@ -74,11 +77,12 @@ const AudioPlayer = props => {
         </div>
         <ReactH5Player
           ref={audioRef}
-          src={trackInfo && trackInfo.audioSrc ? trackInfo.audioSrc : ''}
+          src={isPlaying ? trackInfo.audioSrc : ''}
           style={{
             background: '#e3ddcc',
           }}
           className="player"
+          showSkipControls={true}
           showJumpControls={false}
           customIcons={{
             play: <FaPlay color="black" size={25} />,
@@ -86,7 +90,11 @@ const AudioPlayer = props => {
             loop: <ImLoop color="black" size={20} />,
             volume: <FaVolumeUp color="black" size={20} />,
             volumeMute: <FaVolumeMute color="black" size={20} />,
+            next: <RiSkipForwardFill color="black" size={20} />,
+            previous: <RiSkipBackFill color="black" size={20} />,
           }}
+          onClickPrevious={playPrevious}
+          onClickNext={playNext}
         />
       </div>
     </div>
