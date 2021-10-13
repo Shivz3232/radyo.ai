@@ -23,7 +23,9 @@ const PodcastAudio = ({ data, audioCards, play }) => {
           />
         )}
         {/* categoryName="You may also like" */}
-        <div className="heading" style={{marginTop:'2rem'}}>You may also like</div>
+        <div className="heading" style={{ marginTop: '2rem' }}>
+          You may also like
+        </div>
         <AudioCardsVerticalScroll
           audioCards={audioCards.filter(e => e.category === data.category)}
         />

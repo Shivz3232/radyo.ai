@@ -167,13 +167,15 @@ const AudioPageComponent = ({ data }) => {
           </div>
         </div>
       </div>
-      {data.tags.length > 0 ? <div className="tags-row">
-        {data.tags.map((elem, i) => (
-          <div key={i} className="tag-item bg-indigo-650">
-            {elem}
-          </div>
-        ))}
-      </div>:null}
+      {data.tags.length > 0 ? (
+        <div className="tags-row">
+          {data.tags.map((elem, i) => (
+            <div key={i} className="tag-item bg-indigo-650">
+              {elem}
+            </div>
+          ))}
+        </div>
+      ) : null}
       {/*Button Row*/}
       <div className="button-row">
         <button
