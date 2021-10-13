@@ -3,8 +3,11 @@ import firebase from 'firebase';
 import avatar from '../../assets/Avatar.png';
 import axios from 'axios';
 import { image_formats } from '../RecordAudio/fileFormats';
+import SuccessModal from './succesModal';
+import { useRouter } from 'next/router';
 
 const MyProfile = () => {
+  const router = useRouter();
   const [inputData, setInputData] = useState({
     creatorName: '',
     contact: '',
@@ -13,6 +16,7 @@ const MyProfile = () => {
   });
   const [imgSrc, setImgSrc] = useState(avatar.src);
   const [profileImg, setprofileImg] = useState('');
+  const [submit, setSubmit] = useState(false);
 
   useEffect(() => {
     // try {
@@ -58,7 +62,7 @@ const MyProfile = () => {
     if (profileImg) {
       if (profileImg.size / 1000000 <= 1) {
         if (image_formats.includes(profileImg.type)) {
-          console.log("Submitting");
+          console.log('Submitting');
         } else {
           alert('Only jpeg, jpg, png formats are allowed!');
           return;
@@ -83,6 +87,9 @@ const MyProfile = () => {
       headers: { 'Content-Type': 'multipart/form-data' },
     })
       .then(response => {
+        if (response.status === 200) {
+          setSubmit(true);
+        }
         console.log(response);
       })
       .catch(error => {
@@ -100,8 +107,16 @@ const MyProfile = () => {
     });
   };
 
+  const handleClose = () => {
+    setSubmit(false);
+    router.reload(window.location.pathname);
+  }
+
   return (
     <>
+      {submit && (
+        <SuccessModal message="Congratulations, your profile has been successfully updated!" close={handleClose}/>
+      )}
       <div className="h-screen">
         <div className="text-indigo-650 w-11/12 sm:w-3/6 mx-auto p-6 pt-3 bg-white rounded-md shadow-xl">
           <div className="mx-auto mb-5 hover:scale-105 transform transition max-w-xs">
