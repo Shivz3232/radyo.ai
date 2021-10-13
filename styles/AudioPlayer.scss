@@ -1,10 +1,29 @@
+$rhap_theme-color: white !default;
+$rhap_bar-color: #6b51b8 !default;  
+
+
+
+// .rhap_progress-bar, .rhap_progress-bar-show-download{
+//   .rhap_progress-indicator{
+
+//   }
+//   .rhap_progress-filled{
+//     background-color: #4823b6;
+//   }
+//   .rhap_download-progress{
+
+//   }
+// }
+
+.rhap_time{
+  font-family: inherit;
+  color: white;
+}
+.rhap_button-clear{
+  color: white;
+}
 .ad-over-audio-player {
   height: 12vh !important;
-}
-@media only screen and (max-width: $mobile-res) {
-  .ad-over-audio-player {
-    height: 10vh !important;
-  }
 }
 .audio-player {
   // position: fixed;
@@ -16,7 +35,9 @@
     @media only screen and (max-width: 1024px) {
       display: none;
     }
-    background-color: #e3ddcc;
+    // background-color: #e3ddcc;
+    background-color: #a08be0;
+    color: white;
     width: 20vw;
     display: flex;
     align-items: center;

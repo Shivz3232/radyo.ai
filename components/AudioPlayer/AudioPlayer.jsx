@@ -48,7 +48,8 @@ const AudioPlayer = props => {
       )} */}
       <div className="audio-player">
         <GrFormClose
-          className="absolute right-4 top-1 cursor-pointer"
+          className="absolute right-4 top-1 text-white cursor-pointer"
+          color="#fff"
           onClick={() => {
             playAudio({
               audioSrc: '',
@@ -79,19 +80,19 @@ const AudioPlayer = props => {
           ref={audioRef}
           src={isPlaying ? trackInfo.audioSrc : ''}
           style={{
-            background: '#e3ddcc',
+            background: '#a08be0',
           }}
           className="player"
           showSkipControls={true}
           showJumpControls={false}
           customIcons={{
-            play: <FaPlay color="black" size={25} />,
-            pause: <FaPause color="black" size={25} />,
-            loop: <ImLoop color="black" size={20} />,
-            volume: <FaVolumeUp color="black" size={20} />,
-            volumeMute: <FaVolumeMute color="black" size={20} />,
-            next: <RiSkipForwardFill color="black" size={20} />,
-            previous: <RiSkipBackFill color="black" size={20} />,
+            play: <FaPlay color="white" size={25} />,
+            pause: <FaPause color="white" size={25} />,
+            loop: <ImLoop color="white" size={20} />,
+            volume: <FaVolumeUp color="white" size={20} />,
+            volumeMute: <FaVolumeMute color="white" size={20} />,
+            next: <RiSkipForwardFill color="white" size={20} />,
+            previous: <RiSkipBackFill color="white" size={20} />,
           }}
           onClickPrevious={playPrevious}
           onClickNext={playNext}
