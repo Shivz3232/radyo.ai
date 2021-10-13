@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // import AdCard from '../../../components/AdCard/AdCard';
 import AudioCards from '../../components/AudioCard/AudioCards';
+import AudioCardsVerticalScroll from '../../components/AudioCard/AudioCardsVerticalScroll';
 import AudioPageComponent from '../../components/AudioPage/AudioPage';
 import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
 import { getAllAudio, getAudio, getAudioIds } from '../../controllers/podcast';
@@ -13,18 +14,18 @@ const PodcastAudio = ({ data, audioCards, play }) => {
         <AudioPageComponent data={data} />
 
         {/*Audio Cards horizontal scroll section*/}
+        <div className="heading">{`Other creations by ${data.creatorId.creatorName}`}</div>
         {audioCards && (
-          <AudioCards
-            categoryName="You may also like"
-            cardItems={audioCards.filter(e => e.category === data.category)}
+          <AudioCardsVerticalScroll
+            audioCards={audioCards.filter(
+              e => e.creatorId.creatorName === data.creatorId.creatorName
+            )}
           />
         )}
-
-        <AudioCards
-          categoryName={`Other creations by ${data.creatorId.creatorName}`}
-          cardItems={audioCards.filter(
-            e => e.creatorId.creatorName === data.creatorId.creatorName
-          )}
+        {/* categoryName="You may also like" */}
+        <div className="heading" style={{marginTop:'2rem'}}>You may also like</div>
+        <AudioCardsVerticalScroll
+          audioCards={audioCards.filter(e => e.category === data.category)}
         />
       </div>
     </div>

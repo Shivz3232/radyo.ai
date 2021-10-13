@@ -4,6 +4,20 @@
     margin: 1rem auto;
     max-width: $screen-laptop-max !important;
   }
+  .heading {
+    font-size: 1.65rem;
+    width: 80%;
+    color: #4527a0;
+    margin: 0rem;
+    margin-bottom: 1rem;
+  }
+  @media only screen and (max-width: $mobile-res) {
+    .heading {
+      margin: 0 1rem;
+      font-size: 1.35rem;
+    }
+
+  }
   .audio-player-dashboard {
     width: 100%;
     position: fixed;

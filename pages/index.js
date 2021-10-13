@@ -68,6 +68,10 @@ const Podcast = ({ audioCards, allCategories }) => {
                 categoryName="New Releases"
                 cardItems={audioCards.slice(0, 15)}
               />
+              <AudioCards
+                categoryName="Trending audios"
+                cardItems={audioCards.slice(0, 15)}
+              />
               {categoryDataLinks.map((elem, i) => {
                 if (audioCards.filter(e => e.category === elem.id).length) {
                   return (
