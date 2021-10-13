@@ -15,7 +15,8 @@ export default function HomeCarousel({ images }) {
         return (
           <div
             key={i}
-            className="max-h-80 flex flex-1 w-full h-full items-center justify-center"
+            style={{maxHeight:'24rem'}}
+            className="flex flex-1 w-full h-full items-center justify-center"
           >
             <img src={e} alt="carousel" />
           </div>
