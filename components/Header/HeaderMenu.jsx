@@ -12,7 +12,7 @@ const HeaderMenu = ({ activeTab, data }) => {
           return <HeaderMenuBtn activeTab={activeTab} key={i} data={e} />;
         })}
       </div>
-      <AddAudioBtn customStyles="mx-3"  />
+      <AddAudioBtn customStyles="mx-3" />
       <HeaderLoginBtn data={data} />
     </div>
   );

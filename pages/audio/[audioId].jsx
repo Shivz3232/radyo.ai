@@ -7,7 +7,6 @@ import { getAllAudio, getAudio, getAudioIds } from '../../controllers/podcast';
 import dbConnect from '../../utils/dbConnect';
 
 const PodcastAudio = ({ data, audioCards, play }) => {
-
   return (
     <div className="audio-page" id="audioPage">
       <div className="container">

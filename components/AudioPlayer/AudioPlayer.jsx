@@ -37,7 +37,10 @@ const AudioPlayer = props => {
 
   return (
     <>
-      <div className="z-0 h-28 mobile:h-28" style={{ display: isPlaying ? '' : 'none' }}></div>
+      <div
+        className="z-0 h-28 mobile:h-28"
+        style={{ display: isPlaying ? '' : 'none' }}
+      ></div>
       <div
         id="audio-player"
         className={`fixed w-full bottom-0 left-0 z-20`}

@@ -9,7 +9,7 @@ import { usePlaylist } from './../../controllers/PlaylistProvider';
 
 function Header({ activeTab, data, hideFlag }) {
   const { userid } = useAuth();
-  const {isPlaying} = usePlaylist();
+  const { isPlaying } = usePlaylist();
   return (
     <>
       <div
@@ -24,7 +24,11 @@ function Header({ activeTab, data, hideFlag }) {
           <HamburgerMenu loggedIn={userid ? true : false} />
         </div>
       </div>
-      <div className={`md:hidden fixed ${isPlaying ? 'bottom-24' : 'bottom-5'} right-4 z-30`}>
+      <div
+        className={`md:hidden fixed ${
+          isPlaying ? 'bottom-24' : 'bottom-5'
+        } right-4 z-30`}
+      >
         <AddAudioBtn iconSize="h-12" customStyles="shadow-md" hideText={true} />
       </div>
     </>
