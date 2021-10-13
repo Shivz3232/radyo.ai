@@ -1,10 +1,12 @@
 import { React } from 'react';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { usePlaylist } from '../../controllers/PlaylistProvider';
 
 const WelcomeModal = props => {
   const [closingCounter, setclosingCounter] = useState(12);
   const router = useRouter();
+  const { contextPlaylist, playAudio } = usePlaylist();
 
   useEffect(() => {
     setTimeout(() => {
@@ -45,7 +47,13 @@ const WelcomeModal = props => {
           <button
             className="bg-white text-opacity-0 font-bold py-2 px-4 rounded-full"
             onClick={() => {
-              router.push('/trending');
+              const firstTrack = {
+                audioSrc: contextPlaylist[0].audioSrc,
+                coverSrc: contextPlaylist[0].coverImage,
+                title: contextPlaylist[0].title,
+              };
+              props.setshowWelcomeModal('hidden');
+              playAudio(firstTrack, contextPlaylist[0]._id.toString());
             }}
           >
             Play Now

@@ -36,6 +36,7 @@ const Podcast = ({ audioCards, allCategories }) => {
         setshowWelcomeModal('visible');
       }, 2000);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
