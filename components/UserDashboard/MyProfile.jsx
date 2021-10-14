@@ -118,7 +118,11 @@ const MyProfile = () => {
   const copyToClipboard = e => {
     navigator.clipboard.writeText(profileLink.current.innerText);
     e.target.innerText = 'Copied!';
-    setTimeout(() => (e.target.innerText = 'Copy Link'), 5000);
+    e.target.classList.add('bg-green-600');
+    setTimeout(() => {
+      e.target.innerText = 'Copy Link';
+      e.target.classList.remove('bg-green-600');
+    }, 5000);
   };
 
   return (
@@ -144,7 +148,7 @@ const MyProfile = () => {
                   ref={profileLink}
                 >{`www.radyo.ai/creator/${inputData.uid}`}</p>
                 <button
-                  className="text-white text-sm mx-auto bg-indigo-650 m-2 border-2 rounded-md p-1 border-indigo-650 hover:scale-105 transform transition"
+                  className="text-white text-sm mx-auto bg-indigo-650 m-2  rounded-md p-2 hover:scale-105 transform transition"
                   onClick={copyToClipboard}
                 >
                   Copy link

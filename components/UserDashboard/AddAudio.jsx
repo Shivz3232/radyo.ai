@@ -107,7 +107,7 @@ const AddAudio = () => {
           .then(response => {
             console.log(response);
             setMessage({
-              msg: 'Congratulations, your submission have been successfully uploaded. Your submission will be published within 2 business days​!',
+              msg: 'Congratulations, your submission have been successfully uploaded. Your submission will be reviewed and published within 2 business days​!',
               savingMsg: null,
             });
           })
