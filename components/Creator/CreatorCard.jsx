@@ -10,16 +10,6 @@ const CreatorCard = ({ data }) => {
    const [open, setOpen] = useState(false);
    const [open1, setOpen1] = useState(false);
    const [follow, setFollow] = useState(false);
-   const [creator, setCreator]= useState(data);
-   
-  //  const confirmCloseHandler = () => {
-  //   setOpen(false);
-  //   setOpenNew(true);
-  // };
-
-   // const clickedClose = () => {
-  //   setOpen(false);
-  // };
 
   const cancelCloseHandler = () => {
     setOpen1(false);
@@ -31,19 +21,11 @@ const CreatorCard = ({ data }) => {
   const openFollow=()=>{
     if(follow===true){
       setOpen1(true)
-      // if(follow===true)
-      // {
-      //   setCreator(...creator, {creator.subscriberCount++})
-      // }
-      // let response= axios.post('http://localhost:3000')
+      
       
     }
     else{
       setOpen(true)
-      // if(follow===false)
-      // {
-      //   setCreator(...creator, {creator.subscriberCount--})
-      // }
     }
   }
   console.log("Creator",creator)
