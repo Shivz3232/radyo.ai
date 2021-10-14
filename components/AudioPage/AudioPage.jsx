@@ -114,7 +114,8 @@ const AudioPageComponent = ({ data }) => {
             <div className="audioPage-card__header--item audioPage-card__title">
               {data.title}
             </div>
-            <Link href={`/creator/${data.creatorId._id}`}>
+            {console.log(data)}
+            <Link href={`/creator/${data.creatorId.uid}`}>
               <a style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div className="audioPage-card__header--item audioPage-card__author">
                   By : {data.creatorId.creatorName}
