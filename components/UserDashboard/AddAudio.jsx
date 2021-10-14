@@ -4,7 +4,7 @@ import Select from 'react-select';
 import RecordAudio from '../RecordAudio/RecordAudio';
 import { useAuth } from '../../controllers/auth';
 import { image_formats } from '../RecordAudio/fileFormats';
-import SuccessModal from './succesModal';
+import SuccessModal from './SuccesModal';
 
 const CatOptions = [
   { value: 'cat-1', label: 'Category1' },
