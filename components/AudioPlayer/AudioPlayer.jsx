@@ -38,7 +38,7 @@ const AudioPlayer = props => {
   return (
     <>
       <div
-        className="z-0 h-48 mobile:h-48"
+        className="z-0 h-48 mobile:h-44"
         style={{ display: isPlaying ? '' : 'none' }}
       ></div>
       <div
@@ -47,10 +47,13 @@ const AudioPlayer = props => {
         style={{ display: isPlaying ? '' : 'none' }}
       >
         {isPlaying && (
-        <div className="border border-red-500" style={{width:'100%',height:'100px'}}>
-          <GoogleCard size="980x100" />
-        </div>
-      )}
+          <div
+            className="border border-red-500"
+            style={{ width: '100%', height: '100px' }}
+          >
+            <GoogleCard size="980x100" />
+          </div>
+        )}
         <div className="audio-player">
           <AiOutlineClose
             className="absolute right-4 top-50 text-white cursor-pointer"

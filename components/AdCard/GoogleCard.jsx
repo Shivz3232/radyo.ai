@@ -7,8 +7,7 @@ import {
   GAD_SLOT_SIZE,
 } from './../../constants';
 
-
-export const GoogleCard = (props) => {
+export const GoogleCard = props => {
   return (
     <div
       style={{

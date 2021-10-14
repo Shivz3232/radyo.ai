@@ -1,4 +1,4 @@
-import { categoryDataLinks } from "../CategoryNavBar/categoryData";
+import { categoryDataLinks } from '../CategoryNavBar/categoryData';
 
 export const menuLinks = [
   {
