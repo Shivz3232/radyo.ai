@@ -12,6 +12,7 @@ import { verifyIdToken } from '../utils/firebase/firebaseAdmin';
 import connect from '../utils/middleware/mongoClient';
 import PodcastCreatorModel from '../models/podcastCreator';
 import { useAuth } from '../controllers/auth';
+import { initGA, trackPageView } from '../components/Tracking/tracking';
 
 export const getServerSideProps = async context => {
   try {
@@ -76,6 +77,11 @@ const Login = () => {
   const [showLoginForm, setshowLoginForm] = useState('visible');
   const router = useRouter();
   const { userid } = useAuth();
+
+  useEffect(() => {
+    initGA();
+    trackPageView();
+  }, []);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(() => {

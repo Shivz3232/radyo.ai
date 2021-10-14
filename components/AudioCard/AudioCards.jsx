@@ -80,7 +80,11 @@ const AudioCards = ({ cardItems, categoryName }) => {
       }
 
       cards.push(
-        <AudioCard key={i} categoryName={categoryName} cardItemData={cardItems[i]} />
+        <AudioCard
+          key={i}
+          categoryName={categoryName}
+          cardItemData={cardItems[i]}
+        />
       );
     }
 

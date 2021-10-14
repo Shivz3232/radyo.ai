@@ -11,6 +11,7 @@ import {
 } from '../../controllers/podcast';
 import dbConnect from '../../utils/dbConnect';
 import NoResult from '../../assets/NoResultsFound.png';
+import { initGA, trackPageView } from '../../components/Tracking/tracking';
 
 const PodcastCategory = props => {
   const [audioCards, setAudioCards] = useState(props.audioCards);
@@ -24,6 +25,11 @@ const PodcastCategory = props => {
   useEffect(() => {
     setAudioCards(props.audioCards);
   }, [props]);
+
+  useEffect(() => {
+    initGA();
+    trackPageView();
+  }, []);
 
   function loadMorePodcast() {
     if (audioCards.length) {

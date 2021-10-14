@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import HomeCarousel from './../components/HomeCarousel/HomeCarousel';
 import loadable from '@loadable/component';
 import Link from 'next/link';
+import { initGA, trackPageView } from '../components/Tracking/tracking';
 const BarChartRace1 = loadable(() =>
   import('./../components/Leaderboard/LeaderBoard')
 );
 const Contest = () => {
+  useEffect(() => {
+    initGA();
+    trackPageView();
+  }, []);
   const [isClicked, setIsClicked] = useState(false);
   const images = [
     'https://via.placeholder.com/411x256',

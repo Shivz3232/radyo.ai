@@ -13,7 +13,12 @@ import Banner1 from '../assets/Banner_Radyo.svg';
 import Banner2 from '../assets/Banner_English_artist.svg';
 import Banner3 from '../assets/Banner_English_Listener.svg';
 import Banner4 from '../assets/Banner_Hindi_artist.svg';
+import { initGA, trackPageView } from '../components/Tracking/tracking';
 const Podcast = ({ audioCards, allCategories }) => {
+  useEffect(() => {
+    initGA();
+    trackPageView();
+  }, []);
   const [showWelcomeModal, setshowWelcomeModal] = useState('hidden');
   const [searchResults, setSearchResults] = useState({
     searched: false,

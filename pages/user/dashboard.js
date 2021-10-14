@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { initGA, trackPageView } from '../../components/Tracking/tracking';
 import Navbar from '../../components/UserDashboard/UserNavbar';
 
-const dashboard = () => {
+const Dashboard = () => {
+  useEffect(() => {
+    initGA();
+    trackPageView();
+  }, []);
   return (
     <div className="bg-gray-100">
       <Navbar />
@@ -9,4 +14,4 @@ const dashboard = () => {
   );
 };
 
-export default dashboard;
+export default Dashboard;
