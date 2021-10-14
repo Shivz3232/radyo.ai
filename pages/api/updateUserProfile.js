@@ -44,6 +44,7 @@ uploader.post(async (req, res) => {
                   console.log(err);
                 } else {
                   res.status(200).json('Profile Updated Successfully');
+                  res.end();
                   // console.log(result);
                 }
               }
@@ -63,13 +64,13 @@ uploader.post(async (req, res) => {
               console.log(err);
             } else {
               res.status(200).json('Profile Updated Successfully');
+              res.end();
               // console.log(result);
             }
           }
         );
       }
 
-      res.end();
     } catch (error) {
       console.log(error);
     }

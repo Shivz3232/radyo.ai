@@ -7,7 +7,7 @@ const Timer = () => {
       seconds={0}
       minutes={0}
       hours={0}
-      limit="00:05:00"
+      limit="00:10:00"
       onCallback={() => console.log('Finish')}
       render={({ formatted }) => {
         return <>{formatted}</>;
