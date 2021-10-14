@@ -57,15 +57,15 @@ const AddAudio = () => {
     e.preventDefault();
 
     if (!lanSelect) {
-      alert("Please Select a Language!");
+      alert('Please Select a Language!');
       return;
     }
     if (!catSelect) {
-      alert("Please Select a Category!");
+      alert('Please Select a Category!');
       return;
     }
     if (!textFields.title) {
-      alert("Please Provide Title for your Audio!");
+      alert('Please Provide Title for your Audio!');
       return;
     }
 

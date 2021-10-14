@@ -52,7 +52,7 @@ const createUser = async (token, rcode) => {
     subscriberCount: 0,
     referralCode: RCG.alpha('lowercase', 6),
     referrerCode: 'NONE',
-    contact: ''
+    contact: '',
   });
 
   await PodcastCreatorModel.find({ email: token.email }).then(

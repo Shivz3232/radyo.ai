@@ -84,7 +84,7 @@ export async function getStaticPaths() {
   const uid = await getCreatorIds().catch(console.error);
   let paths = [];
   if (uid && typeof uid[0] === 'string') {
-    console.log(uid, "line 82");
+    console.log(uid, 'line 82');
     return {
       paths: uid.map(elem => {
         if (elem.uid) {

@@ -7,11 +7,11 @@ const useViewport = divWidth => {
   React.useEffect(() => {
     const debounceHandleResize = debounce(function handleWindowResize() {
       const container = document.getElementById('leaderboard');
-      const containerWidth = container.offsetWidth; 
+      const containerWidth = container.offsetWidth;
       // if (window.innerWidth < 769) {
-        setWidth(containerWidth);
-        // } else {
-        // setWidth(containerWidth);
+      setWidth(containerWidth);
+      // } else {
+      // setWidth(containerWidth);
       // }
     }, 300);
     window.addEventListener('resize', debounceHandleResize);

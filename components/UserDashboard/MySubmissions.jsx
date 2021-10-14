@@ -39,9 +39,7 @@ const MySubmissions = () => {
           /> */}
 
           {/* Play Audio Functionality not added */}
-          <AudioCardsVerticalScroll
-            audioCards={audioCards}
-          />
+          <AudioCardsVerticalScroll audioCards={audioCards} />
         </div>
       </div>
     </>
