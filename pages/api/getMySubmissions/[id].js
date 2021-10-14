@@ -14,7 +14,7 @@ const getMySubmissions = async (req, res) => {
     );
     console.log(userProfile[0]._id);
     const podcast = await PodcastModel.find(
-      { creatorId: userProfile[0]._id },
+      { creatorId: userProfile[0]._id, status: 'approved' },
       (err, result) => {
         if (err) {
           console.log(err);
@@ -23,8 +23,7 @@ const getMySubmissions = async (req, res) => {
         }
       }
     );
-    console.log(podcast);
-    res.status(200);
+    res.status(200).json(podcast);
     res.end();
   } else {
     res.status(405);

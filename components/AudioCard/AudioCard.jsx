@@ -24,6 +24,7 @@ const AudioCard = ({ cardItemData, categoryName }) => {
   // Destructuring the props item
   const {
     creatorId,
+    creatorName,
     category,
     title,
     playCount,
@@ -76,7 +77,7 @@ const AudioCard = ({ cardItemData, categoryName }) => {
             </a>
           </Link>
           <div className="audio-card__header--item audio-card__author">
-            By:{creatorId.creatorName}
+            By:{creatorName}
           </div>
         </div>
       </div>

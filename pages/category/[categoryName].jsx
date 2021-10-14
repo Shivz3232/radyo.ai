@@ -11,6 +11,7 @@ import {
 } from '../../controllers/podcast';
 import dbConnect from '../../utils/dbConnect';
 import NoResult from '../../assets/NoResultsFound.png';
+import { initGA, trackPageView } from '../../components/Tracking/tracking';
 
 const PodcastCategory = props => {
   const [audioCards, setAudioCards] = useState(props.audioCards);
@@ -24,6 +25,11 @@ const PodcastCategory = props => {
   useEffect(() => {
     setAudioCards(props.audioCards);
   }, [props]);
+
+  useEffect(() => {
+    initGA();
+    trackPageView();
+  }, []);
 
   function loadMorePodcast() {
     if (audioCards.length) {
@@ -58,11 +64,12 @@ const PodcastCategory = props => {
       </div>
       {!searchResults.searched && (
         <InfiniteScroll
+          className="no-scrollbar"
           style={{ padding: '0.5rem' }}
           dataLength={audioCards.length}
           next={loadMorePodcast}
           hasMore={true}
-          height={'max-content'}
+          height={'65vh'}
           loader={<p></p>}
         >
           <div className="container">
@@ -99,7 +106,7 @@ export async function getStaticProps({ params }) {
       props: {
         category: category,
         audioCards,
-        activeTab: '/category/cat-1',
+        activeTab: 'categories',
       },
       revalidate: 30 * 60,
     };

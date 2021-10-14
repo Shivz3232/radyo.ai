@@ -44,7 +44,7 @@ const CreatorCard = ({ data }) => {
             <img
               className="creator-card__roundedimage"
               src={
-                data.avatarImage
+                data && data.avatarImage
                   ? data.avatarImage
                   : '/lovebytes/images/Picture1.jpg'
               }
@@ -55,10 +55,10 @@ const CreatorCard = ({ data }) => {
           
           <div className="creator-card__header--items">
             <div className="creator-card__header--item creator-card__author">
-              {data.creatorName}
+              {data && data.creatorName}
             </div>
             <div className="creator-card__header--item creator-card__aboutme">
-              {data.about}
+              {data && data.about}
             </div>
           </div>
         </div>

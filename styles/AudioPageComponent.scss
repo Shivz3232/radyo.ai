@@ -14,7 +14,7 @@
     font-weight: bold;
     padding: 0.7rem 1rem;
     margin: 0.6rem;
-    margin-top:0;
+    margin-top: 0;
     color: white;
     display: flex;
     justify-content: center;
@@ -65,28 +65,25 @@
   }
 }
 
-.tags-row{
+.tags-row {
   max-width: 600px;
   overflow-x: scroll;
   margin: 1.5rem auto;
-  display:flex;
-  flex-direction:row;
+  display: flex;
+  flex-direction: row;
   align-items: center;
   // justify-content:space-evenly;
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 
-  .tag-item{
+  .tag-item {
     // background-color:#4098ca;
     min-width: max-content;
-    margin : 0 0.5rem;
-    color:white;
+    margin: 0 0.5rem;
+    color: white;
     padding: 0.5rem 1rem;
-    border-radius : 20px;
+    border-radius: 20px;
   }
-  
-  
-  
 }
 .tags-row::-webkit-scrollbar {
   display: none;
@@ -227,8 +224,6 @@
       }
     }
   }
-
-
 
   .button-row {
     flex: 50%;

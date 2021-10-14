@@ -12,6 +12,7 @@ import { verifyIdToken } from '../utils/firebase/firebaseAdmin';
 import connect from '../utils/middleware/mongoClient';
 import PodcastCreatorModel from '../models/podcastCreator';
 import { useAuth } from '../controllers/auth';
+import { initGA, trackPageView } from '../components/Tracking/tracking';
 
 export const getServerSideProps = async context => {
   try {
@@ -43,7 +44,7 @@ const createUser = async (token, rcode) => {
   const user = new PodcastCreatorModel({
     creatorName: token.name,
     email: token.email,
-    uid: token.uid,
+    uid: token.email.split('@')[0],
     avatarImage: token.picture,
     about: token.name,
     audiosPublished: 0,
@@ -51,6 +52,7 @@ const createUser = async (token, rcode) => {
     subscriberCount: 0,
     referralCode: RCG.alpha('lowercase', 6),
     referrerCode: 'NONE',
+    contact: '',
   });
 
   await PodcastCreatorModel.find({ email: token.email }).then(
@@ -76,6 +78,11 @@ const Login = () => {
   const [showLoginForm, setshowLoginForm] = useState('visible');
   const router = useRouter();
   const { userid } = useAuth();
+
+  useEffect(() => {
+    initGA();
+    trackPageView();
+  }, []);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(() => {

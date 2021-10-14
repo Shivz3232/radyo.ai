@@ -6,6 +6,11 @@ import path from 'path';
 import PodcastCreatorModel from '../../models/podcastCreator';
 import PodcastModel from '../../models/podcast';
 
+const createTagsArray = tagsString => {
+  let tags = tagsString.split(' ').join('');
+  return tags.split(',');
+};
+
 const uploader = nextConnect({
   onNoMatch(req, res) {
     res.status(405).json({ error: `Method '${req.method}' Not Allowed` });
@@ -25,9 +30,11 @@ var storage = multer.diskStorage({
 });
 
 const allowed_formats = [
-  'audio/mp3',
+  'audio/mpeg',
   'audio/wav',
   'audio/webm',
+  'audio/ogg',
+  'application/octet-stream',
   'image/jpg',
   'image/png',
   'image/jpeg',
@@ -56,13 +63,16 @@ uploader.use(uploadMiddleware);
 uploader.post(async (req, res) => {
   if (req.method === 'POST') {
     console.log(req.files);
+    console.log(req.body.email);
+
     let audioFilePath = req.files.audioSrc[0].path;
     let coverImgPath = req.files.coverImg[0].path;
 
     var audioFile = await uploads(audioFilePath, 'audio_files');
     var coverImg = await uploads(coverImgPath, 'cover_images');
+
     console.log(audioFile, coverImg);
-    let createrData = await PodcastCreatorModel.find(
+    let creatorData = await PodcastCreatorModel.find(
       { email: req.body.email },
       (err, result) => {
         if (err) {
@@ -74,7 +84,8 @@ uploader.post(async (req, res) => {
     );
 
     let newPodcast = new PodcastModel({
-      creatorId: createrData[0]._id,
+      creatorId: creatorData[0]._id,
+      creatorName: creatorData[0].creatorName,
       coverImage: coverImg.url,
       category: req.body.cat,
       title: req.body.title,
@@ -83,10 +94,10 @@ uploader.post(async (req, res) => {
       likeCount: 0,
       shareCount: 0,
       language: req.body.lan,
-      // tags: req.body.hashtags,
+      tags: createTagsArray(req.body.hashTags),
       audioSrc: audioFile.url,
-      // fileSize: '',
-      // duration: 0,
+      fileSize: `${Math.round(audioFile.bytes / 1000000)}MB`,
+      duration: Math.floor(audioFile.duration),
     });
     console.log(newPodcast);
     await newPodcast.save().catch(err => {

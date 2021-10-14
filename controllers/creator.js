@@ -1,13 +1,14 @@
 import connect from '../utils/middleware/mongoClient';
 import PodcastCreatorModel from '../models/podcastCreator';
 
-export const getCreatorAudio = async creatorId => {
+export const getCreatorAudio = async uid => {
+  console.log(uid, 'line 5');
   const allAudio = await PodcastCreatorModel.find({
-    _id: creatorId,
-  })
-    .sort({ createdAt: -1 })
-    .catch(console.error);
+    uid: uid,
+  }).catch(console.error);
+
   if (allAudio) {
+    console.log(allAudio, 'line 12');
     let temp = JSON.stringify(allAudio[0]);
     return JSON.parse(temp);
   } else {
@@ -15,7 +16,5 @@ export const getCreatorAudio = async creatorId => {
   }
 };
 export const getCreatorIds = async () => {
-  return await PodcastCreatorModel.find({}, '_id')
-    .limit(100)
-    .catch(console.error);
+  return await PodcastCreatorModel.find({}, 'uid -_id').catch(console.error);
 };

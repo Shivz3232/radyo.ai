@@ -13,9 +13,7 @@ export const uploads = (file, folder) => {
       { folder: folder, resource_type: 'auto' },
       (error, result) => {
         if (!error) {
-          resolve({
-            url: result.secure_url,
-          });
+          resolve(result);
         } else {
           reject(console.log(error));
         }
@@ -23,3 +21,6 @@ export const uploads = (file, folder) => {
     );
   });
 };
+// resolve({
+//   url: result.secure_url,
+// });

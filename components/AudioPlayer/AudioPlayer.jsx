@@ -7,7 +7,7 @@ import { ImLoop } from 'react-icons/im';
 import LinesEllipsis from 'react-lines-ellipsis';
 import { AiOutlineClose } from 'react-icons/ai';
 import { usePlaylist } from '../../controllers/PlaylistProvider';
-// import { GoogleCard } from './../AdCard/GoogleCard';
+import { GoogleCard } from './../AdCard/GoogleCard';
 const AudioPlayer = props => {
   const { trackInfo, playAudio, isPlaying, getNextTrack, getPreviousTrack } =
     usePlaylist();
@@ -38,7 +38,7 @@ const AudioPlayer = props => {
   return (
     <>
       <div
-        className="z-0 h-28 mobile:h-28"
+        className="z-0 h-48 mobile:h-44"
         style={{ display: isPlaying ? '' : 'none' }}
       ></div>
       <div
@@ -46,14 +46,17 @@ const AudioPlayer = props => {
         className={`fixed w-full bottom-0 left-0 z-20`}
         style={{ display: isPlaying ? '' : 'none' }}
       >
-        {/* {trackInfo.audioSrc && (
-        <div className="ad-over-audio-player">
-          <GoogleCard />
-        </div>
-      )} */}
+        {isPlaying && (
+          <div
+            className="border border-red-500"
+            style={{ width: '100%', height: '100px' }}
+          >
+            <GoogleCard size="980x100" />
+          </div>
+        )}
         <div className="audio-player">
           <AiOutlineClose
-            className="absolute right-4 top-1 text-white cursor-pointer"
+            className="absolute right-4 top-50 text-white cursor-pointer"
             // className="absolute right-0 z-50 -top-2 text-white text-lg mobile:text-base cursor-pointer rounded"
             color="white"
             onClick={() => {

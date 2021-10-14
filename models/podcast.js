@@ -9,6 +9,7 @@ const PodcastSchema = new Schema(
       ref: PodcastCreatorModel,
     },
     coverImage: stringRequired,
+    creatorName: stringRequired,
     category: stringRequired,
     title: stringRequired,
     description: stringRequired,
