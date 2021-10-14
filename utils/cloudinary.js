@@ -7,7 +7,7 @@ cloudinary.config({
 });
 
 export const uploads = (file, folder) => {
-  return new Promise((resolve,reject) => {
+  return new Promise((resolve, reject) => {
     cloudinary.v2.uploader.upload(
       file,
       { folder: folder, resource_type: 'auto' },
@@ -15,7 +15,7 @@ export const uploads = (file, folder) => {
         if (!error) {
           resolve(result);
         } else {
-          reject(console.log(error))
+          reject(console.log(error));
         }
       }
       );

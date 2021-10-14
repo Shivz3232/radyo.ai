@@ -5,9 +5,12 @@ import {
   sideScroll,
 } from '../CategoryNavBar/CategoryNavBar';
 import AudioCard, { capitalizeFirstLetter } from './AudioCard';
+import { usePlaylist } from './../../controllers/PlaylistProvider';
+import NoResult from '../../assets/NoResultsFound.png';
 
-const AudioCards = ({ cardItems, categoryName, playAudio }) => {
+const AudioCards = ({ cardItems, categoryName }) => {
   const audioCards = useRef();
+  const { setContextPlaylist } = usePlaylist();
   const [scrollArrowHide, setScrollArrowHide] = useState(() => {
     try {
       // console.log(window.screen.width);
@@ -68,6 +71,10 @@ const AudioCards = ({ cardItems, categoryName, playAudio }) => {
         <h2 className="heading">{capitalizeFirstLetter(categoryName)}</h2>
         {cardItems && cardItems.length ? (
           <div
+            onClick={() => {
+              setContextPlaylist(cardItems);
+              // console.log('audiocards', cardItems);
+            }}
             ref={audioCards}
             onScroll={checkArrowAndHide}
             className="audio-cards-container"
@@ -98,7 +105,6 @@ const AudioCards = ({ cardItems, categoryName, playAudio }) => {
               return (
                 <AudioCard
                   categoryName={categoryName}
-                  playAudio={playAudio}
                   key={cardItemData._id}
                   cardItemData={cardItemData}
                 />
@@ -106,13 +112,8 @@ const AudioCards = ({ cardItems, categoryName, playAudio }) => {
             })}
           </div>
         ) : (
-          <p
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
+          <p className="flex items-center justify-center">
+            <img className="h-20" src={NoResult.src} alt="no match" />
             <strong>No match found</strong>
           </p>
         )}

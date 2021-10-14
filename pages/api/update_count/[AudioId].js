@@ -2,12 +2,12 @@ import connect from '../../../utils/middleware/mongoClient';
 import PodcastModel from '../../../models/podcast';
 
 const updateCount = async (req, res) => {
-  if (req.method == 'GET') {
+  if (req.method == 'POST') {
     const id = req.query.AudioId;
-    // const count = 'reported';
+    const update = req.body.update;
 
     const updateCount = await PodcastModel.findByIdAndUpdate(id, {
-      $inc: { reported: 1 },
+      $inc: update,
     }).catch(console.error);
     if (updateCount) {
       let temp = JSON.stringify(updateCount);

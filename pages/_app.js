@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import 'react-h5-audio-player/lib/styles.css';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import AudioPlayer from '../components/AudioPlayer/AudioPlayer';
@@ -26,37 +26,27 @@ import '../styles/AdminDashboard.scss';
 import '../styles/PodcastReviewCard.scss';
 import '../styles/welcomemodal.scss';
 import { AuthProvider } from '../controllers/auth';
+import { PlaylistProvider } from '../controllers/PlaylistProvider';
 
 function App({ Component, pageProps }) {
-  const [trackInfo, setTrackInfo] = useState({
-    audioSrc: '',
-    coverSrc: '',
-    title: '',
-  });
-
-  const playAudioP = info => {
-    setTrackInfo(info);
-  };
   return (
     <main className="app">
-      <AuthProvider>
-        <Head>
-          <title>Radyo.ai</title>
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-        {!pageProps.hideNavBar && (
-          <Header activeTab={pageProps.activeTab} data={{ loggedIn: true }} />
-        )}
-        <Component {...pageProps} play={playAudioP} />
-        <div
-          // className="audio-player-dashboard"
-          id="audio-player"
-          className="absolute w-full bottom-0 left-0 z-20"
-          style={{ display: trackInfo.audioSrc ? '' : 'none' }}
-        >
-          <AudioPlayer trackInfo={trackInfo} play={playAudioP} />
-        </div>
-      </AuthProvider>
+      <PlaylistProvider>
+        <AuthProvider>
+          <Head>
+            <title>Radyo.ai</title>
+            <link rel="icon" href="/favicon.ico" />
+          </Head>
+          <Header activeTab={pageProps.activeTab} data={{ loggedIn: false }} />
+          {/* <div
+              className={`${trackInfo.audioSrc ? 'mb-16 mobile:mb-20' : 'm-0'}`}
+            > */}
+          <Component {...pageProps} />
+          {/* </div> */}
+
+          <AudioPlayer />
+        </AuthProvider>
+      </PlaylistProvider>
     </main>
   );
 }

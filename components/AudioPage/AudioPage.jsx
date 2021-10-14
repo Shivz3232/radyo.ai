@@ -16,6 +16,7 @@ import { useAuth } from '../../controllers/auth';
 import { capitalizeFirstLetter } from '../AudioCard/AudioCard';
 import ReportPopover from './ReportPopover';
 import { MdOutlineReportProblem } from 'react-icons/md';
+import { usePlaylist } from '../../controllers/PlaylistProvider';
 
 dayjs.extend(relativeTime);
 dayjs.extend(localeData);
@@ -25,7 +26,7 @@ dayjs.updateLocale('en', {
   relativeTime: {
     future: 'in %s',
     past: '%s ago',
-    s: 'a few seconds',
+    s: 'seconds',
     m: 'a minute',
     mm: '%dmin',
     h: 'an hour',
@@ -39,8 +40,9 @@ dayjs.updateLocale('en', {
   },
 });
 
-const AudioPageComponent = ({ data, playAudio }) => {
+const AudioPageComponent = ({ data }) => {
   const { userid } = useAuth();
+  const { playAudio } = usePlaylist();
   const [report, setReport] = useState(() => {
     if (data.reportedBy) return false;
   });
@@ -58,7 +60,7 @@ const AudioPageComponent = ({ data, playAudio }) => {
 
   const trackInfo = {
     coverSrc: data.coverImage,
-    audioSrc: '/lovebytes/audio/Audio1.mp3',
+    audioSrc: data.audioSrc,
     title: data.title,
   };
   const [origin, setOrigin] = useState();
@@ -103,7 +105,7 @@ const AudioPageComponent = ({ data, playAudio }) => {
     <>
       {/*AudioCard*/}
       <div className="audioPage-card mini generic-card">
-        <div className="audioPage-card__category">
+        <div className={`audioPage-card__category ${data.category}`}>
           {capitalizeFirstLetter(data.category)}
         </div>
 
@@ -165,19 +167,27 @@ const AudioPageComponent = ({ data, playAudio }) => {
           </div>
         </div>
       </div>
-
+      {data.tags.length > 0 ? (
+        <div className="tags-row">
+          {data.tags.map((elem, i) => (
+            <div key={i} className="tag-item bg-indigo-650">
+              {elem}
+            </div>
+          ))}
+        </div>
+      ) : null}
       {/*Button Row*/}
       <div className="button-row">
         <button
           className="play-btn"
           onClick={() => {
-            playAudio(trackInfo);
+            playAudio(trackInfo, data._id.toString());
             // Event('Audio', 'Play button clicked', data.title);
           }}
         >
           Play Now
         </button>
-        <div className="share-btn flex border rounded p-2 m-2">
+        <div className="share-btn flex border rounded p-2 mb-2">
           <div className="mx-1">Share with Friends</div>
           <div className="flex">
             <div className="h-8 w-8 mx-1">

@@ -35,7 +35,7 @@ const HeaderAvatar = ({ data }) => {
       <img
         src={avatarImage ? avatarImage : avatar.src}
         alt="avatar"
-        className="h-12 w-12 rounded-full bg-gray-200 align-middle"
+        className="h-10 w-10 rounded-full bg-gray-200 align-middle"
       />
       <div className="w-4 align-middle">
         <RiArrowDropDownFill fontSize="2.5rem" className="-mx-3" />

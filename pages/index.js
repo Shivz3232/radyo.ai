@@ -1,17 +1,19 @@
-import React, { useEffect, useState, Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import AudioCards from '../components/AudioCard/AudioCards';
-import AudioPlayer from '../components/AudioPlayer/AudioPlayer';
+import { categoryDataLinks } from '../components/CategoryNavBar/categoryData';
 import CategoryNavBar from '../components/CategoryNavBar/CategoryNavBar';
+import WelcomeModal from '../components/Modal/WelcomeModal';
 import { Result } from '../components/PodcastSearch/Result';
 import SearchBar from '../components/PodcastSearch/SearchBar';
 import { getAllAudio, getAudioCategories } from '../controllers/podcast';
-import dbConnect from '../utils/dbConnect';
-import { categoryDataLinks } from '../components/CategoryNavBar/categoryData';
-import HomeCarousel from './../components/HomeCarousel/HomeCarousel';
-import WelcomeModal from '../components/Modal/WelcomeModal';
 import { useSessionStorage } from '../hooks/sessionStorage';
-
-const Podcast = ({ audioCards, allCategories, play }) => {
+import dbConnect from '../utils/dbConnect';
+import HomeCarousel from './../components/HomeCarousel/HomeCarousel';
+import Banner1 from '../assets/Banner_Radyo.svg';
+import Banner2 from '../assets/Banner_English_artist.svg';
+import Banner3 from '../assets/Banner_English_Listener.svg';
+import Banner4 from '../assets/Banner_Hindi_artist.svg';
+const Podcast = ({ audioCards, allCategories }) => {
   const [showWelcomeModal, setshowWelcomeModal] = useState('hidden');
   const [searchResults, setSearchResults] = useState({
     searched: false,
@@ -19,23 +21,9 @@ const Podcast = ({ audioCards, allCategories, play }) => {
     query: '',
     data: [],
   });
-  const [trackInfo, setTrackInfo] = useState({
-    audioSrc: '',
-    coverSrc: '',
-    title: '',
-  });
-  const [showmodal, setShowModal] = useSessionStorage('endModalSession', false);
-  const images = [
-    'https://via.placeholder.com/411x256',
-    'https://via.placeholder.com/1024x320',
-    'https://via.placeholder.com/411x256',
-    'https://via.placeholder.com/1024x320',
-  ];
 
-  const playAudio = info => {
-    setTrackInfo(info);
-    play(info);
-  };
+  const [showmodal, setShowModal] = useSessionStorage('endModalSession', false);
+  const images = [Banner1.src, Banner2.src, Banner3.src, Banner4.src];
 
   useEffect(() => {
     if (showmodal != true) {
@@ -44,9 +32,7 @@ const Podcast = ({ audioCards, allCategories, play }) => {
         setshowWelcomeModal('visible');
       }, 2000);
     }
-    const player = document.querySelector('#audio-player');
-    player.classList.remove('absolute');
-    player.classList.add('fixed');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -61,10 +47,6 @@ const Podcast = ({ audioCards, allCategories, play }) => {
           <div className="flex justify-center">
             <HomeCarousel images={images} />
           </div>
-          {/* ////////EXPERIMENTAL this is to add space above scroll bar when scrollto element is called */}
-          <div className="h-16 w-0 text-white hidden" id="search-bar-start">
-            ....
-          </div>
           <SearchBar
             category={'category'}
             data={searchResults}
@@ -72,7 +54,6 @@ const Podcast = ({ audioCards, allCategories, play }) => {
           />
           {searchResults.searched ? (
             <Result
-              playAudio={playAudio}
               query={searchResults.query}
               data={searchResults.data}
               loading={searchResults.loading}
@@ -81,15 +62,17 @@ const Podcast = ({ audioCards, allCategories, play }) => {
           ) : audioCards ? (
             <>
               <AudioCards
-                playAudio={playAudio}
                 categoryName="New Releases"
+                cardItems={audioCards.slice(0, 15)}
+              />
+              <AudioCards
+                categoryName="Trending audios"
                 cardItems={audioCards.slice(0, 15)}
               />
               {categoryDataLinks.map((elem, i) => {
                 if (audioCards.filter(e => e.category === elem.id).length) {
                   return (
                     <AudioCards
-                      playAudio={playAudio}
                       key={i}
                       categoryName={elem.label}
                       cardItems={audioCards.filter(e => e.category === elem.id)}
@@ -100,12 +83,6 @@ const Podcast = ({ audioCards, allCategories, play }) => {
             </>
           ) : null}
         </div>
-        {/* <div
-        className="audio-player-dashboard"
-        style={{ display: trackInfo.audioSrc ? '' : 'none' }}
-      >
-        <AudioPlayer trackInfo={trackInfo} />
-      </div> */}
       </div>
     </>
   );
@@ -125,6 +102,7 @@ export async function getStaticProps() {
         audioCards,
         allCategories,
       },
+      revalidate: 60,
     };
   } else {
     return {

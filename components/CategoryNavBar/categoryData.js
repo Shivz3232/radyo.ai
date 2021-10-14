@@ -1,15 +1,54 @@
 import { CATEGORY_ENDPOINT } from '../../constants';
 
 export const categoryDataLinks = [
-  { id: 'all', url: `/`, label: 'All' },
-  { id: 'cat-1', url: `${CATEGORY_ENDPOINT}/cat-1`, label: 'Category-1' },
-  { id: 'cat-2', url: `${CATEGORY_ENDPOINT}/cat-2`, label: 'Category-2' },
-  { id: 'cat-3', url: `${CATEGORY_ENDPOINT}/cat-3`, label: 'Category-3' },
-  { id: 'cat-4', url: `${CATEGORY_ENDPOINT}/cat-4`, label: 'Category-4' },
-  { id: 'cat-5', url: `${CATEGORY_ENDPOINT}/cat-5`, label: 'Category-5' },
-  { id: 'cat-6', url: `${CATEGORY_ENDPOINT}/cat-6`, label: 'Category-6' },
-  { id: 'cat-7', url: `${CATEGORY_ENDPOINT}/cat-7`, label: 'Category-7' },
-  { id: 'cat-8', url: `${CATEGORY_ENDPOINT}/cat-8`, label: 'Category-8' },
-  { id: 'cat-9', url: `${CATEGORY_ENDPOINT}/cat-9`, label: 'Category-9' },
-  { id: 'cat-10', url: `${CATEGORY_ENDPOINT}/cat-10`, label: 'Category-10' },
+  {
+    id: 'all',
+    label: 'All',
+    url: `/`,
+  },
+  {
+    id: 'songs',
+    label: 'Music/Songs',
+    url: `${CATEGORY_ENDPOINT}/songs`,
+  },
+  {
+    id: 'comedy',
+    label: 'Comedy',
+    url: `${CATEGORY_ENDPOINT}/comedy`,
+  },
+  {
+    id: 'shayari',
+    label: 'Shayari',
+    url: `${CATEGORY_ENDPOINT}/shayari`,
+  },
+  {
+    id: 'stories',
+    label: 'Stories',
+    url: `${CATEGORY_ENDPOINT}/stories`,
+  },
+  {
+    id: 'dialogues',
+    label: 'Dialogues',
+    url: `${CATEGORY_ENDPOINT}/dialogues`,
+  },
+  {
+    id: 'motivation',
+    label: 'Motivation',
+    url: `${CATEGORY_ENDPOINT}/motivation`,
+  },
+  {
+    id: 'poetry',
+    label: 'Poetry',
+    url: `${CATEGORY_ENDPOINT}/poetry`,
+  },
+  {
+    id: 'education',
+    label: 'Education',
+    url: `${CATEGORY_ENDPOINT}/education`,
+  },
+  {
+    id: 'others',
+    label: 'Others',
+    url: `${CATEGORY_ENDPOINT}/others`,
+  },
 ];
