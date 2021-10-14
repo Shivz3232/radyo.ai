@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AudioCards from '../components/AudioCard/AudioCards';
 import AudioPlayer from '../components/AudioPlayer/AudioPlayer';
 import CategoryNavBar from '../components/CategoryNavBar/CategoryNavBar';
@@ -6,10 +6,10 @@ import { Result } from '../components/PodcastSearch/Result';
 import SearchBar from '../components/PodcastSearch/SearchBar';
 import { getAllAudio, getAudioCategories } from '../controllers/podcast';
 import dbConnect from '../utils/dbConnect';
-import { PodcastCategoriesLinks } from './../components/NavBar/categories';
+import { categoryDataLinks } from '../components/CategoryNavBar/categoryData';
 import HomeCarousel from './../components/HomeCarousel/HomeCarousel';
 
-const Podcast = ({ audioCards, allCategories }) => {
+const Podcast = ({ audioCards, allCategories, play }) => {
   const [searchResults, setSearchResults] = useState({
     searched: false,
     loading: false,
@@ -30,12 +30,24 @@ const Podcast = ({ audioCards, allCategories }) => {
 
   const playAudio = info => {
     setTrackInfo(info);
+    play(info);
   };
+
+  useEffect(() => {
+    const player = document.querySelector('#audio-player');
+    player.classList.remove('absolute');
+    player.classList.add('fixed');
+  }, []);
+
+  // useEffect(() => {
+  //   console.log(window.history);
+  // }, []);
+
   return (
     <div className="podcast-page">
       <CategoryNavBar category="all" />
       <div className="container">
-        <div className="flex justify-center md:mt-8">
+        <div className="flex justify-center">
           <HomeCarousel images={images} />
         </div>
         {/* ////////EXPERIMENTAL */}
@@ -62,7 +74,7 @@ const Podcast = ({ audioCards, allCategories }) => {
               categoryName="New Releases"
               cardItems={audioCards.slice(0, 15)}
             />
-            {PodcastCategoriesLinks.map((elem, i) => {
+            {categoryDataLinks.map((elem, i) => {
               if (audioCards.filter(e => e.category === elem.id).length) {
                 return (
                   <AudioCards
@@ -77,12 +89,12 @@ const Podcast = ({ audioCards, allCategories }) => {
           </>
         ) : null}
       </div>
-      <div
+      {/* <div
         className="audio-player-dashboard"
         style={{ display: trackInfo.audioSrc ? '' : 'none' }}
       >
         <AudioPlayer trackInfo={trackInfo} />
-      </div>
+      </div> */}
     </div>
   );
 };

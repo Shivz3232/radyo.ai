@@ -85,8 +85,8 @@ const SearchBar = ({ setData, category, data }) => {
             }}
             value={query}
             onChange={handleChange}
-            placeholder="Search podcast"
-            className={`${'px-3 py-4 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-base border-0 shadow outline-none focus:outline-none focus:ring-2 focus:ring-indigo-650 w-full pr-10'} ${
+            placeholder="Search based on podcast name/creator name"
+            className={`${'px-3 py-4 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-base shadow border border-blueGray-900 outline-none focus:border-white focus:outline-none focus:ring-2 focus:ring-indigo-650 w-full pr-10'} ${
               data.searched ? 'pl-10' : ''
             }`}
           />

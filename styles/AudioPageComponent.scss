@@ -26,14 +26,14 @@
     border-radius: 0.3rem;
     font-size: 1rem;
     font-weight: bold;
-    padding: 0.7rem 1rem;
-    margin: 0.6rem;
+    // padding: 0.7rem 1rem;
+    // margin: 0.6rem;
     color: $color-indigo-500;
     background-color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 280px;
+    // width: 280px;
     cursor: pointer;
     /*.shareIcon {
           border-radius: 50%;
@@ -96,7 +96,7 @@
     &--image {
       flex: 30%;
       .audioPage-card__roundedimage {
-        margin-left: 1.5rem;
+        // margin-left: 1.5rem;
         margin-top: 1rem;
         width: 125px;
         height: 135px;
@@ -203,12 +203,9 @@
     flex: 50%;
     .play-btn,
     .share-btn {
-      flex-wrap: wrap;
       width: 355px;
-    }
-    .share-btn {
-      flex-wrap: wrap;
-      width: 315px;
+      // flex-wrap: wrap;
+      // width: 355px;
     }
   }
 

@@ -7,6 +7,7 @@ import { FiMoreVertical } from 'react-icons/fi';
 import LinesEllipsis from 'react-lines-ellipsis';
 // import { Event } from '../../../nuzpapr-next/components/Tracking/Tracking';
 import playButton from '../../assets/playbtn.png';
+import { CgPlayListAdd, CgPlayListCheck } from 'react-icons/cg';
 
 export function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -88,7 +89,10 @@ const AudioCard = ({ cardItemData, playAudio }) => {
           <span className="audio-card__action--item">{shareCount}</span>
         </div>
         <div className="audio-card__action">
-          <FiMoreVertical className="audio-card__action--item" />
+          <CgPlayListAdd
+            fontSize="1.65rem"
+            className="audio-card__action--item"
+          />
         </div>
       </div>
     </div>
