@@ -9,7 +9,7 @@ const CreatorCard = ({ data }) => {
             <img
               className="creator-card__roundedimage"
               src={
-                data.avatarImage
+                data && data.avatarImage
                   ? data.avatarImage
                   : '/lovebytes/images/Picture1.jpg'
               }
@@ -18,10 +18,10 @@ const CreatorCard = ({ data }) => {
           </div>
           <div className="creator-card__header--items">
             <div className="creator-card__header--item creator-card__author">
-              {data.creatorName}
+              {data && data.creatorName}
             </div>
             <div className="creator-card__header--item creator-card__aboutme">
-              {data.about}
+              {data && data.about}
             </div>
           </div>
         </div>
@@ -33,17 +33,19 @@ const CreatorCard = ({ data }) => {
         <div className="creator-card__action--row">
           <div className="creator-card__action">
             <span className="creator-card__action--item">
-              {data.audiosPublished}
+              {data && data.audiosPublished}
             </span>
             <span className="creator-card__action--item">Audios Published</span>
           </div>
           <div className="creator-card__action">
-            <span className="creator-card__action--item">{data.playCount}</span>
+            <span className="creator-card__action--item">
+              {data && data.playCount}
+            </span>
             <span className="creator-card__action--item"> Plays Count</span>
           </div>
           <div className="creator-card__action">
             <span className="creator-card__action--item">
-              {data.subscriberCount}
+              {data && data.subscriberCount}
             </span>
             <span className="creator-card__action--item">subscribers</span>
           </div>

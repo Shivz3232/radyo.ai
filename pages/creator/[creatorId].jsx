@@ -53,6 +53,7 @@ const CreatorPage = ({ info, audioCards, play }) => {
 };
 
 export const getStaticProps = async ({ params }) => {
+  console.log(params, 'line 56');
   const id = params.uid;
   await dbConnect();
   const data = await getCreatorAudio(id).catch(console.error);
@@ -76,12 +77,12 @@ export async function getStaticPaths() {
 
   const uid = await getCreatorIds().catch(console.error);
   let paths = [];
-  if (uid) {
-    console.log(uid);
+  if (uid && typeof uid[0] === 'string') {
+    console.log(uid, "line 82");
     return {
       paths: uid.map(elem => {
         if (elem.uid) {
-          return { params: { uid: elem.uid.toString() } };
+          return { params: { uid: elem.uid } };
         }
       }),
       fallback: 'blocking',

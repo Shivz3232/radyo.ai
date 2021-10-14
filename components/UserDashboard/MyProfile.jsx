@@ -151,7 +151,7 @@ const MyProfile = () => {
                   className="text-white text-sm mx-auto bg-indigo-650 m-2  rounded-md p-2 hover:scale-105 transform transition"
                   onClick={copyToClipboard}
                 >
-                  Copy link
+                  Copy Link
                 </button>
               </div>
               <p className="text-center text-indigo-650 text-xl">
