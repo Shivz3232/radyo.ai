@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import firebase from 'firebase';
 import avatar from '../../assets/Avatar.png';
 import axios from 'axios';
@@ -22,15 +22,9 @@ const MyProfile = () => {
     msg: null,
     savingMsg: 'Updating Profile',
   });
+  const profileLink = useRef();
 
   useEffect(() => {
-    // try {
-    //   const user = firebase.auth().currentUser;
-    //   console.log(user);
-    // } catch (error) {
-    //   console.log(error);
-    // }
-
     setTimeout(async () => {
       if (firebase.auth().currentUser) {
         const user = await firebase.auth().currentUser.email;
@@ -63,8 +57,6 @@ const MyProfile = () => {
   }, []);
 
   const handleSubmit = async e => {
-    // e.preventDefault();
-
     // File Validation
     if (profileImg) {
       if (profileImg.size / 1000000 <= 1) {
@@ -123,6 +115,12 @@ const MyProfile = () => {
     router.reload(window.location.pathname);
   };
 
+  const copyToClipboard = e => {
+    navigator.clipboard.writeText(profileLink.current.innerText);
+    e.target.innerText = 'Copied!';
+    setTimeout(() => (e.target.innerText = 'Copy Link'), 5000);
+  };
+
   return (
     <>
       {submit && <SuccessModal message={message} close={handleClose} />}
@@ -136,14 +134,22 @@ const MyProfile = () => {
             />
             <p className="text-center text-gray-900">{inputData.email}</p>
           </div>
-          <div className="bg-gray-200 max-w-max mx-auto p-2 rounded-md mb-2">
-            <p className="text-center text-gray-900 rounded p-1">
-              Public Profile Link
-            </p>
-            <p className="text-center">{`www.radyo.ai/creator/${inputData.uid}`}</p>
-          </div>
+
           <div>
             <div className="space-y-3 mx-auto text-gray-900 w-11/12 lg:w-4/6">
+              <div className="bg-gray-200 mx-auto p-2 rounded-md mb-2 flex flex-col">
+                <p className="text-gray-900 text-center">Public Profile Link</p>
+                <p
+                  className="text-center text-indigo-650"
+                  ref={profileLink}
+                >{`www.radyo.ai/creator/${inputData.uid}`}</p>
+                <button
+                  className="text-white text-sm mx-auto bg-indigo-650 m-2 border-2 rounded-md p-1 border-indigo-650 hover:scale-105 transform transition"
+                  onClick={copyToClipboard}
+                >
+                  Copy link
+                </button>
+              </div>
               <p className="text-center text-indigo-650 text-xl">
                 Tell us more about you!
               </p>

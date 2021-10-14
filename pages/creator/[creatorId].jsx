@@ -10,7 +10,7 @@ import dbConnect from '../../utils/dbConnect';
 
 const CreatorPage = ({ info, audioCards, play }) => {
   const data = info;
-
+  console.log(data);
   return (
     <>
       <div className="creatorpage">
