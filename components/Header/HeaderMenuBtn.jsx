@@ -5,7 +5,7 @@ const HeaderMenuBtn = ({ data, activeTab }) => {
   return (
     <div
       className={`text-lg font-medium text-indigo-650 hover:transform hover:scale-120 transition ease-in-out delay-75 ${
-        activeTab === data.url ? 'scale-120' : ''
+        activeTab === data.id ? 'scale-120' : ''
       }`}
     >
       <Link href={data.url}>

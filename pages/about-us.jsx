@@ -12,7 +12,7 @@ const AboutUs = () => {
 export async function getStaticProps() {
   return {
     props: {
-      activeTab: '/about-us',
+      activeTab: 'about-us',
     },
   };
 }

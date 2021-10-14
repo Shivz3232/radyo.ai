@@ -101,6 +101,7 @@ export async function getStaticProps() {
       props: {
         audioCards,
         allCategories,
+        activeTab: 'home',
       },
       revalidate: 60,
     };
