@@ -16,12 +16,21 @@ const CategoryNavBar = ({ category }) => {
     const lastElement = navBarRef.current.querySelector(
       `#${categoryDataLinks[categoryDataLinks.length - 1].id}`
     );
-    if (!elementIsInViewport(firstElement) && !elementIsInViewport(lastElement))
+    if (
+      !elementIsInViewport(firstElement) &&
+      !elementIsInViewport(lastElement)
+    ) {
       setScrollArrowHide({ left: false, right: false });
-    else if (elementIsInViewport(firstElement))
+      return;
+    } else if (elementIsInViewport(firstElement)) {
       setScrollArrowHide({ left: true, right: false });
-    else if (elementIsInViewport(lastElement))
+      return;
+    } else if (elementIsInViewport(lastElement)) {
       setScrollArrowHide({ left: false, right: true });
+      return;
+    }
+    if (elementIsInViewport(firstElement) && elementIsInViewport(lastElement))
+      setScrollArrowHide({ left: false, right: false });
   }
   useEffect(() => {
     const selectedPill = categoryDataLinks.find(item => item.id === category);
@@ -94,7 +103,7 @@ const CategoryNavBar = ({ category }) => {
   );
 };
 
-function sideScroll(element, direction, speed, distance, step) {
+export function sideScroll(element, direction, speed, distance, step) {
   let scrollAmount = 0;
   let slideTimer = setInterval(function () {
     if (direction === 'left') {
@@ -108,7 +117,7 @@ function sideScroll(element, direction, speed, distance, step) {
     }
   }, speed);
 }
-function isInViewport(element) {
+export function isInViewport(element) {
   const bounding = element.getBoundingClientRect();
   return (
     // Added an offset of 100
@@ -120,7 +129,7 @@ function isInViewport(element) {
       (window.innerWidth || document.documentElement.clientWidth)
   );
 }
-function elementIsInViewport(element) {
+export function elementIsInViewport(element) {
   const bounding = element.getBoundingClientRect();
   return (
     // Added an offset of 100

@@ -14,6 +14,7 @@
     font-weight: bold;
     padding: 0.7rem 1rem;
     margin: 0.6rem;
+    margin-top:0;
     color: white;
     display: flex;
     justify-content: center;
@@ -64,6 +65,33 @@
   }
 }
 
+.tags-row{
+  max-width: 600px;
+  overflow-x: scroll;
+  margin: 1.5rem auto;
+  display:flex;
+  flex-direction:row;
+  align-items: center;
+  // justify-content:space-evenly;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+
+  .tag-item{
+    // background-color:#4098ca;
+    min-width: max-content;
+    margin : 0 0.5rem;
+    color:white;
+    padding: 0.5rem 1rem;
+    border-radius : 20px;
+  }
+  
+  
+  
+}
+.tags-row::-webkit-scrollbar {
+  display: none;
+}
+
 .audioPage-card {
   display: flex;
   width: 600px;
@@ -73,7 +101,7 @@
   align-self: center;
   padding: 1rem;
   //margin: 1rem;
-  margin: 2rem auto;
+  margin: 2rem auto 1.5rem auto;
   box-shadow: 1px 1px 6px 0px $color-grey-400;
   cursor: default;
   border-radius: 0.3rem;
@@ -84,7 +112,7 @@
     margin: 0rem -1rem;
     padding: 0.2rem 2.4rem;
     position: relative;
-    background-color: $color-indigo-500;
+    // background-color: $color-indigo-500;
     color: $color-white;
     text-align: center;
     align-self: flex-end;
@@ -165,7 +193,8 @@
 @media only screen and (max-width: $mobile-res) {
   .audioPage-card {
     margin: 1rem auto;
-    max-width: 325px;
+    max-width: 345px;
+    // max-width: 325px;
     &__header {
       &--image {
         flex: 30%;
@@ -198,6 +227,8 @@
       }
     }
   }
+
+
 
   .button-row {
     flex: 50%;

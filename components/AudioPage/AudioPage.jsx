@@ -1,17 +1,22 @@
+import axios from 'axios';
 import dayjs from 'dayjs';
 import localeData from 'dayjs/plugin/localeData';
-import updateLocale from 'dayjs/plugin/updateLocale';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import updateLocale from 'dayjs/plugin/updateLocale';
 import { decode } from 'html-entities';
-import React, { useEffect, useState } from 'react';
+// import { Event } from '../Tracking/Tracking';
+import Link from 'next/link';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import 'react-h5-audio-player/lib/styles.css';
-import { FaFacebook, FaHeart, FaPlay } from 'react-icons/fa';
+import { FaFacebook, FaHeart } from 'react-icons/fa';
 import logoTelegram from '../../assets/telegram.svg';
 import logoWhatsapp from '../../assets/whatsapp.svg';
 import { FACEBOOK_APP_ID } from '../../constants';
-// import { Event } from '../Tracking/Tracking';
-import Link from 'next/link';
+import { useAuth } from '../../controllers/auth';
 import { capitalizeFirstLetter } from '../AudioCard/AudioCard';
+import ReportPopover from './ReportPopover';
+import { MdOutlineReportProblem } from 'react-icons/md';
+import { usePlaylist } from '../../controllers/PlaylistProvider';
 
 dayjs.extend(relativeTime);
 dayjs.extend(localeData);
@@ -21,7 +26,7 @@ dayjs.updateLocale('en', {
   relativeTime: {
     future: 'in %s',
     past: '%s ago',
-    s: 'a few seconds',
+    s: 'seconds',
     m: 'a minute',
     mm: '%dmin',
     h: 'an hour',
@@ -35,10 +40,27 @@ dayjs.updateLocale('en', {
   },
 });
 
-const AudioPageComponent = ({ data, playAudio }) => {
+const AudioPageComponent = ({ data }) => {
+  const { userid } = useAuth();
+  const { playAudio } = usePlaylist();
+  const [report, setReport] = useState(() => {
+    if (data.reportedBy) return false;
+  });
+  useEffect(() => {
+    data.reportedBy.forEach(e => {
+      if (e.userId === userid) {
+        // console.log(e);
+        setReport(true);
+        return;
+      }
+    });
+    // console.log(report);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const trackInfo = {
     coverSrc: data.coverImage,
-    audioSrc: '/lovebytes/audio/Audio1.mp3',
+    audioSrc: data.audioSrc,
     title: data.title,
   };
   const [origin, setOrigin] = useState();
@@ -83,7 +105,7 @@ const AudioPageComponent = ({ data, playAudio }) => {
     <>
       {/*AudioCard*/}
       <div className="audioPage-card mini generic-card">
-        <div className="audioPage-card__category">
+        <div className={`audioPage-card__category ${data.category}`}>
           {capitalizeFirstLetter(data.category)}
         </div>
 
@@ -131,21 +153,41 @@ const AudioPageComponent = ({ data, playAudio }) => {
               {dayjs().to(dayjs(data.createdAt))}
             </span>
           </div>
+          <div className="audioPage-card__action has-tooltip">
+            {report ? (
+              <>
+                <span className="hidden md:inline tooltip bottom-full w-max text-white bg-gray-700 p-1 rounded-sm text-sm shadow">
+                  Audio has been reported
+                </span>
+                <MdOutlineReportProblem className="text-red-500 audioPage-card__action--item" />
+              </>
+            ) : (
+              <ReportPopover data={data} setReport={setReport} />
+            )}
+          </div>
         </div>
       </div>
-
+      {data.tags.length > 0 ? (
+        <div className="tags-row">
+          {data.tags.map((elem, i) => (
+            <div key={i} className="tag-item bg-indigo-650">
+              {elem}
+            </div>
+          ))}
+        </div>
+      ) : null}
       {/*Button Row*/}
       <div className="button-row">
         <button
           className="play-btn"
           onClick={() => {
-            playAudio(trackInfo);
+            playAudio(trackInfo, data._id.toString());
             // Event('Audio', 'Play button clicked', data.title);
           }}
         >
           Play Now
         </button>
-        <div className="share-btn flex border rounded p-2 m-2">
+        <div className="share-btn flex border rounded p-2 mb-2">
           <div className="mx-1">Share with Friends</div>
           <div className="flex">
             <div className="h-8 w-8 mx-1">

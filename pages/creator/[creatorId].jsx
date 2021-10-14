@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import PillsNav from '../../components/PillsNav/PillsNav';
 import AudioCards from '../../components/AudioCard/AudioCards';
 import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
@@ -10,23 +10,10 @@ import dbConnect from '../../utils/dbConnect';
 
 const CreatorPage = ({ info, audioCards, play }) => {
   const data = info;
-  const [trackInfo, setTrackInfo] = useState({
-    audioSrc: '',
-    coverSrc: '',
-    title: '',
-  });
 
-  const playAudio = info => {
-    setTrackInfo(info);
-    play(info);
-  };
-  //marginBottom for audio player
   return (
     <>
-      <div
-        className="creatorpage"
-        style={{ marginBottom: trackInfo.audioSrc ? '85px' : '0px' }}
-      >
+      <div className="creatorpage">
         {/* <Banner size="sm" />
         {<PillsNav category="all" type="podcast" />} */}
 
@@ -40,7 +27,6 @@ const CreatorPage = ({ info, audioCards, play }) => {
           audioCards.filter(e => e.creatorId.creatorName === data.creatorName)
             .length ? (
             <AudioCards
-              playAudio={playAudio}
               categoryName={`Other creations from ${data.creatorName}`}
               cardItems={audioCards.filter(
                 e => e.creatorId.creatorName === data.creatorName
@@ -49,7 +35,6 @@ const CreatorPage = ({ info, audioCards, play }) => {
           ) : null}
           {audioCards && (
             <AudioCards
-              playAudio={playAudio}
               categoryName={`Trending Audios`}
               //most view in last 5 days logic here
               cardItems={audioCards.slice(0, 15)}

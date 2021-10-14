@@ -1,38 +1,6 @@
 import mongoose, { Model, model, Schema, Document } from 'mongoose';
+import { stringRequired, numberRequired } from './schemaFieldTypes';
 import PodcastCreatorModel from './podcastCreator';
-
-// export interface PodcastI {
-//DONE TODO : uncomment when api is used
-// export interface PodcastI extends Document {
-//   _id: string;
-//   creatorId: any;
-//   coverImage: string;
-//   category: string;
-//   title: string;
-//   description: string;
-//   audioSrc: string;
-//   fileSize: string;
-//   duration: number;
-//   playCount: number;
-//   likeCount: number;
-//   shareCount: number;
-//   createdAt: Date;
-//   language: string;
-//   tags: string[];
-//   // DONE TODO : change status type after api has been used
-//   status: 'inreview' | 'approved' | 'rejected';
-//   // status: string;
-// }
-
-const stringRequired = {
-  type: String,
-  required: true,
-};
-
-const numberRequired = {
-  type: Number,
-  required: true,
-};
 
 const PodcastSchema = new Schema(
   {
@@ -64,9 +32,22 @@ const PodcastSchema = new Schema(
       enum: ['inreview', 'approved', 'rejected'],
       default: 'inreview',
     },
+    reported: {
+      type: Number,
+      default: 0,
+    },
+    reportedBy: {
+      type: [
+        {
+          userId: String,
+          reportText: String,
+        },
+      ],
+      default: [],
+      required: true,
+    },
   },
   {
-    // TODO : check if date is added automatically when audio is uploaded, not working for manual entry
     timestamps: {
       createdAt: 'createdAt',
     },

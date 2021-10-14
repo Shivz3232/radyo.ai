@@ -1,0 +1,25 @@
+.admin-login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 100vh;
+  flex-grow: 1;
+  .login-form {
+    width: 300px;
+    .username {
+      width: 100%;
+      margin-bottom: 2rem;
+    }
+    .password {
+      width: 100%;
+      margin-bottom: 2rem;
+    }
+    .login-button {
+      font-size: 1.2em;
+      color: white;
+      background-color: cornflowerblue;
+      padding: 0.5rem 1rem 0.5rem 1rem;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+    }
+  }
+}

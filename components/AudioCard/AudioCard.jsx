@@ -8,16 +8,19 @@ import LinesEllipsis from 'react-lines-ellipsis';
 // import { Event } from '../../../nuzpapr-next/components/Tracking/Tracking';
 import playButton from '../../assets/playbtn.png';
 import { CgPlayListAdd, CgPlayListCheck } from 'react-icons/cg';
+import { usePlaylist } from '../../controllers/PlaylistProvider';
 
 export function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
-const AudioCard = ({ cardItemData, playAudio }) => {
+const AudioCard = ({ cardItemData, categoryName }) => {
   const trackInfo = {
     coverSrc: `${cardItemData.coverImage}`,
     audioSrc: cardItemData.audioSrc,
     title: cardItemData.title,
   };
+
+  const { playAudio } = usePlaylist();
   // Destructuring the props item
   const {
     creatorId,
@@ -30,7 +33,10 @@ const AudioCard = ({ cardItemData, playAudio }) => {
   } = cardItemData;
 
   return (
-    <div className="audio-card mini generic-card">
+    <div
+      className="audio-card mini generic-card"
+      id={`${categoryName}-${cardItemData._id}`}
+    >
       <div className="audio-card__header">
         <div className="audio-card__header--image">
           <img
@@ -44,8 +50,7 @@ const AudioCard = ({ cardItemData, playAudio }) => {
             src={playButton.src}
             alt="play button"
             onClick={() => {
-              playAudio(trackInfo);
-              // console.log(cardItemData);
+              playAudio(trackInfo, cardItemData._id.toString());
               // Event('Podcast', 'Play button clicked', cardItemData.title);
             }}
             className="play__button"
@@ -88,12 +93,12 @@ const AudioCard = ({ cardItemData, playAudio }) => {
           <FaShareAlt className="audio-card__action--item" />
           <span className="audio-card__action--item">{shareCount}</span>
         </div>
-        <div className="audio-card__action">
+        {/* <div className="audio-card__action">
           <CgPlayListAdd
             fontSize="1.65rem"
             className="audio-card__action--item"
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );

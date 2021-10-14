@@ -187,8 +187,9 @@ const AboutUs = () => {
            </footer>
 
         </div>
+      <div></div>
     </>
-  )
+  );
 };
 
 export async function getStaticProps() {

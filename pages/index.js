@@ -1,101 +1,90 @@
 import React, { useEffect, useState } from 'react';
 import AudioCards from '../components/AudioCard/AudioCards';
-import AudioPlayer from '../components/AudioPlayer/AudioPlayer';
+import { categoryDataLinks } from '../components/CategoryNavBar/categoryData';
 import CategoryNavBar from '../components/CategoryNavBar/CategoryNavBar';
+import WelcomeModal from '../components/Modal/WelcomeModal';
 import { Result } from '../components/PodcastSearch/Result';
 import SearchBar from '../components/PodcastSearch/SearchBar';
 import { getAllAudio, getAudioCategories } from '../controllers/podcast';
+import { useSessionStorage } from '../hooks/sessionStorage';
 import dbConnect from '../utils/dbConnect';
-import { categoryDataLinks } from '../components/CategoryNavBar/categoryData';
 import HomeCarousel from './../components/HomeCarousel/HomeCarousel';
-
-const Podcast = ({ audioCards, allCategories, play }) => {
+import Banner1 from '../assets/Banner_Radyo.svg';
+import Banner2 from '../assets/Banner_English_artist.svg';
+import Banner3 from '../assets/Banner_English_Listener.svg';
+import Banner4 from '../assets/Banner_Hindi_artist.svg';
+const Podcast = ({ audioCards, allCategories }) => {
+  const [showWelcomeModal, setshowWelcomeModal] = useState('hidden');
   const [searchResults, setSearchResults] = useState({
     searched: false,
     loading: false,
     query: '',
     data: [],
   });
-  const [trackInfo, setTrackInfo] = useState({
-    audioSrc: '',
-    coverSrc: '',
-    title: '',
-  });
-  const images = [
-    'https://via.placeholder.com/411x256',
-    'https://via.placeholder.com/1024x320',
-    'https://via.placeholder.com/411x256',
-    'https://via.placeholder.com/1024x320',
-  ];
 
-  const playAudio = info => {
-    setTrackInfo(info);
-    play(info);
-  };
+  const [showmodal, setShowModal] = useSessionStorage('endModalSession', false);
+  const images = [Banner1.src, Banner2.src, Banner3.src, Banner4.src];
 
   useEffect(() => {
-    const player = document.querySelector('#audio-player');
-    player.classList.remove('absolute');
-    player.classList.add('fixed');
+    if (showmodal != true) {
+      setShowModal(true);
+      setTimeout(() => {
+        setshowWelcomeModal('visible');
+      }, 2000);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // useEffect(() => {
-  //   console.log(window.history);
-  // }, []);
-
   return (
-    <div className="podcast-page">
-      <CategoryNavBar category="all" />
-      <div className="container">
-        <div className="flex justify-center">
-          <HomeCarousel images={images} />
-        </div>
-        {/* ////////EXPERIMENTAL */}
-        <div className="h-16 w-0 text-white hidden" id="search-bar-start">
-          ....
-        </div>
-        <SearchBar
-          category={'category'}
-          data={searchResults}
-          setData={setSearchResults}
-        />
-        {searchResults.searched ? (
-          <Result
-            playAudio={playAudio}
-            query={searchResults.query}
-            data={searchResults.data}
-            loading={searchResults.loading}
-            category={false}
+    <>
+      <WelcomeModal
+        showWelcomeModal={showWelcomeModal}
+        setshowWelcomeModal={setshowWelcomeModal}
+      />
+      <div className="podcast-page">
+        <CategoryNavBar category="all" />
+        <div className="container">
+          <div className="flex justify-center">
+            <HomeCarousel images={images} />
+          </div>
+          <SearchBar
+            category={'category'}
+            data={searchResults}
+            setData={setSearchResults}
           />
-        ) : audioCards ? (
-          <>
-            <AudioCards
-              playAudio={playAudio}
-              categoryName="New Releases"
-              cardItems={audioCards.slice(0, 15)}
+          {searchResults.searched ? (
+            <Result
+              query={searchResults.query}
+              data={searchResults.data}
+              loading={searchResults.loading}
+              category={false}
             />
-            {categoryDataLinks.map((elem, i) => {
-              if (audioCards.filter(e => e.category === elem.id).length) {
-                return (
-                  <AudioCards
-                    playAudio={playAudio}
-                    key={i}
-                    categoryName={elem.label}
-                    cardItems={audioCards.filter(e => e.category === elem.id)}
-                  />
-                );
-              }
-            })}
-          </>
-        ) : null}
+          ) : audioCards ? (
+            <>
+              <AudioCards
+                categoryName="New Releases"
+                cardItems={audioCards.slice(0, 15)}
+              />
+              <AudioCards
+                categoryName="Trending audios"
+                cardItems={audioCards.slice(0, 15)}
+              />
+              {categoryDataLinks.map((elem, i) => {
+                if (audioCards.filter(e => e.category === elem.id).length) {
+                  return (
+                    <AudioCards
+                      key={i}
+                      categoryName={elem.label}
+                      cardItems={audioCards.filter(e => e.category === elem.id)}
+                    />
+                  );
+                }
+              })}
+            </>
+          ) : null}
+        </div>
       </div>
-      {/* <div
-        className="audio-player-dashboard"
-        style={{ display: trackInfo.audioSrc ? '' : 'none' }}
-      >
-        <AudioPlayer trackInfo={trackInfo} />
-      </div> */}
-    </div>
+    </>
   );
 };
 
@@ -113,6 +102,7 @@ export async function getStaticProps() {
         audioCards,
         allCategories,
       },
+      revalidate: 60,
     };
   } else {
     return {

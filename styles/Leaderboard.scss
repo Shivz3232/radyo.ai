@@ -1,16 +1,13 @@
-.lb-container{
-    margin:2rem 10rem;
-    max-width:600px;
-    //flex-wrap: wrap;
+.lb-container {
+  margin: 2rem 10rem;
+  max-width: 600px;
+  //flex-wrap: wrap;
 }
 
-.lb-box-container{
-    
+.lb-box-container {
 }
 @media only screen and (max-width: $mobile-res) {
-    .lb-container{
-     margin:5rem auto;
-       
-    }
-
+  .lb-container {
+    margin: 5rem auto;
+  }
 }
