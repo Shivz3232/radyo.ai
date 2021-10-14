@@ -46,7 +46,7 @@ const MySubmissions = () => {
           {/* Play Audio Functionality not added */}
           <AudioCardsVerticalScroll
             audioCards={audioCards}
-            playAudio={playAudio}
+            // playAudio={playAudio}
           />
         </div>
       </div>

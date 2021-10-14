@@ -17,6 +17,7 @@ const MyProfile = () => {
   const [imgSrc, setImgSrc] = useState(avatar.src);
   const [profileImg, setprofileImg] = useState('');
   const [submit, setSubmit] = useState(false);
+  const [message, setMessage] = useState({msg:null, savingMsg:'Updating Profile'});
 
   useEffect(() => {
     // try {
@@ -45,6 +46,7 @@ const MyProfile = () => {
               contact: details.contact,
               email: details.email,
               about: details.about,
+              uid: details.uid,
             };
             setInputData(userData);
             setImgSrc(details.avatarImage);
@@ -53,12 +55,13 @@ const MyProfile = () => {
             console.log(error);
           });
       }
-    }, 1000);
+    }, 1500);
   }, []);
 
   const handleSubmit = async e => {
     // e.preventDefault();
 
+    // File Validation
     if (profileImg) {
       if (profileImg.size / 1000000 <= 1) {
         if (image_formats.includes(profileImg.type)) {
@@ -79,6 +82,7 @@ const MyProfile = () => {
     formData.append('contact', inputData.contact);
     formData.append('about', inputData.about);
     formData.append('avatarImage', profileImg);
+    setSubmit(true);
 
     await axios({
       method: 'post',
@@ -88,7 +92,10 @@ const MyProfile = () => {
     })
       .then(response => {
         if (response.status === 200) {
-          setSubmit(true);
+          setMessage({
+            msg: 'Congratulations, your profile has been successfully updated!',
+            savingMsg: null,
+          });
         }
         console.log(response);
       })
@@ -110,22 +117,26 @@ const MyProfile = () => {
   const handleClose = () => {
     setSubmit(false);
     router.reload(window.location.pathname);
-  }
+  };
 
   return (
     <>
-      {submit && (
-        <SuccessModal message="Congratulations, your profile has been successfully updated!" close={handleClose}/>
-      )}
-      <div className="h-screen">
+      {submit && <SuccessModal message={message} close={handleClose} />}
+      <div className="mb-10">
         <div className="text-indigo-650 w-11/12 sm:w-3/6 mx-auto p-6 pt-3 bg-white rounded-md shadow-xl">
-          <div className="mx-auto mb-5 hover:scale-105 transform transition max-w-xs">
+          <div className="mx-auto mb-2 hover:scale-105 transform transition max-w-xs">
             <img
               src={imgSrc}
               alt="avatar"
               className="h-20 w-20 rounded-full mx-auto bg-gray-200 align-middle block"
             />
             <p className="text-center text-gray-900">{inputData.email}</p>
+          </div>
+          <div className="bg-gray-200 max-w-max mx-auto p-2 rounded-md mb-2">
+            <p className="text-center text-gray-900 rounded p-1">
+              Public Profile Link
+            </p>
+            <p className="text-center">http://radyo.ai/creator/gourav4142</p>
           </div>
           <div>
             <div className="space-y-3 mx-auto text-gray-900 w-11/12 lg:w-4/6">

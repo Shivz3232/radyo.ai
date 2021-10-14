@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import Select from 'react-select';
 import RecordAudio from '../RecordAudio/RecordAudio';
 import { useAuth } from '../../controllers/auth';
-import { BsPatchCheckFill } from 'react-icons/bs';
 import { image_formats } from '../RecordAudio/fileFormats';
+import SuccessModal from './succesModal';
 
 const CatOptions = [
   { value: 'cat-1', label: 'Category1' },
@@ -27,8 +27,17 @@ const AddAudio = () => {
     hashTags: '',
     description: '',
   });
+  // const [submitted, setSubmitted] = useState(false);
   const [coverImg, setCoverImg] = useState('');
-  const [submitted, setSubmitted] = useState(false);
+  const [submit, setSubmit] = useState(false);
+  const [message, setMessage] = useState({
+    msg: null,
+    savingMsg: 'Please wait while we save your Awesome Creativity',
+  });
+
+  const handleClose = () => {
+    setSubmit(false);
+  };
 
   const setAudioData = data => {
     setAudio(data);
@@ -47,15 +56,32 @@ const AddAudio = () => {
   const handleSubmit = async e => {
     e.preventDefault();
 
-    if ((coverImg.size / 1000000) <= 1) {
-      if (image_formats.includes(coverImg.type)) {
-        
+    if (!lanSelect) {
+      alert("Please Select a Language!");
+      return;
+    }
+    if (!catSelect) {
+      alert("Please Select a Category!");
+      return;
+    }
+    if (!textFields.title) {
+      alert("Please Provide Title for your Audio!");
+      return;
+    }
+
+    if (coverImg) {
+      if (coverImg.size / 1000000 <= 1) {
+        if (image_formats.includes(coverImg.type)) {
+        } else {
+          alert('Only jpeg, jpg, png formats are allowed!');
+          return;
+        }
       } else {
-        alert('Only jpeg, jpg, png formats are allowed!');
+        alert('Cover Image file too Big, Max size is 1MB');
         return;
       }
     } else {
-      alert('Cover Image file too Big, Max size is 1MB');
+      alert('Please upload Cover Image for Audio!');
       return;
     }
 
@@ -70,7 +96,8 @@ const AddAudio = () => {
         formData.append('audioSrc', audio);
         formData.append('coverImg', coverImg);
         formData.append('email', useremail);
-        setSubmitted(true);
+        setSubmit(true);
+
         await axios({
           method: 'post',
           url: '/api/addAudio',
@@ -79,6 +106,10 @@ const AddAudio = () => {
         })
           .then(response => {
             console.log(response);
+            setMessage({
+              msg: 'Congratulations, your submission have been successfully uploaded. Your submission will be published within 2 business days​!',
+              savingMsg: null,
+            });
           })
           .catch(error => {
             console.log(error);
@@ -93,10 +124,10 @@ const AddAudio = () => {
 
   return (
     <>
+      {submit && <SuccessModal message={message} close={handleClose} />}
       <div className="pb-8">
         <div className="text-indigo-650 flex flex-column w-11/12 sm:w-3/6 mx-auto p-6 bg-white rounded-md shadow-xl">
           <form
-            action=""
             method="POST"
             encType="multipart/form-data"
             className="space-y-3 mx-auto text-gray-900 w-11/12 lg:w-4/6 "
@@ -174,12 +205,3 @@ const AddAudio = () => {
 };
 
 export default AddAudio;
-
-{
-  /* {submitted && (
-  <h2 className="inline ml-3 text-green-600 text-lg">
-    <BsPatchCheckFill className="md:inline mr-2 text-xl" />
-    Audio Submitted
-  </h2>
-)} */
-}
