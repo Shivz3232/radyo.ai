@@ -58,11 +58,12 @@ const PodcastCategory = props => {
       </div>
       {!searchResults.searched && (
         <InfiniteScroll
+          className="no-scrollbar"
           style={{ padding: '0.5rem' }}
           dataLength={audioCards.length}
           next={loadMorePodcast}
           hasMore={true}
-          height={'max-content'}
+          height={'65vh'}
           loader={<p></p>}
         >
           <div className="container">

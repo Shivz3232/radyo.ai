@@ -15,6 +15,9 @@ module.exports = {
           650: '#4527a0',
         },
       },
+      boxShadow :{
+        custom : '1px 1px 6px 0px #bdbdbd;'
+      },
       screens: {
         mobile: { min: '320px', max: '480px' },
         ipad: { min: '481px', max: '768px' },

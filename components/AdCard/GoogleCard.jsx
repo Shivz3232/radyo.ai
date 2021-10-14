@@ -11,11 +11,13 @@ import {
 export const GoogleCard = (props) => {
   return (
     <div
-    // className="w-full h-full bg-red-500"
       style={{
         width: '100%',
         height: '100%',
-        border: '1px solid red',
+        // border: '1px solid red',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
       {props.size && props.size !== 'RESPONSIVE' ? (

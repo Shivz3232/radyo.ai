@@ -38,7 +38,7 @@ const AudioPlayer = props => {
   return (
     <>
       <div
-        className="z-0 h-48 mobile:h-28"
+        className="z-0 h-48 mobile:h-48"
         style={{ display: isPlaying ? '' : 'none' }}
       ></div>
       <div
@@ -47,7 +47,7 @@ const AudioPlayer = props => {
         style={{ display: isPlaying ? '' : 'none' }}
       >
         {isPlaying && (
-        <div style={{width:'100%',height:'100px'}}>
+        <div className="border border-red-500" style={{width:'100%',height:'100px'}}>
           <GoogleCard size="980x100" />
         </div>
       )}

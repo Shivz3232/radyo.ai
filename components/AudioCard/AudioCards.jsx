@@ -7,6 +7,7 @@ import {
 import AudioCard, { capitalizeFirstLetter } from './AudioCard';
 import { usePlaylist } from './../../controllers/PlaylistProvider';
 import NoResult from '../../assets/NoResultsFound.png';
+import Adcard from '../AdCard/Adcard';
 
 const AudioCards = ({ cardItems, categoryName }) => {
   const audioCards = useRef();
@@ -65,6 +66,27 @@ const AudioCards = ({ cardItems, categoryName }) => {
   const scrollLeft = () => {
     sideScroll(audioCards.current, 'left', 25, 325, 15);
   };
+
+  function getMixedCards() {
+    const cards = [];
+
+    for (var i = 0, j = 1; i < cardItems.length; i++, j++) {
+      if (j % 5 === 0) {
+        cards.push(
+          <div className="audio-card mini generic-card p-0">
+            <Adcard />
+          </div>
+        );
+      }
+
+      cards.push(
+        <AudioCard categoryName={categoryName} cardItemData={cardItems[i]} />
+      );
+    }
+
+    return cards;
+  }
+
   return (
     <section className="audio-cards-section">
       <div className="audio-cards-outer-container">
@@ -101,15 +123,7 @@ const AudioCards = ({ cardItems, categoryName }) => {
                 />
               </button>
             )}
-            {cardItems.map(cardItemData => {
-              return (
-                <AudioCard
-                  categoryName={categoryName}
-                  key={cardItemData._id}
-                  cardItemData={cardItemData}
-                />
-              );
-            })}
+            {getMixedCards()}
           </div>
         ) : (
           <p className="flex items-center justify-center">
