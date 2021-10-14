@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import Modal from '@material-ui/core/Modal';
+//import Modal from '@material-ui/core/Modal';
 import SubscribeModal from './SubscribeModal';
 import UnsubscribeModal from './UnsubscribeModal';
 import axios from 'axios'
@@ -91,7 +91,7 @@ const CreatorCard = ({ data }) => {
         </button>
         <button className="shareButton" >Share</button>
 
-         <Modal open={open} onClose={cancelCloseHandler}>
+         {/* <Modal open={open} onClose={cancelCloseHandler}>
             <div>
               <SubscribeModal follow={follow} setFollow={setFollow} setOpen={setOpen}/>
             </div>
@@ -101,7 +101,7 @@ const CreatorCard = ({ data }) => {
             <div>
               <UnsubscribeModal follow={follow} setFollow={setFollow} setOpen1={setOpen1}/>
             </div>
-         </Modal>
+         </Modal> */}
       </div>
     </>
   );

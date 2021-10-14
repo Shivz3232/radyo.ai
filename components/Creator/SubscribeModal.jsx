@@ -37,8 +37,6 @@ const closeModal=()=>{
                     <button  className="facebook-login" onClick={()=>subscribe()}>Login via Facebook</button>
                     </div>
                 </div>
-
-             
             </div>
         </>
     )
