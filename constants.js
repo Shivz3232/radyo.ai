@@ -1,6 +1,6 @@
 export const CATEGORY_ENDPOINT = '/category';
 
-export const FACEBOOK_APP_ID = '';
+export const FACEBOOK_APP_ID = '1190409274787063';
 
 export const GOOGLE_ANALYTICS_ID = '';
 

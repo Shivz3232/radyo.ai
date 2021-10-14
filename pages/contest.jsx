@@ -3,6 +3,10 @@ import HomeCarousel from './../components/HomeCarousel/HomeCarousel';
 import loadable from '@loadable/component';
 import Link from 'next/link';
 import { initGA, trackPageView } from '../components/Tracking/tracking';
+import Banner1 from '../assets/Banner_Radyo.svg';
+import Banner2 from '../assets/Banner_English_artist.svg';
+import Banner3 from '../assets/Banner_English_Listener.svg';
+import Banner4 from '../assets/Banner_Hindi_artist.svg';
 const BarChartRace1 = loadable(() =>
   import('./../components/Leaderboard/LeaderBoard')
 );
@@ -12,83 +16,58 @@ const Contest = () => {
     trackPageView();
   }, []);
   const [isClicked, setIsClicked] = useState(false);
-  const images = [
-    'https://via.placeholder.com/411x256',
-    'https://via.placeholder.com/1024x320',
-    'https://via.placeholder.com/411x256',
-    'https://via.placeholder.com/1024x320',
-  ];
+  const images = [Banner1.src, Banner2.src, Banner3.src, Banner4.src];
   return (
     <div className="container">
       <div className={`flex flex-row sm:my-4`}>
-        <button
-          className={` w-60 mx-2 rounded-md border border-indigo-650 px-2 py-2 text-white bg-indigo-650 md:mt-8 sm:wd-20`}
-          onClicked={() => setIsClicked(true)}
-        >
-          <Link href="#">
-            <a>Contest 1</a>
-          </Link>
-        </button>
-        <button
-          className={`w-60 mx-2 rounded-md border border-indigo-650 px-2 py-1 sm:wd-20 ${
-            isClicked == 1
-              ? 'text-white bg-indigo-650'
-              : 'text-indigo-650 hover:bg-gray-100'
-          } md:mt-8`}
-          onClicked={() => setIsClicked(true)}
-        >
-          <Link href="#">
-            <a>Contest 2</a>
-          </Link>
-        </button>
-        <button
-          className={` w-60 mx-2 rounded-md border border-indigo-650 px-2 py-1 sm:wd-20 ${
-            isClicked == 1
-              ? 'text-white bg-indigo-650'
-              : 'text-indigo-650 hover:bg-gray-100'
-          } md:mt-8`}
-          onClicked={() => setIsClicked(true)}
-        >
-          <Link href="#">
-            <a>Jackpot</a>
-          </Link>
-        </button>
-        <button
-          className={` w-60 mx-2 rounded-md border border-indigo-650 px-2 py-1 sm:wd-20 ${
-            isClicked == 1
-              ? 'text-white bg-indigo-650'
-              : 'text-indigo-650 hover:bg-gray-100'
-          } md:mt-8`}
-          onClicked={() => setIsClicked(true)}
-        >
-          <Link href="#">
-            <a>Past Contests</a>
-          </Link>
-        </button>
+        {['Contest 1', 'Contest 2', 'Jackpot', 'Past contest'].map(
+          (elem, i) => {
+            return (
+              <button
+                key={i}
+                className={` w-60 mx-2 rounded-md border border-indigo-650 px-2 py-2 text-white bg-indigo-650 md:mt-8 sm:wd-20`}
+                onClicked={() => setIsClicked(true)}
+              >
+                <Link href="#">
+                  <a>{elem}</a>
+                </Link>
+              </button>
+            );
+          }
+        )}
       </div>
+
       <div className="flex justify-center md:mt-8">
         <HomeCarousel images={images} />
       </div>
 
       <div
-        className={`w-full text-center flex rounded-md items-center mt-2 sm:mt-8 sm:text-xs`}
+        className={`w-full text-center flex flex-row-reverse mobile:block ipad:block rounded-md items-center mt-2 sm:mt-8 sm:text-xs`}
       >
-        <div
-          className={`w-3/5 flex-row mx-1 rounded-md border border-indigo-650 `}
-        >
-          <div className={`text-white bg-indigo-650 h-18 py-2 sm:text-sm`}>
-            Contest 1 Rules and Regulations
-          </div>
-          <div className={`text-indigo-650 h-96`}></div>
-        </div>
-        <div
-          className={`w-2/5 flex-row mx-1  rounded-md border border-indigo-650 `}
-        >
-          <div className={`text-white bg-indigo-650 py-2 h-18 sm:text-sm`}>
+        <div className={`w-1/2 mobile:w-full ipad:w-full flex-row my-4 mx-1 `}>
+          <div
+            className={`text-white bg-indigo-650 rounded-t-md py-1 h-18 sm:text-sm max-w-1/2`}
+          >
             Live Leaderboard
           </div>
-          <div className={`text-indigo-650 `}>
+          <div
+            className={`text-indigo-650 w-full h-96  mobile:h-full rounded-b-md p-1 border border-t-0 border-indigo-650 overflow-hidden`}
+          >
             <BarChartRace1 />
+          </div>
+        </div>
+        <div
+          className={`w-1/2 mobile:w-full ipad:w-full flex-row mx-1  rounded-md  `}
+        >
+          <div
+            className={`text-white bg-indigo-650 rounded-t-md py-1 h-18 sm:text-sm max-w-1/2`}
+          >
+            Contest 1 Rules and Regulations
+          </div>
+          <div
+            className={`text-indigo-650 h-96 rounded-b-md border border-t-0  border-indigo-650`}
+          >
+            <div>Rules will be here</div>
           </div>
         </div>
       </div>
@@ -98,7 +77,7 @@ const Contest = () => {
 export async function getStaticProps() {
   return {
     props: {
-      activeTab: '/contest',
+      activeTab: 'contest',
     },
   };
 }
