@@ -4,10 +4,16 @@ import AudioCards from '../../components/AudioCard/AudioCards';
 import AudioCardsVerticalScroll from '../../components/AudioCard/AudioCardsVerticalScroll';
 import AudioPageComponent from '../../components/AudioPage/AudioPage';
 import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
+import { initGA, trackPageView } from '../../components/Tracking/tracking';
 import { getAllAudio, getAudio, getAudioIds } from '../../controllers/podcast';
 import dbConnect from '../../utils/dbConnect';
 
 const PodcastAudio = ({ data, audioCards, play }) => {
+  useEffect(() => {
+    initGA();
+    trackPageView();
+  }, []);
+
   return (
     <div className="audio-page" id="audioPage">
       <div className="container">

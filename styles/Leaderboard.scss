@@ -1,13 +1,10 @@
 .lb-container {
-  margin: 2rem 10rem;
-  max-width: 600px;
-  //flex-wrap: wrap;
-}
 
-.lb-box-container {
-}
-@media only screen and (max-width: $mobile-res) {
-  .lb-container {
-    margin: 5rem auto;
+  .raceItem span{
+    flex-direction: row;
+    align-items: baseline;
+    em{
+      margin-right: 4px;
+    }
   }
 }

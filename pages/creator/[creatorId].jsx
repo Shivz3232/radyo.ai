@@ -4,13 +4,19 @@ import AudioCards from '../../components/AudioCard/AudioCards';
 import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
 // import Banner from '../../components/Banner/Banner';
 import CreatorCard from '../../components/Creator/CreatorCard';
+import { initGA, trackPageView } from '../../components/Tracking/tracking';
 import { getCreatorAudio, getCreatorIds } from '../../controllers/creator';
 import { getAllAudio } from '../../controllers/podcast';
 import dbConnect from '../../utils/dbConnect';
 
 const CreatorPage = ({ info, audioCards, play }) => {
   const data = info;
-  console.log(data);
+
+  useEffect(() => {
+    initGA();
+    trackPageView();
+  }, []);
+
   return (
     <>
       <div className="creatorpage">
