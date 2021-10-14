@@ -24,7 +24,7 @@ const CreatorCard = ({ data }) => {
       setOpen(true)
     }
   }
-  console.log("Creator",creator)
+  //console.log("Creator",creator)
 
   useEffect(() => {
     setFollow(JSON.parse(window.localStorage.getItem('follow')));
@@ -78,7 +78,7 @@ const CreatorCard = ({ data }) => {
         </div>
         <div className="creator-card__action">
           <span className="creator-card__action--item">
-            {creator.subscriberCount}
+            {data.subscriberCount}
           </span>
           <span className="creator-card__action--item">Followers</span>
         </div>
