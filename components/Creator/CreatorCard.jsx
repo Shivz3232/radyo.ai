@@ -4,11 +4,14 @@ import ShareModal from './ShareModal';
 import SubscribeModal from './SubscribeModal';
 import UnsubscribeModal from './UnsubscribeModal';
 import { ImCross } from 'react-icons/im';
+import axios from 'axios'
 
 const CreatorCard = ({ data }) => {
    const [open, setOpen] = useState(false);
    const [open1, setOpen1] = useState(false);
    const [follow, setFollow] = useState(false);
+   const [creator, setCreator]= useState(data);
+   
   //  const confirmCloseHandler = () => {
   //   setOpen(false);
   //   setOpenNew(true);
@@ -28,11 +31,22 @@ const CreatorCard = ({ data }) => {
   const openFollow=()=>{
     if(follow===true){
       setOpen1(true)
+      // if(follow===true)
+      // {
+      //   setCreator(...creator, {creator.subscriberCount++})
+      // }
+      // let response= axios.post('http://localhost:3000')
+      
     }
     else{
       setOpen(true)
+      // if(follow===false)
+      // {
+      //   setCreator(...creator, {creator.subscriberCount--})
+      // }
     }
   }
+  console.log("Creator",creator)
 
   useEffect(() => {
     setFollow(JSON.parse(window.localStorage.getItem('follow')));
@@ -86,7 +100,7 @@ const CreatorCard = ({ data }) => {
         </div>
         <div className="creator-card__action">
           <span className="creator-card__action--item">
-            {data.subscriberCount}
+            {creator.subscriberCount}
           </span>
           <span className="creator-card__action--item">Followers</span>
         </div>

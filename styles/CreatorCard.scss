@@ -279,8 +279,60 @@
     max-width: 325px;
     margin:0rem auto;
     margin-bottom:1rem;
-    .playButton,.fsButton{
+    .playButton,.fsButton1,.fsButton2, .shareButton{
       margin:0rem 0.2rem;
     }
+  }
+
+  .subscribe-modal{
+    width:350px;
+    .header-section{
+    
+      .heading{
+        margin:5px;
+        font-size: 1.5rem;
+      }
+    }
+    .login-section{
+      display: flex;
+      flex-direction: column;
+      margin:10px auto;
+      justify-content: center;
+      align-items: center;
+      .gmail-login, .facebook-login{
+        width:150px;
+      }
+    }
+  }
+
+  .unsubscribe-modal{
+    width:350px;
+    .header-section{
+      .heading{
+        margin:5px;
+        font-size: 1.5rem;
+      }
+    }
+  
+    .options{
+      display: flex;
+      flex-direction: column;
+      .unsubscribe-button{
+        width:200px;
+        height:50px;
+        background-color: red;
+        color:white;
+        margin:10px;
+      }
+  
+      .cancel-button{
+        width:200px;
+        height:50px;
+        background-color: blue;
+        color:white;
+        margin:10px;
+      }
+    }
+    
   }
 }
