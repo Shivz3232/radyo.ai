@@ -56,3 +56,4 @@ const ShareModal=({ modalClosed })=>{
         </>
     )
 }
+export default ShareModal

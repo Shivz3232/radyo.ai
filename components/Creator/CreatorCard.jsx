@@ -1,23 +1,49 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import Modal from '@material-ui/core/Modal';
 import ShareModal from './ShareModal';
+import SubscribeModal from './SubscribeModal';
+import UnsubscribeModal from './UnsubscribeModal';
 import { ImCross } from 'react-icons/im';
 
 const CreatorCard = ({ data }) => {
    const [open, setOpen] = useState(false);
+   const [open1, setOpen1] = useState(false);
+   const [follow, setFollow] = useState(false);
   //  const confirmCloseHandler = () => {
   //   setOpen(false);
   //   setOpenNew(true);
   // };
+
+   // const clickedClose = () => {
+  //   setOpen(false);
+  // };
+
   const cancelCloseHandler = () => {
-    setOpen(false);
+    setOpen1(false);
+  };
+  const cancelCloseHandler1 = () => {
+    setOpen1(false);
   };
 
-  const clickedClose = () => {
-    setOpen(false);
-  };
+  const openFollow=()=>{
+    if(follow===true){
+      setOpen1(true)
+    }
+    else{
+      setOpen(true)
+    }
+  }
+
+  useEffect(() => {
+    setFollow(JSON.parse(window.localStorage.getItem('follow')));
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem('follow', follow);
+  }, [follow]);
 
 
+  console.log("follow status", follow)
   console.log("open status", open)
   return (
     <>
@@ -45,42 +71,45 @@ const CreatorCard = ({ data }) => {
           </div>
         </div>
 
-        {/* <button className="subscribe-btn">Subscribe</button> */}
       </div>
 
-      
-        <div className="creatorCard__action--row">
-          <div className="creator-card__action">
-            <span className="creator-card__action--item">
-              {data.audiosPublished}
-            </span>
-            <span className="creator-card__action--item">Audios </span>
-          </div>
-          <div className="creator-card__action">
-            <span className="creator-card__action--item">{data.playCount}</span>
-            <span className="creator-card__action--item"> Plays</span>
-          </div>
-          <div className="creator-card__action">
-            <span className="creator-card__action--item">
-              {data.subscriberCount}
-            </span>
-            <span className="creator-card__action--item">Followers</span>
-          </div>
+      <div className="creatorCard__action--row">
+        <div className="creator-card__action">
+          <span className="creator-card__action--item">
+            {data.audiosPublished}
+          </span>
+          <span className="creator-card__action--item">Audios </span>
         </div>
+        <div className="creator-card__action">
+          <span className="creator-card__action--item">{data.playCount}</span>
+          <span className="creator-card__action--item"> Plays</span>
+        </div>
+        <div className="creator-card__action">
+          <span className="creator-card__action--item">
+            {data.subscriberCount}
+          </span>
+          <span className="creator-card__action--item">Followers</span>
+        </div>
+      </div>
 
       <div className="button-container">
         <button className="playButton">Play All</button>
-        <button className="fsButton">Follow</button>
-        <button className="fsButton" onClick={()=>setOpen(true)}>Share</button>
+        <button className={follow===true?"fsButton2":"fsButton1"} onClick={()=>openFollow()}>
+         {follow === true ? "Following" : "Follow"}
+        </button>
+        <button className="shareButton" >Share</button>
+
          <Modal open={open} onClose={cancelCloseHandler}>
             <div>
-              <button onClick={clickedClose} className="top-right">
-                <ImCross />
-              </button>
-          </div>
+              <SubscribeModal follow={follow} setFollow={setFollow} setOpen={setOpen}/>
+            </div>
          </Modal>
-        
-        
+
+         <Modal open={open1} onClose={cancelCloseHandler1}>
+            <div>
+              <UnsubscribeModal follow={follow} setFollow={setFollow} setOpen1={setOpen1}/>
+            </div>
+         </Modal>
       </div>
     </>
   );
