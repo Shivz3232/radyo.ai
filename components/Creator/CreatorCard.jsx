@@ -1,9 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import Modal from '@material-ui/core/Modal';
-import ShareModal from './ShareModal';
 import SubscribeModal from './SubscribeModal';
 import UnsubscribeModal from './UnsubscribeModal';
-import { ImCross } from 'react-icons/im';
 import axios from 'axios'
 
 const CreatorCard = ({ data }) => {
@@ -21,8 +19,6 @@ const CreatorCard = ({ data }) => {
   const openFollow=()=>{
     if(follow===true){
       setOpen1(true)
-      
-      
     }
     else{
       setOpen(true)
