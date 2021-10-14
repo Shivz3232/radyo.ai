@@ -43,7 +43,7 @@ const createUser = async (token, rcode) => {
   const user = new PodcastCreatorModel({
     creatorName: token.name,
     email: token.email,
-    uid: token.uid,
+    uid: token.email.split('@')[0],
     avatarImage: token.picture,
     about: token.name,
     audiosPublished: 0,
@@ -51,6 +51,7 @@ const createUser = async (token, rcode) => {
     subscriberCount: 0,
     referralCode: RCG.alpha('lowercase', 6),
     referrerCode: 'NONE',
+    contact: ''
   });
 
   await PodcastCreatorModel.find({ email: token.email }).then(

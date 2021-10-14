@@ -13,11 +13,15 @@ const MyProfile = () => {
     contact: '',
     email: '',
     about: '',
+    uid: '',
   });
   const [imgSrc, setImgSrc] = useState(avatar.src);
   const [profileImg, setprofileImg] = useState('');
   const [submit, setSubmit] = useState(false);
-  const [message, setMessage] = useState({msg:null, savingMsg:'Updating Profile'});
+  const [message, setMessage] = useState({
+    msg: null,
+    savingMsg: 'Updating Profile',
+  });
 
   useEffect(() => {
     // try {
@@ -136,7 +140,7 @@ const MyProfile = () => {
             <p className="text-center text-gray-900 rounded p-1">
               Public Profile Link
             </p>
-            <p className="text-center">http://radyo.ai/creator/gourav4142</p>
+            <p className="text-center">{`www.radyo.ai/creator/${inputData.uid}`}</p>
           </div>
           <div>
             <div className="space-y-3 mx-auto text-gray-900 w-11/12 lg:w-4/6">

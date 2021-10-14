@@ -12,11 +12,6 @@ const MySubmissions = () => {
     title: '',
   });
 
-  const playAudio = info => {
-    setTrackInfo(info);
-    play(info);
-  };
-
   useEffect(() => {
     if (useremail) {
       axios
@@ -46,7 +41,6 @@ const MySubmissions = () => {
           {/* Play Audio Functionality not added */}
           <AudioCardsVerticalScroll
             audioCards={audioCards}
-            // playAudio={playAudio}
           />
         </div>
       </div>
