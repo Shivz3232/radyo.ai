@@ -10,7 +10,6 @@ import dbConnect from '../../utils/dbConnect';
 
 const CreatorPage = ({ info, audioCards, play }) => {
   const data = info;
-  console.log(data);
   return (
     <>
       <div className="creatorpage">
@@ -53,7 +52,6 @@ const CreatorPage = ({ info, audioCards, play }) => {
 };
 
 export const getStaticProps = async ({ params }) => {
-  console.log(params, 'line 56');
   const id = params.uid;
   await dbConnect();
   const data = await getCreatorAudio(id).catch(console.error);
@@ -74,11 +72,9 @@ export const getStaticProps = async ({ params }) => {
 
 export async function getStaticPaths() {
   await dbConnect();
-
-  const uid = await getCreatorIds().catch(console.error);
+  const uid = await getCreatorUid().catch(console.error);
   let paths = [];
-  if (uid && typeof uid[0] === 'string') {
-    console.log(uid, "line 82");
+  if (uid && typeof uid[0].uid === 'string') {
     return {
       paths: uid.map(elem => {
         if (elem.uid) {
