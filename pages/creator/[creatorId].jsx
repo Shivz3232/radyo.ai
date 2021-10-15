@@ -16,7 +16,7 @@ const CreatorPage = ({ info, audioCards, play }) => {
     initGA();
     trackPageView();
   }, []);
-
+console.log("Data,", info)
   return (
     <>
       <div className="creatorpage">
@@ -59,12 +59,14 @@ const CreatorPage = ({ info, audioCards, play }) => {
 };
 
 export const getStaticProps = async ({ params }) => {
+  await dbConnect();
   console.log(params, 'line 56');
   const id = params.uid;
-  await dbConnect();
   const data = await getCreatorAudio(id).catch(console.error);
   const audioCards = await getAllAudio().catch(console.error);
+  console.log("data here", data)
   if (audioCards && data) {
+    
     return {
       props: {
         info: data,

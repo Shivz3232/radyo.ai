@@ -30,7 +30,7 @@
       flex-direction: column;
       font-size: 1.2rem;
       //margin-left: 0.8rem;
-      margin-left: 2rem;
+      margin-left: 1rem;
       .creator-card__header--item {
         margin: 0.3rem 1rem;
       }
@@ -109,7 +109,7 @@
   text-align:center;
   justify-content:center;
 
-  .playButton, .shareButton,.fsButton1, .fsButton2 {
+  .playButton, .shareButton,.fsButton {
     padding:0.5rem;
     width:11rem;
     margin:0rem 1rem ;
@@ -123,116 +123,11 @@
     color:white;
   }
 
-  .shareButton{
+  .shareButton, .fsButton{
     border:1px solid $color-indigo-500;
     color:$color-indigo-500;
   }
-
-  .fsButton1{
-    border:1px solid $color-indigo-500;
-    color:$color-indigo-500;
-  }
-  .fsButton2{
-    background-color:$color-grey-400;
-  }
-}
-
-.subscribe-modal{
-  display: flex;
-  flex-direction: column;
-  width:500px;
-  margin:200px auto;
-  background-color: white;
-  .header-section{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin:10px 0px;
-    padding:auto 10px;
-    .heading{
-      margin:10px;
-      text-align: center;
-      margin:0rem auto;
-      font-size: 2rem;
-    }
-    .close-button{
-      width:50px;
-      height:50px;
-      cursor: pointer;
-    }
-  }
-  .login-section{
-    display: block;
-    //padding:10px;
-    margin:10px auto;
-    justify-content: center;
-    align-items: center;
-    .gmail-login{
-      width:200px;
-      height:50px;
-      background-color: red;
-      color:white;
-      margin:10px;
-    }
-    .facebook-login{
-      width:200px;
-      height:50px;
-      background-color: blue;
-      color:white;
-      margin:10px;
-    }
-  }
-}
-
-.unsubscribe-modal{
-  display: flex;
-  flex-direction: column;
-  width:500px;
-  margin:200px auto;
-  background-color: white;
-
-  .header-section{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin:10px 0px;
-    padding:auto 10px;
-    .heading{
-      margin:10px;
-      text-align: center;
-      margin:0rem auto;
-      font-size: 1.5rem;
-    }
-    .close-button{
-      width:50px;
-      height:50px;
-      cursor: pointer;
-    }
-  }
-
-  .options{
-    display: block;
-    //padding:10px;
-    margin:10px auto;
-    justify-content: center;
-    align-items: center;
-    .unsubscribe-button{
-      width:200px;
-      height:50px;
-      background-color: red;
-      color:white;
-      margin:10px;
-    }
-
-    .cancel-button{
-      width:200px;
-      height:50px;
-      background-color: blue;
-      color:white;
-      margin:10px;
-    }
-  }
-  
+   
 }
 
 
@@ -240,8 +135,8 @@
 @media only screen and (max-width: $mobile-res) {
   .creator-card {
     margin: 2rem auto 2rem auto;
-
-    max-width: 325px;
+    //max-width: 325px;
+    max-width: 300px;
     &__header {
       &--image {
         flex: 40%;
@@ -268,8 +163,8 @@
 
   .creatorCard__action--row {
     //padding:0.5rem;
-    max-width: 325px;
-
+    //max-width: 325px;
+    max-width: 300px;
     .creator-card__action {
       font-size: 1rem;
 
@@ -280,63 +175,12 @@
   }
 
   .button-container{
-    max-width: 325px;
+    max-width: 310px;
     margin:0rem auto;
     margin-bottom:1rem;
-    .playButton,.fsButton1,.fsButton2, .shareButton{
+    .playButton,.fsButton, .shareButton{
       margin:0rem 0.2rem;
     }
   }
 
-  .subscribe-modal{
-    width:350px;
-    .header-section{
-    
-      .heading{
-        margin:5px;
-        font-size: 1.5rem;
-      }
-    }
-    .login-section{
-      display: flex;
-      flex-direction: column;
-      margin:10px auto;
-      justify-content: center;
-      align-items: center;
-      .gmail-login, .facebook-login{
-        width:150px;
-      }
-    }
-  }
-
-  .unsubscribe-modal{
-    width:350px;
-    .header-section{
-      .heading{
-        margin:5px;
-        font-size: 1.5rem;
-      }
-    }
-  
-    .options{
-      display: flex;
-      flex-direction: column;
-      .unsubscribe-button{
-        width:200px;
-        height:50px;
-        background-color: red;
-        color:white;
-        margin:10px;
-      }
-  
-      .cancel-button{
-        width:200px;
-        height:50px;
-        background-color: blue;
-        color:white;
-        margin:10px;
-      }
-    }
-    
-  }
 }

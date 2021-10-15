@@ -182,9 +182,7 @@
   padding: 1rem;
   //margin:1rem;
   margin: 2rem auto;
-  .fb-comments {
-    margin: 1rem;
-  }
+
 }
 
 @media only screen and (max-width: $mobile-res) {
@@ -237,10 +235,5 @@
 
   .comment-box-container {
     width: 325px;
-
-    .fb-comments {
-      flex: 70%;
-      max-width: 300px;
-    }
   }
 }

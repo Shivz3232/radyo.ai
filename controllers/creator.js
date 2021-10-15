@@ -8,7 +8,7 @@ export const getCreatorAudio = async uid => {
   }).catch(console.error);
 
   if (allAudio) {
-    console.log(allAudio, 'line 12');
+    console.log(allAudio[0], 'line 12');
     let temp = JSON.stringify(allAudio[0]);
     return JSON.parse(temp);
   } else {
