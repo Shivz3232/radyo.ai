@@ -4,19 +4,12 @@ import AudioCards from '../../components/AudioCard/AudioCards';
 import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
 // import Banner from '../../components/Banner/Banner';
 import CreatorCard from '../../components/Creator/CreatorCard';
-import { initGA, trackPageView } from '../../components/Tracking/tracking';
 import { getCreatorAudio, getCreatorIds } from '../../controllers/creator';
 import { getAllAudio } from '../../controllers/podcast';
 import dbConnect from '../../utils/dbConnect';
 
 const CreatorPage = ({ info, audioCards, play }) => {
   const data = info;
-
-  useEffect(() => {
-    initGA();
-    trackPageView();
-  }, []);
-console.log("Data,", info)
   return (
     <>
       <div className="creatorpage">
@@ -50,7 +43,7 @@ console.log("Data,", info)
       </div>
       {/* <div
         className="audio-player-dashboard"
-        style={{ display: trackInfo.audioSrc ? '' : 'none' }}
+        style={{ display: trackInfo.audioSrc ? '': 'none' }}
       >
         <AudioPlayer trackInfo={trackInfo} />
       </div> */}
@@ -59,13 +52,11 @@ console.log("Data,", info)
 };
 
 export const getStaticProps = async ({ params }) => {
-  await dbConnect();
   const id = params.uid;
+  await dbConnect();
   const data = await getCreatorAudio(id).catch(console.error);
   const audioCards = await getAllAudio().catch(console.error);
-  console.log("data here", data)
   if (audioCards && data) {
-    
     return {
       props: {
         info: data,
@@ -81,11 +72,9 @@ export const getStaticProps = async ({ params }) => {
 
 export async function getStaticPaths() {
   await dbConnect();
-
   const uid = await getCreatorIds().catch(console.error);
   let paths = [];
-  if (uid && typeof uid[0] === 'string') {
-    console.log(uid, 'line 82');
+  if (uid && typeof uid[0].uid === 'string') {
     return {
       paths: uid.map(elem => {
         if (elem.uid) {
