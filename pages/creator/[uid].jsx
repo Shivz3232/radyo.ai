@@ -43,7 +43,7 @@ const CreatorPage = ({ info, audioCards, play }) => {
       </div>
       {/* <div
         className="audio-player-dashboard"
-        style={{ display: trackInfo.audioSrc ? '' : 'none' }}
+        style={{ display: trackInfo.audioSrc ? '': 'none' }}
       >
         <AudioPlayer trackInfo={trackInfo} />
       </div> */}
