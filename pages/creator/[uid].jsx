@@ -60,7 +60,6 @@ console.log("Data,", info)
 
 export const getStaticProps = async ({ params }) => {
   await dbConnect();
-  console.log(params, 'line 56');
   const id = params.uid;
   const data = await getCreatorAudio(id).catch(console.error);
   const audioCards = await getAllAudio().catch(console.error);
