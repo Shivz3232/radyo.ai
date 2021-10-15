@@ -14,7 +14,7 @@ export const getCreatorAudio = async uid => {
     return undefined;
   }
 };
-export const getCreatorUid = async () => {
+export const getCreatorIds = async () => {
   return await PodcastCreatorModel.find({}, 'uid -_id')
     .catch(console.error);
 };
