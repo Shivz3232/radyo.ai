@@ -7,8 +7,8 @@ const updateLikeCount = async (req, res) => {
     const action = req.body.action;
     const userId = req.body.userid;
     let updateCount = undefined;
+    const uid = { userId: userId };
     if (action === 'like') {
-      const uid = { userId: userId };
       console.log(uid);
       updateCount = await PodcastModel.findOneAndUpdate(
         { _id: id },
@@ -21,6 +21,7 @@ const updateLikeCount = async (req, res) => {
       updateCount = await PodcastModel.findOneAndUpdate(
         { _id: id },
         {
+          $pull: { likedBy: uid },
           $inc: { likeCount: -1 },
         }
       ).catch(console.error);
