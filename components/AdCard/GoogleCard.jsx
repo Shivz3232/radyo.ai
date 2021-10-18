@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import AdSense from 'react-adsense';
 import {
   GAD_CLIENT_ID,
-  GAD_LAYOUT_KEY,
+  // GAD_LAYOUT_KEY,
   GAD_SLOT,
   GAD_SLOT_SIZE,
 } from './../../constants';
@@ -39,7 +39,7 @@ export const GoogleCard = props => {
           format="fluid"
           // responsive="true"
           layout="in-article"
-          layoutKey={GAD_LAYOUT_KEY}
+          // layoutKey={GAD_LAYOUT_KEY}
         />
       )}
     </div>

@@ -10,8 +10,4 @@ export const audio_formats = [
 
 // Allowed Image formats
 
-export const image_formats = [
-  'image/jpeg',
-  'image/jpg',
-  'image/png'
-]
+export const image_formats = ['image/jpeg', 'image/jpg', 'image/png'];

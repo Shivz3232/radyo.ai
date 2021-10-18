@@ -64,7 +64,7 @@ uploader.post(async (req, res) => {
   if (req.method === 'POST') {
     console.log(req.files);
     console.log(req.body.email);
-    
+
     let audioFilePath = req.files.audioSrc[0].path;
     let coverImgPath = req.files.coverImg[0].path;
 

@@ -33,7 +33,9 @@ const LeaderBoard = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       const handleChange = async () => {
-        const { data } = await axios.get('/api/creator/creator').catch(err => console.log(err));
+        const { data } = await axios
+          .get('/api/creator/creator')
+          .catch(err => console.log(err));
         const arrayData = data.allAudio;
         setData(arrayData);
         const mappedData = [];
@@ -56,7 +58,7 @@ const LeaderBoard = () => {
       handleChange();
     }, 10000);
 
-    return()=> clearInterval(timer);
+    return () => clearInterval(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -72,8 +74,16 @@ const LeaderBoard = () => {
         padding={3}
         itemHeight={23}
         gap={15}
-        titleStyle={{ display:"inline",font: 'normal 400 12px Poppins', color: '#000' }}
-        valueStyle={{  display:"inline",font: 'normal 400 12px Poppins', color: '#000' }}
+        titleStyle={{
+          display: 'inline',
+          font: 'normal 400 12px Poppins',
+          color: '#000',
+        }}
+        valueStyle={{
+          display: 'inline',
+          font: 'normal 400 12px Poppins',
+          color: '#000',
+        }}
       />
     </div>
   );

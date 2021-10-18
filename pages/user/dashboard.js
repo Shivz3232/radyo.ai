@@ -9,9 +9,9 @@ const Dashboard = () => {
   }, []);
   return (
     <>
-        <div className="bg-gray-100">
-          <Navbar />
-        </div>
+      <div className="bg-gray-100">
+        <Navbar />
+      </div>
     </>
   );
 };

@@ -5,20 +5,25 @@ const useViewport = divWidth => {
   const [width, setWidth] = React.useState(window.innerWidth);
 
   React.useEffect(() => {
+    const container = document.getElementById('leaderboard');
+    const containerWidth = container.offsetWidth;
+    window.onload = () => {
+      setWidth(containerWidth);
+    };
+  }, []);
+
+  React.useEffect(() => {
     const debounceHandleResize = debounce(function handleWindowResize() {
       const container = document.getElementById('leaderboard');
-      const containerWidth = container.offsetWidth; 
-      // if (window.innerWidth < 769) {
-        setWidth(containerWidth);
-        // } else {
-        // setWidth(containerWidth);
-      // }
+      const containerWidth = container.offsetWidth;
+      setWidth(containerWidth);
     }, 300);
     window.addEventListener('resize', debounceHandleResize);
+
     return () => window.removeEventListener('resize', debounceHandleResize);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  // console.log(width);
+
+
   return { width };
 };
 export default useViewport;
