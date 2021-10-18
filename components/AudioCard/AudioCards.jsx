@@ -73,7 +73,7 @@ const AudioCards = ({ cardItems, categoryName }) => {
     for (var i = 0, j = 1; i < cardItems.length; i++, j++) {
       if (j % 5 === 0) {
         cards.push(
-          <div key="google card" className="audio-card mini generic-card p-0">
+          <div key={`google-card-${j}`} className="audio-card mini generic-card p-0">
             <Adcard />
           </div>
         );

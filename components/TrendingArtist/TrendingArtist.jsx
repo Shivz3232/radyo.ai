@@ -38,7 +38,7 @@ const TrendingArtist = ({ heading, data }) => {
     const lastElement = document.getElementById(
       `artist-${data[data.length - 1]._id}`
     );
-    console.log(firstElement,lastElement);
+    // console.log(firstElement,lastElement);
     if (window.screen.width && window.screen.width > 769) {
       if (
         !elementIsInViewport(firstElement) &&
