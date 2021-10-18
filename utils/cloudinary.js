@@ -18,9 +18,9 @@ export const uploads = (file, folder) => {
           reject(console.log(error));
         }
       }
-      );
-    });
-  };
-  // resolve({
-  //   url: result.secure_url,
-  // });
+    );
+  });
+};
+// resolve({
+//   url: result.secure_url,
+// });

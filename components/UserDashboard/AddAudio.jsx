@@ -5,12 +5,22 @@ import RecordAudio from '../RecordAudio/RecordAudio';
 import { useAuth } from '../../controllers/auth';
 import { image_formats } from '../RecordAudio/fileFormats';
 import SuccessModal from './succesModal';
+import { categoryDataLinks } from '../CategoryNavBar/categoryData';
 
-const CatOptions = [
-  { value: 'cat-1', label: 'Category1' },
-  { value: 'cat-2', label: 'Category2' },
-  { value: 'cat-3', label: 'Category3' },
-];
+// const CatOptions = [
+//   { value: 'cat-1', label: 'Category1' },
+//   { value: 'cat-2', label: 'Category2' },
+//   { value: 'cat-3', label: 'Category3' },
+// ];
+
+let Categories = categoryDataLinks.map(cat => {
+  return {
+    value: cat.id,
+    label: cat.label,
+  };
+});
+
+const CatOptions = Categories;
 
 const LanOptions = [
   { value: 'english', label: 'English' },
@@ -57,15 +67,15 @@ const AddAudio = () => {
     e.preventDefault();
 
     if (!lanSelect) {
-      alert("Please Select a Language!");
+      alert('Please Select a Language!');
       return;
     }
     if (!catSelect) {
-      alert("Please Select a Category!");
+      alert('Please Select a Category!');
       return;
     }
     if (!textFields.title) {
-      alert("Please Provide Title for your Audio!");
+      alert('Please Provide Title for your Audio!');
       return;
     }
 
@@ -138,7 +148,7 @@ const AddAudio = () => {
             <p className="mx-auto text-indigo-650 text-md">Select Category :</p>
             <Select
               className="border-2 bg-gray-100 border-indigo-650 rounded-md focus:ring-1 focus:ring-indigo-650"
-              options={CatOptions}
+              options={Categories}
               name="cat"
               onChange={e => setCatSelect(e.value)}
             />

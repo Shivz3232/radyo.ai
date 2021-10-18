@@ -4,7 +4,7 @@ import nookies from 'nookies';
 import { verifyIdToken } from '../../utils/firebase/firebaseAdmin';
 import { useRouter } from 'next/router';
 
-const dashboard = ({redirect, props}) => {
+const dashboard = ({ redirect, props }) => {
   const router = useRouter();
   if (redirect) {
     router.push(redirect.destination);

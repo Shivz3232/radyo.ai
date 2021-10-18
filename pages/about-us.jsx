@@ -1,41 +1,68 @@
 import React, { useState } from 'react';
-import HomeCarousel from '../components/HomeCarousel/HomeCarousel';
+// import HomeCarousel from '../components/HomeCarousel/HomeCarousel';
 import axios from 'axios';
 import Banner2 from '../assets/Banner_English_artist.svg';
 import Banner3 from '../assets/Banner_English_Listener.svg';
-import { useRouter } from 'next/router';
+import Tornado from '../assets/sun-tornado.svg';
+// import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { getURL, urlObjectKeys } from 'next/dist/shared/lib/utils';
+
+function validateEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(String(email).toLowerCase());
+}
 
 const AboutUs = () => {
+  const [email, setEmail] = useState('');
   const images = [Banner2.src, Banner3.src];
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (!validateEmail(email)) {
+      alert('Enter a valid Email-id');
+      return;
+    }
+
+    axios.post('/api/subscribe', { email: email }).then(res => {
+      if (res.data.success) {
+        alert('Subscribed successfully');
+      } else {
+        alert('Something went wrong, try again later');
+      }
+    });
+  };
+
   return (
     <>
       <div className="container">
         {/* <HomeCarousel images={images} /> */}
-        <div className="text-center text-5xl px-36 leading-snug my-6 text-indigo-650 font-medium">
-          AI-powered social audio streaming service blended with midas human
-          touch​
-        </div>
-        <div className="text-center mb-6 mt-10 text-2xl">
-          Magic happens when human creations meets technology and that’s what
-          Radyo is all about. Radyo is India’s first social audio streaming
-          platform that empowers artists create, share & socialize their
-          creative work and enable billion users to consume masterpieces that
-          entertains, motivates, inspires, engages, in best-in-class
-          experience.​
-        </div>
-        <div className="relative">
-          <Prism className="" />
-          <div className="container absolute top-12">
-            <p className="text-gray-900 text-center text-4xl font-semibold px-52">
-              “I could either watch it happen or be a part of it.”
-              <p className="text-right font-medium text-xl mr-6">- Elon Musk</p>
-            </p>
+        <div className="flex flex-col">
+          <div className="text-center text-5xl px-36 leading-snug my-6 text-indigo-650 font-medium">
+            AI-powered social audio streaming service blended with midas human
+            touch​
+          </div>
+          <div className="text-center mb-6 mt-10 text-2xl">
+            Magic happens when human creations meets technology and that’s what
+            Radyo is all about. Radyo is India’s first social audio streaming
+            platform that empowers artists create, share & socialize their
+            creative work and enable billion users to consume masterpieces that
+            entertains, motivates, inspires, engages, in best-in-class
+            experience.​
           </div>
         </div>
+      </div>
+      <div className="relative">
+        <Prism className="" />
+        <div className="container absolute top-12">
+          <p className="text-gray-900 text-center text-4xl font-semibold px-52">
+            “I could either watch it happen or be a part of it.”
+            <p className="text-right font-medium text-xl mr-6">- Elon Musk</p>
+          </p>
+        </div>
+      </div>
+      <div className="container">
         <div className="mx-auto">
-          <div className="text-indigo-650 text-center text-3xl mt-36 mb-6">
+          <div className="text-indigo-650 text-center text-3xl mt-20 mb-6">
             Radyo is for Creative artists
           </div>
           <div className="text-xl text-center">
@@ -65,11 +92,89 @@ const AboutUs = () => {
           </div>
         </div>
       </div>
+      <div
+        style={{ backgroundImage: `url(${Tornado.src})` }}
+        className="bg-no-repeat bg-fixed bg-cover px-80 py-4 w-full"
+      >
+        <div className="text-white text-3xl text-center flex flex-col pt-3">
+          Subscribe to our newsletter, get latest updates on new releases
+          directly delivered to your mailbox
+          <form
+            onSubmit={handleSubmit}
+            className="text-base pt-2 mobile:py-8 laptop:py-4 ipad:py-2"
+          >
+            <input
+              className="rounded-l-sm px-2 py-1 text-sm  text-black mt-2 focus:outline-none"
+              type="text"
+              name="email"
+              placeholder="Enter your email Id"
+              value={email}
+              required
+              onChange={e => setEmail(e.target.value)}
+            />
+            <button
+              type="submit"
+              className="bg-indigo-650 py-1 px-2 rounded-r-sm text-sm "
+            >
+              Subscribe
+            </button>
+          </form>
+        </div>{' '}
+        ​
+      </div>
+      <footer className="flex justify-between p-4">
+        <div>
+          <p className="text-xl">Radyo.ai</p>
+          <div className="py-2">
+            <Link href="mailto:contact@nuzpapr.com">
+              <a className="text-blue-600">contact@nuzpapr.com</a>
+            </Link>
+          </div>
+        <div className="pt-8 mobile:pt-8 pb-2">
+          © All rights reserved&nbsp;2021
+        </div>
+        </div>
+        <div>
+          <div className="py-1">
+            <Link href="#">
+              <a style={{ textDecoration: 'none', color: 'inherit' }}>
+                Terms and Conditions
+              </a>
+            </Link>
+          </div>
+          <div className="py-1">
+            <Link href="#">
+              <a style={{ textDecoration: 'none', color: 'inherit' }}>
+                User Agreement
+              </a>
+            </Link>
+          </div>
+          <div className="py-1">
+            <Link href="#">
+              <a style={{ textDecoration: 'none', color: 'inherit' }}>
+                Privacy Policy
+              </a>
+            </Link>
+          </div>
+          <div className="py-1">
+            <Link href="#">
+              <a style={{ textDecoration: 'none', color: 'inherit' }}>
+                Content Policy
+              </a>
+            </Link>
+          </div>
+          <div className="py-1">
+            <Link href="#">
+              <a style={{ textDecoration: 'none', color: 'inherit' }}>
+                Takedown Policy
+              </a>
+            </Link>
+          </div>
+        </div>
+      </footer>
     </>
   );
 };
-
-export default AboutUs;
 
 export function Prism() {
   return (
@@ -198,3 +303,5 @@ export function Prism() {
 // }
 
 // export default AboutUs;
+
+export default AboutUs;
