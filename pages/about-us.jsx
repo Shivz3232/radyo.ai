@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
-// import HomeCarousel from '../components/HomeCarousel/HomeCarousel';
 import axios from 'axios';
-import Banner2 from '../assets/Banner_English_artist.svg';
-import Banner3 from '../assets/Banner_English_Listener.svg';
 import Tornado from '../assets/sun-tornado.svg';
-// import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 function validateEmail(email) {
@@ -14,7 +10,6 @@ function validateEmail(email) {
 
 const AboutUs = () => {
   const [email, setEmail] = useState('');
-  const images = [Banner2.src, Banner3.src];
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -35,13 +30,12 @@ const AboutUs = () => {
   return (
     <>
       <div className="container">
-        {/* <HomeCarousel images={images} /> */}
-        <div className="flex flex-col">
-          <div className="text-center text-5xl px-36 leading-snug my-6 text-indigo-650 font-medium">
+        <div className="flex flex-col space-y-6">
+          <div className="text-center mx-auto mobile:text-3xl text-5xl max-w-2xl leading-snug text-indigo-650 font-medium">
             AI-powered social audio streaming service blended with midas human
             touch​
           </div>
-          <div className="text-center mb-6 mt-10 text-2xl">
+          <div className="text-center text-2xl mobile:text-xl mobile:px-3">
             Magic happens when human creations meets technology and that’s what
             Radyo is all about. Radyo is India’s first social audio streaming
             platform that empowers artists create, share & socialize their
@@ -51,18 +45,22 @@ const AboutUs = () => {
           </div>
         </div>
       </div>
-      <div className="relative">
-        <Prism className="" />
-        <div className="container absolute top-12">
-          <p className="text-gray-900 text-center text-4xl font-semibold px-52">
+
+      <div className="relative my-5">
+        <Prism />
+        <div className="container absolute top-6">
+          <p className="text-gray-900 text-center text-4xl mobile:text-2xl tracking-wide font-medium max-w-2xl mx-auto leading-snug">
             “I could either watch it happen or be a part of it.”
-            <p className="text-right font-medium text-xl mr-6">- Elon Musk</p>
+            <p className="text-right font-medium text-xl mobile-lg mobile:mr-3 mobile:mt-3">
+              - Elon Musk
+            </p>
           </p>
         </div>
       </div>
-      <div className="container">
-        <div className="mx-auto">
-          <div className="text-indigo-650 text-center text-3xl mt-20 mb-6">
+
+      <div className="container flex flex-col space-y-12 mobile:px-3">
+        <div className="space-y-2 mt-8">
+          <div className="text-indigo-650 text-center text-3xl">
             Radyo is for Creative artists
           </div>
           <div className="text-xl text-center">
@@ -72,15 +70,16 @@ const AboutUs = () => {
             Dialogues, Poetry and many more. Build a meaningful connection with
             your fan base, make a mark in the world of creatives and open up a
             potential recurring income stream. ​ If you are ready to take your
-            work to the next level, take back creative controls{' '}
-            <a href="#" className="text-blue-400">
-              Join Radyo now
-            </a>
+            work to the next level, take back creative controls.
+            <Link href="/login">
+              <a className="text-blue-600"> Join Radyo now</a>
+            </Link>
           </div>
         </div>
-        <div>
-          <div className="text-indigo-650 text-center text-3xl my-6">
-            Radyo is for Creative artists
+
+        <div className="space-y-2">
+          <div className="text-indigo-650 text-center text-3xl">
+            Radyo is for Listeners​
           </div>
           <div className="text-xl text-center">
             We understand, you can’t be looking at videos all the time, and
@@ -92,19 +91,22 @@ const AboutUs = () => {
           </div>
         </div>
       </div>
+
       <div
         style={{ backgroundImage: `url(${Tornado.src})` }}
-        className="bg-no-repeat bg-fixed bg-cover px-80 py-4 w-full"
+        className="bg-no-repeat bg-fixed bg-cover w-full mt-8"
       >
-        <div className="text-white text-3xl text-center flex flex-col pt-3">
-          Subscribe to our newsletter, get latest updates on new releases
-          directly delivered to your mailbox
+        <div className="flex flex-col max-w-xl mx-auto space-y-4 text-white text-3xl text-center my-9">
+          <div className="">
+            Subscribe to our newsletter, get latest updates on new releases
+            directly delivered to your mailbox
+          </div>
           <form
             onSubmit={handleSubmit}
-            className="text-base pt-2 mobile:py-8 laptop:py-4 ipad:py-2"
+            className="text-base mobile:py-8 laptop:py-4 ipad:py-2"
           >
             <input
-              className="rounded-l-sm px-2 py-1 text-sm  text-black mt-2 focus:outline-none"
+              className="rounded-l-md px-3 py-2 text-sm text-black focus:outline-none"
               type="text"
               name="email"
               placeholder="Enter your email Id"
@@ -114,60 +116,50 @@ const AboutUs = () => {
             />
             <button
               type="submit"
-              className="bg-indigo-650 py-1 px-2 rounded-r-sm text-sm "
+              className="bg-indigo-650 py-2 px-3 rounded-r-md text-sm "
             >
               Subscribe
             </button>
           </form>
-        </div>{' '}
-        ​
+        </div>
       </div>
-      <footer className="flex justify-between p-4">
+
+      <footer className="flex justify-between p-4 mobile:p-2">
         <div>
-          <p className="text-xl">Radyo.ai</p>
+          <p className="text-2xl font-semibold text-indigo-650">Radyo.ai</p>
           <div className="py-2">
             <Link href="mailto:contact@nuzpapr.com">
-              <a className="text-blue-600">contact@nuzpapr.com</a>
+              <a className="text-blue-600">contact@radyo.ai.com</a>
             </Link>
           </div>
-        <div className="pt-8 mobile:pt-8 pb-2">
-          © All rights reserved&nbsp;2021
-        </div>
+          <div className="pt-8 mobile:pt-8 pb-2">
+            © All rights reserved&nbsp;2021
+          </div>
         </div>
         <div>
           <div className="py-1">
             <Link href="#">
-              <a style={{ textDecoration: 'none', color: 'inherit' }}>
-                Terms and Conditions
-              </a>
+              <a>Terms and Conditions</a>
             </Link>
           </div>
           <div className="py-1">
             <Link href="#">
-              <a style={{ textDecoration: 'none', color: 'inherit' }}>
-                User Agreement
-              </a>
+              <a>User Agreement</a>
             </Link>
           </div>
           <div className="py-1">
             <Link href="#">
-              <a style={{ textDecoration: 'none', color: 'inherit' }}>
-                Privacy Policy
-              </a>
+              <a>Privacy Policy</a>
             </Link>
           </div>
           <div className="py-1">
             <Link href="#">
-              <a style={{ textDecoration: 'none', color: 'inherit' }}>
-                Content Policy
-              </a>
+              <a>Content Policy</a>
             </Link>
           </div>
           <div className="py-1">
             <Link href="#">
-              <a style={{ textDecoration: 'none', color: 'inherit' }}>
-                Takedown Policy
-              </a>
+              <a>Takedown Policy</a>
             </Link>
           </div>
         </div>
