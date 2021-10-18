@@ -1,57 +1,68 @@
-import { useState } from 'react';
-import { Tab } from '@headlessui/react';
-import MyProfile from './MyProfile';
-import AddAudio from './AddAudio';
-import MySubmissions from './MySubmissions';
+import React, { useState } from 'react';
+import { userMenuLinks } from '../Header/menuData';
+import Link from 'next/link';
 
 export function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-const UserNavbar = () => {
-  let [categories] = useState({
-    'My Profile': {
-      id: 1,
-      content: MyProfile,
-    },
-    'Add Audio': {
-      id: 2,
-      content: AddAudio,
-    },
-    'My Submissions': {
-      id: 3,
-      content: MySubmissions,
-    },
-  });
+const tabStyles =
+  'w-full py-2.5 text-sm text-center leading-5 font-medium text-blue-700 rounded-lg';
+
+const UserNavbar = ({ selectedTab }) => {
+  const [selected, setSelected] = useState(selectedTab);
 
   return (
-    <Tab.Group>
+    <div>
       <div className="w-full max-w-md px-4 py-5 sm:px-0 mx-auto">
-        <Tab.List className="flex p-1 space-x-1 bg-indigo-650 rounded-xl">
-          {Object.keys(categories).map(category => (
-            <Tab
-              key={category}
-              className={({ selected }) =>
-                classNames(
-                  'w-full py-2.5 text-sm leading-5 font-medium text-blue-700 rounded-lg',
-                  'focus:outline-none focus:ring-2 ring-offset-2 ring-offset-indigo-800 ring-white ring-opacity-60',
-                  selected
-                    ? 'bg-white shadow transition'
-                    : 'text-blue-100 hover:bg-white/[0.12] hover:text-white transition'
-                )
-              }
-            >
-              {category}
-            </Tab>
-          ))}
-        </Tab.List>
+        <div className="flex p-1 space-x-1 bg-indigo-650 rounded-xl">
+          <div
+            className={classNames(
+              tabStyles,
+              selected.profile
+                ? 'bg-white shadow transition'
+                : 'text-blue-100 hover:bg-white/[0.12] hover:text-white transition'
+            )}
+          >
+            <Link href={userMenuLinks[0].url}>
+              <a className="py-2 px-2 xs:px-4 sm:px-8">
+                {userMenuLinks[0].label}
+              </a>
+            </Link>
+          </div>
+
+          <div
+            className={classNames(
+              tabStyles,
+              selected.addAudio
+                ? 'bg-white shadow transition'
+                : 'text-blue-100 hover:bg-white/[0.12] hover:text-white transition'
+            )}
+          >
+            <Link href={userMenuLinks[1].url}>
+              <a className="py-2 px-2 xs:px-4 sm:px-8">
+                {userMenuLinks[1].label}
+              </a>
+            </Link>
+          </div>
+
+          <div
+            className={classNames(
+              tabStyles,
+              selected.mySubmission
+                ? 'bg-white shadow transition'
+                : 'text-blue-100 hover:bg-white/[0.12] hover:text-white transition'
+            )}
+          >
+            <Link href={userMenuLinks[2].url}>
+              <a className="xs:px-1 xs:py-2 sm:px-2 sm:py-2">
+                {userMenuLinks[2].label}
+              </a>
+            </Link>
+          </div>
+        </div>
       </div>
-      <Tab.Panels className="">
-        {Object.values(categories).map((Tabs, idx) => (
-          <Tab.Panel key={idx}>{<Tabs.content key={Tabs.id} />}</Tab.Panel>
-        ))}
-      </Tab.Panels>
-    </Tab.Group>
+    </div>
   );
 };
 

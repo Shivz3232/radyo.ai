@@ -1,20 +1,27 @@
 import React, { useState } from 'react';
+import MyProfile from '../../components/UserDashboard/MyProfile';
 import Navbar from '../../components/UserDashboard/UserNavbar';
 import nookies from 'nookies';
 import { verifyIdToken } from '../../utils/firebase/firebaseAdmin';
 import { useRouter } from 'next/router';
 
-const dashboard = ({redirect, props}) => {
+const Profile = ({ redirect, props }) => {
   const router = useRouter();
   if (redirect) {
     router.push(redirect.destination);
   }
+
+  const selectedTab = {
+    profile: true,
+    addAudio: false,
+    mySubmission: false,
+  };
+
   return (
-    <>
-      <div className="bg-gray-100">
-        <Navbar />
-      </div>
-    </>
+    <div className="bg-gray-100">
+      <Navbar selectedTab={selectedTab} />
+      <MyProfile />
+    </div>
   );
 };
 
@@ -41,4 +48,5 @@ export const getServerSideProps = async context => {
   }
 };
 
-export default dashboard;
+
+export default Profile;
