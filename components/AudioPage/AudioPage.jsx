@@ -71,6 +71,13 @@ const AudioPageComponent = ({ data }) => {
   }, []);
   // console.log('Trackinfo in audiopage component:', trackInfo);
 
+  const updateShareCount = () => {
+    axios
+      .post(`/api/update_share_count/${data._id}`, {})
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  };
+
   const getTelegramShareLink = () => {
     const url = encodeURIComponent(`${origin}/audio/${data._id}`);
     const text = `${'Hear it on : '}`;
@@ -185,17 +192,17 @@ const AudioPageComponent = ({ data }) => {
         <div className="share-btn flex border rounded p-2 mb-2">
           <div className="mx-1">Share with Friends</div>
           <div className="flex">
-            <div className="h-8 w-8 mx-1">
+            <div className="h-8 w-8 mx-1" onClick={updateShareCount}>
               <a href={getFacebookShareLink()} target="_blank" rel="noreferrer">
                 <FaFacebook size="small" color="#4267B2" />
               </a>
             </div>
-            <div className="h-8 w-8 mx-1">
+            <div className="h-8 w-8 mx-1" onClick={updateShareCount}>
               <a href={getTelegramShareLink()} target="_blank" rel="noreferrer">
                 <img src={logoTelegram.src} alt="Share on Telegram" />
               </a>
             </div>
-            <div className="h-8 w-8 mx-1">
+            <div className="h-8 w-8 mx-1" onClick={updateShareCount}>
               <a href={getWhatsAppShareLink()} target="_blank" rel="noreferrer">
                 <img src={logoWhatsapp.src} alt="Share on Whatsapp" />
               </a>
@@ -206,8 +213,8 @@ const AudioPageComponent = ({ data }) => {
 
       {/*Comment Box*/}
       <div className="comment-box-container">
-        <FacebookProvider appId="FACEBOOK_APP_ID">
-          <Comments href="http://www.facebook.com" width="100%"/>
+        <FacebookProvider appId={FACEBOOK_APP_ID}>
+          <Comments href="http://www.facebook.com" width="100%" />
         </FacebookProvider>
       </div>
     </>
