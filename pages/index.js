@@ -76,7 +76,10 @@ const Podcast = ({ audioCards, trendingCreators }) => {
                 categoryName="Trending audios"
                 cardItems={audioCards.slice(0, 15)}
               />
-              <TrendingArtist heading="Trending artist" data={trendingCreators} />
+              <TrendingArtist
+                heading="Trending artist"
+                data={trendingCreators}
+              />
               {categoryDataLinks.map((elem, i) => {
                 if (audioCards.filter(e => e.category === elem.id).length) {
                   return (

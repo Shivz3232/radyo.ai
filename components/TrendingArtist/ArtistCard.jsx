@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-const ArtistCard = ({uid, id, avatar, name }) => {
+const ArtistCard = ({ uid, id, avatar, name }) => {
   return (
     <div
       id={id}

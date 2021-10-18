@@ -1,7 +1,10 @@
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 import { useEffect, useRef, useState } from 'react';
 import ArtistCard from './ArtistCard';
-import { elementIsInViewport, sideScroll } from '../CategoryNavBar/CategoryNavBar';
+import {
+  elementIsInViewport,
+  sideScroll,
+} from '../CategoryNavBar/CategoryNavBar';
 
 const TrendingArtist = ({ heading, data }) => {
   // console.log(data);

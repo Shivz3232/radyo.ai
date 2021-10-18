@@ -23,7 +23,6 @@ const useViewport = divWidth => {
     return () => window.removeEventListener('resize', debounceHandleResize);
   }, []);
 
-
   return { width };
 };
 export default useViewport;
