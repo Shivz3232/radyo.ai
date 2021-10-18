@@ -5,10 +5,8 @@
 .audio-cards-outer-container {
   // margin: 1rem auto;
   .heading {
-    font-size: 1.65rem;
-    // font-size: 1.25rem;
-    // line-height: 1.75rem;
-    // font-family: 'quicksand';
+    font-size: 1.5rem;
+    line-height: 2rem;
     width: 80%;
     color: #4527a0;
     margin: 0rem;
@@ -147,7 +145,8 @@
     }
     .heading {
       margin: 0 1rem;
-      font-size: 1.35rem;
+      font-size: 1.25rem;
+      line-height: 1.75rem;
     }
     .audio-card__swipe--left,
     .audio-card__swipe--right {

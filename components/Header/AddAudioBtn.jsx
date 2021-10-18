@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { BsFillMicFill } from 'react-icons/bs';
-import addAudio from '../../assets/add_audio.png';
+// import addAudio from '../../assets/add_audio.png';
+import addAudio from '../../assets/addaudio_icon1.png';
+// import addAudio from '../../assets/addaudio_mobile.svg';
 const AddAudioBtn = ({ customStyles, hideText, iconSize }) => {
   return (
     <Link href="/user/dashboard" passHref>
