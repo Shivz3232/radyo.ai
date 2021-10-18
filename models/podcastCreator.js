@@ -15,6 +15,11 @@ const PodcastCreatorSchema = new Schema({
   avatarImage: String,
   about: stringRequired,
   audiosPublished: numberRequired,
+  audiosPublishedOn: {
+    type: [Date],
+    default: [],
+    required: true,
+  },
   playCount: numberRequired,
   subscriberCount: numberRequired,
   contact: String,

@@ -9,7 +9,7 @@ const updateLikeCount = async (req, res) => {
     let updateCount = undefined;
     const uid = { userId: userId };
     if (action === 'like') {
-      console.log(uid);
+      //   console.log(uid);
       updateCount = await PodcastModel.findOneAndUpdate(
         { _id: id },
         {

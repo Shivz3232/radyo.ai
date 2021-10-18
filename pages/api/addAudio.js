@@ -92,6 +92,7 @@ uploader.post(async (req, res) => {
       description: req.body.description,
       playCount: 0,
       likeCount: 0,
+      likedBy: [],
       shareCount: 0,
       language: req.body.lan,
       tags: createTagsArray(req.body.hashTags),
