@@ -1,8 +1,8 @@
 import { decode } from 'html-entities';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiFillPlayCircle, AiOutlineClose } from 'react-icons/ai';
-import { FaHeart, FaShareAlt } from 'react-icons/fa';
+import { FaHeart, FaRegHeart, FaShareAlt } from 'react-icons/fa';
 import { FiMoreVertical } from 'react-icons/fi';
 import LinesEllipsis from 'react-lines-ellipsis';
 // import { Event } from '../Tracking/Tracking';
@@ -15,11 +15,14 @@ import { FaFacebook } from 'react-icons/fa';
 import logoTelegram from '../../assets/telegram.svg';
 import logoWhatsapp from '../../assets/whatsapp.svg';
 import axios from 'axios';
+import { useAuth } from '../../controllers/auth';
+import Router from 'next/router';
 
 export function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 const AudioCard = ({ cardItemData, categoryName, origin }) => {
+  const { userid } = useAuth();
   const trackInfo = {
     coverSrc: `${cardItemData.coverImage}`,
     audioSrc: cardItemData.audioSrc,
@@ -34,15 +37,60 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
     category,
     title,
     playCount,
-    likeCount,
     shareCount,
     coverImage,
   } = cardItemData;
 
+  useEffect(() => {
+    // console.log(userid);
+    if (userid) {
+      cardItemData.likedBy.forEach((elem, i) => {
+        if (elem.userId === userid) {
+          setLike(true);
+          return;
+        }
+      });
+    }
+  }, [cardItemData.likedBy, userid]);
+
   const updateShareCount = () => {
     axios
       .post(`/api/update_share_count/${cardItemData._id}`, {})
-      .then(res => console.log(res))
+      // .then(res => console.log(res))
+      .catch(err => console.log(err));
+  };
+  const [like, setLike] = useState(false);
+  const [likeCount, setLikeCount] = useState(cardItemData.likeCount);
+  const updateLikeCount = () => {
+    if (userid) {
+      if (like) {
+        unlikeAudio();
+        setLikeCount(likeCount - 1);
+      } else {
+        likeAudio();
+        setLikeCount(likeCount + 1);
+      }
+      setLike(!like);
+    } else {
+      Router.push('/login');
+    }
+  };
+  const likeAudio = () => {
+    axios
+      .post(`/api/update_like_count/${cardItemData._id}`, {
+        action: 'like',
+        userid: userid,
+      })
+      // .then(res => console.log(res.data.updateCount))
+      .catch(err => console.log(err));
+  };
+  const unlikeAudio = () => {
+    axios
+      .post(`/api/update_like_count/${cardItemData._id}`, {
+        action: 'unlike',
+        userid: userid,
+      })
+      // .then(res => console.log(res.data.updateCount))
       .catch(err => console.log(err));
   };
 
@@ -126,8 +174,12 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
             <AiFillPlayCircle className="audio-card__action--item" />
             <span className="audio-card__action--item">{playCount}</span>
           </div>
-          <div className="audio-card__action">
-            <FaHeart className="audio-card__action--item" />
+          <div className="audio-card__action" onClick={updateLikeCount}>
+            {like ? (
+              <FaHeart className="audio-card__action--item" />
+            ) : (
+              <FaRegHeart className=" audio-card__action--item" />
+            )}
             <span className="audio-card__action--item">{likeCount}</span>
           </div>
           <div className="audio-card__action">

@@ -15,6 +15,15 @@ const PodcastSchema = new Schema(
     description: stringRequired,
     playCount: numberRequired,
     likeCount: numberRequired,
+    likedBy: {
+      type: [
+        {
+          userId: String,
+        },
+      ],
+      default: [],
+      required: true,
+    },
     shareCount: numberRequired,
     language: {
       type: String,

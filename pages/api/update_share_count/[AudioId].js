@@ -1,6 +1,5 @@
 import connect from '../../../utils/middleware/mongoClient';
 import PodcastModel from '../../../models/podcast';
-import PodcastCreatorModel from '../../../models/podcastCreator';
 
 const updateShareCount = async (req, res) => {
   if (req.method == 'POST') {

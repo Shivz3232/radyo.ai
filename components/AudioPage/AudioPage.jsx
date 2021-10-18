@@ -6,18 +6,19 @@ import updateLocale from 'dayjs/plugin/updateLocale';
 import { decode } from 'html-entities';
 // import { Event } from '../Tracking/Tracking';
 import Link from 'next/link';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import Router from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { Comments, FacebookProvider } from 'react-facebook';
 import 'react-h5-audio-player/lib/styles.css';
-import { FaFacebook, FaHeart } from 'react-icons/fa';
+import { FaFacebook, FaHeart, FaRegHeart } from 'react-icons/fa';
+import { MdOutlineReportProblem } from 'react-icons/md';
 import logoTelegram from '../../assets/telegram.svg';
 import logoWhatsapp from '../../assets/whatsapp.svg';
 import { FACEBOOK_APP_ID } from '../../constants';
 import { useAuth } from '../../controllers/auth';
+import { usePlaylist } from '../../controllers/PlaylistProvider';
 import { capitalizeFirstLetter } from '../AudioCard/AudioCard';
 import ReportPopover from './ReportPopover';
-import { MdOutlineReportProblem } from 'react-icons/md';
-import { usePlaylist } from '../../controllers/PlaylistProvider';
-import { FacebookProvider, Comments } from 'react-facebook';
 
 dayjs.extend(relativeTime);
 dayjs.extend(localeData);
@@ -44,20 +45,17 @@ dayjs.updateLocale('en', {
 const AudioPageComponent = ({ data }) => {
   const { userid } = useAuth();
   const { playAudio } = usePlaylist();
-  const [report, setReport] = useState(() => {
-    if (data.reportedBy) return false;
-  });
+  const [report, setReport] = useState(false);
   useEffect(() => {
-    data.reportedBy.forEach(e => {
-      if (e.userId === userid) {
-        // console.log(e);
-        setReport(true);
-        return;
-      }
-    });
-    // console.log(report);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (userid) {
+      data.reportedBy.forEach(e => {
+        if (e.userId === userid) {
+          setReport(true);
+          return;
+        }
+      });
+    }
+  }, [data.reportedBy, userid]);
 
   const trackInfo = {
     coverSrc: data.coverImage,
@@ -74,7 +72,7 @@ const AudioPageComponent = ({ data }) => {
   const updateShareCount = () => {
     axios
       .post(`/api/update_share_count/${data._id}`, {})
-      .then(res => console.log(res))
+      // .then(res => console.log(res))
       .catch(err => console.log(err));
   };
 
@@ -100,6 +98,53 @@ const AudioPageComponent = ({ data }) => {
     } catch (error) {
       console.log('Window not defined');
     }
+  };
+
+  useEffect(() => {
+    // console.log(userid);
+    if (userid) {
+      data.likedBy.forEach(elem => {
+        if (elem.userId === userid) {
+          setLike(true);
+          return;
+        }
+      });
+    }
+  }, [data.likedBy, userid]);
+
+  const [like, setLike] = useState(false);
+  const [likeCount, setLikeCount] = useState(data.likeCount);
+  const updateLikeCount = () => {
+    if (userid) {
+      if (like) {
+        unlikeAudio();
+        setLikeCount(likeCount - 1);
+      } else {
+        likeAudio();
+        setLikeCount(likeCount + 1);
+      }
+      setLike(!like);
+    } else {
+      Router.push('/login');
+    }
+  };
+  const likeAudio = () => {
+    axios
+      .post(`/api/update_like_count/${data._id}`, {
+        action: 'like',
+        userid: userid,
+      })
+      // .then(res => console.log(res.data.updateCount))
+      .catch(err => console.log(err));
+  };
+  const unlikeAudio = () => {
+    axios
+      .post(`/api/update_like_count/${data._id}`, {
+        action: 'unlike',
+        userid: userid,
+      })
+      // .then(res => console.log(res.data.updateCount))
+      .catch(err => console.log(err));
   };
 
   return (
@@ -144,8 +189,12 @@ const AudioPageComponent = ({ data }) => {
               Played {data.playCount} times
             </span>
           </div>
-          <div className="audioPage-card__action">
-            <FaHeart className="audioPage-card__action--item" />
+          <div className="audioPage-card__action" onClick={updateLikeCount}>
+            {like ? (
+              <FaHeart className="audio-card__action--item" />
+            ) : (
+              <FaRegHeart className=" audio-card__action--item" />
+            )}
             <span className="audioPage-card__action--item">
               {data.likeCount}
             </span>
