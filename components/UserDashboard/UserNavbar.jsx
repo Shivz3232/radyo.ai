@@ -8,6 +8,8 @@ export function classNames(...classes) {
 
 const tabStyles =
   'w-full py-2.5 text-sm text-center leading-5 font-medium text-blue-700 rounded-lg';
+const hoverStyles =
+  'text-blue-100 hover:bg-white/[0.12] hover:text-white transition';
 
 const UserNavbar = ({ selectedTab }) => {
   const [selected, setSelected] = useState(selectedTab);
@@ -19,9 +21,7 @@ const UserNavbar = ({ selectedTab }) => {
           <div
             className={classNames(
               tabStyles,
-              selected.profile
-                ? 'bg-white shadow transition'
-                : 'text-blue-100 hover:bg-white/[0.12] hover:text-white transition'
+              selected.profile ? 'bg-white shadow transition' : hoverStyles
             )}
           >
             <Link href={userMenuLinks[0].url}>
@@ -34,9 +34,7 @@ const UserNavbar = ({ selectedTab }) => {
           <div
             className={classNames(
               tabStyles,
-              selected.addAudio
-                ? 'bg-white shadow transition'
-                : 'text-blue-100 hover:bg-white/[0.12] hover:text-white transition'
+              selected.addAudio ? 'bg-white shadow transition' : hoverStyles
             )}
           >
             <Link href={userMenuLinks[1].url}>
@@ -49,9 +47,7 @@ const UserNavbar = ({ selectedTab }) => {
           <div
             className={classNames(
               tabStyles,
-              selected.mySubmission
-                ? 'bg-white shadow transition'
-                : 'text-blue-100 hover:bg-white/[0.12] hover:text-white transition'
+              selected.mySubmission ? 'bg-white shadow transition' : hoverStyles
             )}
           >
             <Link href={userMenuLinks[2].url}>

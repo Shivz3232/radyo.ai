@@ -22,6 +22,11 @@ const MyProfile = () => {
     msg: null,
     savingMsg: 'Updating Profile',
   });
+  const [loading, setLoading] = useState({
+    loadingProfile: true,
+    msg: null,
+    savingMsg: 'Loading your Profile',
+  });
   const profileLink = useRef();
 
   useEffect(() => {
@@ -48,6 +53,7 @@ const MyProfile = () => {
             };
             setInputData(userData);
             setImgSrc(details.avatarImage);
+            setLoading(false);
           })
           .catch(error => {
             console.log(error);
@@ -127,6 +133,7 @@ const MyProfile = () => {
 
   return (
     <>
+      {loading.loadingProfile && <SuccessModal message={loading}/>}
       {submit && <SuccessModal message={message} close={handleClose} />}
       <div className="mb-10">
         <div className="text-indigo-650 w-11/12 sm:w-3/6 mx-auto p-6 pt-3 bg-white rounded-md shadow-xl">
