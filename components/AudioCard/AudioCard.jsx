@@ -17,6 +17,8 @@ import logoWhatsapp from '../../assets/whatsapp.svg';
 import axios from 'axios';
 import { useAuth } from '../../controllers/auth';
 import Router from 'next/router';
+import { MdContentCopy } from 'react-icons/md';
+import { FcCheckmark } from 'react-icons/fc';
 
 export function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -53,6 +55,7 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
     }
   }, [cardItemData.likedBy, userid]);
 
+  const [copy, setCopy] = useState(false);
   const updateShareCount = () => {
     axios
       .post(`/api/update_share_count/${cardItemData._id}`, {})
@@ -116,6 +119,18 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
     } catch (error) {
       console.log('Window not defined');
     }
+  };
+
+  const copyToClipboard = e => {
+    navigator.clipboard.writeText(`${origin}/audio/${cardItemData._id}`);
+    updateShareCount();
+    setCopy(true);
+    // e.target.innerText = 'Copied!';
+    // e.target.classList.add('bg-green-600');
+    // setTimeout(() => {
+    //   e.target.innerText = 'Copy Link';
+    //   e.target.classList.remove('bg-green-600');
+    // }, 5000);
   };
 
   return (
@@ -211,6 +226,7 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
                 `modal-${categoryName}-${cardItemData._id}`
               );
               elem.classList.toggle('hidden');
+              setCopy(false);
               // console.log('close');
             }}
           >
@@ -220,8 +236,23 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
             <h3 className="text-lg leading-6 font-medium text-gray-900">
               Share audio with friends
             </h3>
-            <div className="flex mt-4 justify-evenly">
-              <div className="h-8 w-8 mx-1" onClick={updateShareCount}>
+            <div className="w-full flex items-center justify-center flex-col mt-3">
+              <img
+                className="h-24 w-24 object-fit shadow border"
+                src={
+                  coverImage.length
+                    ? coverImage
+                    : '/lovebytes/images/Picture1.jpg'
+                }
+                alt="cover"
+              />
+              <div className="mt-3">{title}</div>
+            </div>
+            <div className="flex mt-4 justify-evenly w-4/5 mx-auto">
+              <div
+                className="h-11 w-11  mobile:h-9 mobile:w-9"
+                onClick={updateShareCount}
+              >
                 <a
                   href={getFacebookShareLink()}
                   target="_blank"
@@ -230,7 +261,10 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
                   <FaFacebook size="small" color="#4267B2" />
                 </a>
               </div>
-              <div className="h-8 w-8 mx-1" onClick={updateShareCount}>
+              <div
+                className="h-11 w-11  mobile:h-9 mobile:w-9"
+                onClick={updateShareCount}
+              >
                 <a
                   href={getTelegramShareLink()}
                   target="_blank"
@@ -239,7 +273,10 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
                   <img src={logoTelegram.src} alt="Share on Telegram" />
                 </a>
               </div>
-              <div className="h-8 w-8 mx-1" onClick={updateShareCount}>
+              <div
+                className="h-11 w-11 mobile:h-9 mobile:w-9"
+                onClick={updateShareCount}
+              >
                 <a
                   href={getWhatsAppShareLink()}
                   target="_blank"
@@ -247,6 +284,18 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
                 >
                   <img src={logoWhatsapp.src} alt="Share on Whatsapp" />
                 </a>
+              </div>
+            </div>
+            <div
+              className="mt-3 p-2 border bg-gray-200 rounded flex items-center justify-center"
+              onClick={copyToClipboard}
+            >
+              <div className="w-11/12 text-sm overflow-hidden">{`${origin}/audio/${cardItemData._id}`}</div>
+              <div className="pl-2 text-gray-600 cursor-pointer has-tooltip">
+                <span className="hidden md:inline tooltip bottom-full w-max text-white bg-gray-700 p-1 rounded-sm text-sm shadow">
+                  {copy ? 'Copied' : 'Copy link'}
+                </span>
+                {copy ? <FcCheckmark /> : <MdContentCopy />}
               </div>
             </div>
           </div>
