@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // import PillsNav from '../../components/PillsNav/PillsNav';
-import AudioCards from '../../components/AudioCard/AudioCards';
+import AudioCardsVerticalScroll from '../../components/AudioCard/AudioCardsVerticalScroll';
 import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
 // import Banner from '../../components/Banner/Banner';
 import CreatorCard from '../../components/Creator/CreatorCard';
@@ -22,21 +22,21 @@ const CreatorPage = ({ info, audioCards, play }) => {
           </div>
 
           {/*Audio Cards horizontal scroll section*/}
+        <div className="heading">{`Other creations by ${data.creatorName}`}</div>
           {audioCards &&
           audioCards.filter(e => e.creatorId.creatorName === data.creatorName)
             .length ? (
-            <AudioCards
-              categoryName={`Other creations from ${data.creatorName}`}
-              cardItems={audioCards.filter(
+            <AudioCardsVerticalScroll
+              audioCards={audioCards.filter(
                 e => e.creatorId.creatorName === data.creatorName
               )}
             />
           ) : null}
+          <div className="heading" style={{marginTop:'2rem'}}>{`Trending Audios`}</div>
           {audioCards && (
-            <AudioCards
-              categoryName={`Trending Audios`}
+            <AudioCardsVerticalScroll
               //most view in last 5 days logic here
-              cardItems={audioCards.slice(0, 15)}
+              audioCards={audioCards.slice(0, 15)}
             />
           )}
         </div>
