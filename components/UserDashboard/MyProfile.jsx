@@ -3,7 +3,7 @@ import firebase from 'firebase';
 import avatar from '../../assets/Avatar.png';
 import axios from 'axios';
 import { image_formats } from '../RecordAudio/fileFormats';
-import SuccessModal from './SuccesModal';
+import SuccessModal from './SuccessModal';
 import { useRouter } from 'next/router';
 
 const MyProfile = () => {
@@ -21,6 +21,11 @@ const MyProfile = () => {
   const [message, setMessage] = useState({
     msg: null,
     savingMsg: 'Updating Profile',
+  });
+  const [loading, setLoading] = useState({
+    loadingProfile: true,
+    msg: null,
+    savingMsg: 'Loading your Profile',
   });
   const profileLink = useRef();
 
@@ -48,6 +53,7 @@ const MyProfile = () => {
             };
             setInputData(userData);
             setImgSrc(details.avatarImage);
+            setLoading(false);
           })
           .catch(error => {
             console.log(error);
@@ -127,6 +133,7 @@ const MyProfile = () => {
 
   return (
     <>
+      {loading.loadingProfile && <SuccessModal message={loading} />}
       {submit && <SuccessModal message={message} close={handleClose} />}
       <div className="mb-10">
         <div className="text-indigo-650 w-11/12 sm:w-3/6 mx-auto p-6 pt-3 bg-white rounded-md shadow-xl">
@@ -195,9 +202,11 @@ const MyProfile = () => {
                 onChange={handleChange}
               ></textarea>
               <br />
-              <button className="submit-btn" onClick={handleSubmit}>
-                Save Profile
-              </button>
+              <div className="text-center">
+                <button className="submit-btn" onClick={handleSubmit}>
+                  Save Profile
+                </button>
+              </div>
             </div>
           </div>
         </div>

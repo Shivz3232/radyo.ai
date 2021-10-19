@@ -27,16 +27,16 @@ export const userMenuLinks = [
   {
     id: 'my-profile',
     label: 'My Profile',
-    url: '/user/dashboard',
+    url: '/user/profile',
+  },
+  {
+    id: 'submit-audio',
+    label: 'Add Audio',
+    url: '/user/addAudio',
   },
   {
     id: 'my-submissions',
     label: 'My Submissions',
-    url: '/user/dashboard',
-  },
-  {
-    id: 'submit-audio',
-    label: 'Submit an Audio',
-    url: '/user/dashboard',
+    url: '/user/submissions',
   },
 ];

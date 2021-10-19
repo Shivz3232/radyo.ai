@@ -5,7 +5,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import AudioPlayer from '../components/AudioPlayer/AudioPlayer';
 import Header from '../components/Header/Header';
 import '../styles/App.scss';
-import '../styles/AboutUs.scss'
+import '../styles/AboutUs.scss';
 import '../styles/AudioCard.scss';
 import '../styles/AudioCardsVerticalScroll.scss';
 import '../styles/AudioCategoryColors.scss';

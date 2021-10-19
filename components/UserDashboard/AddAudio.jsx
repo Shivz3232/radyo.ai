@@ -4,13 +4,19 @@ import Select from 'react-select';
 import RecordAudio from '../RecordAudio/RecordAudio';
 import { useAuth } from '../../controllers/auth';
 import { image_formats } from '../RecordAudio/fileFormats';
-import SuccessModal from './SuccesModal';
+import SuccessModal from './SuccessModal';
+import { categoryDataLinks } from '../CategoryNavBar/categoryData';
 
-const CatOptions = [
-  { value: 'cat-1', label: 'Category1' },
-  { value: 'cat-2', label: 'Category2' },
-  { value: 'cat-3', label: 'Category3' },
-];
+let Categories = categoryDataLinks.map(cat => {
+  {
+    return {
+      value: cat.id,
+      label: cat.label,
+    };
+  }
+});
+
+let CatOptions = Categories.filter(cat => cat.label != 'All');
 
 const LanOptions = [
   { value: 'english', label: 'English' },
