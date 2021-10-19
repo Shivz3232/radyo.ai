@@ -8,3 +8,8 @@ export const numberRequired = {
   default: 0,
   required: true,
 };
+
+export const stringArray = {
+  type: [String],
+  default: [],
+};

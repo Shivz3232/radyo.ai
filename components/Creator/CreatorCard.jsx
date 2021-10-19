@@ -1,6 +1,47 @@
+import { Router } from 'next/dist/client/router';
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import axios from 'axios';
 
-const CreatorCard = ({ data }) => {
+const followCreator = async (
+  creatorId,
+  setFollowing,
+  following,
+  setFollowers
+) => {
+  const action = !following ? 'FOLLOW' : 'UNFOLLOW';
+  const data = {
+    timestamp: new Date().getTime(),
+    creatorId: creatorId,
+    action: action,
+  };
+
+  await axios({
+    method: 'post',
+    url: '/api/updateFollowers',
+    data: data,
+    headers: { 'Content-Type': 'application/json' },
+  })
+    .then(res => {
+      if (action === 'FOLLOW') {
+        setFollowing(true);
+      } else {
+        setFollowing(false);
+      }
+      setFollowers(res.data.followers);
+    })
+    .catch(error => {});
+};
+
+const CreatorCard = ({
+  data,
+  userid,
+  following,
+  setFollowing,
+  followers,
+  setFollowers,
+}) => {
+  const router = useRouter();
   return (
     <>
       <div className="creator-card mini generic-card">
@@ -42,7 +83,7 @@ const CreatorCard = ({ data }) => {
         </div>
         <div className="creator-card__action">
           <span className="creator-card__action--item">
-            {data && data.subscriberCount}
+            {data && followers.length}
           </span>
           <span className="creator-card__action--item">Followers</span>
         </div>
@@ -50,7 +91,24 @@ const CreatorCard = ({ data }) => {
 
       <div className="button-container">
         <button className="playButton">Play All</button>
-        <button className="fsButton">Follow</button>
+        <button
+          className="fsButton"
+          onClick={() => {
+            if (!userid) {
+              router.push('/login');
+            } else {
+              followCreator(
+                data.uid,
+                setFollowing,
+                following,
+                setFollowers,
+                userid
+              );
+            }
+          }}
+        >
+          {(!following && 'Follow') || 'Unfollow'}
+        </button>
         <button className="shareButton">Share</button>
       </div>
     </>
