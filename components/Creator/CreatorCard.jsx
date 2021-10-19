@@ -61,7 +61,8 @@ const CreatorCard = ({ data, creatorPlaylist }) => {
   return (
     <>
       <div className="creator-card mini generic-card">
-        <div className="creator-card--image">
+        {/* on mobile hide this and use different layout */}
+        <div className="mobile:hidden creator-card--image">
           <img
             className="creator-card__roundedimage"
             src={
@@ -72,7 +73,7 @@ const CreatorCard = ({ data, creatorPlaylist }) => {
             alt="Love"
           />
         </div>
-        <div className="creator-card__header">
+        <div className="mobile:hidden creator-card__header">
           <div className="creator-card__header--items">
             <div className="creator-card__header--item creator-card__author">
               {data && data.creatorName}
@@ -80,6 +81,28 @@ const CreatorCard = ({ data, creatorPlaylist }) => {
             <div className="creator-card__header--item creator-card__aboutme">
               {data && data.about}
             </div>
+          </div>
+        </div>
+        {/* layout for mobile */}
+        <div className="hidden mobile:block p-4 w-full">
+          <div className="flex items-center justify-start">
+            <div className="flex items-center justify-center w-36">
+              <img
+                className="rounded-md"
+                src={
+                  data && data.avatarImage
+                    ? data.avatarImage
+                    : '/lovebytes/images/Picture1.jpg'
+                }
+                alt="avatar"
+              />
+            </div>
+            <div className="ml-4 text-xl font-bold">
+              {data && data.creatorName}
+            </div>
+          </div>
+          <div className="mt-2 border border-indigo-650 rounded-md p-2 text-base">
+            {data && data.about}
           </div>
         </div>
       </div>
