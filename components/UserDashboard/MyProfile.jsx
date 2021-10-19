@@ -133,7 +133,7 @@ const MyProfile = () => {
 
   return (
     <>
-      {loading.loadingProfile && <SuccessModal message={loading}/>}
+      {loading.loadingProfile && <SuccessModal message={loading} />}
       {submit && <SuccessModal message={message} close={handleClose} />}
       <div className="mb-10">
         <div className="text-indigo-650 w-11/12 sm:w-3/6 mx-auto p-6 pt-3 bg-white rounded-md shadow-xl">
@@ -202,9 +202,11 @@ const MyProfile = () => {
                 onChange={handleChange}
               ></textarea>
               <br />
-              <button className="submit-btn" onClick={handleSubmit}>
-                Save Profile
-              </button>
+              <div className="text-center">
+                <button className="submit-btn" onClick={handleSubmit}>
+                  Save Profile
+                </button>
+              </div>
             </div>
           </div>
         </div>
