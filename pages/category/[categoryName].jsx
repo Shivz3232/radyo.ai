@@ -108,12 +108,12 @@ export async function getStaticProps({ params }) {
         audioCards,
         activeTab: 'categories',
       },
-      revalidate: 30 * 60,
+      revalidate: 60,
     };
   } else {
     return {
       props: {},
-      revalidate: 30 * 60,
+      revalidate: 60,
     };
   }
 }

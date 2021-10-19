@@ -81,10 +81,12 @@ export const getStaticProps = async ({ params }) => {
         info: data,
         audioCards,
       },
+      revalidate: 60,
     };
   } else {
     return {
       props: {},
+      revalidate: 60,
     };
   }
 };

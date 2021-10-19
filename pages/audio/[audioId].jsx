@@ -49,10 +49,12 @@ export async function getStaticProps({ params }) {
         data: data,
         audioCards,
       },
+      revalidate: 60,
     };
   } else {
     return {
       props: {},
+      revalidate: 60,
     };
   }
 }
