@@ -108,7 +108,6 @@ const AudioPageComponent = ({ data }) => {
             <div className="audioPage-card__header--item audioPage-card__title">
               {data.title}
             </div>
-            {console.log(data)}
             <Link href={`/creator/${data.creatorId.uid}`}>
               <a style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div className="audioPage-card__header--item audioPage-card__author">
@@ -207,7 +206,7 @@ const AudioPageComponent = ({ data }) => {
       {/*Comment Box*/}
       <div className="comment-box-container">
         <FacebookProvider appId="FACEBOOK_APP_ID">
-          <Comments href="http://www.facebook.com" width="100%"/>
+          <Comments href="http://www.facebook.com" width="100%" />
         </FacebookProvider>
       </div>
     </>

@@ -4,7 +4,7 @@ import { BsFillMicFill } from 'react-icons/bs';
 import addAudio from '../../assets/add_audio.png';
 const AddAudioBtn = ({ customStyles, hideText, iconSize }) => {
   return (
-    <Link href="/user/dashboard" passHref>
+    <Link href="/user/addAudio" passHref>
       <button
         className={`flex items-center  rounded-full ${customStyles} ${
           hideText ? '' : 'px-2 py-1 border border-indigo-650 bg-indigo-650'
