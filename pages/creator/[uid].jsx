@@ -15,10 +15,15 @@ const CreatorPage = ({ info, audioCards, play }) => {
       <div className="creatorpage">
         <div className="container">
           <div className="creatorcard">
-            <CreatorCard data={data} creatorPlaylist={audioCards.filter(e => e.creatorId.creatorName === data.creatorName)} />
+            <CreatorCard
+              data={data}
+              creatorPlaylist={audioCards.filter(
+                e => e.creatorId.creatorName === data.creatorName
+              )}
+            />
           </div>
 
-        <div className="heading">{`Other creations by ${data.creatorName}`}</div>
+          <div className="heading">{`Other creations by ${data.creatorName}`}</div>
           {audioCards &&
           audioCards.filter(e => e.creatorId.creatorName === data.creatorName)
             .length ? (
@@ -28,7 +33,10 @@ const CreatorPage = ({ info, audioCards, play }) => {
               )}
             />
           ) : null}
-          <div className="heading" style={{marginTop:'2rem'}}>{`Trending Audios`}</div>
+          <div
+            className="heading"
+            style={{ marginTop: '2rem' }}
+          >{`Trending Audios`}</div>
           {audioCards && (
             <AudioCardsVerticalScroll
               //most view in last 5 days logic here

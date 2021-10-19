@@ -2,14 +2,18 @@ import debounce from 'lodash.debounce';
 import React from 'react';
 
 const useViewport = divWidth => {
-  const [width, setWidth] = React.useState(window.innerWidth);
+  const [width, setWidth] = React.useState(() => {
+    try {
+      const container = document.getElementById('leaderboard');
+      const containerWidth = container.offsetWidth;
+      return containerWidth;
+    } catch (err) {}
+  });
 
   React.useEffect(() => {
     const container = document.getElementById('leaderboard');
     const containerWidth = container.offsetWidth;
-    window.onload = () => {
-      setWidth(containerWidth);
-    };
+    setWidth(containerWidth);
   }, []);
 
   React.useEffect(() => {
@@ -17,7 +21,7 @@ const useViewport = divWidth => {
       const container = document.getElementById('leaderboard');
       const containerWidth = container.offsetWidth;
       setWidth(containerWidth);
-    }, 300);
+    }, 500);
     window.addEventListener('resize', debounceHandleResize);
 
     return () => window.removeEventListener('resize', debounceHandleResize);

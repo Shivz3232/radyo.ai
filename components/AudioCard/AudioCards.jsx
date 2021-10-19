@@ -4,7 +4,7 @@ import NoResult from '../../assets/NoResultsFound.png';
 import Adcard from '../AdCard/Adcard';
 import {
   elementIsInViewport,
-  sideScroll
+  sideScroll,
 } from '../CategoryNavBar/CategoryNavBar';
 import { usePlaylist } from './../../controllers/PlaylistProvider';
 import AudioCard, { capitalizeFirstLetter } from './AudioCard';

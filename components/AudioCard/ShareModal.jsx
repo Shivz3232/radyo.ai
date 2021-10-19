@@ -6,16 +6,16 @@ function ShareModal({ id, shareCount, setShow }) {
   const { userid } = useAuth();
   const modal = useRef();
 
-//   useEffect(() => {
-    // window.onclick = function (event) {
-      // console.log(event.target,modal.current)
-      //   if (event.target !== modal.current) {
-      //     modal.current.style.display = 'none';
-      //     console.log('modal close');
-      // }
-      // setShow(false);
-    // };
-//   }, []);
+  //   useEffect(() => {
+  // window.onclick = function (event) {
+  // console.log(event.target,modal.current)
+  //   if (event.target !== modal.current) {
+  //     modal.current.style.display = 'none';
+  //     console.log('modal close');
+  // }
+  // setShow(false);
+  // };
+  //   }, []);
 
   function openModal() {
     if (userid) {
