@@ -43,16 +43,18 @@ const MyProfile = () => {
           headers: { 'Content-Type': 'application/json' },
         })
           .then(user => {
-            const details = user.data[0];
-            const userData = {
-              creatorName: details.creatorName,
-              contact: details.contact,
-              email: details.email,
-              about: details.about,
-              uid: details.uid,
-            };
-            setInputData(userData);
-            setImgSrc(details.avatarImage);
+            if (user.status === 200) {
+              const details = user.data[0];
+              const userData = {
+                creatorName: details.creatorName,
+                contact: details.contact,
+                email: details.email,
+                about: details.about,
+                uid: details.uid,
+              };
+              setInputData(userData);
+              setImgSrc(details.avatarImage);
+            }
             setLoading(false);
           })
           .catch(error => {
