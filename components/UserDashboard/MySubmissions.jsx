@@ -36,13 +36,6 @@ const MySubmissions = () => {
           My Submissions
         </div>
         <div className="container">
-          {/* <AudioCards
-            categoryName="My Submissions"
-            cardItems={audioCards}
-            playAudio={playAudio}
-          /> */}
-
-          {/* Play Audio Functionality not added */}
           <AudioCardsVerticalScroll audioCards={audioCards} />
         </div>
         {!submissions && (
