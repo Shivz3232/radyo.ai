@@ -17,6 +17,7 @@ import { capitalizeFirstLetter } from '../AudioCard/AudioCard';
 import ReportPopover from './ReportPopover';
 import { MdOutlineReportProblem } from 'react-icons/md';
 import { usePlaylist } from '../../controllers/PlaylistProvider';
+import { FacebookProvider, Comments } from 'react-facebook';
 
 dayjs.extend(relativeTime);
 dayjs.extend(localeData);
@@ -93,13 +94,6 @@ const AudioPageComponent = ({ data }) => {
       console.log('Window not defined');
     }
   };
-
-  useEffect(() => {
-    const fbScript = document.createElement('script');
-    fbScript.async = true;
-    fbScript.src = `https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v12.0&appId=${FACEBOOK_APP_ID}&autoLogAppEvents=1`;
-    document.body.appendChild(fbScript);
-  }, []);
 
   return (
     <>
@@ -211,13 +205,9 @@ const AudioPageComponent = ({ data }) => {
 
       {/*Comment Box*/}
       <div className="comment-box-container">
-        <div id="fb-root"></div>
-        <div
-          className="fb-comments"
-          data-href="http://localhost:3000/podcast/audio"
-          data-width="500"
-          data-numposts="5"
-        ></div>
+        <FacebookProvider appId="FACEBOOK_APP_ID">
+          <Comments href="http://www.facebook.com" width="100%"/>
+        </FacebookProvider>
       </div>
     </>
   );

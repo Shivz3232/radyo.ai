@@ -1,13 +1,15 @@
+import { categoryDataLinks } from '../CategoryNavBar/categoryData';
+
 export const menuLinks = [
   {
-    id: 'collections',
-    label: 'Collections',
-    url: '/collections',
+    id: 'home',
+    label: 'Home',
+    url: '/',
   },
   {
     id: 'categories',
     label: 'Categories',
-    url: '/category/cat-1',
+    url: `${categoryDataLinks[1].url}`,
   },
   {
     id: 'contest',
