@@ -76,7 +76,6 @@ const CreatorCard = ({
   ) => {
     const action = !following ? 'FOLLOW' : 'UNFOLLOW';
     const data = {
-      timestamp: new Date().getTime(),
       creatorId: creatorId,
       action: action,
     };
