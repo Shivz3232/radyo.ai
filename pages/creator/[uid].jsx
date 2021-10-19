@@ -13,15 +13,11 @@ const CreatorPage = ({ info, audioCards, play }) => {
   return (
     <>
       <div className="creatorpage">
-        {/* <Banner size="sm" />
-        {<PillsNav category="all" type="podcast" />} */}
-
         <div className="container">
           <div className="creatorcard">
             <CreatorCard data={data} creatorPlaylist={audioCards.filter(e => e.creatorId.creatorName === data.creatorName)} />
           </div>
 
-          {/*Audio Cards horizontal scroll section*/}
         <div className="heading">{`Other creations by ${data.creatorName}`}</div>
           {audioCards &&
           audioCards.filter(e => e.creatorId.creatorName === data.creatorName)

@@ -125,12 +125,6 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
     navigator.clipboard.writeText(`${origin}/audio/${cardItemData._id}`);
     updateShareCount();
     setCopy(true);
-    // e.target.innerText = 'Copied!';
-    // e.target.classList.add('bg-green-600');
-    // setTimeout(() => {
-    //   e.target.innerText = 'Copy Link';
-    //   e.target.classList.remove('bg-green-600');
-    // }, 5000);
   };
 
   return (
