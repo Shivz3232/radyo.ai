@@ -150,18 +150,22 @@ const MyProfile = () => {
 
           <div>
             <div className="space-y-3 mx-auto text-gray-900 w-11/12 lg:w-4/6">
-              <div className="bg-gray-200 mx-auto p-2 rounded-md mb-2 flex flex-col">
-                <p className="text-gray-900 text-center">Public Profile Link</p>
-                <p
-                  className="text-center text-indigo-650"
+              <div className="bg-gray-200 text-center mx-auto p-2 rounded-md mb-2 flex flex-col">
+                <div className="text-gray-900">
+                  Public Profile Link
+                </div>
+                <div
+                  className="text-indigo-650 break-all"
                   ref={profileLink}
-                >{`www.radyo.ai/creator/${inputData.uid}`}</p>
-                <button
-                  className="text-white text-sm mx-auto bg-indigo-650 m-2  rounded-md p-2 hover:scale-105 transform transition"
-                  onClick={copyToClipboard}
-                >
-                  Copy Link
-                </button>
+                >{`www.radyo.ai/creatoracadflakjdlfjald/${inputData.uid}`}</div>
+                <div>
+                  <button
+                    className="text-white text-sm mx-auto bg-indigo-650 m-2  rounded-md p-2 hover:scale-105 transform transition"
+                    onClick={copyToClipboard}
+                  >
+                    Copy Link
+                  </button>
+                </div>
               </div>
               <p className="text-center text-indigo-650 text-xl">
                 Tell us more about you!
