@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Router from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
+import { AiOutlineClose } from 'react-icons/ai';
 import { FiFlag } from 'react-icons/fi';
 import { useAuth } from '../../controllers/auth';
 
@@ -64,7 +65,16 @@ function ReportPopover({ data, setReport }) {
         >
           {/* <!--modal content--> */}
           <div className="z-40 relative top-20 mx-auto p-5 border w-96 mobile:w-72 shadow-lg rounded-md bg-white">
-            <div className="mt-3 text-center">
+            <button
+              className="flex w-full justify-end"
+              onClick={() => {
+                modal.current.style.display = 'none';
+                setReportText('');
+              }}
+            >
+              <AiOutlineClose />
+            </button>
+            <div className="text-center">
               <h3 className="text-lg leading-6 font-medium text-gray-900">
                 Report the audio
               </h3>
