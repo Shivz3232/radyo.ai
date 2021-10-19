@@ -1,4 +1,4 @@
-import mongoose, { Model, model, Schema, Document } from 'mongoose';
+import mongoose, { model, Schema } from 'mongoose';
 
 const stringRequired = {
   type: String,
@@ -6,8 +6,14 @@ const stringRequired = {
 };
 
 const SubscriberEmailSchema = new Schema(
-  { email: stringRequired },
-  { timestamps: { createdAt: 'createdAt' } }
+  {
+    email: stringRequired,
+  },
+  {
+    timestamps: {
+      createdAt: 'createdAt',
+    },
+  }
 );
 
 const SubscriberEmailModel =

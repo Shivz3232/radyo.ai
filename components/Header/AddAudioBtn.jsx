@@ -6,7 +6,7 @@ import addAudio from '../../assets/addaudio_icon1.png';
 // import addAudio from '../../assets/addaudio_mobile.svg';
 const AddAudioBtn = ({ customStyles, hideText, iconSize }) => {
   return (
-    <Link href="/user/dashboard" passHref>
+    <Link href="/user/addAudio" passHref>
       <button
         className={`flex items-center  rounded-full ${customStyles} ${
           hideText ? '' : 'px-2 py-1 border border-indigo-650 bg-indigo-650'

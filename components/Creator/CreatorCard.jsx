@@ -8,8 +8,18 @@ import { usePlaylist } from '../../controllers/PlaylistProvider';
 import logoTelegram from '../../assets/telegram.svg';
 import logoWhatsapp from '../../assets/whatsapp.svg';
 import { decode } from 'html-entities';
-
-const CreatorCard = ({ data, creatorPlaylist }) => {
+import { useRouter } from 'next/router';
+import axios from 'axios';
+const CreatorCard = ({
+  data,
+  creatorPlaylist,
+  userid,
+  following,
+  setFollowing,
+  followers,
+  setFollowers,
+}) => {
+  const router = useRouter();
   const { playAudio, setContextPlaylist } = usePlaylist();
   const [copy, setCopy] = useState(false);
   const [origin, setOrigin] = useState();
@@ -58,6 +68,36 @@ const CreatorCard = ({ data, creatorPlaylist }) => {
     setCopy(true);
   };
 
+  const followCreator = async (
+    creatorId,
+    setFollowing,
+    following,
+    setFollowers
+  ) => {
+    const action = !following ? 'FOLLOW' : 'UNFOLLOW';
+    const data = {
+      timestamp: new Date().getTime(),
+      creatorId: creatorId,
+      action: action,
+    };
+
+    await axios({
+      method: 'post',
+      url: '/api/updateFollowers',
+      data: data,
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then(res => {
+        if (action === 'FOLLOW') {
+          setFollowing(true);
+        } else {
+          setFollowing(false);
+        }
+        setFollowers(res.data.followers);
+      })
+      .catch(error => {});
+  };
+
   return (
     <>
       <div className="creator-card mini generic-card">
@@ -75,12 +115,7 @@ const CreatorCard = ({ data, creatorPlaylist }) => {
         </div>
         <div className="mobile:hidden creator-card__header">
           <div className="creator-card__header--items">
-            <div className="creator-card__header--item creator-card__author">
-              {data && data.creatorName}
-            </div>
-            <div className="creator-card__header--item creator-card__aboutme">
-              {data && data.about}
-            </div>
+            <div className="creator-card__header--item creator-card__author"></div>
           </div>
         </div>
         {/* layout for mobile */}
@@ -122,7 +157,7 @@ const CreatorCard = ({ data, creatorPlaylist }) => {
         </div>
         <div className="creator-card__action">
           <span className="creator-card__action--item">
-            {data && data.subscriberCount}
+            {data && followers.length}
           </span>
           <span className="creator-card__action--item">Followers</span>
         </div>
@@ -132,7 +167,26 @@ const CreatorCard = ({ data, creatorPlaylist }) => {
         <button className="playButton" onClick={playAll}>
           Play All
         </button>
-        <button className="fsButton">Follow</button>
+
+        <button
+          className="fsButton"
+          onClick={() => {
+            if (!userid) {
+              router.push('/login');
+            } else {
+              followCreator(
+                data.uid,
+                setFollowing,
+                following,
+                setFollowers,
+                userid
+              );
+            }
+          }}
+        >
+          {(!following && 'Follow') || 'Unfollow'}
+        </button>
+
         <button
           className="shareButton"
           onClick={() => {

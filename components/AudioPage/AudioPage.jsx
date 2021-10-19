@@ -160,7 +160,6 @@ const AudioPageComponent = ({ data }) => {
             <div className="audioPage-card__header--item audioPage-card__title">
               {data.title}
             </div>
-            {console.log(data)}
             <Link href={`/creator/${data.creatorId.uid}`}>
               <a style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div className="audioPage-card__header--item audioPage-card__author">
