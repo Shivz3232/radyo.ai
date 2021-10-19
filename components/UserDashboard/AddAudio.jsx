@@ -4,23 +4,19 @@ import Select from 'react-select';
 import RecordAudio from '../RecordAudio/RecordAudio';
 import { useAuth } from '../../controllers/auth';
 import { image_formats } from '../RecordAudio/fileFormats';
-import SuccessModal from './succesModal';
+import SuccessModal from './SuccessModal';
 import { categoryDataLinks } from '../CategoryNavBar/categoryData';
 
-// const CatOptions = [
-//   { value: 'cat-1', label: 'Category1' },
-//   { value: 'cat-2', label: 'Category2' },
-//   { value: 'cat-3', label: 'Category3' },
-// ];
-
 let Categories = categoryDataLinks.map(cat => {
-  return {
-    value: cat.id,
-    label: cat.label,
-  };
+  {
+    return {
+      value: cat.id,
+      label: cat.label,
+    };
+  }
 });
 
-const CatOptions = Categories;
+let CatOptions = Categories.filter(cat => cat.label != 'All');
 
 const LanOptions = [
   { value: 'english', label: 'English' },
@@ -148,7 +144,7 @@ const AddAudio = () => {
             <p className="mx-auto text-indigo-650 text-md">Select Category :</p>
             <Select
               className="border-2 bg-gray-100 border-indigo-650 rounded-md focus:ring-1 focus:ring-indigo-650"
-              options={Categories}
+              options={CatOptions}
               name="cat"
               onChange={e => setCatSelect(e.value)}
             />

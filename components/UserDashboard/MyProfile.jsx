@@ -3,7 +3,7 @@ import firebase from 'firebase';
 import avatar from '../../assets/Avatar.png';
 import axios from 'axios';
 import { image_formats } from '../RecordAudio/fileFormats';
-import SuccessModal from './SuccesModal';
+import SuccessModal from './SuccessModal';
 import { useRouter } from 'next/router';
 
 const MyProfile = () => {

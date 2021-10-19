@@ -13,15 +13,15 @@
   &.max {
     height: 700px;
   }
-   &--image {
-      flex: 30%;
-      .creator-card__roundedimage {
-        width: 200px;
-        height: 200px;
-        object-fit: cover;
-        border-radius: 0.3rem;
-      }
+  &--image {
+    flex: 30%;
+    .creator-card__roundedimage {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 0.3rem;
     }
+  }
   &__header {
     display: flex;
     &--items {
@@ -46,7 +46,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         font-size: 1.1rem;
-        padding:0.5rem;
+        padding: 0.5rem;
         border: 1px solid $color-indigo-500;
         border-radius: 0.3rem;
       }
@@ -69,7 +69,6 @@
     width: 150px;
     align-self: flex-end;
   }
-  
 }
 
 .creatorCard__action--row {
@@ -83,7 +82,7 @@
   box-shadow: 1px 1px 6px 0px $color-grey-400;
   cursor: default;
   border-radius: 0.3rem;
- 
+
   .creator-card__action {
     display: flex;
     flex-direction: column;
@@ -103,34 +102,34 @@
   }
 }
 
-.button-container{
-  display:flex;
-  flex-direction:row;
-  text-align:center;
-  justify-content:center;
+.button-container {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: center;
 
-  .playButton, .shareButton,.fsButton {
-    padding:0.5rem;
-    width:11rem;
-    margin:0rem 1rem ;
-    margin-bottom:1rem;
-    border-radius:5px;
-    font-weight:bold;
-  }
-  
-  .playButton{
-    background-color:$color-indigo-500;
-    color:white;
+  .playButton,
+  .shareButton,
+  .fsButton {
+    padding: 0.5rem;
+    width: 11rem;
+    margin: 0rem 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    font-weight: bold;
   }
 
-  .shareButton, .fsButton{
-    border:1px solid $color-indigo-500;
-    color:$color-indigo-500;
+  .playButton {
+    background-color: $color-indigo-500;
+    color: white;
   }
-   
+
+  .shareButton,
+  .fsButton {
+    border: 1px solid $color-indigo-500;
+    color: $color-indigo-500;
+  }
 }
-
-
 
 @media only screen and (max-width: $mobile-res) {
   .creator-card {
@@ -141,21 +140,21 @@
       &--image {
         flex: 40%;
         .creator-card__roundedimage {
-          width:140px;
+          width: 140px;
         }
       }
       &--items {
         flex: 60%;
         margin-left: 0.3rem;
-        .creator-card__author{
-          font-size:1.5rem;
+        .creator-card__author {
+          font-size: 1.5rem;
         }
         .creator-card__aboutme {
           font-size: 0.8rem;
-          padding:0.3rem;
-          font-weight:normal;
+          padding: 0.3rem;
+          font-weight: normal;
           width: 165px;
-          height:8rem;
+          height: 8rem;
         }
       }
     }
@@ -174,13 +173,14 @@
     }
   }
 
-  .button-container{
+  .button-container {
     max-width: 310px;
-    margin:0rem auto;
-    margin-bottom:1rem;
-    .playButton,.fsButton, .shareButton{
-      margin:0rem 0.2rem;
+    margin: 0rem auto;
+    margin-bottom: 1rem;
+    .playButton,
+    .fsButton,
+    .shareButton {
+      margin: 0rem 0.2rem;
     }
   }
-
 }
