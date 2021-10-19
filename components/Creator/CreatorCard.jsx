@@ -115,7 +115,12 @@ const CreatorCard = ({
         </div>
         <div className="mobile:hidden creator-card__header">
           <div className="creator-card__header--items">
-            <div className="creator-card__header--item creator-card__author"></div>
+            <div className="creator-card__header--item creator-card__author">
+              {data && data.creatorName}
+            </div>
+            <div className="creator-card__header--item creator-card__aboutme">
+              {data && data.about}
+            </div>
           </div>
         </div>
         {/* layout for mobile */}
@@ -218,7 +223,7 @@ const CreatorCard = ({
           </button>
           <div className="text-center">
             <h3 className="text-lg leading-6 font-medium text-gray-900">
-              Share audio with friends
+              Share this page with friends
             </h3>
             <div className="w-full flex items-center justify-center flex-col mt-3">
               <img
