@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
+import NoResult from '../../assets/NoResultsFound.png';
+import Adcard from '../AdCard/Adcard';
 import {
   elementIsInViewport,
   sideScroll,
 } from '../CategoryNavBar/CategoryNavBar';
-import AudioCard, { capitalizeFirstLetter } from './AudioCard';
 import { usePlaylist } from './../../controllers/PlaylistProvider';
-import NoResult from '../../assets/NoResultsFound.png';
-import Adcard from '../AdCard/Adcard';
+import AudioCard, { capitalizeFirstLetter } from './AudioCard';
 
 const AudioCards = ({ cardItems, categoryName }) => {
   const audioCards = useRef();
@@ -39,6 +39,12 @@ const AudioCards = ({ cardItems, categoryName }) => {
       };
     }
   });
+
+  const [origin, setOrigin] = useState();
+
+  useEffect(() => {
+    setOrigin(window.location.origin);
+  }, []);
   function checkArrowAndHide() {
     // console.log(audioCards.current);
     const firstElement = document.getElementById(
@@ -73,7 +79,10 @@ const AudioCards = ({ cardItems, categoryName }) => {
     for (var i = 0, j = 1; i < cardItems.length; i++, j++) {
       if (j % 5 === 0) {
         cards.push(
-          <div key="google card" className="audio-card mini generic-card p-0">
+          <div
+            key={`google-card-${j}`}
+            className="audio-card mini generic-card p-0"
+          >
             <Adcard />
           </div>
         );
@@ -82,6 +91,7 @@ const AudioCards = ({ cardItems, categoryName }) => {
       cards.push(
         <AudioCard
           key={i}
+          origin={origin}
           categoryName={categoryName}
           cardItemData={cardItems[i]}
         />

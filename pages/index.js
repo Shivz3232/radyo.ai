@@ -14,7 +14,9 @@ import Banner2 from '../assets/Banner_English_artist.svg';
 import Banner3 from '../assets/Banner_English_Listener.svg';
 import Banner4 from '../assets/Banner_Hindi_artist.svg';
 import { initGA, trackPageView } from '../components/Tracking/tracking';
-const Podcast = ({ audioCards, allCategories }) => {
+import TrendingArtist from '../components/TrendingArtist/TrendingArtist';
+import { getTrendingCreators } from '../controllers/creator';
+const Podcast = ({ audioCards, trendingCreators }) => {
   useEffect(() => {
     initGA();
     trackPageView();
@@ -74,6 +76,10 @@ const Podcast = ({ audioCards, allCategories }) => {
                 categoryName="Trending audios"
                 cardItems={audioCards.slice(0, 15)}
               />
+              <TrendingArtist
+                heading="Trending artist"
+                data={trendingCreators}
+              />
               {categoryDataLinks.map((elem, i) => {
                 if (audioCards.filter(e => e.category === elem.id).length) {
                   return (
@@ -97,7 +103,8 @@ export async function getStaticProps() {
   await dbConnect();
   const audioCards = await getAllAudio().catch(console.error);
   const categories = await getAudioCategories().catch(console.error);
-  if (audioCards && categories) {
+  const trendingCreators = await getTrendingCreators().catch(console.error);
+  if (audioCards && categories && trendingCreators) {
     const allCategories = [];
     categories.forEach(e => {
       if (!allCategories.includes(e.category)) allCategories.push(e.category);
@@ -106,6 +113,7 @@ export async function getStaticProps() {
       props: {
         audioCards,
         allCategories,
+        trendingCreators,
         activeTab: 'home',
       },
       revalidate: 60,
@@ -113,6 +121,7 @@ export async function getStaticProps() {
   } else {
     return {
       props: {},
+      revalidate: 60,
     };
   }
 }

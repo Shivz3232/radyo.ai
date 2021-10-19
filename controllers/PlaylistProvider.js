@@ -86,7 +86,7 @@ export const PlaylistProvider = ({ children }) => {
     setTrackInfo(info);
     if (id)
       axios
-        .post(`/api/update_count/${id}`, { update: { playCount: 1 } })
+        .post(`/api/update_play_count/${id}`, {})
         // .then(res => console.log(res))
         .catch(err => console.log(err));
   };

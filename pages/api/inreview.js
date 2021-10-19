@@ -1,6 +1,7 @@
 import { getLoginSession } from '../../utils/auth';
 import PodcastModel from '../../models/podcast';
 import connect from '../../utils/middleware/mongoClient';
+import PodcastCreatorModel from '../../models/podcastCreator';
 
 const getPodcastsInReview = async (req, res) => {
   const session = await getLoginSession(req);
@@ -46,12 +47,19 @@ const getPodcastsInReview = async (req, res) => {
 
     if (typeof id == 'string' && id.length == 24) {
       const action = req.body.action;
-      let updates;
+      let updates, audiosPublished;
 
       if (action === 'approve') {
         updates = { status: 'approved' };
+        audiosPublished = {
+          $inc: { audiosPublished: 1 },
+          $push: { audiosPublishedOn: new Date() },
+        };
       } else if (action === 'reject') {
         updates = { status: 'rejected' };
+        audiosPublished = {
+          $inc: { audiosPublished: -1 },
+        };
       } else {
         res.status(400);
         res.json({
@@ -60,17 +68,28 @@ const getPodcastsInReview = async (req, res) => {
         return res.end();
       }
 
-      const success = await PodcastModel.findByIdAndUpdate(id, updates)
-        .then(() => {
-          return true;
-        })
-        .catch(err => {
+      const success = await PodcastModel.findByIdAndUpdate(id, updates).catch(
+        err => {
           console.error(err);
-          return false;
-        });
+        }
+      );
 
       if (success) {
-        res.end();
+        // console.log(success);
+        const updateAudioPublished = await PodcastCreatorModel.findOneAndUpdate(
+          { _id: success.creatorId },
+          audiosPublished
+        ).catch(console.error);
+        if (updateAudioPublished) {
+          console.log(updateAudioPublished);
+          res.end();
+        } else {
+          res.status(500);
+          res.json({
+            message: 'Failed to update document',
+          });
+          res.end();
+        }
       } else {
         res.status(500);
         res.json({

@@ -14,21 +14,21 @@ const LeaderBoard = () => {
     return creatorScore;
   }
   // console.log("width", width);
-  const colorValues = [
-    'rgb(199, 21, 133)',
-    'rgba(0, 224, 255, 1)',
-    'rgba(255, 255, 0, 1)',
-    'rgb(182, 119, 33)',
-    'rgb(77, 137, 99)',
-    'rgb(255,165,0)',
-    'rgb(0, 100, 0)',
-    'rgba(234, 133, 255, 23)',
-    'rgb(50,23,77)',
-    'rgb(255,0,0)',
-    'rgb(180, 127, 80)',
-    'rgb(242, 194, 203)',
-  ];
-  const cValues = [];
+  // const colorValues = [
+  //   'rgb(199, 21, 133)',
+  //   'rgba(0, 224, 255, 1)',
+  //   'rgba(255, 255, 0, 1)',
+  //   'rgb(182, 119, 33)',
+  //   'rgb(77, 137, 99)',
+  //   'rgb(255,165,0)',
+  //   'rgb(0, 100, 0)',
+  //   'rgba(234, 133, 255, 23)',
+  //   'rgb(50,23,77)',
+  //   'rgb(255,0,0)',
+  //   'rgb(180, 127, 80)',
+  //   'rgb(242, 194, 203)',
+  // ];
+  // const cValues = [];
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -36,24 +36,26 @@ const LeaderBoard = () => {
         const { data } = await axios
           .get('/api/creator/creator')
           .catch(err => console.log(err));
-        const arrayData = data.allAudio;
-        setData(arrayData);
-        const mappedData = [];
-        const otherArray = arrayData
-          .sort((a, b) => (a.value < b.value ? 1 : -1))
-          .slice(0, 10);
-        otherArray.map((item, index) => {
-          const id = index;
-          const title = item.creatorName;
-          const value = getCreatorScore(
-            item.playCount,
-            item.audiosPublished,
-            item.subscriberCount
-          );
-          const color = colorValues[index];
-          mappedData.push({ id, title, value, color });
-        });
-        setSortedData(mappedData);
+        if (data) {
+          const arrayData = data.allAudio;
+          setData(arrayData);
+          const mappedData = [];
+          const otherArray = arrayData
+            .sort((a, b) => (a.value < b.value ? 1 : -1))
+            .slice(0, 10);
+          otherArray.map((item, index) => {
+            const id = index;
+            const title = item.creatorName;
+            const value = getCreatorScore(
+              item.playCount,
+              item.audiosPublished,
+              item.subscriberCount
+            );
+            const color = colorValues[index];
+            mappedData.push({ id, title, value, color });
+          });
+          setSortedData(mappedData);
+        }
       };
       handleChange();
     }, 10000);

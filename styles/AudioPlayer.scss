@@ -27,10 +27,11 @@ $rhap_bar-color: #6b51b8 !default;
   // position: fixed;
   // bottom: 0;
   // left: 0;
+  background-color: #a08be0;
   width: 100%;
   display: flex;
   .track-info {
-    @media only screen and (max-width: 1024px) {
+    @media only screen and (max-width: $screen-ipad-max) {
       display: none;
     }
     // background-color: #e3ddcc;

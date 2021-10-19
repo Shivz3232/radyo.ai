@@ -19,7 +19,6 @@ const PodcastAudio = ({ data, audioCards, play }) => {
       <div className="container">
         <AudioPageComponent data={data} />
 
-        {/*Audio Cards horizontal scroll section*/}
         <div className="heading">{`Other creations by ${data.creatorId.creatorName}`}</div>
         {audioCards && (
           <AudioCardsVerticalScroll
@@ -28,7 +27,6 @@ const PodcastAudio = ({ data, audioCards, play }) => {
             )}
           />
         )}
-        {/* categoryName="You may also like" */}
         <div className="heading" style={{ marginTop: '2rem' }}>
           You may also like
         </div>
@@ -51,10 +49,12 @@ export async function getStaticProps({ params }) {
         data: data,
         audioCards,
       },
+      revalidate: 60,
     };
   } else {
     return {
       props: {},
+      revalidate: 60,
     };
   }
 }
