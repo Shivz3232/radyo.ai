@@ -7,9 +7,25 @@ import CreatorCard from '../../components/Creator/CreatorCard';
 import { getCreatorAudio, getCreatorIds } from '../../controllers/creator';
 import { getAllAudio } from '../../controllers/podcast';
 import dbConnect from '../../utils/dbConnect';
+import nookies from 'nookies';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import { useAuth } from '../../controllers/auth';
 
 const CreatorPage = ({ info, audioCards, play }) => {
   const data = info;
+  const { useremail } = useAuth();
+  const [userid, setUserid] = useState('');
+  const [followers, setFollowers] = useState(data.followers);
+  const [following, setFollowing] = useState(false);
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(() => {
+      if (useremail) {
+        setUserid(useremail.split('@')[0]);
+        setFollowing(followers.indexOf(userid) >= 0 ? true : false);
+      }
+    });
+  });
   return (
     <>
       <div className="creatorpage">
@@ -18,7 +34,14 @@ const CreatorPage = ({ info, audioCards, play }) => {
 
         <div className="container">
           <div className="creatorcard">
-            <CreatorCard data={data} />
+            <CreatorCard
+              data={data}
+              userid={userid}
+              following={following}
+              setFollowing={setFollowing}
+              followers={followers}
+              setFollowers={setFollowers}
+            />
           </div>
 
           {/*Audio Cards horizontal scroll section*/}

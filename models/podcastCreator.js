@@ -1,5 +1,9 @@
 import mongoose, { Model, model, Schema, Document } from 'mongoose';
-import { stringRequired, numberRequired } from './schemaFieldTypes';
+import {
+  stringRequired,
+  numberRequired,
+  stringArray,
+} from './schemaFieldTypes';
 
 // export interface CreatorI extends Document {
 //   creatorName: String;
@@ -22,6 +26,7 @@ const PodcastCreatorSchema = new Schema({
   referrerCode: stringRequired,
   uid: stringRequired,
   email: stringRequired,
+  followers: stringArray,
 });
 
 const PodcastCreatorModel =
