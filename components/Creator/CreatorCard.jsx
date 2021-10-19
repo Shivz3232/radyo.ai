@@ -1,6 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import {usePlaylist} from '../../controllers/PlaylistProvider';
 
-const CreatorCard = ({ data }) => {
+const CreatorCard = ({ data,creatorPlaylist }) => {
+  const { playAudio,contextPlaylist,setContextPlaylist,getNextTrack } = usePlaylist();
+
+  function playAll(){
+    setContextPlaylist(creatorPlaylist);
+    playAudio({
+        audioSrc: creatorPlaylist[0].audioSrc,
+        coverSrc: creatorPlaylist[0].coverImage,
+        title: creatorPlaylist[0].title,
+      },creatorPlaylist[0]._id);
+  }
+
   return (
     <>
       <div className="creator-card mini generic-card">
@@ -49,7 +61,7 @@ const CreatorCard = ({ data }) => {
       </div>
 
       <div className="button-container">
-        <button className="playButton">Play All</button>
+        <button className="playButton" onClick={playAll}>Play All</button>
         <button className="fsButton">Follow</button>
         <button className="shareButton">Share</button>
       </div>

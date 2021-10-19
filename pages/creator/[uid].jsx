@@ -18,7 +18,7 @@ const CreatorPage = ({ info, audioCards, play }) => {
 
         <div className="container">
           <div className="creatorcard">
-            <CreatorCard data={data} />
+            <CreatorCard data={data} creatorPlaylist={audioCards.filter(e => e.creatorId.creatorName === data.creatorName)} />
           </div>
 
           {/*Audio Cards horizontal scroll section*/}
@@ -41,12 +41,6 @@ const CreatorPage = ({ info, audioCards, play }) => {
           )}
         </div>
       </div>
-      {/* <div
-        className="audio-player-dashboard"
-        style={{ display: trackInfo.audioSrc ? '': 'none' }}
-      >
-        <AudioPlayer trackInfo={trackInfo} />
-      </div> */}
     </>
   );
 };
