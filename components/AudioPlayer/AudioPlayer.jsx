@@ -14,16 +14,13 @@ const AudioPlayer = props => {
   const audioRef = useRef();
 
   function playNext() {
-    // const nextTrack = getNextTrack(trackInfo);
-    playAudio(() => {
-      return getNextTrack();
-    });
+    const nextTrack = getNextTrack();
+    playAudio(nextTrack, nextTrack.id);
   }
 
   function playPrevious() {
-    playAudio(() => {
-      return getPreviousTrack();
-    });
+    const prevTrack = getPreviousTrack();
+    playAudio(prevTrack, prevTrack.id);
   }
   try {
     if (audioRef.current) {

@@ -2,6 +2,7 @@ import connect from '../../utils/middleware/mongoClient';
 import { verifyIdToken } from '../../utils/firebase/firebaseAdmin';
 import nookies from 'nookies';
 import PodcastCreatorModel from '../../models/podcastCreator';
+import ContestModel from '../../models/contest';
 
 const findFollower = (followers, uid) => {
   const index = followers.indexOf(uid);
@@ -29,6 +30,10 @@ const updateFollowers = async (req, res) => {
       let followers = await getFollowerList(req.body.creatorId);
       let triggerDbUpdate = false;
 
+      const contests = await ContestModel.find({ active: true })
+        .sort({ startDate: -1 })
+        .catch(console.error);
+
       if (req.body.action === 'FOLLOW' && !findFollower(followers, uid)) {
         console.log(uid, 'Following', req.body.creatorId);
         followers.push(uid);
@@ -42,12 +47,37 @@ const updateFollowers = async (req, res) => {
         triggerDbUpdate = true;
       }
       if (triggerDbUpdate) {
-        let updateFollowers = await PodcastCreatorModel.updateOne(
-          { uid: req.body.creatorId },
-          {
-            followers: followers,
-          }
-        );
+        let updateFollowers = await PodcastCreatorModel.findOne({
+          uid: req.body.creatorId,
+        });
+        if (updateFollowers && contests) {
+          updateFollowers.followers = followers;
+          contests.forEach(contest => {
+            const updateContest = element =>
+              element.contestId.toString() === contest._id.toString();
+            const index = updateFollowers.creatorScore.findIndex(updateContest);
+            // const startDate = new Date(contest.startDate);
+            // const endDate = new Date(contest.endDate);
+            // const audioDate = new Date(updateCount.createdAt);
+            // const isValidEntry = audioDate <= endDate && audioDate >= startDate;
+            const isValidEntry = true;
+            // console.log(updateCount.title, 'isValid', isValidEntry);
+            if (isValidEntry) {
+              if (index === -1) {
+                updateFollowers.creatorScore.push({
+                  contestId: contest._id,
+                  score: 1,
+                });
+              } else if (index !== -1) {
+                if (req.body.action === 'FOLLOW')
+                  updateFollowers.creatorScore[index].score += 1;
+                else if (req.body.action === 'UNFOLLOW')
+                  updateFollowers.creatorScore[index].score -= 1;
+              }
+            }
+          });
+          updateFollowers.save().catch(console.error);
+        }
       }
       res.status(201).json({ success: true, followers: followers });
       res.end();
