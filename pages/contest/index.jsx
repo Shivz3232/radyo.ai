@@ -55,7 +55,7 @@ const Contest = () => {
             Contest Rules and Regulations
           </div>
           <div
-            className={`h-96 rounded-b-md text-base text-left py-1 px-2 border border-t-0 border-indigo-650 `}
+            className={`rounded-b-md text-base text-left py-1 px-2 border border-t-0 border-indigo-650 `}
           >
             <p className="my-3">
               <strong>How to participate :</strong> Lorem ipsum dolor sit amet

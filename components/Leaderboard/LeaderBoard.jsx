@@ -10,9 +10,6 @@ const LeaderBoard = () => {
   const { width } = useViewport(200);
 
   function getCreatorScore(audioplayCount, likesCount, subscriberCount) {
-    //audioPlaycount of audios by creator in the month
-    //likes of audios by creator in the month
-    //subscriber gained by creator in the month --this is done
     const creatorScore = 5 * audioplayCount + 3 * likesCount + subscriberCount;
     return creatorScore;
   }
