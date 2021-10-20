@@ -26,10 +26,10 @@ const PodcastCreatorSchema = new Schema({
   followers: stringArray,
   creatorScore: {
     type: [
-      {
-        contestId: { type: mongoose.Types.ObjectId, ref: ContestModel },
-        score: numberRequired,
-      },
+      // {
+      //   contestId: { type: mongoose.Types.ObjectId, ref: ContestModel },
+      //   score: numberRequired,
+      // },
     ],
     default: [],
   },

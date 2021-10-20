@@ -4,37 +4,50 @@ import axios from 'axios';
 import useViewport from './useViewport';
 import colorValues from './colorValues';
 
-const LeaderBoard = () => {
+// function getCreatorScore(audioplayCount, likesCount, subscriberCount) {
+//   const creatorScore = 5 * audioplayCount + 3 * likesCount + subscriberCount;
+//   return creatorScore;
+// }
+const LeaderBoard = ({ contestId }) => {
   const [data, setData] = useState([]);
   const [sortedData, setSortedData] = useState([]);
-  const { width } = useViewport(200);
+  const { width } = useViewport();
 
-  function getCreatorScore(audioplayCount, likesCount, subscriberCount) {
-    const creatorScore = 5 * audioplayCount + 3 * likesCount + subscriberCount;
-    return creatorScore;
-  }
+  // console.log(id);
 
   useEffect(() => {
     const timer = setInterval(() => {
       const handleChange = async () => {
         const { data } = await axios
-          .get('/api/creator/creator')
+          .get(`/api/creator/creatorScore?contestId=${contestId}`)
           .catch(err => console.log(err));
         if (data) {
-          const arrayData = data.allAudio;
+          const arrayData = data.allCreators;
           setData(arrayData);
           const mappedData = [];
-          const otherArray = arrayData
-            .sort((a, b) => (a.value < b.value ? 1 : -1))
-            .slice(0, 10);
+          const otherArray = arrayData.sort((a, b) => {
+            const updateContest = element =>
+              element.contestId.toString() === contestId.toString();
+            const indexofA = a.creatorScore.findIndex(updateContest);
+            const indexofB = b.creatorScore.findIndex(updateContest);
+            if (indexofA !== -1 && indexofB !== -1) {
+              return a.creatorScore[indexofA].score <
+                b.creatorScore[indexofB].score
+                ? 1
+                : -1;
+            } else return 0;
+          });
+          // console.log(arrayData, '<-->other', otherArray);
           otherArray.map((item, index) => {
             const id = index;
             const title = item.creatorName;
-            const value = getCreatorScore(
-              item.playCount,
-              item.audiosPublished,
-              item.subscriberCount
-            );
+            const updateContest = element =>
+              element.contestId.toString() === contestId.toString();
+            const indexof = item.creatorScore.findIndex(updateContest);
+            let value;
+            if (indexof !== -1) {
+              value = item.creatorScore[indexof].score;
+            } else value = 0;
             const color = colorValues[index];
             mappedData.push({ id, title, value, color });
           });
@@ -47,9 +60,6 @@ const LeaderBoard = () => {
     return () => clearInterval(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // console.log("Data in state", data);
-  // console.log("Mapped Sorted Data", sortedData)
 
   return (
     <div className="lb-container w-full" id="leaderboard">

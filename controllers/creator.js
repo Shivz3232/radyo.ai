@@ -1,4 +1,3 @@
-import connect from '../utils/middleware/mongoClient';
 import PodcastCreatorModel from '../models/podcastCreator';
 
 export const getCreatorAudio = async uid => {

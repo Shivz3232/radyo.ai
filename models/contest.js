@@ -5,9 +5,13 @@ import PodcastCreatorModel from './podcastCreator';
 const ContestSchema = new Schema(
   {
     name: String,
+    url_name: String,
     startDate: Date,
     endDate: Date,
     active: Boolean,
+    how_to_participate: String,
+    prizes_to_win: String,
+    terms_and_conditions: String,
     // winner: {
     //   type: mongoose.Types.ObjectId,
     //   ref: PodcastCreatorModel,
