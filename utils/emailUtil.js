@@ -21,7 +21,7 @@ export const emailUtil = async (username, useremail, templatename) => {
     headers: { 'Content-Type': 'application/json' },
   })
     .then(res => {
-      console.log(res);
+      console.log('Email trigger sent');
     })
     .catch(error => {
       console.log('Error sending email trigger');
