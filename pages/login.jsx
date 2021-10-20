@@ -13,6 +13,7 @@ import connect from '../utils/middleware/mongoClient';
 import PodcastCreatorModel from '../models/podcastCreator';
 import { useAuth } from '../controllers/auth';
 import { initGA, trackPageView } from '../components/Tracking/tracking';
+import { emailUtil } from '../utils/emailUtil';
 
 export const getServerSideProps = async context => {
   try {
@@ -62,11 +63,12 @@ const createUser = async (token, rcode) => {
         await user
           .save()
           .then(() => {
-            return true;
+            console.log('New user added', token.email);
           })
           .catch(err => {
-            return false;
+            console.log('Failed to add new user', token.email);
           });
+        emailUtil(token.name, token.email, 'RADYO_WELCOME');
       }
     }
   );
