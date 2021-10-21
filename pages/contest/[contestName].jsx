@@ -173,6 +173,7 @@ export async function getStaticProps({ params }) {
         contest: contest,
         activeTab: 'contest',
       },
+      revalidate: 60,
     };
   } else {
     return {

@@ -35,6 +35,7 @@ export async function getStaticProps() {
         year_url: year_url.url_name,
         activeTab: 'contest',
       },
+      revalidate: 60,
     };
   } else {
     return {
