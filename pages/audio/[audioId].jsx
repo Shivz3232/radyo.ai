@@ -66,7 +66,7 @@ export async function getStaticPaths() {
   let paths = [];
   if (ids && typeof ids[0] === 'string') {
     paths = ids.map(elem => {
-      console.log(elem);
+      // console.log(elem);
       return { params: { audioId: elem._id } };
     });
     return {

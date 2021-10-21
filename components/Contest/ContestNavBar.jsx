@@ -10,13 +10,13 @@ const tabStyles =
 const hoverStyles =
   'text-blue-100 hover:bg-white/[0.12] hover:text-white transition';
 
-const ContestNavBar = ({ selectedTab }) => {
+const ContestNavBar = ({ selectedTab, month_url, year_url }) => {
   const links = [
-    { id: 'month', label: 'Voice of the month', url: '/contest' },
+    { id: 'month', label: 'Voice of the month', url: month_url },
     {
       id: 'year',
       label: 'Voice of the year',
-      url: '/contest/voice-of-the-year',
+      url: year_url,
     },
     { id: 'past', label: 'Past contest', url: '/contest/past-contest' },
   ];

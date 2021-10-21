@@ -1,7 +1,7 @@
 import debounce from 'lodash.debounce';
 import React from 'react';
 
-const useViewport = divWidth => {
+const useViewport = () => {
   const [width, setWidth] = React.useState(() => {
     try {
       const container = document.getElementById('leaderboard');

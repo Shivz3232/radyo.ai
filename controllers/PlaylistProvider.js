@@ -34,12 +34,14 @@ export const PlaylistProvider = ({ children }) => {
       });
     if (contextPlaylist && index + 1 === contextPlaylist.length) {
       return {
+        id: contextPlaylist[0]._id,
         audioSrc: contextPlaylist[0].audioSrc,
         coverSrc: contextPlaylist[0].coverImage,
         title: contextPlaylist[0].title,
       };
     } else if (contextPlaylist && contextPlaylist[index]) {
       return {
+        id: contextPlaylist[index + 1]._id,
         audioSrc: contextPlaylist[index + 1].audioSrc,
         coverSrc: contextPlaylist[index + 1].coverImage,
         title: contextPlaylist[index + 1].title,
@@ -56,12 +58,14 @@ export const PlaylistProvider = ({ children }) => {
       });
     if (contextPlaylist && index - 1 === -1) {
       return {
+        id: contextPlaylist[contextPlaylist.length - 1]._id,
         audioSrc: contextPlaylist[contextPlaylist.length - 1].audioSrc,
         coverSrc: contextPlaylist[contextPlaylist.length - 1].coverImage,
         title: contextPlaylist[contextPlaylist.length - 1].title,
       };
     } else if (contextPlaylist && contextPlaylist[index]) {
       return {
+        id: contextPlaylist[index - 1]._id,
         audioSrc: contextPlaylist[index - 1].audioSrc,
         coverSrc: contextPlaylist[index - 1].coverImage,
         title: contextPlaylist[index - 1].title,
@@ -86,9 +90,9 @@ export const PlaylistProvider = ({ children }) => {
     setTrackInfo(info);
     if (id)
       axios
-        .post(`/api/update_play_count/${id}`, {})
+        .post(`/api/update_play_count/${id}`, { AudioId: id })
         // .then(res => console.log(res))
-        .catch(err => console.log(err));
+        .catch(err => console.log('oops',err));
   };
 
   return (
