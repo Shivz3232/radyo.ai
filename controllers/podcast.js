@@ -58,3 +58,11 @@ export const getAudioIds = async () => {
   if (ids) return ids;
   else return undefined;
 };
+
+export const getAudioId = async shortId => {
+  const id = await PodcastModel.find({ shortId: shortId }, '_id').catch(
+    console.error
+  );
+  if (id) return id;
+  else return undefined;
+};
