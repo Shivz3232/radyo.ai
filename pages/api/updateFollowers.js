@@ -47,12 +47,7 @@ const updateFollowers = async (req, res) => {
             const updateContest = element =>
               element.contestId.toString() === contest._id.toString();
             const index = updateFollowers.creatorScore.findIndex(updateContest);
-            // const startDate = new Date(contest.startDate);
-            // const endDate = new Date(contest.endDate);
-            // const audioDate = new Date(updateCount.createdAt);
-            // const isValidEntry = audioDate <= endDate && audioDate >= startDate;
             const isValidEntry = true;
-            // console.log(updateCount.title, 'isValid', isValidEntry);
             if (isValidEntry) {
               if (index === -1) {
                 updateFollowers.creatorScore.push({
