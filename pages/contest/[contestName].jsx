@@ -8,22 +8,36 @@ import Banner1 from '../../assets/Banner_Radyo.svg';
 import Banner2 from '../../assets/Banner_English_artist.svg';
 import Banner3 from '../../assets/Banner_English_Listener.svg';
 import Banner4 from '../../assets/Banner_Hindi_artist.svg';
+import contestRules from '../../contestRules.json';
 const BarChartRace = dynamic(
   () => import('./../../components/Leaderboard/LeaderBoard'),
   { ssr: false, loading: () => <p>loading...</p> }
 );
 
 const ContestPage = ({ contest }) => {
-  //   console.log('details:', contest);
   const images = [Banner1.src, Banner2.src, Banner3.src, Banner4.src];
+
+  function createMarkup(data) {
+    return {
+      __html: data,
+    };
+  }
 
   return (
     <div className="container">
       <ContestNavBar />
-      <div className="flex justify-center">
-        <HomeCarousel images={images} />
+      {contest.active && (
+        <div className="flex justify-center">
+          <HomeCarousel images={images} />
+        </div>
+      )}
+      <div className="text-2xl mobile:text-xl text-indigo-650 text-center">
+        {contest.name}
       </div>
-      <div>{contest.name}</div>
+      {/* winnners list when not active */}
+      {/* <div className="text-xl text-indigo-650 text-center">
+        Winner : {contest.name}
+      </div> */}
       <div
         className={`w-full mobile:w-11/12 mx-auto text-center flex flex-row-reverse mobile:block ipad:block rounded-md items-center mt-1 sm:mt-8 sm:text-xs`}
       >
@@ -51,8 +65,15 @@ const ContestPage = ({ contest }) => {
             className={`rounded-b-md text-base text-left py-1 px-2 border border-t-0 border-indigo-650 `}
           >
             <p className="my-3">
-              <strong>How to participate : </strong>
-              {contest.how_to_participate}
+              <strong>How to participate : </strong>{' '}
+              <div
+                className=" inline"
+                dangerouslySetInnerHTML={createMarkup(
+                  contest.how_to_participate
+                    ? contest.how_to_participate
+                    : contestRules.how_to_participate
+                )}
+              ></div>
             </p>
 
             <p className="my-3">
@@ -64,11 +85,26 @@ const ContestPage = ({ contest }) => {
               {new Date(contest.endDate).toDateString()}
             </p>
             <p className="my-3">
-              <strong>Prizes to win :</strong> {contest.prizes_to_win}
+              <strong>Prizes to win :</strong>{' '}
+              <div
+                className="inline"
+                dangerouslySetInnerHTML={createMarkup(
+                  contest.prizes_to_win
+                    ? contest.prizes_to_win
+                    : contestRules.prizes_to_win
+                )}
+              ></div>
             </p>
             <p className="my-3">
               <strong>Terms and conditions :</strong>{' '}
-              {contest.terms_and_conditions}
+              <div
+                className="inline"
+                dangerouslySetInnerHTML={createMarkup(
+                  contest.terms_and_conditions
+                    ? contest.terms_and_conditions
+                    : contestRules.terms_and_conditions
+                )}
+              ></div>
             </p>
           </div>
         </div>
