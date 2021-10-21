@@ -1,7 +1,7 @@
 import mongoose, { Model, model, Schema, Document } from 'mongoose';
 import { stringRequired, numberRequired } from './schemaFieldTypes';
 import PodcastCreatorModel from './podcastCreator';
-import { nanoid } from 'nanoid';
+import { generateShortId } from '../utils/generateShortId';
 
 const PodcastSchema = new Schema(
   {
@@ -59,7 +59,7 @@ const PodcastSchema = new Schema(
     },
     shortId: {
       type: String,
-      default: () => nanoid(6),
+      default: () => generateShortId(),
     }
   },
   {

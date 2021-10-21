@@ -79,14 +79,14 @@ const AudioPageComponent = ({ data }) => {
   const getTelegramShareLink = () => {
     const url = encodeURIComponent(`${origin}/${data.shortId}`);
     // const url = encodeURIComponent(`${origin}/audio/${data._id}`);
-    const text = `Hear it on : ${url}`;
+    const text = `Hear ${data.title} on Radyo.ai ${url}`;
     return `https://telegram.me/share/url?url=${url}&text=${text}`;
   };
 
   const getWhatsAppShareLink = () => {
     const url = `${origin}/${data.shortId}`;
     // const url = `${origin}/audio/${data._id}`;
-    const text = `Hear it on :  ${url}`;
+    const text = `Hear ${data.title} on Radyo.ai ${url}`;
     return decode(`whatsapp://send?text=${text}`);
   };
 
@@ -94,10 +94,10 @@ const AudioPageComponent = ({ data }) => {
     try {
       const url = encodeURIComponent(`${origin}/${data.shortId}`);
       const text = encodeURIComponent(
-        `${'Hear it on: '}${origin}/${data.shortId}`
-      // const url = encodeURIComponent(`${origin}/audio/${data._id}`);
-      // const text = encodeURIComponent(
-      //   `${'Hear it on: '}${origin}/audio/${data._id}`
+        `Hear ${data.title} on Radyo.ai ${url}`
+        // const url = encodeURIComponent(`${origin}/audio/${data._id}`);
+        // const text = encodeURIComponent(
+        //   `${'Hear it on: '}${origin}/audio/${data._id}`
       );
       return `https://www.facebook.com/sharer/sharer.php?u=${url}&display=popup&ref=plugin&src=like&kid_directed_site=0&app_id=${FACEBOOK_APP_ID}`;
     } catch (error) {
