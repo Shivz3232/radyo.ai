@@ -6,6 +6,11 @@ const ContestSchema = new Schema(
   {
     name: String,
     url_name: String,
+    contest_type: {
+      type: String,
+      default: '',
+      enum: ['month', 'year', 'custom'],
+    },
     startDate: Date,
     endDate: Date,
     active: Boolean,

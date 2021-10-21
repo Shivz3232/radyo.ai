@@ -2,7 +2,11 @@ import dynamic from 'next/dynamic';
 import React from 'react';
 import ContestNavBar from '../../components/Contest/ContestNavBar';
 import HomeCarousel from '../../components/HomeCarousel/HomeCarousel';
-import { getContestDetails, getContestIds } from '../../controllers/contest';
+import {
+  getContestDetails,
+  getContestIds,
+  getLatestContest,
+} from '../../controllers/contest';
 import dbConnect from '../../utils/dbConnect';
 import Banner1 from '../../assets/Banner_Radyo.svg';
 import Banner2 from '../../assets/Banner_English_artist.svg';
@@ -14,7 +18,7 @@ const BarChartRace = dynamic(
   { ssr: false, loading: () => <p>loading...</p> }
 );
 
-const ContestPage = ({ contest }) => {
+const ContestPage = ({ month_url, year_url, contest }) => {
   const images = [Banner1.src, Banner2.src, Banner3.src, Banner4.src];
 
   function createMarkup(data) {
@@ -25,7 +29,17 @@ const ContestPage = ({ contest }) => {
 
   return (
     <div className="container">
-      <ContestNavBar />
+      <ContestNavBar
+        selectedTab={
+          contest.url_name === month_url
+            ? 'month'
+            : contest.url_name === year_url
+            ? 'year'
+            : false
+        }
+        month_url={month_url}
+        year_url={year_url}
+      />
       {contest.active && (
         <div className="flex justify-center">
           <HomeCarousel images={images} />
@@ -118,9 +132,21 @@ export async function getStaticProps({ params }) {
   const url_name = params.contestName;
   //   console.log('params:', params);
   const contest = await getContestDetails(url_name).catch(console.error);
-  if (contest) {
+  const result = await getLatestContest().catch(console.error);
+
+  if (contest && result) {
+    console.log(result);
+    const month_url = result.find(elem => {
+      return elem.active && elem.contest_type === 'month';
+    });
+    const year_url = result.find(elem => {
+      return elem.active && elem.contest_type === 'year';
+    });
+    // console.log(month_url, year_url);
     return {
       props: {
+        month_url: month_url.url_name,
+        year_url: year_url.url_name,
         contest: contest,
         activeTab: 'contest',
       },

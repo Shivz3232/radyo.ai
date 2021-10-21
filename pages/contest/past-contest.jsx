@@ -5,11 +5,15 @@ import micBG from '../../assets/micBG.jpeg';
 import dbConnect from './../../utils/dbConnect';
 import { getAllContest } from './../../controllers/contest';
 
-function PastContest({ allContest }) {
+function PastContest({ allContest, month_url, year_url }) {
   const cover = micBG.src;
   return (
     <div className="container">
-      <ContestNavBar selectedTab="past" />
+      <ContestNavBar
+        month_url={month_url}
+        year_url={year_url}
+        selectedTab="past"
+      />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {allContest.map((elem, i) => {
           return (
@@ -52,8 +56,19 @@ export async function getStaticProps() {
   await dbConnect();
   const allContest = await getAllContest().catch(console.error);
   if (allContest) {
+    const month_url = allContest.find(elem => {
+      elem.active && elem.contest_type === 'month';
+    }).url_name;
+    const year_url = allContest.find(elem => {
+      elem.active && elem.contest_type === 'year';
+    }).url_name;
     return {
-      props: { allContest: allContest, activeTab: 'contest' },
+      props: {
+        allContest: allContest,
+        month_url,
+        year_url,
+        activeTab: 'contest',
+      },
     };
   } else {
     return {

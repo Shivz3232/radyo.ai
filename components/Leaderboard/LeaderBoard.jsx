@@ -18,11 +18,11 @@ const LeaderBoard = ({ contestId }) => {
   useEffect(() => {
     const timer = setInterval(() => {
       const handleChange = async () => {
-        const { data } = await axios
+        const data = await axios
           .get(`/api/creator/creatorScore?contestId=${contestId}`)
           .catch(err => console.log(err));
         if (data) {
-          const arrayData = data.allCreators;
+          const arrayData = data.data.allCreators;
           setData(arrayData);
           const mappedData = [];
           const otherArray = arrayData.sort((a, b) => {
