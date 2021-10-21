@@ -3,17 +3,10 @@ import { verifyIdToken } from '../../utils/firebase/firebaseAdmin';
 import nookies from 'nookies';
 import PodcastCreatorModel from '../../models/podcastCreator';
 import ContestModel from '../../models/contest';
+import { findFollower } from '../../utils/findFollower';
 
-const findFollower = (followers, uid) => {
-  const index = followers.indexOf(uid);
-  if (index === -1) {
-    return false;
-  }
-  return true;
-};
-
-const removeFollower = (followers, uid) => {
-  followers.splice(followers.indexOf(uid), 1);
+const removeFollower = (followers, followerIndex) => {
+  followers.splice(followerIndex, 1);
   return followers;
 };
 
@@ -34,16 +27,14 @@ const updateFollowers = async (req, res) => {
         .sort({ startDate: -1 })
         .catch(console.error);
 
-      if (req.body.action === 'FOLLOW' && !findFollower(followers, uid)) {
+      const followerIndex = findFollower(followers, uid);
+      if (req.body.action === 'FOLLOW' && followerIndex === -1) {
         console.log(uid, 'Following', req.body.creatorId);
-        followers.push(uid);
+        followers.push({ uid: uid, timestamp: new Date().getTime() });
         triggerDbUpdate = true;
-      } else if (
-        req.body.action === 'UNFOLLOW' &&
-        findFollower(followers, uid)
-      ) {
+      } else if (req.body.action === 'UNFOLLOW' && followerIndex >= 0) {
         console.log(uid, 'Unfollowing', req.body.creatorId);
-        followers = removeFollower(followers, uid);
+        followers = removeFollower(followers, followerIndex);
         triggerDbUpdate = true;
       }
       if (triggerDbUpdate) {

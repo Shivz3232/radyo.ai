@@ -10,6 +10,6 @@ export const numberRequired = {
 };
 
 export const stringArray = {
-  type: [String],
+  type: [{ uid: { type: String }, timestamp: { type: Number } }],
   default: [],
 };

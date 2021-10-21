@@ -11,6 +11,7 @@ import nookies from 'nookies';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { useAuth } from '../../controllers/auth';
+import { findFollower } from '../../utils/findFollower';
 
 const CreatorPage = ({ info, audioCards, play }) => {
   const data = info;
@@ -22,7 +23,7 @@ const CreatorPage = ({ info, audioCards, play }) => {
     firebase.auth().onAuthStateChanged(() => {
       if (useremail) {
         setUserid(useremail.split('@')[0]);
-        setFollowing(followers.indexOf(userid) >= 0 ? true : false);
+        setFollowing(findFollower(followers, userid) >= 0 ? true : false);
       }
     });
   });
