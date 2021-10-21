@@ -68,7 +68,12 @@ const createUser = async (token, rcode) => {
           .catch(err => {
             console.log('Failed to add new user', token.email);
           });
-        emailUtil(token.name, token.email, 'RADYO_WELCOME');
+        emailUtil({
+          username: token.name,
+          useremail: token.email,
+          template: 'RADYO_WELCOME',
+          message: 'hello',
+        });
       }
     }
   );
