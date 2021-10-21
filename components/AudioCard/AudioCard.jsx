@@ -10,7 +10,7 @@ import playButton from '../../assets/playbtn.png';
 import { FACEBOOK_APP_ID } from '../../constants';
 // import { CgPlayListAdd, CgPlayListCheck } from 'react-icons/cg';
 import { usePlaylist } from '../../controllers/PlaylistProvider';
-import ShareModal from './ShareModal';
+import ShareModalBtn from './ShareModalBtn';
 import { FaFacebook } from 'react-icons/fa';
 import logoTelegram from '../../assets/telegram.svg';
 import logoWhatsapp from '../../assets/whatsapp.svg';
@@ -192,7 +192,7 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
             <span className="audio-card__action--item">{likeCount}</span>
           </div>
           <div className="audio-card__action">
-            <ShareModal
+            <ShareModalBtn
               id={`${categoryName}-${cardItemData._id}`}
               shareCount={shareCount}
             />
