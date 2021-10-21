@@ -62,8 +62,8 @@ uploader.use(uploadMiddleware);
 
 uploader.post(async (req, res) => {
   if (req.method === 'POST') {
-    console.log(req.files);
-    console.log(req.body.email);
+    // console.log(req.files);
+    // console.log(req.body.email);
 
     let audioFilePath = req.files.audioSrc[0].path;
     let coverImgPath = req.files.coverImg[0].path;
@@ -100,7 +100,7 @@ uploader.post(async (req, res) => {
       fileSize: `${Math.round(audioFile.bytes / 1000000)}MB`,
       duration: Math.floor(audioFile.duration),
     });
-    console.log(newPodcast);
+    
     await newPodcast.save().catch(err => {
       console.log(err);
     });

@@ -21,8 +21,6 @@ const uploadMiddleware = multerUpload.single('avatarImage');
 uploader.use(uploadMiddleware);
 
 uploader.post(async (req, res) => {
-  // console.log(req.body);
-  // console.log(req.file);
   if (req.method === 'POST') {
     try {
       if (req.file) {
@@ -30,7 +28,6 @@ uploader.post(async (req, res) => {
         parser = null;
         await uploads(file64.content, 'profile_images').then(
           async uploadResult => {
-            console.log(uploadResult);
             let UpdateProfile = await PodcastCreatorModel.updateOne(
               { email: req.body.email },
               {
