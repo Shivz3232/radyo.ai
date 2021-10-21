@@ -77,7 +77,7 @@ const getContest = async (req, res) => {
             value = item.creatorScore[indexof].score;
           } else value = 0;
           contest_results.push({
-            creatorId: item._id,
+            creatorUid: item.uid,
             contest_rank: index + 1,
             creatorName: item.creatorName,
             creatorScore: value,

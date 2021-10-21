@@ -18,7 +18,7 @@ const ContestSchema = new Schema({
   terms_and_conditions: String,
   contest_results: [
     {
-      creatorId: String,
+      creatorUid: String,
       contest_rank: Number,
       creatorName: String,
       creatorScore: Number,

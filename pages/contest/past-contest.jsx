@@ -57,10 +57,10 @@ export async function getStaticProps() {
   const allContest = await getAllContest().catch(console.error);
   if (allContest) {
     const month_url = allContest.find(elem => {
-      elem.active && elem.contest_type === 'month';
+      return elem.active && elem.contest_type === 'month';
     }).url_name;
     const year_url = allContest.find(elem => {
-      elem.active && elem.contest_type === 'year';
+      return elem.active && elem.contest_type === 'year';
     }).url_name;
     return {
       props: {

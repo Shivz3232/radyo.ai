@@ -13,6 +13,7 @@ import Banner2 from '../../assets/Banner_English_artist.svg';
 import Banner3 from '../../assets/Banner_English_Listener.svg';
 import Banner4 from '../../assets/Banner_Hindi_artist.svg';
 import contestRules from '../../contestRules.json';
+import WinnersList from '../../components/Contest/WinnersList';
 const BarChartRace = dynamic(
   () => import('./../../components/Leaderboard/LeaderBoard'),
   { ssr: false, loading: () => <p>loading...</p> }
@@ -55,18 +56,40 @@ const ContestPage = ({ month_url, year_url, contest }) => {
       <div
         className={`w-full mobile:w-11/12 mx-auto text-center flex flex-row-reverse mobile:block ipad:block rounded-md items-center mt-1 sm:mt-8 sm:text-xs`}
       >
-        <div className={`w-1/2 mobile:w-full ipad:w-full flex-row my-4 mx-1 `}>
+        {contest.active && (
           <div
-            className={`text-white bg-indigo-650 rounded-t-md py-1 h-18 sm:text-sm max-w-1/2`}
+            className={`w-1/2 mobile:w-full ipad:w-full flex-row my-4 mx-1 `}
           >
-            Live Leaderboard
+            <div
+              className={`text-white bg-indigo-650 rounded-t-md py-1 h-18 sm:text-sm max-w-1/2`}
+            >
+              Live Leaderboard
+            </div>
+            <div
+              className={`text-indigo-650 w-full h-96  mobile:h-full rounded-b-md p-1 border border-t-0 border-indigo-650 overflow-hidden`}
+            >
+              <BarChartRace contestId={contest._id} />
+            </div>
           </div>
+        )}
+        {!contest.active && (
           <div
-            className={`text-indigo-650 w-full h-96  mobile:h-full rounded-b-md p-1 border border-t-0 border-indigo-650 overflow-hidden`}
+            className={`w-1/2 mobile:w-full ipad:w-full flex-row my-4 mx-1 `}
           >
-            <BarChartRace contestId={contest._id} />
+            <div
+              className={`text-white bg-indigo-650 rounded-t-md py-1 h-18 sm:text-sm max-w-1/2`}
+            >
+              Leaderboard
+            </div>
+            <div
+              className={`text-indigo-650 w-full   mobile:h-full rounded-b-md p-1 border border-t-0 border-indigo-650 overflow-hidden`}
+            >
+              {contest && contest.contest_results && (
+                <WinnersList contest_results={contest.contest_results} />
+              )}
+            </div>
           </div>
-        </div>
+        )}
         <div
           className={`w-1/2 mobile:w-full ipad:w-full flex-row mx-1  rounded-md  `}
         >
@@ -135,7 +158,7 @@ export async function getStaticProps({ params }) {
   const result = await getLatestContest().catch(console.error);
 
   if (contest && result) {
-    console.log(result);
+    // console.log(result);
     const month_url = result.find(elem => {
       return elem.active && elem.contest_type === 'month';
     });

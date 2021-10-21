@@ -4,7 +4,7 @@ import {
   numberRequired,
   stringArray,
 } from './schemaFieldTypes';
-import ContestModel from './contest';
+// import ContestModel from './contest';
 
 const PodcastCreatorSchema = new Schema({
   creatorName: stringRequired,
@@ -27,7 +27,7 @@ const PodcastCreatorSchema = new Schema({
   creatorScore: {
     type: [
       {
-        contestId: { type: mongoose.Types.ObjectId, ref: ContestModel },
+        contestId: { type: mongoose.Types.ObjectId },
         score: numberRequired,
       },
     ],
