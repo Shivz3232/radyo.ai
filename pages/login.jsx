@@ -72,7 +72,6 @@ const createUser = async (token, rcode) => {
           username: token.name,
           useremail: token.email,
           template: 'RADYO_WELCOME',
-          message: 'hello',
         });
       }
     }
