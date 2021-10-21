@@ -28,6 +28,7 @@ const getPodcastsInReview = async (req, res) => {
       '-playCount -shareCount -likeCount'
     )
       .populate('creatorId', 'creatorName', 'users')
+      .sort({ createdAt: -1 })
       .catch(console.error);
 
     if (podCasts) {
@@ -81,7 +82,7 @@ const getPodcastsInReview = async (req, res) => {
           audiosPublished
         ).catch(console.error);
         if (updateAudioPublished) {
-          console.log(updateAudioPublished);
+          // console.log(updateAudioPublished);
           res.end();
         } else {
           res.status(500);

@@ -90,9 +90,9 @@ export const PlaylistProvider = ({ children }) => {
     setTrackInfo(info);
     if (id)
       axios
-        .post(`/api/update_play_count/${id}`, {})
+        .post(`/api/update_play_count/${id}`, { AudioId: id })
         // .then(res => console.log(res))
-        .catch(err => console.log(err));
+        .catch(err => console.log('oops',err));
   };
 
   return (

@@ -25,18 +25,20 @@ const LeaderBoard = ({ contestId }) => {
           const arrayData = data.data.allCreators;
           setData(arrayData);
           const mappedData = [];
-          const otherArray = arrayData.sort((a, b) => {
-            const updateContest = element =>
-              element.contestId.toString() === contestId.toString();
-            const indexofA = a.creatorScore.findIndex(updateContest);
-            const indexofB = b.creatorScore.findIndex(updateContest);
-            if (indexofA !== -1 && indexofB !== -1) {
-              return a.creatorScore[indexofA].score <
-                b.creatorScore[indexofB].score
-                ? 1
-                : -1;
-            } else return 0;
-          });
+          const otherArray = arrayData
+            .sort((a, b) => {
+              const updateContest = element =>
+                element.contestId.toString() === contestId.toString();
+              const indexofA = a.creatorScore.findIndex(updateContest);
+              const indexofB = b.creatorScore.findIndex(updateContest);
+              if (indexofA !== -1 && indexofB !== -1) {
+                return a.creatorScore[indexofA].score <
+                  b.creatorScore[indexofB].score
+                  ? 1
+                  : -1;
+              } else return 0;
+            })
+            .splice(0, 10);
           // console.log(arrayData, '<-->other', otherArray);
           otherArray.map((item, index) => {
             const id = index;
