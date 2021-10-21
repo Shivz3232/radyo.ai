@@ -9,7 +9,6 @@ const getCreatorAudio = async (req, res) => {
     // console.log('id', contestId);
     const allCreators = await PodcastCreatorModel.find({})
       .sort({ creatorScore: -1 })
-      .limit(10)
       .catch(console.error);
     if (allCreators) {
       res.json({
