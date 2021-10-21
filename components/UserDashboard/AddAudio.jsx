@@ -111,11 +111,12 @@ const AddAudio = () => {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
           .then(response => {
-            console.log(response);
-            setMessage({
-              msg: 'Congratulations, your submission have been successfully uploaded. Your submission will be reviewed and published within 2 business days​!',
-              savingMsg: null,
-            });
+            if (response.status === 200) {
+              setMessage({
+                msg: 'Congratulations, your submission have been successfully uploaded. Your submission will be reviewed and published within 2 business days​!',
+                savingMsg: null,
+              });
+            }
           })
           .catch(error => {
             console.log(error);
