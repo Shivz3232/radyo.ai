@@ -95,14 +95,14 @@ export const PlaylistProvider = ({ children }) => {
         .catch(err => console.log('oops', err));
 
     //refresh ad
-    // let Iframe = document.getElementById('aswift_0');
-    // if (Iframe) {
-    //   try {
-    //     Iframe.src = Iframe.src;
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // }
+    let Iframe = document.getElementById('aswift_1');
+    if (Iframe) {
+      try {
+        Iframe.src = Iframe.src;
+      } catch (err) {
+        console.log(err);
+      }
+    }
   };
 
   return (
