@@ -12,6 +12,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import { useAuth } from '../../controllers/auth';
 import { findFollower } from '../../utils/findFollower';
+import { FACEBOOK_APP_ID } from '../../constants';
 
 const CreatorPage = ({ info, audioCards, play }) => {
   const data = info;
@@ -77,10 +78,47 @@ export const getStaticProps = async ({ params }) => {
   const data = await getCreatorAudio(id).catch(console.error);
   const audioCards = await getAllAudio().catch(console.error);
   if (audioCards && data) {
+    const metaTags = [
+      // { name: 'og:url', content: window.location.href },
+      {
+        name: 'fb:app_id',
+        content: FACEBOOK_APP_ID,
+      },
+      {
+        name: 'og:image',
+        content: data.avatarImage,
+      },
+      {
+        name: 'twitter:card',
+        content: 'summary_large_image',
+      },
+      {
+        name: 'twitter:image',
+        content: data.avatarImage,
+      },
+      {
+        name: 'og:title',
+        content: `Radyo.ai | ${data.creatorName}`,
+      },
+      {
+        name: 'description',
+        content: `Radyo.ai | ${data.creatorName}`,
+      },
+      {
+        name: 'og:description',
+        content: `Radyo.ai | ${data.creatorName}`,
+      },
+      {
+        name: 'og:type',
+        content: 'audio',
+      },
+    ];
+
     return {
       props: {
         info: data,
         audioCards,
+        metaTags,
       },
       revalidate: 60,
     };
