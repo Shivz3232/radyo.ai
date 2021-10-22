@@ -11,8 +11,8 @@ const Adcard = () => {
         height: '205px',
       }}
     >
-      <GoogleCard size="320x200" />
-      {/* <img src="https://via.placeholder.com/320x200" alt="placeholder" /> */}
+      {/* <GoogleCard size="320x200" /> */}
+      <img src="https://via.placeholder.com/320x200" alt="placeholder" />
     </div>
   );
 };
