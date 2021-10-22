@@ -1,6 +1,7 @@
 import mongoose, { Model, model, Schema, Document } from 'mongoose';
 import { stringRequired, numberRequired } from './schemaFieldTypes';
 import PodcastCreatorModel from './podcastCreator';
+import { generateShortId } from '../utils/generateShortId';
 
 const PodcastSchema = new Schema(
   {
@@ -56,6 +57,10 @@ const PodcastSchema = new Schema(
       default: [],
       required: true,
     },
+    shortId: {
+      type: String,
+      default: () => generateShortId(),
+    }
   },
   {
     timestamps: {

@@ -6,6 +6,7 @@ import { useAuth } from '../../controllers/auth';
 import { image_formats } from '../RecordAudio/fileFormats';
 import SuccessModal from './SuccessModal';
 import { categoryDataLinks } from '../CategoryNavBar/categoryData';
+import { useRouter } from 'next/router';
 
 let Categories = categoryDataLinks.map(cat => {
   {
@@ -24,6 +25,7 @@ const LanOptions = [
 ];
 
 const AddAudio = () => {
+  const router = useRouter();
   const { useremail } = useAuth();
   const [lanSelect, setLanSelect] = useState('');
   const [catSelect, setCatSelect] = useState('');
@@ -43,6 +45,7 @@ const AddAudio = () => {
 
   const handleClose = () => {
     setSubmit(false);
+    router.reload(window.location.pathname);
   };
 
   const setAudioData = data => {
