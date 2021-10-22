@@ -168,8 +168,8 @@ export async function getStaticProps({ params }) {
     // console.log(month_url, year_url);
     return {
       props: {
-        month_url: month_url.url_name,
-        year_url: year_url.url_name,
+        month_url: month_url ? month_url.url_name : '#',
+        year_url: year_url ? year_url.url_name : '#',
         contest: contest,
         activeTab: 'contest',
       },
