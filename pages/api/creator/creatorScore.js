@@ -5,18 +5,20 @@ import PodcastCreatorModel from '../../../models/podcastCreator';
 const getCreatorAudio = async (req, res) => {
   if (req.method == 'GET') {
     //const creatorId = req.query.creatorId;
-    const allAudio = await PodcastCreatorModel.find({})
-      .sort({ createdAt: -1 })
+    const contestId = req.query.contestId;
+    // console.log('id', contestId);
+    const allCreators = await PodcastCreatorModel.find({})
+      .sort({ creatorScore: -1 })
       .catch(console.error);
-    if (allAudio) {
+    if (allCreators) {
       res.json({
-        allAudio,
+        allCreators,
       });
       res.end();
     } else {
       res.status(500);
       res.json({
-        message: 'Failed to fetch love bytes from db',
+        message: 'Failed to fetch creator score from db',
       });
       res.end();
     }

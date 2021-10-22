@@ -2,10 +2,10 @@ import { Tab } from '@headlessui/react';
 import axios from 'axios';
 import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
-import PodcastReviewCards from '../../components/PodcastReviewCard/PodcastReviewCards';
-import { classNames } from '../../components/UserDashboard/UserNavbar';
-import { useUser } from '../../utils/hooks';
-import { capitalizeFirstLetter } from '../../components/AudioCard/AudioCard';
+import PodcastReviewCards from '../../../components/PodcastReviewCard/PodcastReviewCards';
+import { classNames } from '../../../components/UserDashboard/UserNavbar';
+import { useUser } from '../../../utils/hooks';
+import { capitalizeFirstLetter } from '../../../components/AudioCard/AudioCard';
 
 const Dash = props => {
   // Check if authorized, else redirect to login

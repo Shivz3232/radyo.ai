@@ -1,4 +1,3 @@
-import connect from '../utils/middleware/mongoClient';
 import PodcastCreatorModel from '../models/podcastCreator';
 
 export const getCreatorAudio = async uid => {
@@ -17,6 +16,7 @@ export const getCreatorAudio = async uid => {
 export const getTrendingCreators = async () => {
   const trendingCreator = await PodcastCreatorModel.find({})
     .sort({ audiosPublished: -1 })
+    .limit(15)
     .catch(console.error);
   if (trendingCreator) {
     let temp = JSON.stringify(trendingCreator);

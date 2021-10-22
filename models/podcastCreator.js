@@ -4,20 +4,12 @@ import {
   numberRequired,
   stringArray,
 } from './schemaFieldTypes';
-
-// export interface CreatorI extends Document {
-//   creatorName: String;
-//   avatarImage: String;
-//   about: String;
-//   playCount: Number;
-//   likeCount: Number;
-//   subscriberCount: Number;
-// }
+// import ContestModel from './contest';
 
 const PodcastCreatorSchema = new Schema({
   creatorName: stringRequired,
   avatarImage: String,
-  about: stringRequired,
+  about: String,
   audiosPublished: numberRequired,
   audiosPublishedOn: {
     type: [Date],
@@ -32,6 +24,15 @@ const PodcastCreatorSchema = new Schema({
   uid: stringRequired,
   email: stringRequired,
   followers: stringArray,
+  creatorScore: {
+    type: [
+      {
+        contestId: { type: mongoose.Types.ObjectId },
+        score: numberRequired,
+      },
+    ],
+    default: [],
+  },
 });
 
 const PodcastCreatorModel =
