@@ -1,10 +1,7 @@
-// import Banner from './../../../components/Banner/Banner';
-// import PillsNav from './../../../components/PillsNav/PillsNav';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import AudioCardsVerticalScroll from '../../components/AudioCard/AudioCardsVerticalScroll';
-import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
 import CategoryNavBar from '../../components/CategoryNavBar/CategoryNavBar';
 import { Result } from '../../components/PodcastSearch/Result';
 import SearchBar from '../../components/PodcastSearch/SearchBar';
@@ -13,6 +10,8 @@ import {
   getCategoryAudio,
 } from '../../controllers/podcast';
 import dbConnect from '../../utils/dbConnect';
+import NoResult from '../../assets/NoResultsFound.png';
+import { initGA, trackPageView } from '../../components/Tracking/tracking';
 
 const PodcastCategory = props => {
   const [audioCards, setAudioCards] = useState(props.audioCards);
@@ -23,34 +22,14 @@ const PodcastCategory = props => {
     data: [],
   });
 
-  const [trackInfo, setTrackInfo] = useState({
-    audioSrc: '',
-    coverSrc: '',
-    title: '',
-  });
-
-  const playAudio = info => {
-    setTrackInfo(info);
-    props.play(info);
-  };
-  useEffect(() => {
-    const scrollRestoration = history.scrollRestoration;
-    if (scrollRestoration === 'manual') {
-      console.log(
-        'The location on the page is not restored, user will need to scroll manually.'
-      );
-    } else console.log(scrollRestoration);
-  }, []);
-  //to fix the audio player to bottom after it has been rendered on this page
-  useEffect(() => {
-    const player = document.querySelector('#audio-player');
-    player.classList.remove('absolute');
-    player.classList.add('fixed');
-  }, [props.category]);
-
   useEffect(() => {
     setAudioCards(props.audioCards);
   }, [props]);
+
+  useEffect(() => {
+    initGA();
+    trackPageView();
+  }, []);
 
   function loadMorePodcast() {
     if (audioCards.length) {
@@ -69,9 +48,6 @@ const PodcastCategory = props => {
     <div className="podcast-category-page">
       <CategoryNavBar category={props.category} />
       <div className="container">
-        {/* <button onClick={() => {}} className="border-2">
-          back
-        </button> */}
         <SearchBar
           category={props.category}
           data={searchResults}
@@ -79,7 +55,6 @@ const PodcastCategory = props => {
         />
         {searchResults && searchResults.searched && (
           <Result
-            playAudio={playAudio}
             data={searchResults.data}
             loading={searchResults.loading}
             query={searchResults.query}
@@ -89,33 +64,36 @@ const PodcastCategory = props => {
       </div>
       {!searchResults.searched && (
         <InfiniteScroll
+          className="no-scrollbar"
           style={{ padding: '0.5rem' }}
           dataLength={audioCards.length}
           next={loadMorePodcast}
           hasMore={true}
-          height="85vh"
+          height={'65vh'}
           loader={<p></p>}
         >
           <div className="container">
             {audioCards && audioCards.length ? (
-              <AudioCardsVerticalScroll
-                audioCards={audioCards}
-                playAudio={playAudio}
-              />
+              <AudioCardsVerticalScroll audioCards={audioCards} />
             ) : (
               <div className="not-found">
-                start adding audio to this category
+                <div className="flex items-center justify-center flex-row">
+                  <img
+                    className="h-64"
+                    src={NoResult.src}
+                    alt="no audio found, start adding audio"
+                  />
+                </div>
+                <div className="flex items-center justify-center flex-row">
+                  <div className="mobile:w-5/6 ipad:text-2xl text-center">
+                    No audio found for this category, start adding an audio
+                  </div>
+                </div>
               </div>
             )}
           </div>
         </InfiniteScroll>
       )}
-      {/* <div
-        className="audio-player-dashboard"
-        style={{ display: trackInfo.audioSrc ? '' : 'none' }}
-      >
-        <AudioPlayer trackInfo={trackInfo} />
-      </div> */}
     </div>
   );
 };
@@ -128,14 +106,14 @@ export async function getStaticProps({ params }) {
       props: {
         category: category,
         audioCards,
-        activeTab: '/category/cat-1',
+        activeTab: 'categories',
       },
-      revalidate: 30 * 60,
+      revalidate: 60,
     };
   } else {
     return {
       props: {},
-      revalidate: 30 * 60,
+      revalidate: 60,
     };
   }
 }

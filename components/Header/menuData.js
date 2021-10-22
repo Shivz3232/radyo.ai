@@ -1,13 +1,15 @@
+import { categoryDataLinks } from '../CategoryNavBar/categoryData';
+
 export const menuLinks = [
   {
-    id: 'collections',
-    label: 'Collections',
-    url: '/collections',
+    id: 'home',
+    label: 'Home',
+    url: '/',
   },
   {
     id: 'categories',
     label: 'Categories',
-    url: '/category/cat-1',
+    url: `${categoryDataLinks[1].url}`,
   },
   {
     id: 'contest',
@@ -25,21 +27,16 @@ export const userMenuLinks = [
   {
     id: 'my-profile',
     label: 'My Profile',
-    url: '/my-profile',
+    url: '/user/profile',
+  },
+  {
+    id: 'submit-audio',
+    label: 'Add Audio',
+    url: '/user/addAudio',
   },
   {
     id: 'my-submissions',
     label: 'My Submissions',
-    url: '/my-submissions',
-  },
-  {
-    id: 'submit-audio',
-    label: 'Submit an Audio',
-    url: '/submit-audio',
-  },
-  {
-    id: 'logout',
-    label: 'Logout',
-    url: '/logout',
+    url: '/user/submissions',
   },
 ];

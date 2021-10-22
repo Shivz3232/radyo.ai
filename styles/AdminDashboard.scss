@@ -1,0 +1,42 @@
+.dashboard {
+  .logout {
+    position: absolute;
+    margin-top: 0.4rem;
+    margin-left: 0.4rem;
+    right: 0.5rem;
+    div {
+      padding: 0.75rem;
+      font-size: 1.5em;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    :hover {
+      background-color: #4527a0;
+      color: white;
+    }
+  }
+
+  .container {
+    .hero {
+      margin-top: 0rem;
+      font-style: Roboto;
+      font-size: 2rem;
+      border-bottom: 3px solid blueviolet;
+      padding-left: 1rem;
+      padding-bottom: 0.6rem;
+    }
+  }
+  .audio-player-dashboard {
+    width: 100%;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+  }
+  @media only screen and (max-width: $tablet-res) {
+    .container {
+      .hero {
+        margin-top: 3.5rem;
+      }
+    }
+  }
+}

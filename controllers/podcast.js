@@ -2,7 +2,7 @@ import PodcastModel from '../models/podcast';
 
 export const getAudio = async id => {
   const allAudio = await PodcastModel.find({ _id: id, status: 'approved' })
-    .populate('creatorId', 'creatorName', 'users')
+    .populate('creatorId', 'creatorName uid', 'users')
     .sort({ createdAt: -1 })
     .catch(console.error);
   if (allAudio) {
@@ -17,7 +17,7 @@ export const getCategoryAudio = async category => {
     category: category,
     status: 'approved',
   })
-    .populate('creatorId', 'creatorName', 'users')
+    .populate('creatorId', 'creatorName uid', 'users')
     .limit(15)
     .sort({ createdAt: -1 })
     .catch(console.error);
@@ -31,7 +31,7 @@ export const getCategoryAudio = async category => {
 
 export const getAllAudio = async () => {
   const allAudio = await PodcastModel.find({ status: 'approved' })
-    .populate('creatorId', 'creatorName', 'users')
+    .populate('creatorId', 'creatorName uid', 'users')
     .sort({ createdAt: -1 })
     .limit(150)
     .catch(console.error);
@@ -56,5 +56,13 @@ export const getAudioIds = async () => {
     .limit(100)
     .catch(console.error);
   if (ids) return ids;
+  else return undefined;
+};
+
+export const getAudioId = async shortId => {
+  const id = await PodcastModel.find({ shortId: shortId }, '_id').catch(
+    console.error
+  );
+  if (id) return id;
   else return undefined;
 };

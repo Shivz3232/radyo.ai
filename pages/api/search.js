@@ -6,7 +6,7 @@ const getSearchResult = async (req, res) => {
     const searchQuery = req.query.query;
     const re = new RegExp(searchQuery.toString(), 'gi');
     const lastPodcastId = req.query.lastPodcastId;
-    console.log(searchQuery, re, lastPodcastId);
+    // console.log(searchQuery, re, lastPodcastId);
     let filter = {
       $or: [
         { title: { $regex: re } },
