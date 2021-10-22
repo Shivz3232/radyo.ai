@@ -55,7 +55,7 @@ function PastContest({ allContest, month_url, year_url }) {
 export async function getStaticProps() {
   await dbConnect();
   const allContest = await getAllContest().catch(console.error);
-  if (allContest) {
+  if (allContest && allContest.length) {
     const month_url = allContest.find(elem => {
       return elem.active && elem.contest_type === 'month';
     }).url_name;

@@ -60,7 +60,7 @@ const PodcastSchema = new Schema(
     shortId: {
       type: String,
       default: () => generateShortId(),
-    }
+    },
   },
   {
     timestamps: {
@@ -70,6 +70,6 @@ const PodcastSchema = new Schema(
 );
 
 const PodcastModel =
-  mongoose.models.podcast || model('podcast', PodcastSchema, 'podcast');
+  mongoose.models.podcasts || model('podcasts', PodcastSchema, 'podcasts');
 
 export default PodcastModel;
