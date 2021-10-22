@@ -73,7 +73,7 @@ export async function getStaticProps() {
     };
   } else {
     return {
-      props: {},
+      props: { allContest: [] },
     };
   }
 }
