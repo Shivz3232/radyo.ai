@@ -7,6 +7,7 @@ import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
 import { initGA, trackPageView } from '../../components/Tracking/tracking';
 import { getAllAudio, getAudio, getAudioIds } from '../../controllers/podcast';
 import dbConnect from '../../utils/dbConnect';
+import { FACEBOOK_APP_ID } from '../../constants';
 
 const PodcastAudio = ({ data, audioCards, play }) => {
   useEffect(() => {
@@ -44,10 +45,47 @@ export async function getStaticProps({ params }) {
   const audioCards = await getAllAudio().catch(console.error);
 
   if (audioCards && data) {
+    const metaTags = [
+      // { name: 'og:url', content: window.location.href },
+      {
+        name: 'fb:app_id',
+        content: FACEBOOK_APP_ID,
+      },
+      {
+        name: 'og:image',
+        content: data.coverImage,
+      },
+      {
+        name: 'twitter:card',
+        content: 'summary_large_image',
+      },
+      {
+        name: 'twitter:image',
+        content: data.coverImage,
+      },
+      {
+        name: 'og:title',
+        content: `Radyo.ai | ${data.title}`,
+      },
+      {
+        name: 'description',
+        content: `Radyo.ai | ${data.title}`,
+      },
+      {
+        name: 'og:description',
+        content: `Radyo.ai | ${data.title}`,
+      },
+      {
+        name: 'og:type',
+        content: 'audio',
+      },
+    ];
+
     return {
       props: {
         data: data,
         audioCards,
+        metaTags,
       },
       revalidate: 60,
     };
