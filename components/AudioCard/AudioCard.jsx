@@ -98,22 +98,22 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
   };
 
   const getTelegramShareLink = () => {
-    const url = encodeURIComponent(`${origin}/audio/${cardItemData._id}`);
-    const text = `${'Hear it on : '}`;
+    const url = encodeURIComponent(`${origin}/${cardItemData.shortId}`);
+    const text = `Hear ${cardItemData.title} on Radyo.ai : '${url}`;
     return `https://telegram.me/share/url?url=${url}&text=${text}`;
   };
 
   const getWhatsAppShareLink = () => {
-    const url = `${origin}/audio/${cardItemData._id}`;
-    const text = `Hear it on :  ${url}`;
+    const url = `${origin}/${cardItemData.shortId}`;
+    const text = `Hear ${cardItemData.title} on Radyo.ai : '${url}`;
     return decode(`whatsapp://send?text=${text}`);
   };
 
   const getFacebookShareLink = () => {
     try {
-      const url = encodeURIComponent(`${origin}/audio/${cardItemData._id}`);
+      const url = encodeURIComponent(`${origin}/${cardItemData.shortId}`);
       const text = encodeURIComponent(
-        `${'Hear it on: '}${origin}/audio/${cardItemData._id}`
+        `Hear ${cardItemData.title} on Radyo.ai : '${url}`
       );
       return `https://www.facebook.com/sharer/sharer.php?u=${url}&display=popup&ref=plugin&src=like&kid_directed_site=0&app_id=${FACEBOOK_APP_ID}`;
     } catch (error) {
@@ -284,7 +284,7 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
               className="mt-3 p-2 border bg-gray-200 rounded flex items-center justify-center"
               onClick={copyToClipboard}
             >
-              <div className="w-11/12 text-sm overflow-hidden">{`${origin}/audio/${cardItemData._id}`}</div>
+              <div className="w-11/12 text-sm overflow-hidden">{`${origin}/${cardItemData.shortId}`}</div>
               <div className="pl-2 text-gray-600 cursor-pointer has-tooltip">
                 <span className="hidden md:inline tooltip bottom-full w-max text-white bg-gray-700 p-1 rounded-sm text-sm shadow">
                   {copy ? 'Copied' : 'Copy link'}
