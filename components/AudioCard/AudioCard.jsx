@@ -122,7 +122,7 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
   };
 
   const copyToClipboard = e => {
-    navigator.clipboard.writeText(`${origin}/audio/${cardItemData._id}`);
+    navigator.clipboard.writeText(`${origin}/${cardItemData.shortId}`);
     updateShareCount();
     setCopy(true);
   };
