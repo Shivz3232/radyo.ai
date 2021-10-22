@@ -25,6 +25,7 @@ const CreatorPage = ({ info, audioCards, play }) => {
       if (useremail) {
         setUserid(useremail.split('@')[0]);
         setFollowing(findFollower(followers, userid) >= 0 ? true : false);
+        data.followers = followers;
       }
     });
   });
