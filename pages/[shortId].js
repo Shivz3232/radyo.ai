@@ -3,7 +3,7 @@ import dbConnect from '../utils/dbConnect';
 import { getAudioId } from '../controllers/podcast';
 import { useRouter } from 'next/router';
 
-const shortId = ({ redirect, props }) => {
+const ShortId = ({ redirect, props }) => {
   const router = useRouter();
   if (redirect) {
     router.push(redirect.destination);
@@ -11,7 +11,7 @@ const shortId = ({ redirect, props }) => {
   return <></>;
 };
 
-export default shortId;
+export default ShortId;
 
 export const getServerSideProps = async ({ params }) => {
   await dbConnect();
