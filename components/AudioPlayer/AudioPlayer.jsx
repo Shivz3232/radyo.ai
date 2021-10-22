@@ -48,8 +48,8 @@ const AudioPlayer = props => {
             // className="border border-red-500"
             style={{ width: '100%', height: '100px' }}
           >
-            <GoogleCard size="980x100" />
-            {/* <img src="https://via.placeholder.com/980x100" alt="placeholder" /> */}
+            {/* <GoogleCard size="980x100" /> */}
+            <img src="https://via.placeholder.com/980x100" alt="placeholder" />
           </div>
         )}
         <div className="audio-player">
