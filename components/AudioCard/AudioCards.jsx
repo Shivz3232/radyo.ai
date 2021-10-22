@@ -81,7 +81,8 @@ const AudioCards = ({ cardItems, categoryName }) => {
         cards.push(
           <div
             key={`google-card-${j}`}
-            className="audio-card mini generic-card p-0"
+            className="rounded-md shadow-custom mx-2"
+            // className="audio-card mini generic-card p-0"
           >
             <Adcard />
           </div>

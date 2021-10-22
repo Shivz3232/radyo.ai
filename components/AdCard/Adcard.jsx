@@ -5,14 +5,14 @@ const Adcard = () => {
   return (
     <div
       style={{
-        minWidth: '320px',
-        minHeight: '200px',
-        width: '320px',
-        height: '200px',
+        minWidth: '325px',
+        minHeight: '205px',
+        width: 'min-content',
+        height: '205px',
       }}
     >
-      {/* <GoogleCard size="320x200" /> */}
-      <img src="https://via.placeholder.com/320x200" alt="placeholder" />
+      <GoogleCard size="320x200" />
+      {/* <img src="https://via.placeholder.com/320x200" alt="placeholder" /> */}
     </div>
   );
 };

@@ -92,7 +92,17 @@ export const PlaylistProvider = ({ children }) => {
       axios
         .post(`/api/update_play_count/${id}`, { AudioId: id })
         // .then(res => console.log(res))
-        .catch(err => console.log('oops',err));
+        .catch(err => console.log('oops', err));
+
+    //refresh ad
+    // let Iframe = document.getElementById('aswift_0');
+    // if (Iframe) {
+    //   try {
+    //     Iframe.src = Iframe.src;
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // }
   };
 
   return (
