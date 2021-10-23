@@ -13,7 +13,7 @@ const PodcastSchema = new Schema(
     creatorName: stringRequired,
     category: stringRequired,
     title: stringRequired,
-    description: stringRequired,
+    description: String,
     playCount: numberRequired,
     likeCount: numberRequired,
     likedBy: {

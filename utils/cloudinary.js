@@ -21,6 +21,22 @@ export const uploads = (file, folder) => {
     );
   });
 };
-// resolve({
-//   url: result.secure_url,
-// });
+
+export const update = (file, publicId) => {
+  return new Promise((resolve, reject) => {
+    cloudinary.v2.uploader.upload(
+      file,
+      {
+        public_id: publicId,
+        resource_type: 'auto',
+      },
+      (error, result) => {
+        if (!error) {
+          resolve(result);
+        } else {
+          reject(console.log(error));
+        }
+      }
+    );
+  });
+};

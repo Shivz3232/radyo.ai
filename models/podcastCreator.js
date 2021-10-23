@@ -9,6 +9,7 @@ import {
 const PodcastCreatorSchema = new Schema({
   creatorName: stringRequired,
   avatarImage: String,
+  cloudinaryId: String,
   about: String,
   audiosPublished: numberRequired,
   audiosPublishedOn: {

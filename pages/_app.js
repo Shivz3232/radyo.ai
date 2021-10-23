@@ -30,12 +30,26 @@ import { AuthProvider } from '../controllers/auth';
 import { PlaylistProvider } from '../controllers/PlaylistProvider';
 
 function App({ Component, pageProps }) {
+  const [location, setLocation] = useState('');
+  useEffect(() => {
+    setLocation(window.location.href);
+  }, []);
+
   return (
     <main className="app">
       <PlaylistProvider>
         <AuthProvider>
           <Head>
             <title>Radyo.ai</title>
+            <meta property="og:url" content={location} />
+            {pageProps.metaTags &&
+              pageProps.metaTags.map((tag) => (
+                <meta
+                  key={tag.name}
+                  property={tag.name}
+                  content={tag.content}
+                />
+              ))}
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <Header activeTab={pageProps.activeTab} data={{ loggedIn: false }} />
