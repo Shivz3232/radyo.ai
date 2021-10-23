@@ -11,11 +11,7 @@ const createTagsArray = tagsString => {
   return tags.split(',');
 };
 
-const uploader = nextConnect({
-  onNoMatch(req, res) {
-    res.status(405).json({ error: `Method '${req.method}' Not Allowed` });
-  },
-});
+const uploader = nextConnect();
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -62,8 +58,6 @@ uploader.use(uploadMiddleware);
 
 uploader.post(async (req, res) => {
   if (req.method === 'POST') {
-    // console.log(req.files);
-    // console.log(req.body.email);
 
     let audioFilePath = req.files.audioSrc[0].path;
     let coverImgPath = req.files.coverImg[0].path;
@@ -71,7 +65,6 @@ uploader.post(async (req, res) => {
     var audioFile = await uploads(audioFilePath, 'audio_files');
     var coverImg = await uploads(coverImgPath, 'cover_images');
 
-    console.log(audioFile, coverImg);
     let creatorData = await PodcastCreatorModel.find(
       { email: req.body.email },
       (err, result) => {
@@ -108,6 +101,7 @@ uploader.post(async (req, res) => {
     res.status(200).json({
       message: 'uploaded successfully',
     });
+    res.end();
   } else {
     res.status(405);
     res.setHeader('Access-Control-Allow-Methods', 'GET');
@@ -122,3 +116,10 @@ export const config = {
     bodyParser: false, // Disallow body parsing, consume as stream
   },
 };
+
+
+// {
+//   onNoMatch(req, res) {
+//     res.status(405).json({ error: `Method '${req.method}' Not Allowed` });
+//   },
+// }
