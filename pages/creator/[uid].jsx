@@ -13,6 +13,33 @@ import 'firebase/auth';
 import { useAuth } from '../../controllers/auth';
 import { findFollower } from '../../utils/findFollower';
 import { FACEBOOK_APP_ID } from '../../constants';
+import axios from 'axios';
+
+const getFollowerList = async (
+  creatorId,
+  setFollowers,
+  setFollowing,
+  userid
+) => {
+  const data = {
+    creatorId: creatorId,
+  };
+  await axios({
+    method: 'POST',
+    url: '/api/getFollowers',
+    data: data,
+    headers: { 'Content-Type': 'application/json' },
+  })
+    .then(res => {
+      setFollowers(res.data.followers);
+      setFollowing(
+        findFollower(res.data.followers, userid) >= 0 ? true : false
+      );
+    })
+    .catch(error => {
+      console.log('Error getting follower list.');
+    });
+};
 
 const CreatorPage = ({ info, audioCards, play }) => {
   const data = info;
@@ -20,15 +47,20 @@ const CreatorPage = ({ info, audioCards, play }) => {
   const [userid, setUserid] = useState('');
   const [followers, setFollowers] = useState(data.followers);
   const [following, setFollowing] = useState(false);
+
+  useEffect(() => {
+    getFollowerList(data.uid, setFollowers, setFollowing, userid);
+  }, []);
+
   useEffect(() => {
     firebase.auth().onAuthStateChanged(() => {
       if (useremail) {
         setUserid(useremail.split('@')[0]);
         setFollowing(findFollower(followers, userid) >= 0 ? true : false);
-        data.followers = followers;
       }
     });
   });
+
   return (
     <>
       <div className="creatorpage">
