@@ -282,7 +282,7 @@ const AudioPageComponent = ({ data }) => {
       {/*Comment Box*/}
       <div className="comment-box-container">
         <FacebookProvider appId={FACEBOOK_APP_ID}>
-          <Comments href="http://www.facebook.com" width="100%" />
+          <Comments href={`${origin}/audio/${data._id}`} width="100%" />
         </FacebookProvider>
       </div>
     </>
