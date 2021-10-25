@@ -25,7 +25,7 @@ const getSearchResult = async (req, res) => {
     }
 
     const allAudio = await PodcastModel.find(filter)
-      .populate('creatorId', 'creatorName', 'users')
+      .populate('creatorId', 'creatorName uid', 'users')
       //////////////change limit to 20
       .limit(20)
       .sort({ createdAt: -1 })

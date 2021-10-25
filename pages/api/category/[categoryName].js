@@ -17,7 +17,7 @@ const getCategoryAudio = async (req, res) => {
       else return res.status(400).json({ success: false });
     }
     const allAudio = await PodcastModel.find(filter)
-      .populate('creatorId', 'creatorName', 'users')
+      .populate('creatorId', 'creatorName uid', 'users')
       .sort({ createdAt: -1 })
       .limit(15)
       .catch(console.error);
