@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import React from 'react';
+import React, { useEffect } from 'react';
 import ContestNavBar from '../../components/Contest/ContestNavBar';
 import HomeCarousel from '../../components/HomeCarousel/HomeCarousel';
 import {
@@ -32,6 +32,10 @@ const ContestPage = ({ month_url, year_url, contest }) => {
       __html: data,
     };
   }
+
+  useEffect(() => {
+    console.log('contest:', contest._id);
+  }, [contest._id]);
 
   return (
     <div className="container">
