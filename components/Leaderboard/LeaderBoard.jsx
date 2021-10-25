@@ -68,8 +68,10 @@ const LeaderBoard = ({ contestId }) => {
 
   return (
     <div className="lb-container w-full" id="leaderboard">
-      {sortedData.length === 0 ? (
-        <div className="mx-auto my-2 animate-spin rounded-full h-20 w-20 border-t-2 border-b-2 border-purple-500"></div>
+      {sortedData.length === 0 || true ? (
+        <div className="h-96 flex items-center justify-center">
+          <div className=" animate-spin rounded-full h-20 w-20 border-t-2 border-b-2 border-purple-500"></div>
+        </div>
       ) : (
         <ChartRace
           data={sortedData}
