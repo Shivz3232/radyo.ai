@@ -4,6 +4,7 @@ import Select from 'react-select';
 import RecordAudio from '../RecordAudio/RecordAudio';
 import { useAuth } from '../../controllers/auth';
 import { image_formats } from '../RecordAudio/fileFormats';
+import TagsInput from './TagsInput';
 import SuccessModal from './SuccessModal';
 import { categoryDataLinks } from '../CategoryNavBar/categoryData';
 import { useRouter } from 'next/router';
@@ -178,6 +179,7 @@ const AddAudio = () => {
               value={textFields.hashTags}
               required
             />
+            <TagsInput />
             <input
               className="input bg-white"
               type="text"
