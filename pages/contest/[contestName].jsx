@@ -34,7 +34,7 @@ const ContestPage = ({ month_url, year_url, contest }) => {
   }
 
   useEffect(() => {
-    console.log('contest:', contest._id);
+    // console.log('contest:', contest._id);
   }, [contest._id]);
 
   return (
