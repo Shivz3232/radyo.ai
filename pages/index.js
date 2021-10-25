@@ -16,11 +16,12 @@ import Banner4 from '../assets/Banner_Hindi_artist.svg';
 import { initGA, trackPageView } from '../components/Tracking/tracking';
 import TrendingArtist from '../components/TrendingArtist/TrendingArtist';
 import { getTrendingCreators } from '../controllers/creator';
-const Podcast = ({ audioCards, trendingCreators }) => {
-  useEffect(() => {
-    initGA();
-    trackPageView();
-  }, []);
+import axios from 'axios';
+const Podcast = props => {
+  const [audioCards, setAudioCards] = useState(props.audioCards);
+  const [trendingCreators, setTrendingCreators] = useState(
+    props.trendingCreators
+  );
   const [showWelcomeModal, setshowWelcomeModal] = useState('hidden');
   const [searchResults, setSearchResults] = useState({
     searched: false,
@@ -31,6 +32,23 @@ const Podcast = ({ audioCards, trendingCreators }) => {
 
   const [showmodal, setShowModal] = useSessionStorage('endModalSession', false);
   const images = [Banner1.src, Banner2.src, Banner3.src, Banner4.src];
+
+  useEffect(() => {
+    axios
+      .get(`/api/hydrate/audio/get_audio`)
+      .then(res => {
+        // console.log(res.data.allAudio[0]);
+        if (res.data.allAudio && res.data.allAudio.length) {
+          setAudioCards(res.data.allAudio);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+    initGA();
+    trackPageView();
+  }, []);
 
   useEffect(() => {
     if (showmodal != true) {
