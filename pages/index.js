@@ -31,7 +31,12 @@ const Podcast = props => {
   });
 
   const [showmodal, setShowModal] = useSessionStorage('endModalSession', false);
-  const images = [Banner1.src, Banner2.src, Banner3.src, Banner4.src];
+  const images = [
+    { img: Banner1.src, url: '/' },
+    { img: Banner2.src, url: '/contest' },
+    { img: Banner3.src, url: '/contest' },
+    { img: Banner4.src, url: '/contest' },
+  ];
 
   useEffect(() => {
     axios
