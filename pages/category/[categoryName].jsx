@@ -23,8 +23,15 @@ const PodcastCategory = props => {
   });
 
   useEffect(() => {
-    setAudioCards(props.audioCards);
-  }, [props]);
+    axios
+      .get(`/api/hydrate/audio/get_audio?category=${props.category}`)
+      .then(res => {
+        // console.log(res.data.allAudio);
+        if(res.data.allAudio && res.data.allAudio.length)
+        setAudioCards(res.data.allAudio);
+      })
+      .catch(err => console.log(err));
+  }, [props.category]);
 
   useEffect(() => {
     initGA();

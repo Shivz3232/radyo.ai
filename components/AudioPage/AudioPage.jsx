@@ -12,6 +12,7 @@ import { Comments, FacebookProvider } from 'react-facebook';
 import 'react-h5-audio-player/lib/styles.css';
 import { FaFacebook, FaHeart, FaRegHeart } from 'react-icons/fa';
 import { MdOutlineReportProblem } from 'react-icons/md';
+import LinesEllipsis from 'react-lines-ellipsis';
 import logoTelegram from '../../assets/telegram.svg';
 import logoWhatsapp from '../../assets/whatsapp.svg';
 import { FACEBOOK_APP_ID } from '../../constants';
@@ -189,9 +190,16 @@ const AudioPageComponent = ({ data }) => {
 
         <div className="audioPage-card__action--row">
           <div className="audioPage-card__action">
-            <span className="audioPage-card__action--item">
+            <div className="audioPage-card__action--item">
               Played {data.playCount} times
-            </span>
+              {/* <LinesEllipsis
+                text={decode(`Played ${data.playCount} times`)}
+                maxLine="1"
+                ellipsis="..."
+                trimRight
+                basedOn="letters"
+              /> */}
+            </div>
           </div>
           <div className="audioPage-card__action" onClick={updateLikeCount}>
             {like ? (
@@ -204,9 +212,16 @@ const AudioPageComponent = ({ data }) => {
             </span>
           </div>
           <div className="audioPage-card__action">
-            <span className="audioPage-card__action--item">
+            <div className="audioPage-card__action--item">
               {dayjs().to(dayjs(data.createdAt))}
-            </span>
+              {/* <LinesEllipsis
+                text={decode(dayjs().to(dayjs(data.createdAt)))}
+                maxLine="1"
+                ellipsis="..."
+                trimRight
+                basedOn="letters"
+              /> */}
+            </div>
           </div>
           <div className="audioPage-card__action has-tooltip">
             {report ? (

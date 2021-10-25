@@ -20,7 +20,12 @@ const BarChartRace = dynamic(
 );
 
 const ContestPage = ({ month_url, year_url, contest }) => {
-  const images = [Banner1.src, Banner2.src, Banner3.src, Banner4.src];
+  const images = [
+    { img: Banner1.src, url: '/' },
+    { img: Banner2.src, url: '/contest' },
+    { img: Banner3.src, url: '/contest' },
+    { img: Banner4.src, url: '/contest' },
+  ];
 
   function createMarkup(data) {
     return {
@@ -168,8 +173,8 @@ export async function getStaticProps({ params }) {
     // console.log(month_url, year_url);
     return {
       props: {
-        month_url: month_url.url_name,
-        year_url: year_url.url_name,
+        month_url: month_url ? month_url.url_name : '#',
+        year_url: year_url ? year_url.url_name : '#',
         contest: contest,
         activeTab: 'contest',
       },
