@@ -1,13 +1,17 @@
 import React, { useCallback } from 'react';
 import Tags from '@yaireo/tagify/dist/react.tagify';
 
-const TagsInput = () => {
+const TagsInput = ({ addHashTags }) => {
   const onChange = useCallback(e => {
-    console.log(e.detail.value);
+    addHashTags(e.detail.tagify.getCleanValue());
   }, []);
 
   return (
-    <Tags defaultValue="Music,Shayri" onChange={onChange} className="tags" />
+    <Tags
+      defaultValue="Music,Song"
+      onChange={onChange}
+      className="tags-Input-Field"
+    />
   );
 };
 
