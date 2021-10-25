@@ -16,7 +16,7 @@ const getAudios = async (req, res) => {
     }
 
     const allAudio = await PodcastModel.find(filter)
-      .populate('creatorId', 'creatorName', 'users')
+      .populate('creatorId', 'creatorName uid', 'users')
       .limit(limit)
       .sort({ createdAt: -1 })
       .catch(console.error);

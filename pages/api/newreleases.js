@@ -4,7 +4,7 @@ import PodcastModel from '../../models/podcast';
 const getNewReleases = async (req, res) => {
   if (req.method == 'GET') {
     const allAudio = await PodcastModel.find({ status: 'approved' })
-      .populate('creatorId', 'creatorName', 'users')
+      .populate('creatorId', 'creatorName uid', 'users')
       .sort({ createdAt: -1 })
       .catch(console.error);
     if (allAudio) {
