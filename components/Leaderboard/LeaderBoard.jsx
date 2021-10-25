@@ -68,7 +68,7 @@ const LeaderBoard = ({ contestId }) => {
 
   return (
     <div className="lb-container w-full" id="leaderboard">
-      {sortedData.length === 0 || true ? (
+      {sortedData.length === 0 ? (
         <div className="h-96 flex items-center justify-center">
           <div className=" animate-spin rounded-full h-20 w-20 border-t-2 border-b-2 border-purple-500"></div>
         </div>

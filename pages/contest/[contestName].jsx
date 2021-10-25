@@ -63,19 +63,17 @@ const ContestPage = ({ month_url, year_url, contest }) => {
         Winner : {contest.name}
       </div> */}
       <div
-        className={`w-full mobile:w-11/12 mx-auto text-center flex flex-row-reverse mobile:block ipad:block rounded-md items-center mt-1 sm:mt-8 sm:text-xs`}
+        className={`w-full mobile:w-11/12 mx-auto text-center flex flex-row-reverse mobile:block ipad:block rounded-md items-start mt-1 sm:mt-8 sm:text-xs`}
       >
         {contest.active && (
-          <div
-            className={`w-1/2 mobile:w-full ipad:w-full flex-row my-4 mx-1 `}
-          >
+          <div className={`w-1/2 mobile:w-full ipad:w-full flex-row mx-1 `}>
             <div
               className={`text-white bg-indigo-650 rounded-t-md py-1 h-18 sm:text-sm max-w-1/2`}
             >
               Live Leaderboard
             </div>
             <div
-              className={`text-indigo-650 w-full h-96  mobile:h-full rounded-b-md p-1 border border-t-0 border-indigo-650 overflow-hidden`}
+              className={`text-indigo-650 w-full h-96 mobile:h-full rounded-b-md p-1 border border-t-0 border-indigo-650 overflow-hidden`}
             >
               <BarChartRace contestId={contest._id} />
             </div>
