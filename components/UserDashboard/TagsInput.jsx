@@ -8,9 +8,9 @@ const TagsInput = ({ addHashTags }) => {
 
   return (
     <Tags
-      defaultValue="Music,Song"
       onChange={onChange}
       className="tags-Input-Field"
+      placeholder="Add Hashtags"
     />
   );
 };
