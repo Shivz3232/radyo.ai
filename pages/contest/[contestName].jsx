@@ -81,7 +81,7 @@ const ContestPage = ({ month_url, year_url, contest }) => {
         )}
         {!contest.active && (
           <div
-            className={`w-1/2 mobile:w-full ipad:w-full flex-row my-4 mx-1 `}
+            className={`w-1/2 mobile:w-full ipad:w-full flex-row mx-1 `}
           >
             <div
               className={`text-white bg-indigo-650 rounded-t-md py-1 h-18 sm:text-sm max-w-1/2`}

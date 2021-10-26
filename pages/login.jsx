@@ -14,6 +14,10 @@ import PodcastCreatorModel from '../models/podcastCreator';
 import { useAuth } from '../controllers/auth';
 import { initGA, trackPageView } from '../components/Tracking/tracking';
 import { emailUtil } from '../utils/emailUtil';
+import {
+  TERMS_AND_CONDITIONS_ENDPOINT,
+  PRIVACY_POLICY_ENDPOINT,
+} from './../constants';
 
 export const getServerSideProps = async context => {
   try {
@@ -191,11 +195,11 @@ const Login = () => {
             </div>
             <div className="text-xs break-words text-center">
               By signing up and logging in I agree to{' '}
-              <a href="#" className="underline">
+              <a href={TERMS_AND_CONDITIONS_ENDPOINT} className="underline">
                 Terms and Conditions
               </a>{' '}
               and{' '}
-              <a href="#" className="underline">
+              <a href={PRIVACY_POLICY_ENDPOINT} className="underline">
                 Privacy Policy
               </a>
               .

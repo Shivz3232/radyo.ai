@@ -8,6 +8,8 @@ import LinesEllipsis from 'react-lines-ellipsis';
 import { AiOutlineClose } from 'react-icons/ai';
 import { usePlaylist } from '../../controllers/PlaylistProvider';
 import { GoogleCard } from './../AdCard/GoogleCard';
+// import GooglePusblisherAd from '../AdCard/GooglePusblisherAd';
+import { AdSlot } from 'react-dfp';
 const AudioPlayer = props => {
   const { trackInfo, playAudio, isPlaying, getNextTrack, getPreviousTrack } =
     usePlaylist();
@@ -45,11 +47,14 @@ const AudioPlayer = props => {
       >
         {isPlaying && (
           <div
-            // className="border border-red-500"
+            className="border border-red-500"
             style={{ width: '100%', height: '100px' }}
           >
-            {/* <GoogleCard size="980x100" /> */}
-            <img src="https://via.placeholder.com/980x100" alt="placeholder" />
+            <AdSlot
+              adUnit="22624757209/playeradmanagercode"
+              sizes={[[970, 90]]}
+            />
+            {/* <img src="https://via.placeholder.com/980x100" alt="placeholder" /> */}
           </div>
         )}
         <div className="audio-player">

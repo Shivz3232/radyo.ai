@@ -4,6 +4,12 @@ export const FACEBOOK_APP_ID = '1459314287776121';
 
 export const GOOGLE_ANALYTICS_ID = 'G-SMX99EKTY9';
 
+export const CONTENT_POLICY_ENDPOINT = '/content-policy';
+export const TERMS_AND_CONDITIONS_ENDPOINT = '/terms-and-conditions';
+export const TAKEDOWN_POLICY_ENDPOINT = '/takedown-policy';
+export const PRIVACY_POLICY_ENDPOINT = '/privacy-policy';
+export const USER_AGREEMENT_ENDPOINT = '/user-agreement';
+
 export const GAD_CLIENT_ID = 'ca-pub-3369394419363433';
 // export const GAD_LAYOUT_KEY = '';
 export const GAD_SLOT = '7635189777';
