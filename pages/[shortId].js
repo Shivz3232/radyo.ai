@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 
 const ShortId = ({ redirect, props }) => {
   const router = useRouter();
+
   if (redirect) {
     router.push(redirect.destination);
   }
@@ -20,7 +21,7 @@ export const getServerSideProps = async ({ params }) => {
     return {
       redirect: {
         permanent: false,
-        destination: `/audio/${id[0]._id}`,
+        destination: `/audio/${id[0]._id}#play`,
       },
       props: {},
     };
