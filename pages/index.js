@@ -54,6 +54,7 @@ const Podcast = ({ audioCards, trendingCreators }) => {
           <div className="flex justify-center">
             <HomeCarousel images={images} />
           </div>
+          <div className="hidden h-20" id="search-bar-start"></div>
           <SearchBar
             category={'category'}
             data={searchResults}

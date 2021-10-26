@@ -3,6 +3,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { BiArrowBack } from 'react-icons/bi';
 import { GrSearch } from 'react-icons/gr';
 
+var searchQuery = null;
+
+export const searchTag = data => {
+  searchQuery = data;
+};
+
 const SearchBar = ({ setData, category, data }) => {
   const val = useRef();
   const [query, setQuery] = useState('');
@@ -21,6 +27,8 @@ const SearchBar = ({ setData, category, data }) => {
 
   function loadResults() {
     //@ts-ignore
+    console.log(query);
+    console.log('result loaded');
     if (query) {
       axios
         .get(`/api/search?query=${query}`)
@@ -35,29 +43,39 @@ const SearchBar = ({ setData, category, data }) => {
         .catch(err => console.log(err));
       //@ts-ignore
       val.current.blur();
-      //////////scroll to search bar
-      // var element = document.getElementById('search-bar-start');
-      // if (element) element.classList.remove('hidden');
-      // if (element)
-      //   element.scrollIntoView({
-      //     behavior: 'smooth',
-      //     block: 'start',
-      //     inline: 'nearest',
-      //   });
-      val.current.scrollIntoView({
+    }
+    //////////scroll to search bar
+    var element = document.getElementById('search-bar-start');
+    if (element) element.classList.remove('hidden');
+    if (element)
+      element.scrollIntoView({
         behavior: 'smooth',
         block: 'start',
         inline: 'nearest',
       });
-      // var time;
-      // time = setTimeout(() => {
-      //   if (element) element.classList.add('hidden');
-      //   clearTimeout(time);
-      // }, 600);
-    }
+    // val.current.scrollIntoView({
+    //   behavior: 'smooth',
+    //   block: 'start',
+    //   inline: 'nearest',
+    // });
+    var time;
+    time = setTimeout(() => {
+      if (element) element.classList.add('hidden');
+      clearTimeout(time);
+    }, 600);
   }
+
+  useEffect(() => {
+    if (searchQuery) {
+      setQuery(searchQuery);
+      val.current.value = searchQuery;
+      console.log(query);
+        loadResults();
+    }
+  }, [searchQuery]);
+
   return (
-    <div className="podcast-search-bar">
+    <div className="podcast-search-bar" id="searchbar">
       <div className="search-input-field">
         <div className="relative flex w-full flex-wrap items-stretch mb-3 align-center">
           {data.searched && (

@@ -19,6 +19,7 @@ import { useAuth } from '../../controllers/auth';
 import { usePlaylist } from '../../controllers/PlaylistProvider';
 import { capitalizeFirstLetter } from '../AudioCard/AudioCard';
 import ReportPopover from './ReportPopover';
+import { searchTag } from '../PodcastSearch/SearchBar';
 
 dayjs.extend(relativeTime);
 dayjs.extend(localeData);
@@ -225,9 +226,17 @@ const AudioPageComponent = ({ data }) => {
       {data.tags.length > 0 ? (
         <div className="tags-row">
           {data.tags.map((elem, i) => (
-            <div key={i} className="tag-item bg-indigo-650">
-              {elem}
-            </div>
+            <Link href="/#search-bar-start">
+              <a style={{ textDecoration: 'none', color: 'inherit' }}>
+                <div
+                  key={i}
+                  className="tag-item bg-indigo-650"
+                  onClick={() => searchTag(elem)}
+                >
+                  {elem}
+                </div>
+              </a>
+            </Link>
           ))}
         </div>
       ) : null}
