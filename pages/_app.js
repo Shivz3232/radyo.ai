@@ -6,6 +6,7 @@ import AudioPlayer from '../components/AudioPlayer/AudioPlayer';
 import Header from '../components/Header/Header';
 import '../styles/App.scss';
 import '../styles/AboutUs.scss';
+import '../styles/Legal.scss';
 import '../styles/AudioCard.scss';
 import '../styles/AudioCardsVerticalScroll.scss';
 import '../styles/AudioCategoryColors.scss';
