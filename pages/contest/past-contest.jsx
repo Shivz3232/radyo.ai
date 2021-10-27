@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ContestNavBar from '../../components/Contest/ContestNavBar';
 import Link from 'next/link';
 import micBG from '../../assets/micBG.jpeg';
 import dbConnect from './../../utils/dbConnect';
 import { getAllContest } from './../../controllers/contest';
+import { initGA, trackPageView } from './../../components/Tracking/tracking';
 
 function PastContest({ allContest, month_url, year_url }) {
   const cover = micBG.src;
+  useEffect(() => {
+    initGA();
+    trackPageView();
+  }, []);
   return (
     <div className="container">
       <ContestNavBar
@@ -38,7 +43,7 @@ function PastContest({ allContest, month_url, year_url }) {
                     }}
                     className="cursor-pointer relative hover:scale-105 delay-75 transition text-white text-xl font-bold h-full w-full rounded-md flex items-center justify-center"
                   >
-                    <div className="w-4/5 bg-gray-600 bg-opacity-70 p-2 rounded">
+                    <div className="w-4/5 bg-gray-600 bg-opacity-70 p-2 rounded text-center">
                       {elem.name}
                     </div>
                   </div>

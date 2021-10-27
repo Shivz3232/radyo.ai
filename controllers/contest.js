@@ -67,11 +67,10 @@ export const getContestIds = async () => {
     console.error
   );
   if (names) {
-    const paths = names.map(elem => {
+    const paths_filtered = names.filter(e => e.url_name !== 'listener-award');
+    const paths = paths_filtered.map(elem => {
       return {
         path: elem.url_name,
-        // path: elem.name.toLowerCase().split(' ').join('-'),
-        // id: elem._id,
       };
     });
     return paths;

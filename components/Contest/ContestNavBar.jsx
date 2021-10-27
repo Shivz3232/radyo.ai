@@ -18,6 +18,7 @@ const ContestNavBar = ({ selectedTab, month_url, year_url }) => {
       label: 'Voice of the year',
       url: year_url,
     },
+    { id: 'listener', label: 'Listener Award', url: '/contest/listener-award' },
     { id: 'past', label: 'Past contest', url: '/contest/past-contest' },
   ];
 

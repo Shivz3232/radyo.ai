@@ -1,33 +1,22 @@
-import dynamic from 'next/dynamic';
 import React, { useEffect } from 'react';
 import ContestNavBar from '../../components/Contest/ContestNavBar';
 import HomeCarousel from '../../components/HomeCarousel/HomeCarousel';
-import {
-  getContestDetails,
-  getContestIds,
-  getLatestContest,
-} from '../../controllers/contest';
-import dbConnect from '../../utils/dbConnect';
 import Banner1 from '../../assets/Banner_Radyo.svg';
 import Banner2 from '../../assets/Banner_English_artist.svg';
 import Banner3 from '../../assets/Banner_English_Listener.svg';
 import Banner4 from '../../assets/Banner_Hindi_artist.svg';
 import contestRules from '../../contestRules.json';
-import WinnersList from '../../components/Contest/WinnersList';
+import dbConnect from '../../utils/dbConnect';
+import { getContestDetails, getLatestContest } from '../../controllers/contest';
 import { initGA, trackPageView } from './../../components/Tracking/tracking';
-const BarChartRace = dynamic(
-  () => import('./../../components/Leaderboard/LeaderBoard'),
-  { ssr: false, loading: () => <p>loading...</p> }
-);
 
-const ContestPage = ({ month_url, year_url, contest }) => {
+const Listener = ({ month_url, year_url, contest }) => {
   const images = [
     { img: Banner1.src, url: '/' },
     { img: Banner2.src, url: '/contest' },
     { img: Banner3.src, url: '/contest' },
     { img: Banner4.src, url: '/contest' },
   ];
-
   function createMarkup(data) {
     return {
       __html: data,
@@ -37,52 +26,21 @@ const ContestPage = ({ month_url, year_url, contest }) => {
   useEffect(() => {
     initGA();
     trackPageView();
-  }, [contest._id]);
+  }, []);
 
   return (
     <div className="container">
-      <ContestNavBar
-        selectedTab={
-          contest.url_name === month_url
-            ? 'month'
-            : contest.url_name === year_url
-            ? 'year'
-            : false
-        }
-        month_url={month_url}
-        year_url={year_url}
-      />
-      {contest.active && (
-        <div className="flex justify-center">
-          <HomeCarousel images={images} />
-        </div>
-      )}
-      <div className="text-2xl mobile:text-xl text-indigo-650 text-center">
-        {contest.name}
+      <ContestNavBar selectedTab="listener" month_url={'/'} year_url={'#'} />
+      <div className="flex justify-center">
+        <HomeCarousel images={images} />
       </div>
-      {/* winnners list when not active */}
-      {/* <div className="text-xl text-indigo-650 text-center">
-        Winner : {contest.name}
-      </div> */}
       <div
-        className={`w-full mobile:w-11/12 mx-auto text-center flex flex-row-reverse mobile:block ipad:block rounded-md items-start mt-1 sm:mt-8 sm:text-xs`}
+        className={`w-full mobile:w-11/12 mx-auto text-center flex  mobile:block ipad:block rounded-md items-center mt-1 sm:mt-8 sm:text-xs`}
       >
-        {contest.active && (
-          <div className={`w-1/2 mobile:w-full ipad:w-full flex-row mx-1 `}>
-            <div
-              className={`text-white bg-indigo-650 rounded-t-md py-1 h-18 sm:text-sm max-w-1/2`}
-            >
-              Live Leaderboard
-            </div>
-            <div
-              className={`text-indigo-650 w-full h-96 mobile:h-full rounded-b-md p-1 border border-t-0 border-indigo-650 overflow-hidden`}
-            >
-              <BarChartRace contestId={contest._id} />
-            </div>
-          </div>
-        )}
-        {!contest.active && (
-          <div className={`w-1/2 mobile:w-full ipad:w-full flex-row mx-1 `}>
+        {/* {!contest.active && (
+          <div
+            className={`w-1/2 mobile:w-full ipad:w-full flex-row mx-1 `}
+          >
             <div
               className={`text-white bg-indigo-650 rounded-t-md py-1 h-18 sm:text-sm max-w-1/2`}
             >
@@ -96,10 +54,8 @@ const ContestPage = ({ month_url, year_url, contest }) => {
               )}
             </div>
           </div>
-        )}
-        <div
-          className={`w-1/2 mobile:w-full ipad:w-full flex-row mx-1  rounded-md  `}
-        >
+        )} */}
+        <div className={`w-full flex-row mx-1  rounded-md  `}>
           <div
             className={`text-white bg-indigo-650 rounded-t-md py-1 h-18 sm:text-sm max-w-1/2`}
           >
@@ -120,14 +76,12 @@ const ContestPage = ({ month_url, year_url, contest }) => {
               ></div>
             </p>
 
-            <p className="my-3">
-              <strong>Contest start date :</strong>{' '}
-              {new Date(contest.startDate).toDateString()}
+            {/* <p className="my-3">
+              <strong>Contest start date :</strong> {'asd'}
             </p>
             <p className="my-3">
-              <strong>Contest end date :</strong>{' '}
-              {new Date(contest.endDate).toDateString()}
-            </p>
+              <strong>Contest end date :</strong> {'asd'}
+            </p> */}
             <p className="my-3">
               <strong>Prizes to win :</strong>{' '}
               <div
@@ -157,9 +111,11 @@ const ContestPage = ({ month_url, year_url, contest }) => {
   );
 };
 
-export async function getStaticProps({ params }) {
+export default Listener;
+
+export async function getStaticProps() {
   await dbConnect();
-  const url_name = params.contestName;
+  const url_name = 'listener-award';
   //   console.log('params:', params);
   const contest = await getContestDetails(url_name).catch(console.error);
   const result = await getLatestContest().catch(console.error);
@@ -188,28 +144,3 @@ export async function getStaticProps({ params }) {
     };
   }
 }
-
-export async function getStaticPaths() {
-  await dbConnect();
-  const contests = await getContestIds().catch(console.error);
-
-  if (contests) {
-    let paths = contests.map(elem => {
-      return {
-        params: { contestName: elem.path.toString() },
-      };
-    });
-    // console.log('paths:', paths);
-    return {
-      paths: paths,
-      fallback: 'blocking',
-    };
-  } else {
-    return {
-      paths: [],
-      fallback: 'blocking',
-    };
-  }
-}
-
-export default ContestPage;

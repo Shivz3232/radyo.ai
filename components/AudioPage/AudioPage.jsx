@@ -240,9 +240,16 @@ const AudioPageComponent = ({ data }) => {
       {data.tags.length > 0 ? (
         <div className="tags-row">
           {data.tags.map((elem, i) => (
-            <div key={i} className="tag-item bg-indigo-650">
-              {elem}
-            </div>
+            <Link key={i} href={`/?${elem}#searchbar`}>
+              <a style={{ textDecoration: 'none', color: 'inherit' }}>
+                <div
+                  key={i}
+                  className="tag-item bg-indigo-650 hover:scale-x-105 hover:bg-pink-600 transform transition"
+                >
+                  {elem}
+                </div>
+              </a>
+            </Link>
           ))}
         </div>
       ) : null}
