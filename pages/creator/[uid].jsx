@@ -109,7 +109,7 @@ const CreatorPage = props => {
           />
         </div>
 
-        <div className="heading">{`Other creations by ${data.creatorName}`}</div>
+        <div className="heading">{`All creations by ${data.creatorName}`}</div>
         {audioCards &&
         audioCards.filter(e => e.creatorId.creatorName === data.creatorName)
           .length ? (

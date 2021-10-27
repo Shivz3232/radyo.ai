@@ -51,7 +51,7 @@ const PodcastAudio = props => {
         {data && <AudioPageComponent data={data} />}
 
         <div className="heading">
-          {data && `Other creations by ${data.creatorId.creatorName}`}
+          {data && `All creations by ${data.creatorId.creatorName}`}
         </div>
         {audioCards && (
           <AudioCardsVerticalScroll
