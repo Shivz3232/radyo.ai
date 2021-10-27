@@ -2,8 +2,11 @@
   border-radius: 6px;
   border-width: 2px;
   z-index: 0;
+  --tag-pad: 0.3em;
   --tag-bg: #4527a0;
-  --tag-hover: #e6562a;
+  --tag-hover: #CE0078;
+  // --tag-hover: #e6562a;
+  --tag-height: 4px;
   --tag-text-color: #fff;
   --tags-border-color: #4527a0;
   --tag-text-color--edit: #111;
@@ -11,5 +14,13 @@
   --tags-focus-border-color: #4527a0;
   --tag-remove-btn-color: #fff;
   --tag-invalid-color: #c75858;
+  --tag-invalid-bg: #85C8EA;
+  // --tag-invalid-bg: #ee4d4d;
   --tag-remove-btn-bg--hover: #b61313;
+  --placeholder-color: rgb(158, 157, 157);
+  --placeholder-color-focus: rgb(158, 157, 157);
+}
+
+.tagify__input{
+  padding: 0.4em 0.3em 0;
 }

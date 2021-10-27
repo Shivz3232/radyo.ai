@@ -178,6 +178,7 @@ const AddAudio = () => {
               required
             />
             <br />
+            <TagsInput addHashTags={addHashTags} />
             <input
               className="input bg-white"
               type="text"
@@ -188,7 +189,6 @@ const AddAudio = () => {
               required
             />
             <br />
-            <TagsInput addHashTags={addHashTags} />
             <p className="mx-auto text-indigo-650">
               Upload cover photo of the audio :
             </p>
