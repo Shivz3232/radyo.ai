@@ -20,23 +20,7 @@ const SearchBar = ({ setData, category, data }) => {
   }
 
   function loadResults() {
-    //@ts-ignore
-    if (query) {
-      axios
-        .get(`/api/search?query=${query}`)
-        .then(res => {
-          setData({
-            searched: true,
-            data: res.data.allAudio,
-            loading: false,
-            query: query,
-          });
-        })
-        .catch(err => console.log(err));
-      //@ts-ignore
-      val.current.blur();
-      //////////scroll to search bar
-    }
+    //////////scroll to search bar
     var element = document.getElementById('searchbar');
     if (element) element.classList.remove('hidden');
     if (element)
@@ -55,6 +39,22 @@ const SearchBar = ({ setData, category, data }) => {
       if (element) element.classList.add('hidden');
       clearTimeout(time);
     }, 600);
+    //@ts-ignore
+    if (query) {
+      axios
+        .get(`/api/search?query=${query}`)
+        .then(res => {
+          setData({
+            searched: true,
+            data: res.data.allAudio,
+            loading: false,
+            query: query,
+          });
+        })
+        .catch(err => console.log(err));
+      //@ts-ignore
+      val.current.blur();
+    }
   }
 
   useEffect(() => {
