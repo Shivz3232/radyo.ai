@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import React from 'react';
+import React, { useEffect } from 'react';
 import ContestNavBar from '../../components/Contest/ContestNavBar';
 import HomeCarousel from '../../components/HomeCarousel/HomeCarousel';
 import {
@@ -14,6 +14,7 @@ import Banner3 from '../../assets/Banner_English_Listener.svg';
 import Banner4 from '../../assets/Banner_Hindi_artist.svg';
 import contestRules from '../../contestRules.json';
 import WinnersList from '../../components/Contest/WinnersList';
+import { initGA, trackPageView } from './../../components/Tracking/tracking';
 const BarChartRace = dynamic(
   () => import('./../../components/Leaderboard/LeaderBoard'),
   { ssr: false, loading: () => <p>loading...</p> }
@@ -32,6 +33,11 @@ const ContestPage = ({ month_url, year_url, contest }) => {
       __html: data,
     };
   }
+
+  useEffect(() => {
+    initGA();
+    trackPageView();
+  }, []);
 
   return (
     <div className="container">
@@ -78,9 +84,7 @@ const ContestPage = ({ month_url, year_url, contest }) => {
           </div>
         )}
         {!contest.active && (
-          <div
-            className={`w-1/2 mobile:w-full ipad:w-full flex-row mx-1 `}
-          >
+          <div className={`w-1/2 mobile:w-full ipad:w-full flex-row mx-1 `}>
             <div
               className={`text-white bg-indigo-650 rounded-t-md py-1 h-18 sm:text-sm max-w-1/2`}
             >

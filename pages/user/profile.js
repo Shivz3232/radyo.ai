@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MyProfile from '../../components/UserDashboard/MyProfile';
 import Navbar from '../../components/UserDashboard/UserNavbar';
 import nookies from 'nookies';
 import { verifyIdToken } from '../../utils/firebase/firebaseAdmin';
 import { useRouter } from 'next/router';
+import { initGA, trackPageView } from './../../components/Tracking/tracking';
 
 const Profile = ({ redirect, props }) => {
   const router = useRouter();
   if (redirect) {
     router.push(redirect.destination);
   }
+  useEffect(() => {
+    initGA();
+    trackPageView();
+  }, []);
 
   const selectedTab = {
     profile: true,

@@ -2,7 +2,7 @@ export const CATEGORY_ENDPOINT = '/category';
 
 export const FACEBOOK_APP_ID = '1459314287776121';
 
-export const GOOGLE_ANALYTICS_ID = 'G-SMX99EKTY9';
+export const GOOGLE_ANALYTICS_ID = 'UA-211140298-1';
 
 export const CONTENT_POLICY_ENDPOINT = '/content-policy';
 export const TERMS_AND_CONDITIONS_ENDPOINT = '/terms-and-conditions';

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ContestNavBar from '../../components/Contest/ContestNavBar';
 import HomeCarousel from '../../components/HomeCarousel/HomeCarousel';
 import Banner1 from '../../assets/Banner_Radyo.svg';
@@ -8,6 +8,7 @@ import Banner4 from '../../assets/Banner_Hindi_artist.svg';
 import contestRules from '../../contestRules.json';
 import dbConnect from '../../utils/dbConnect';
 import { getContestDetails, getLatestContest } from '../../controllers/contest';
+import { initGA, trackPageView } from './../../components/Tracking/tracking';
 
 const Listener = ({ month_url, year_url, contest }) => {
   const images = [
@@ -21,6 +22,12 @@ const Listener = ({ month_url, year_url, contest }) => {
       __html: data,
     };
   }
+
+  useEffect(() => {
+    initGA();
+    trackPageView();
+  }, []);
+
   return (
     <div className="container">
       <ContestNavBar selectedTab="listener" month_url={'/'} year_url={'#'} />

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AddAudio from '../../components/UserDashboard/AddAudio';
 import Navbar from '../../components/UserDashboard/UserNavbar';
 import nookies from 'nookies';
 import { verifyIdToken } from '../../utils/firebase/firebaseAdmin';
 import { useRouter } from 'next/router';
+import { initGA, trackPageView } from '../../components/Tracking/tracking';
 
 const Audio = ({ redirect, props }) => {
   const router = useRouter();
@@ -16,6 +17,11 @@ const Audio = ({ redirect, props }) => {
     addAudio: true,
     mySubmission: false,
   };
+
+  useEffect(() => {
+    initGA();
+    trackPageView();
+  }, []);
 
   return (
     <div className="bg-gray-100">
