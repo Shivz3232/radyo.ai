@@ -28,6 +28,7 @@ export function capitalizeFirstLetter(string) {
 const AudioCard = ({ cardItemData, categoryName, origin }) => {
   const [createPlaylist, setCreatePlaylist] = useState('hidden');
   const [playlistAudioId, setPlaylistAudioId] = useState('');
+  const [playlistsOptions, setPlaylistOptions] = useState([]);
 
   const { userid } = useAuth();
   const trackInfo = {
@@ -141,6 +142,21 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
     setCopy(true);
   };
 
+  const getPlaylist = async () => {
+    await axios({
+      method: 'post',
+      url: '/api/getUserPlaylist',
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then(res => {
+        console.log(res.data.playlists);
+        setPlaylistOptions(res.data.playlists);
+      })
+      .catch(() => {
+        return [];
+      });
+  };
+
   return (
     <div>
       {userid && (
@@ -149,6 +165,7 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
           setCreatePlaylist={setCreatePlaylist}
           showChoosePlaylist={'visible'}
           playlistAudioId={playlistAudioId}
+          playlistsOptions={playlistsOptions}
         />
       )}
       <div
@@ -222,6 +239,7 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
             <RiPlayListAddFill
               className="audio-card__action--item"
               onClick={() => {
+                getPlaylist();
                 showPlaylistModal();
               }}
             />
