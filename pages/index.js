@@ -101,7 +101,17 @@ const Podcast = props => {
               />
               <AudioCards
                 categoryName="Trending audios"
-                cardItems={audioCards.slice(0, 15)}
+                cardItems={audioCards
+                  .filter(e => {
+                    const publishDate = new Date(e.createdAt);
+                    const lastDate = new Date();
+                    lastDate.setDate(lastDate.getDate() - 15);
+                    return publishDate >= lastDate;
+                  })
+                  .splice(0, 15)
+                  .sort((a, b) => {
+                    return a.playCount < b.playCount ? 1 : -1;
+                  })}
               />
               {categoryDataLinks.map((elem, i) => {
                 if (audioCards.filter(e => e.category === elem.id).length) {

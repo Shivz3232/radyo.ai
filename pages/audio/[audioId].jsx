@@ -33,7 +33,7 @@ const PodcastAudio = props => {
 
   useEffect(() => {
     if (window.location.hash === '#play' && data) {
-      console.log(data);
+      // console.log(data);
       playAudio(
         {
           audioSrc: data.audioSrc,
