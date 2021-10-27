@@ -117,9 +117,15 @@ const CreatorCard = ({
             <div className="creator-card__header--item creator-card__author">
               {data && data.creatorName}
             </div>
-            <div className="creator-card__header--item creator-card__aboutme">
-              {data && data.about}
-            </div>
+            {
+              <div
+                className={`creator-card__header--item creator-card__aboutme ${
+                  data && data.about.length ? '' : 'text-gray-400'
+                }`}
+              >
+                {data && data.about.length ? data.about : 'About the creator'}
+              </div>
+            }
           </div>
         </div>
         {/* layout for mobile */}
@@ -140,9 +146,11 @@ const CreatorCard = ({
               {data && data.creatorName}
             </div>
           </div>
-          <div className="mt-2 border border-indigo-650 rounded-md p-2 text-base">
-            {data && data.about}
-          </div>
+          {data && data.about.length ? (
+            <div className="mt-2 border border-indigo-650 rounded-md p-2 text-base">
+              {data.about}
+            </div>
+          ) : null}
         </div>
       </div>
 
