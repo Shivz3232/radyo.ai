@@ -6,6 +6,7 @@ import AudioPlayer from '../components/AudioPlayer/AudioPlayer';
 import Header from '../components/Header/Header';
 import '../styles/App.scss';
 import '../styles/AboutUs.scss';
+import '../styles/Legal.scss';
 import '../styles/AudioCard.scss';
 import '../styles/AudioCardsVerticalScroll.scss';
 import '../styles/AudioCategoryColors.scss';
@@ -30,6 +31,7 @@ import '../styles/PodcastReviewCard.scss';
 import '../styles/welcomemodal.scss';
 import { AuthProvider } from '../controllers/auth';
 import { PlaylistProvider } from '../controllers/PlaylistProvider';
+import { DFPSlotsProvider, AdSlot } from 'react-dfp';
 
 function App({ Component, pageProps }) {
   const [location, setLocation] = useState('');
@@ -39,31 +41,33 @@ function App({ Component, pageProps }) {
 
   return (
     <main className="app">
-      <PlaylistProvider>
-        <AuthProvider>
-          <Head>
-            <title>Radyo.ai</title>
-            <meta property="og:url" content={location} />
-            {pageProps.metaTags &&
-              pageProps.metaTags.map((tag) => (
-                <meta
-                  key={tag.name}
-                  property={tag.name}
-                  content={tag.content}
-                />
-              ))}
-            <link rel="icon" href="/favicon.ico" />
-          </Head>
-          <Header activeTab={pageProps.activeTab} data={{ loggedIn: false }} />
-          {/* <div
-              className={`${trackInfo.audioSrc ? 'mb-16 mobile:mb-20' : 'm-0'}`}
-            > */}
-          <Component {...pageProps} />
-          {/* </div> */}
+      <DFPSlotsProvider dfpNetworkId="22624757209">
+        <PlaylistProvider>
+          <AuthProvider>
+            <Head>
+              <title>Radyo.ai</title>
+              <meta property="og:url" content={location} />
+              {pageProps.metaTags &&
+                pageProps.metaTags.map(tag => (
+                  <meta
+                    key={tag.name}
+                    property={tag.name}
+                    content={tag.content}
+                  />
+                ))}
+              <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <Header
+              activeTab={pageProps.activeTab}
+              data={{ loggedIn: false }}
+            />
 
-          <AudioPlayer />
-        </AuthProvider>
-      </PlaylistProvider>
+            <Component {...pageProps} />
+
+            <AudioPlayer />
+          </AuthProvider>
+        </PlaylistProvider>
+      </DFPSlotsProvider>
     </main>
   );
 }

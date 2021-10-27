@@ -2,6 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Tornado from '../assets/sun-tornado.svg';
 import Link from 'next/link';
+import {
+  TERMS_AND_CONDITIONS_ENDPOINT,
+  USER_AGREEMENT_ENDPOINT,
+  PRIVACY_POLICY_ENDPOINT,
+  CONTENT_POLICY_ENDPOINT,
+  TAKEDOWN_POLICY_ENDPOINT,
+} from './../constants';
 
 function validateEmail(email) {
   const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -138,27 +145,27 @@ const AboutUs = () => {
         </div>
         <div>
           <div className="py-1">
-            <Link href="#">
+            <Link href={TERMS_AND_CONDITIONS_ENDPOINT}>
               <a>Terms and Conditions</a>
             </Link>
           </div>
           <div className="py-1">
-            <Link href="#">
+            <Link href={USER_AGREEMENT_ENDPOINT}>
               <a>User Agreement</a>
             </Link>
           </div>
           <div className="py-1">
-            <Link href="#">
+            <Link href={PRIVACY_POLICY_ENDPOINT}>
               <a>Privacy Policy</a>
             </Link>
           </div>
           <div className="py-1">
-            <Link href="#">
+            <Link href={CONTENT_POLICY_ENDPOINT}>
               <a>Content Policy</a>
             </Link>
           </div>
           <div className="py-1">
-            <Link href="#">
+            <Link href={TAKEDOWN_POLICY_ENDPOINT}>
               <a>Takedown Policy</a>
             </Link>
           </div>

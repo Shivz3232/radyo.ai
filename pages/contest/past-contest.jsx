@@ -55,25 +55,26 @@ function PastContest({ allContest, month_url, year_url }) {
 export async function getStaticProps() {
   await dbConnect();
   const allContest = await getAllContest().catch(console.error);
-  if (allContest) {
+  if (allContest && allContest.length !== 0) {
     const month_url = allContest.find(elem => {
       return elem.active && elem.contest_type === 'month';
-    }).url_name;
+    });
     const year_url = allContest.find(elem => {
       return elem.active && elem.contest_type === 'year';
-    }).url_name;
+    });
     return {
       props: {
         allContest: allContest,
-        month_url,
-        year_url,
+        month_url: month_url ? month_url.url_name : '#',
+        year_url: year_url ? year_url.url_name : '#',
+
         activeTab: 'contest',
       },
       revalidate: 60,
     };
   } else {
     return {
-      props: {},
+      props: { allContest: [] },
     };
   }
 }

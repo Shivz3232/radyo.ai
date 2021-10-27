@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import React from 'react';
+import React, { useEffect } from 'react';
 import ContestNavBar from '../../components/Contest/ContestNavBar';
 import HomeCarousel from '../../components/HomeCarousel/HomeCarousel';
 import {
@@ -20,13 +20,22 @@ const BarChartRace = dynamic(
 );
 
 const ContestPage = ({ month_url, year_url, contest }) => {
-  const images = [Banner1.src, Banner2.src, Banner3.src, Banner4.src];
+  const images = [
+    { img: Banner1.src, url: '/' },
+    { img: Banner2.src, url: '/contest' },
+    { img: Banner3.src, url: '/contest' },
+    { img: Banner4.src, url: '/contest' },
+  ];
 
   function createMarkup(data) {
     return {
       __html: data,
     };
   }
+
+  useEffect(() => {
+    // console.log('contest:', contest._id);
+  }, [contest._id]);
 
   return (
     <div className="container">
@@ -54,19 +63,17 @@ const ContestPage = ({ month_url, year_url, contest }) => {
         Winner : {contest.name}
       </div> */}
       <div
-        className={`w-full mobile:w-11/12 mx-auto text-center flex flex-row-reverse mobile:block ipad:block rounded-md items-center mt-1 sm:mt-8 sm:text-xs`}
+        className={`w-full mobile:w-11/12 mx-auto text-center flex flex-row-reverse mobile:block ipad:block rounded-md items-start mt-1 sm:mt-8 sm:text-xs`}
       >
         {contest.active && (
-          <div
-            className={`w-1/2 mobile:w-full ipad:w-full flex-row my-4 mx-1 `}
-          >
+          <div className={`w-1/2 mobile:w-full ipad:w-full flex-row mx-1 `}>
             <div
               className={`text-white bg-indigo-650 rounded-t-md py-1 h-18 sm:text-sm max-w-1/2`}
             >
               Live Leaderboard
             </div>
             <div
-              className={`text-indigo-650 w-full h-96  mobile:h-full rounded-b-md p-1 border border-t-0 border-indigo-650 overflow-hidden`}
+              className={`text-indigo-650 w-full h-96 mobile:h-full rounded-b-md p-1 border border-t-0 border-indigo-650 overflow-hidden`}
             >
               <BarChartRace contestId={contest._id} />
             </div>
@@ -74,7 +81,7 @@ const ContestPage = ({ month_url, year_url, contest }) => {
         )}
         {!contest.active && (
           <div
-            className={`w-1/2 mobile:w-full ipad:w-full flex-row my-4 mx-1 `}
+            className={`w-1/2 mobile:w-full ipad:w-full flex-row mx-1 `}
           >
             <div
               className={`text-white bg-indigo-650 rounded-t-md py-1 h-18 sm:text-sm max-w-1/2`}
@@ -168,8 +175,8 @@ export async function getStaticProps({ params }) {
     // console.log(month_url, year_url);
     return {
       props: {
-        month_url: month_url.url_name,
-        year_url: year_url.url_name,
+        month_url: month_url ? month_url.url_name : '#',
+        year_url: year_url ? year_url.url_name : '#',
         contest: contest,
         activeTab: 'contest',
       },

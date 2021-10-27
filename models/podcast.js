@@ -60,7 +60,7 @@ const PodcastSchema = new Schema(
     shortId: {
       type: String,
       default: () => generateShortId(),
-    }
+    },
   },
   {
     timestamps: {

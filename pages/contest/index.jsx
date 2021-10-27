@@ -31,8 +31,8 @@ export async function getStaticProps() {
     });
     return {
       props: {
-        month_url: month_url.url_name,
-        year_url: year_url.url_name,
+        month_url: month_url ? month_url.url_name : '#',
+        year_url: year_url ? year_url.url_name : '#',
         activeTab: 'contest',
       },
       revalidate: 60,

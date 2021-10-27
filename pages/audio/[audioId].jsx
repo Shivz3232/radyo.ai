@@ -8,19 +8,51 @@ import { initGA, trackPageView } from '../../components/Tracking/tracking';
 import { getAllAudio, getAudio, getAudioIds } from '../../controllers/podcast';
 import dbConnect from '../../utils/dbConnect';
 import { FACEBOOK_APP_ID } from '../../constants';
+import axios from 'axios';
+import { usePlaylist } from './../../controllers/PlaylistProvider';
 
-const PodcastAudio = ({ data, audioCards, play }) => {
+const PodcastAudio = props => {
+  const { audioCards } = props;
+  const [data, setData] = useState(props.data);
+  const { playAudio } = usePlaylist();
   useEffect(() => {
+    axios
+      .get(`/api/hydrate/audio/get_audio?audioId=${props.data._id}`)
+      .then(res => {
+        // console.log(res.data.allAudio[0]);
+        if (res.data.allAudio && res.data.allAudio.length) {
+          setData(res.data.allAudio[0]);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
     initGA();
     trackPageView();
+  }, [props.data._id]);
+
+  useEffect(() => {
+    if (window.location.hash === '#play' && data) {
+      playAudio(
+        {
+          audioSrc: data.audioSrc,
+          coverSrc: data.coverImage,
+          title: data.title,
+        },
+        data._id
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="audio-page" id="audioPage">
       <div className="container">
-        <AudioPageComponent data={data} />
+        {data && <AudioPageComponent data={data} />}
 
-        <div className="heading">{`Other creations by ${data.creatorId.creatorName}`}</div>
+        <div className="heading">
+          {data && `Other creations by ${data.creatorId.creatorName}`}
+        </div>
         {audioCards && (
           <AudioCardsVerticalScroll
             audioCards={audioCards.filter(
