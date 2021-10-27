@@ -12,6 +12,7 @@ const getSearchResult = async (req, res) => {
         { title: { $regex: re } },
         { description: { $regex: re } },
         { creatorName: { $regex: re } },
+        { tags: { $regex: re } },
       ],
       status: 'approved',
     };

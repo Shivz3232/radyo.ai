@@ -77,6 +77,7 @@ const Podcast = props => {
           <div className="flex justify-center">
             <HomeCarousel images={images} />
           </div>
+          <div className="hidden h-20" id="searchbar"></div>
           <SearchBar
             category={'category'}
             data={searchResults}

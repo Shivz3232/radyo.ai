@@ -8,7 +8,7 @@ const SearchBar = ({ setData, category, data }) => {
   const [query, setQuery] = useState('');
   useEffect(() => {
     //@ts-ignore
-    val.current.value = '';
+    // val.current.value = '';
     setQuery('');
     //@ts-ignore
     val.current.blur();
@@ -20,6 +20,25 @@ const SearchBar = ({ setData, category, data }) => {
   }
 
   function loadResults() {
+    //////////scroll to search bar
+    var element = document.getElementById('searchbar');
+    if (element) element.classList.remove('hidden');
+    if (element)
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest',
+      });
+    // val.current.scrollIntoView({
+    //   behavior: 'smooth',
+    //   block: 'start',
+    //   inline: 'nearest',
+    // });
+    var time;
+    time = setTimeout(() => {
+      if (element) element.classList.add('hidden');
+      clearTimeout(time);
+    }, 600);
     //@ts-ignore
     if (query) {
       axios
@@ -35,27 +54,16 @@ const SearchBar = ({ setData, category, data }) => {
         .catch(err => console.log(err));
       //@ts-ignore
       val.current.blur();
-      //////////scroll to search bar
-      // var element = document.getElementById('search-bar-start');
-      // if (element) element.classList.remove('hidden');
-      // if (element)
-      //   element.scrollIntoView({
-      //     behavior: 'smooth',
-      //     block: 'start',
-      //     inline: 'nearest',
-      //   });
-      val.current.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-        inline: 'nearest',
-      });
-      // var time;
-      // time = setTimeout(() => {
-      //   if (element) element.classList.add('hidden');
-      //   clearTimeout(time);
-      // }, 600);
     }
   }
+
+  useEffect(() => {
+    if (window.location.search) {
+      setQuery(window.location.search.split('?')[1]);
+      loadResults();
+    }
+  }, [query]);
+
   return (
     <div className="podcast-search-bar">
       <div className="search-input-field">
@@ -68,8 +76,9 @@ const SearchBar = ({ setData, category, data }) => {
                 onClick={() => {
                   setData({ searched: false });
                   setQuery(null);
+                  history.back();
                   //@ts-ignore
-                  val.current.value = '';
+                  // val.current.value = '';
                   //@ts-ignore
                   val.current.blur();
                 }}

@@ -16,6 +16,10 @@ const LeaderBoard = ({ contestId }) => {
   // console.log(id);
 
   useEffect(() => {
+    setSortedData([]);
+  }, [contestId]);
+
+  useEffect(() => {
     const timer = setInterval(() => {
       const handleChange = async () => {
         const data = await axios
@@ -60,29 +64,34 @@ const LeaderBoard = ({ contestId }) => {
     }, 10000);
 
     return () => clearInterval(timer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [contestId]);
 
   return (
     <div className="lb-container w-full" id="leaderboard">
-      <ChartRace
-        data={sortedData}
-        backgroundColor="#FFF"
-        width={width}
-        padding={3}
-        itemHeight={23}
-        gap={15}
-        titleStyle={{
-          display: 'inline',
-          font: 'normal 400 12px Poppins',
-          color: '#000',
-        }}
-        valueStyle={{
-          display: 'inline',
-          font: 'normal 400 12px Poppins',
-          color: '#000',
-        }}
-      />
+      {sortedData.length === 0 ? (
+        <div className="h-96 flex items-center justify-center">
+          <div className=" animate-spin rounded-full h-20 w-20 border-t-2 border-b-2 border-purple-500"></div>
+        </div>
+      ) : (
+        <ChartRace
+          data={sortedData}
+          backgroundColor="#FFF"
+          width={width}
+          padding={3}
+          itemHeight={23}
+          gap={15}
+          titleStyle={{
+            display: 'inline',
+            font: 'normal 400 12px Poppins',
+            color: '#000',
+          }}
+          valueStyle={{
+            display: 'inline',
+            font: 'normal 400 12px Poppins',
+            color: '#000',
+          }}
+        />
+      )}
     </div>
   );
 };

@@ -4,6 +4,7 @@ import Select from 'react-select';
 import RecordAudio from '../RecordAudio/RecordAudio';
 import { useAuth } from '../../controllers/auth';
 import { image_formats } from '../RecordAudio/fileFormats';
+import TagsInput from './TagsInput';
 import SuccessModal from './SuccessModal';
 import { categoryDataLinks } from '../CategoryNavBar/categoryData';
 import { useRouter } from 'next/router';
@@ -30,12 +31,12 @@ const AddAudio = () => {
   const [lanSelect, setLanSelect] = useState('');
   const [catSelect, setCatSelect] = useState('');
   const [audio, setAudio] = useState('');
+  const [hashTags, setHashTags] = useState([]);
   const [textFields, setTextFields] = useState({
     title: '',
-    hashTags: '',
     description: '',
   });
-  // const [submitted, setSubmitted] = useState(false);
+
   const [coverImg, setCoverImg] = useState('');
   const [submit, setSubmit] = useState(false);
   const [message, setMessage] = useState({
@@ -50,6 +51,14 @@ const AddAudio = () => {
 
   const setAudioData = data => {
     setAudio(data);
+  };
+
+  const addHashTags = data => {
+    setHashTags(
+      data.map(e => {
+        return e.value;
+      })
+    );
   };
 
   const handleTextChange = e => {
@@ -100,7 +109,7 @@ const AddAudio = () => {
         formData.append('cat', catSelect);
         formData.append('lan', lanSelect);
         formData.append('title', textFields.title);
-        formData.append('hashTags', textFields.hashTags);
+        formData.append('hashTags', hashTags);
         formData.append('description', textFields.description);
         formData.append('audioSrc', audio);
         formData.append('coverImg', coverImg);
@@ -169,15 +178,7 @@ const AddAudio = () => {
               required
             />
             <br />
-            <input
-              className="input bg-white"
-              type="text"
-              name="hashTags"
-              placeholder="Enter comma separate keywords, hashtags​"
-              onChange={handleTextChange}
-              value={textFields.hashTags}
-              required
-            />
+            <TagsInput addHashTags={addHashTags} />
             <input
               className="input bg-white"
               type="text"
