@@ -2,42 +2,32 @@ import { decode } from 'html-entities';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { AiFillPlayCircle, AiOutlineClose } from 'react-icons/ai';
-import { FaHeart, FaRegHeart, FaShareAlt } from 'react-icons/fa';
-import { FiMoreVertical } from 'react-icons/fi';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import LinesEllipsis from 'react-lines-ellipsis';
-// import { Event } from '../Tracking/Tracking';
 import playButton from '../../assets/playbtn.png';
 import { FACEBOOK_APP_ID } from '../../constants';
-// import { CgPlayListAdd, CgPlayListCheck } from 'react-icons/cg';
 import { usePlaylist } from '../../controllers/PlaylistProvider';
-import ShareModalBtn from './ShareModalBtn';
+import ShareModalBtn from '../AudioCard/ShareModalBtn';
 import { FaFacebook } from 'react-icons/fa';
 import logoTelegram from '../../assets/telegram.svg';
 import logoWhatsapp from '../../assets/whatsapp.svg';
 import axios from 'axios';
 import { useAuth } from '../../controllers/auth';
 import Router from 'next/router';
-import { MdContentCopy, MdOutlinePlaylistAdd } from 'react-icons/md';
-import { RiPlayListAddFill } from 'react-icons/ri';
+import { MdContentCopy } from 'react-icons/md';
 import { FcCheckmark } from 'react-icons/fc';
-import CreatePlaylistModal from '../PodcastSearch/CreatePlaylistModal';
 
-export function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-const AudioCard = ({ cardItemData, categoryName, origin }) => {
-  const [createPlaylist, setCreatePlaylist] = useState('hidden');
-  const [playlistAudioId, setPlaylistAudioId] = useState('');
-
+const PlaylistCard = ({ cardItemData, categoryName, origin }) => {
+  cardItemData['category'] = 'Playlist';
+  const { setContextPlaylist } = usePlaylist();
   const { userid } = useAuth();
   const trackInfo = {
     coverSrc: `${cardItemData.coverImage}`,
-    audioSrc: cardItemData.audioSrc,
-    title: cardItemData.title,
+    audioSrc: cardItemData.podcastList[0].audioSrc,
+    title: cardItemData.podcastList[0].title,
   };
 
   const { playAudio } = usePlaylist();
-  // Destructuring the props item
   const {
     creatorId,
     creatorName,
@@ -49,7 +39,6 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
   } = cardItemData;
 
   useEffect(() => {
-    // console.log(userid);
     if (userid) {
       cardItemData.likedBy.forEach((elem, i) => {
         if (elem.userId === userid) {
@@ -60,20 +49,10 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
     }
   }, [cardItemData.likedBy, userid]);
 
-  const showPlaylistModal = () => {
-    if (userid) {
-      setPlaylistAudioId(cardItemData._id);
-      setCreatePlaylist('visible');
-    } else {
-      Router.push('/login');
-    }
-  };
-
   const [copy, setCopy] = useState(false);
   const updateShareCount = () => {
     axios
       .post(`/api/update_share_count/${cardItemData._id}`, {})
-      // .then(res => console.log(res))
       .catch(err => console.log(err));
   };
   const [like, setLike] = useState(false);
@@ -98,7 +77,6 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
         action: 'like',
         userid: userid,
       })
-      // .then(res => console.log(res.data.updateCount))
       .catch(err => console.log(err));
   };
   const unlikeAudio = () => {
@@ -107,7 +85,6 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
         action: 'unlike',
         userid: userid,
       })
-      // .then(res => console.log(res.data.updateCount))
       .catch(err => console.log(err));
   };
 
@@ -143,14 +120,6 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
 
   return (
     <div>
-      {userid && (
-        <CreatePlaylistModal
-          showModal={createPlaylist}
-          setCreatePlaylist={setCreatePlaylist}
-          showChoosePlaylist={'visible'}
-          playlistAudioId={playlistAudioId}
-        />
-      )}
       <div
         className="audio-card mini generic-card"
         id={`${categoryName}-${cardItemData._id}`}
@@ -170,16 +139,15 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
               src={playButton.src}
               alt="play button"
               onClick={() => {
+                setContextPlaylist(cardItemData.podcastList);
                 playAudio(trackInfo, cardItemData._id.toString());
               }}
               className="play__button"
             />
           </div>
           <div className="audio-card__header--items">
-            <div
-              className={`audio-card__header--item audio-card__category ${category}`}
-            >
-              {capitalizeFirstLetter(category)}
+            <div className="audio-card__header--item audio-card__category Playlist">
+              Playlist
             </div>
             <Link href={`/audio/${cardItemData._id}`}>
               <a style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -216,14 +184,6 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
             <ShareModalBtn
               id={`${categoryName}-${cardItemData._id}`}
               shareCount={shareCount}
-            />
-          </div>
-          <div className="audio-card__action">
-            <RiPlayListAddFill
-              className="audio-card__action--item"
-              onClick={() => {
-                showPlaylistModal();
-              }}
             />
           </div>
         </div>
@@ -318,4 +278,4 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
   );
 };
 
-export default AudioCard;
+export default PlaylistCard;

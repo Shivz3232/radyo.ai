@@ -6,6 +6,7 @@ import WelcomeModal from '../components/Modal/WelcomeModal';
 import { Result } from '../components/PodcastSearch/Result';
 import SearchBar from '../components/PodcastSearch/SearchBar';
 import { getAllAudio, getAudioCategories } from '../controllers/podcast';
+import { getAllPlaylists } from '../controllers/playlist';
 import { useSessionStorage } from '../hooks/sessionStorage';
 import dbConnect from '../utils/dbConnect';
 import HomeCarousel from './../components/HomeCarousel/HomeCarousel';
@@ -16,9 +17,12 @@ import Banner4 from '../assets/Banner_Hindi_artist.svg';
 import { initGA, trackPageView } from '../components/Tracking/tracking';
 import TrendingArtist from '../components/TrendingArtist/TrendingArtist';
 import { getTrendingCreators } from '../controllers/creator';
+import PlaylistCards from '../components/PlaylistCard/PlaylistCards';
+
 import axios from 'axios';
 const Podcast = props => {
   const [audioCards, setAudioCards] = useState(props.audioCards);
+  const [playlistCards, setPlaylistCards] = useState(props.playlistCards);
   const [trendingCreators, setTrendingCreators] = useState(
     props.trendingCreators
   );
@@ -114,6 +118,7 @@ const Podcast = props => {
                     return a.playCount < b.playCount ? 1 : -1;
                   })}
               />
+
               {categoryDataLinks.map((elem, i) => {
                 if (audioCards.filter(e => e.category === elem.id).length) {
                   return (
@@ -125,6 +130,11 @@ const Podcast = props => {
                   );
                 }
               })}
+
+              <PlaylistCards
+                categoryName="Trending Playlists"
+                cardItems={playlistCards.slice(0, 15)}
+              />
             </>
           ) : null}
         </div>
@@ -137,6 +147,7 @@ export async function getStaticProps() {
   await dbConnect();
   const audioCards = await getAllAudio().catch(console.error);
   const categories = await getAudioCategories().catch(console.error);
+  const playlistCards = await getAllPlaylists().catch(console.error);
   const trendingCreators = await getTrendingCreators().catch(console.error);
   if (audioCards && categories && trendingCreators) {
     const allCategories = [];
@@ -146,6 +157,7 @@ export async function getStaticProps() {
     return {
       props: {
         audioCards,
+        playlistCards,
         allCategories,
         trendingCreators,
         activeTab: 'home',
