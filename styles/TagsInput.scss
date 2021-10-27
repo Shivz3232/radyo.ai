@@ -1,0 +1,15 @@
+.tags-Input-Field {
+  border-radius: 6px;
+  border-width: 2px;
+  z-index: 0;
+  --tag-bg: #4527a0;
+  --tag-hover: #e6562a;
+  --tag-text-color: #fff;
+  --tags-border-color: #4527a0;
+  --tag-text-color--edit: #111;
+  --tags-hover-border-color: #4527a0;
+  --tags-focus-border-color: #4527a0;
+  --tag-remove-btn-color: #fff;
+  --tag-invalid-color: #c75858;
+  --tag-remove-btn-bg--hover: #b61313;
+}

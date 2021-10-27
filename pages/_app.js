@@ -22,6 +22,8 @@ import '../styles/PodcastCategory.scss';
 import '../styles/PodcastPage.scss';
 import '../styles/SearchBar.scss';
 import '../styles/SearchResults.scss';
+import '@yaireo/tagify/dist/tagify.css';
+import '../styles/TagsInput.scss';
 import '../styles/style.scss';
 import '../styles/AdminAuthPage.scss';
 import '../styles/AdminDashboard.scss';
