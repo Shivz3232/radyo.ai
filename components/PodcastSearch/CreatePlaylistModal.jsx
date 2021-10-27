@@ -37,11 +37,6 @@ const CreatePlaylistModal = props => {
   const [showChoosePlaylist, setShowChoosePlaylist] = useState(
     props.showChoosePlaylist ? 'visible' : 'hidden'
   );
-  const [playlistsOptions, setPlaylistOptions] = useState([]);
-
-  useEffect(() => {
-    getPlaylist(setPlaylistOptions);
-  }, []);
 
   const addPlaylist = async (title, audioId) => {
     const data = { title, audioId };
@@ -80,20 +75,6 @@ const CreatePlaylistModal = props => {
       })
       .catch(error => {
         setshowError(['visible', 'Failed to add to playlist']);
-      });
-  };
-
-  const getPlaylist = async setPlaylistOptions => {
-    await axios({
-      method: 'post',
-      url: '/api/getUserPlaylist',
-      headers: { 'Content-Type': 'application/json' },
-    })
-      .then(res => {
-        setPlaylistOptions(res.data.playlists);
-      })
-      .catch(() => {
-        return [];
       });
   };
 
@@ -139,7 +120,7 @@ const CreatePlaylistModal = props => {
 
             <div className={'p-5 text-center ' + showChoosePlaylist}>
               <OptionBlock
-                playlistsOptions={playlistsOptions}
+                playlistsOptions={props.playlistsOptions}
                 setAddToPlaylistName={setAddToPlaylistName}
               />
             </div>

@@ -50,6 +50,7 @@ const SearchBar = ({ setData, category, data }) => {
       <CreatePlaylistModal
         showModal={createPlaylist}
         setCreatePlaylist={setCreatePlaylist}
+        playlistsOptions={[]}
       />
       <div className="podcast-search-bar">
         <div className="search-input-field">

@@ -25,11 +25,11 @@ const getUserPlaylists = async (req, res) => {
       res.end();
     } catch (error) {
       console.log(error);
-      res.status(400).json({ success: false });
+      res.status(400).json({ playlists: [] });
       res.end();
     }
   } else {
-    res.status(400).json({ success: false });
+    res.status(400).json({ playlists: [] });
     res.end();
   }
 };

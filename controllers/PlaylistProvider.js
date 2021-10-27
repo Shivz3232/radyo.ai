@@ -73,17 +73,6 @@ export const PlaylistProvider = ({ children }) => {
     }
   }
 
-  // useEffect(() => {
-  //   if (window.location.hash !== '#play') {
-  //     setTrackInfo({
-  //       audioSrc: '',
-  //       coverSrc: '',
-  //       title: '',
-  //     });
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
   const [isPlaying, setIsPlaying] = useState(false);
 
   const playAudio = (info, id) => {
@@ -93,7 +82,16 @@ export const PlaylistProvider = ({ children }) => {
     if (id)
       axios
         .post(`/api/update_play_count/${id}`, { AudioId: id })
-        // .then(res => console.log(res))
+        .catch(err => console.log('oops', err));
+  };
+
+  const updatePlaylistCount = id => {
+    if (id)
+      axios
+        .post(`/api/update_play_count/${id}`, {
+          AudioId: id,
+          collection: 'playlist',
+        })
         .catch(err => console.log('oops', err));
   };
 
@@ -107,6 +105,7 @@ export const PlaylistProvider = ({ children }) => {
         playAudio,
         isPlaying,
         getPreviousTrack,
+        updatePlaylistCount,
       }}
     >
       {children}

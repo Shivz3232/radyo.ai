@@ -27,7 +27,7 @@ const PlaylistCard = ({ cardItemData, categoryName, origin }) => {
     title: cardItemData.podcastList[0].title,
   };
 
-  const { playAudio } = usePlaylist();
+  const { playAudio, updatePlaylistCount } = usePlaylist();
   const {
     creatorId,
     creatorName,
@@ -52,7 +52,9 @@ const PlaylistCard = ({ cardItemData, categoryName, origin }) => {
   const [copy, setCopy] = useState(false);
   const updateShareCount = () => {
     axios
-      .post(`/api/update_share_count/${cardItemData._id}`, {})
+      .post(`/api/update_share_count/${cardItemData._id}`, {
+        collection: 'playlist',
+      })
       .catch(err => console.log(err));
   };
   const [like, setLike] = useState(false);
@@ -76,6 +78,7 @@ const PlaylistCard = ({ cardItemData, categoryName, origin }) => {
       .post(`/api/update_like_count/${cardItemData._id}`, {
         action: 'like',
         userid: userid,
+        collection: 'playlist',
       })
       .catch(err => console.log(err));
   };
@@ -84,6 +87,7 @@ const PlaylistCard = ({ cardItemData, categoryName, origin }) => {
       .post(`/api/update_like_count/${cardItemData._id}`, {
         action: 'unlike',
         userid: userid,
+        collection: 'playlist',
       })
       .catch(err => console.log(err));
   };
@@ -140,6 +144,7 @@ const PlaylistCard = ({ cardItemData, categoryName, origin }) => {
               alt="play button"
               onClick={() => {
                 setContextPlaylist(cardItemData.podcastList);
+                updatePlaylistCount(cardItemData._id.toString());
                 playAudio(trackInfo, cardItemData._id.toString());
               }}
               className="play__button"
