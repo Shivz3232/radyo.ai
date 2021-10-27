@@ -33,6 +33,7 @@ const PodcastAudio = props => {
 
   useEffect(() => {
     if (window.location.hash === '#play' && data) {
+      console.log(data);
       playAudio(
         {
           audioSrc: data.audioSrc,
@@ -42,7 +43,7 @@ const PodcastAudio = props => {
         data._id
       );
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

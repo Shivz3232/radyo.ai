@@ -6,7 +6,7 @@ const PlaylistContext = createContext({});
 export const usePlaylist = () => useContext(PlaylistContext);
 
 export const PlaylistProvider = ({ children }) => {
-  const [trackInfo, setTrackInfo] = useLocalStorage('currentTrack', {
+  const [trackInfo, setTrackInfo] = useState({
     audioSrc: '',
     coverSrc: '',
     title: '',
@@ -73,14 +73,16 @@ export const PlaylistProvider = ({ children }) => {
     }
   }
 
-  useEffect(() => {
-    setTrackInfo({
-      audioSrc: '',
-      coverSrc: '',
-      title: '',
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   if (window.location.hash !== '#play') {
+  //     setTrackInfo({
+  //       audioSrc: '',
+  //       coverSrc: '',
+  //       title: '',
+  //     });
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   const [isPlaying, setIsPlaying] = useState(false);
 
