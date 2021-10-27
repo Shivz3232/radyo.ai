@@ -3,18 +3,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { BiArrowBack } from 'react-icons/bi';
 import { GrSearch } from 'react-icons/gr';
 
-var searchQuery = null;
-
-export const searchTag = data => {
-  searchQuery = data;
-};
-
 const SearchBar = ({ setData, category, data }) => {
   const val = useRef();
   const [query, setQuery] = useState('');
   useEffect(() => {
     //@ts-ignore
-    val.current.value = '';
+    // val.current.value = '';
     setQuery('');
     //@ts-ignore
     val.current.blur();
@@ -27,8 +21,6 @@ const SearchBar = ({ setData, category, data }) => {
 
   function loadResults() {
     //@ts-ignore
-    console.log(query);
-    console.log('result loaded');
     if (query) {
       axios
         .get(`/api/search?query=${query}`)
@@ -43,9 +35,9 @@ const SearchBar = ({ setData, category, data }) => {
         .catch(err => console.log(err));
       //@ts-ignore
       val.current.blur();
+      //////////scroll to search bar
     }
-    //////////scroll to search bar
-    var element = document.getElementById('search-bar-start');
+    var element = document.getElementById('searchbar');
     if (element) element.classList.remove('hidden');
     if (element)
       element.scrollIntoView({
@@ -66,16 +58,14 @@ const SearchBar = ({ setData, category, data }) => {
   }
 
   useEffect(() => {
-    if (searchQuery) {
-      setQuery(searchQuery);
-      val.current.value = searchQuery;
-      console.log(query);
-        loadResults();
+    if (window.location.search) {
+      setQuery(window.location.search.split('?')[1]);
+      loadResults();
     }
-  }, [searchQuery]);
+  }, [query]);
 
   return (
-    <div className="podcast-search-bar" id="searchbar">
+    <div className="podcast-search-bar">
       <div className="search-input-field">
         <div className="relative flex w-full flex-wrap items-stretch mb-3 align-center">
           {data.searched && (
@@ -86,8 +76,9 @@ const SearchBar = ({ setData, category, data }) => {
                 onClick={() => {
                   setData({ searched: false });
                   setQuery(null);
+                  history.back();
                   //@ts-ignore
-                  val.current.value = '';
+                  // val.current.value = '';
                   //@ts-ignore
                   val.current.blur();
                 }}
