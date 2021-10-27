@@ -21,7 +21,6 @@ const getUserPlaylists = async (req, res) => {
       const { email } = await verifyIdToken(req.cookies.token);
       const uid = email.split('@')[0];
       const retval = await getPlaylistFromDB(uid, req.body.title);
-      console.log(retval);
       res.status(200).json({ playlists: retval });
       res.end();
     } catch (error) {
