@@ -195,9 +195,11 @@ export async function getStaticPaths() {
 
   if (contests) {
     let paths = contests.map(elem => {
-      return {
-        params: { contestName: elem.path.toString() },
-      };
+      if (elem.path !== 'listener-award') {
+        return {
+          params: { contestName: elem.path.toString() },
+        };
+      }
     });
     // console.log('paths:', paths);
     return {
