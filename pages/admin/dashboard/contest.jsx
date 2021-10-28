@@ -26,6 +26,11 @@ const ContestDash = props => {
       status: 'active',
       content: EndContest,
     },
+    'Listener award': {
+      id: 2,
+      status: 'active',
+      content: ListenerAward,
+    },
   });
 
   if (!user) return <></>;
@@ -69,6 +74,58 @@ const ContestDash = props => {
 };
 
 export default ContestDash;
+
+export function ListenerAward() {
+  const [winners, setWinners] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`/api/draw_listeners?get=true`)
+      .then(res => {
+        console.log(res.data);
+        setWinners(res.data.contest.contest_results.reverse());
+      })
+      .catch(err => console.log(err));
+  }, []);
+
+  const handleClick = () => {
+    axios
+      .get(`/api/draw_listeners`)
+      .then(res => {
+        console.log(res.data);
+        setWinners(res.data.contest.contest_results.reverse());
+      })
+      .catch(err => console.log(err));
+  };
+  return (
+    <div className="dashboard">
+      <div className="container">
+        <h1 className="hero">Listener award</h1>
+        <div className="my-4">
+          <button
+            onClick={handleClick}
+            className="my-2 p-2 border border-indigo-650 rounded-md text-white bg-indigo-650 hover:bg-white hover:text-indigo-650"
+          >
+            Draw winners
+          </button>
+        </div>
+        {winners &&
+          winners.map((elem, i) => {
+            console.log(elem);
+            const arr = elem.result.map((e, idx) => {
+              return e.creatorEmail;
+            });
+            return (
+              <div key={i} className="my-2 border border-black p-2">
+                <strong>{i + 1}.</strong> {new Date(elem.date).toDateString()} :{' '}
+                {arr.join(', ')}
+              </div>
+            );
+          })}
+      </div>
+    </div>
+  );
+}
 
 export function EndContest({ status }) {
   const [contests, setContests] = useState([]);

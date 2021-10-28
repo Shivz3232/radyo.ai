@@ -30,32 +30,18 @@ const Listener = ({ month_url, year_url, contest }) => {
 
   return (
     <div className="container">
-      <ContestNavBar selectedTab="listener" month_url={'/'} year_url={'#'} />
+      <ContestNavBar
+        selectedTab="listener"
+        month_url={month_url}
+        year_url={year_url}
+      />
       <div className="flex justify-center">
         <HomeCarousel images={images} />
       </div>
       <div
-        className={`w-full mobile:w-11/12 mx-auto text-center flex  mobile:block ipad:block rounded-md items-center mt-1 sm:mt-8 sm:text-xs`}
+        className={`w-full mobile:w-11/12 mx-auto text-center   mobile:block ipad:block rounded-md items-center mt-1 sm:mt-8 sm:text-xs`}
       >
-        {/* {!contest.active && (
-          <div
-            className={`w-1/2 mobile:w-full ipad:w-full flex-row mx-1 `}
-          >
-            <div
-              className={`text-white bg-indigo-650 rounded-t-md py-1 h-18 sm:text-sm max-w-1/2`}
-            >
-              Leaderboard
-            </div>
-            <div
-              className={`text-indigo-650 w-full   mobile:h-full rounded-b-md p-1 border border-t-0 border-indigo-650 overflow-hidden`}
-            >
-              {contest && contest.contest_results && (
-                <WinnersList contest_results={contest.contest_results} />
-              )}
-            </div>
-          </div>
-        )} */}
-        <div className={`w-full flex-row mx-1  rounded-md  `}>
+        <div className={`w-full flex-row mx-1 my-2 rounded-md  `}>
           <div
             className={`text-white bg-indigo-650 rounded-t-md py-1 h-18 sm:text-sm max-w-1/2`}
           >
@@ -75,13 +61,6 @@ const Listener = ({ month_url, year_url, contest }) => {
                 )}
               ></div>
             </p>
-
-            {/* <p className="my-3">
-              <strong>Contest start date :</strong> {'asd'}
-            </p>
-            <p className="my-3">
-              <strong>Contest end date :</strong> {'asd'}
-            </p> */}
             <p className="my-3">
               <strong>Prizes to win :</strong>{' '}
               <div
@@ -104,6 +83,40 @@ const Listener = ({ month_url, year_url, contest }) => {
                 )}
               ></div>
             </p>
+          </div>
+        </div>
+        <div className={`w-full flex-row mx-1 `}>
+          <div
+            className={`text-white bg-indigo-650 rounded-t-md py-1 h-18 sm:text-sm max-w-1/2`}
+          >
+            Winners
+          </div>
+          <div
+            className={`text-indigo-650 w-full   mobile:h-full rounded-b-md p-1 border border-t-0 border-indigo-650 overflow-hidden`}
+          >
+            {contest && contest.contest_results && (
+              <div className="w-full p-2">
+                <div className="flex border-b-2 border-indigo-650 text-lg mobile:text-base text-left">
+                  <div className="w-1/5 mobile:w-1/4  mr-2">Date</div>
+                  <div className="w-4/5 mobile:w-3/4 ml-2">List</div>
+                </div>
+                {contest.contest_results.reverse().map((elem, i) => {
+                  return (
+                    <div
+                      key={i}
+                      className="flex text-lg text-left p-1 border-b mobile:text-base"
+                    >
+                      <div className="w-1/5 mobile:w-1/4 mr-3">
+                        {new Date(elem.date).toLocaleDateString()}
+                      </div>
+                      <div className="w-4/5 mobile:w-3/4 ml-2">
+                        {elem.result.map(e => e.creatorName).join(', ')}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       </div>

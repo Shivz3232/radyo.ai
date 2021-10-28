@@ -83,6 +83,11 @@ const getPodcastsInReview = async (req, res) => {
         ).catch(console.error);
         if (updateAudioPublished) {
           // console.log(updateAudioPublished);
+          res.json({
+            username: updateAudioPublished.creatorName,
+            useremail: updateAudioPublished.email,
+            audiourl: success.shortId,
+          });
           res.end();
         } else {
           res.status(500);
