@@ -9,11 +9,11 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import nookies from 'nookies';
 import { verifyIdToken } from '../utils/firebase/firebaseAdmin';
-import connect from '../utils/middleware/mongoClient';
 import PodcastCreatorModel from '../models/podcastCreator';
 import { useAuth } from '../controllers/auth';
 import { initGA, trackPageView } from '../components/Tracking/tracking';
 import { emailUtil } from '../utils/emailUtil';
+import { possibleuid } from '../controllers/getuserdata';
 import {
   TERMS_AND_CONDITIONS_ENDPOINT,
   PRIVACY_POLICY_ENDPOINT,
@@ -25,7 +25,7 @@ export const getServerSideProps = async context => {
     const token = await verifyIdToken(cookies.token);
     const { uid, email } = token;
     try {
-      connect(createUser(token, 'NONE'));
+      const userInfo = await createUser(context, token, 'NONE');
     } catch (err) {
       console.log(err);
     }
@@ -38,18 +38,18 @@ export const getServerSideProps = async context => {
       props: {},
     };
   } catch (err) {
-    console.log('User not authenticated');
+    console.log('User not authenticated', err);
     return {
       props: {},
     };
   }
 };
 
-const createUser = async (token, rcode) => {
+const createUser = async (context, token, rcode) => {
   const user = new PodcastCreatorModel({
     creatorName: token.name,
     email: token.email,
-    uid: token.email.split('@')[0],
+    uid: await possibleuid(token.email),
     avatarImage: token.picture,
     about: token.name,
     audiosPublished: 0,
@@ -61,25 +61,20 @@ const createUser = async (token, rcode) => {
     followers: [],
   });
 
-  await PodcastCreatorModel.find({ email: token.email }).then(
-    async userExists => {
-      if (userExists.length == 0) {
-        await user
-          .save()
-          .then(() => {
-            console.log('New user added', token.email);
-          })
-          .catch(err => {
-            console.log('Failed to add new user', token.email);
-          });
-        emailUtil({
-          username: token.name,
-          useremail: token.email,
-          template: 'RADYO_WELCOME',
-        });
-      }
-    }
-  );
+  const userInfo = await PodcastCreatorModel.findOne({
+    email: token.email,
+  }).catch(console.error);
+  if (userInfo) {
+    return userInfo;
+  } else {
+    const saveUserInfo = await user.save().catch(console.error);
+    emailUtil({
+      username: token.name,
+      useremail: token.email,
+      template: 'RADYO_WELCOME',
+    });
+    return userInfo;
+  }
 };
 
 const Login = () => {
