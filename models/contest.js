@@ -8,7 +8,7 @@ const ContestSchema = new Schema({
   contest_type: {
     type: String,
     default: '',
-    enum: ['month', 'year', 'custom'],
+    enum: ['month', 'year', 'listener'],
   },
   startDate: Date,
   endDate: Date,
@@ -17,12 +17,12 @@ const ContestSchema = new Schema({
   prizes_to_win: String,
   terms_and_conditions: String,
   contest_results: [
-    {
-      creatorUid: String,
-      contest_rank: Number,
-      creatorName: String,
-      creatorScore: Number,
-    },
+    // {
+    //   creatorUid: String,
+    //   contest_rank: Number,
+    //   creatorName: String,
+    //   creatorScore: Number,
+    // },
   ],
 });
 

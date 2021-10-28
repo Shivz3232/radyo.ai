@@ -15,6 +15,7 @@ const getContest = async (req, res) => {
     const type = req.query.status;
     let filter = {
       active: type === 'active' ? true : false,
+      url_name: { $ne: 'listener-award' },
     };
     const result = await ContestModel.find(filter).catch(console.error);
     if (result) {
