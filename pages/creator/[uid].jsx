@@ -33,9 +33,7 @@ const getFollowerList = async (
   })
     .then(res => {
       setFollowers(res.data.followers);
-      setFollowing(
-        findFollower(res.data.followers, userid) >= 0 ? true : false
-      );
+      setFollowing(parseInt(res.data.userIndex) >= 0 ? true : false);
     })
     .catch(error => {
       console.log('Error getting follower list.');
@@ -86,8 +84,7 @@ const CreatorPage = props => {
   useEffect(() => {
     firebase.auth().onAuthStateChanged(() => {
       if (useremail) {
-        setUserid(useremail.split('@')[0]);
-        setFollowing(findFollower(followers, userid) >= 0 ? true : false);
+        setUserid(useremail);
       }
     });
   });

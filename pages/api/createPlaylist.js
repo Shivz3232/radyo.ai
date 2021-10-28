@@ -2,6 +2,7 @@ import connect from '../../utils/middleware/mongoClient';
 import { verifyIdToken } from '../../utils/firebase/firebaseAdmin';
 import PlaylistModel from '../../models/playlist';
 import { generateShortId } from '../../utils/generateShortId';
+import { getuserdata } from '../../controllers/getuserdata';
 
 const addPlaylistToDB = async (uid, uname, title, audioId) => {
   console.log(uid, uname, title, audioId);
@@ -40,11 +41,11 @@ const addPlaylistToDB = async (uid, uname, title, audioId) => {
 const createPlaylist = async (req, res) => {
   if (req.method === 'POST') {
     try {
-      const { name, email } = await verifyIdToken(req.cookies.token);
-      const uid = email.split('@')[0];
+      const { email } = await verifyIdToken(req.cookies.token);
+      const uinfo = await getuserdata(email);
       const retval = await addPlaylistToDB(
-        uid,
-        name,
+        uinfo._id,
+        uinfo.name,
         req.body.title,
         req.body.audioId
       );

@@ -1,33 +1,49 @@
 /* Category Colors */
 .songs {
-  background-color: #3f51b5;
+  @apply bg-gradient-to-r from-purple-500 to-purple-700;
 }
 
 .comedy {
-  background-color: #ac6e1d;
+  @apply bg-gradient-to-r from-yellow-500 to-yellow-700;
 }
 
 .shayari {
-  background-color: #ef4444;
+  @apply bg-gradient-to-r from-red-500 to-red-700;
 }
 
 .stories {
-  background-color: #24ad4d;
+  @apply bg-gradient-to-r from-green-500 to-green-700;
+}
+
+.playlist {
+  @apply bg-gradient-to-r from-pink-500 to-pink-700;
 }
 
 .dialogues {
-  background-color: #a124ad;
+  @apply bg-gradient-to-r from-blue-500 to-blue-700;
 }
 .motivation {
-  background-color: #adab24;
+  @apply bg-gradient-to-r from-indigo-500 to-indigo-700;
 }
 .poetry {
-  background-color: #0db0b6;
+  @apply bg-gradient-to-r from-pink-500 to-pink-700;
 }
+
+.celebrations {
+  background: linear-gradient(
+    to right,
+    #bf953f,
+    #d4cd7a,
+    #b38728,
+    #d4cd7a,
+    #aa771c
+  );
+}
+
 .education {
-  background-color: #ad4424;
+  @apply bg-gradient-to-r from-purple-500 to-purple-700;
 }
 
 .others {
-  background-color: #405747;
+  @apply bg-gradient-to-r from-gray-500 to-gray-700;
 }
