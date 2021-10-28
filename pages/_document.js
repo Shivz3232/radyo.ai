@@ -24,6 +24,11 @@ class MyDocument extends Document {
             async
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
           />
+          <script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3369394419363433"
+            crossOrigin="anonymous"
+          />
         </Head>
         <body>
           <Main />
