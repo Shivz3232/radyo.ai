@@ -11,7 +11,7 @@ const HeaderBrand = () => {
   }
   return (
     <div
-      className="flex justify-centeritems-baseline px-2 py-1 text-3xl cursor-pointer"
+      className="flex justify-center items-baseline px-2 py-1 text-3xl cursor-pointer"
       onClick={handleClick}
     >
       <img src={micLogo.src} alt="logo" className="max-h-8 max-w-8 mr-2" />
