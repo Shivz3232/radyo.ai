@@ -163,7 +163,8 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
 
   return (
     <div>
-      {userid && (
+      {/*Turning off playlist in production
+        userid && (
         <CreatePlaylistModal
           showModal={createPlaylist}
           setCreatePlaylist={setCreatePlaylist}
@@ -171,7 +172,9 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
           playlistAudioId={playlistAudioId}
           playlistsOptions={playlistsOptions}
         />
-      )}
+      )
+      */
+      }
       <div
         className="audio-card mini generic-card"
         id={`${categoryName}-${cardItemData._id}`}
@@ -238,6 +241,7 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
               shareCount={shareCount}
             />
           </div>
+          {/*Turning off playlist in production
           <div className="audio-card__action">
             <RiPlayListAddFill
               className="audio-card__action--item"
@@ -247,6 +251,7 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
               }}
             />
           </div>
+          */}
         </div>
       </div>
       <div
