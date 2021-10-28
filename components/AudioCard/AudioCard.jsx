@@ -38,6 +38,10 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
   };
 
   const { playAudio } = usePlaylist();
+
+  const play = () => {
+    playAudio(trackInfo, cardItemData._id.toString());
+  };
   // Destructuring the props item
   const {
     creatorId,
@@ -181,14 +185,13 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
                   ? coverImage
                   : '/lovebytes/images/Picture1.jpg'
               }
+              onClick={play}
               alt="Love"
             />
             <img
               src={playButton.src}
               alt="play button"
-              onClick={() => {
-                playAudio(trackInfo, cardItemData._id.toString());
-              }}
+              onClick={play}
               className="play__button"
             />
           </div>
@@ -217,7 +220,7 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
           </div>
         </div>
         <div className="audio-card__action--row">
-          <div className="audio-card__action">
+          <div className="audio-card__action" onClick={play}>
             <AiFillPlayCircle className="audio-card__action--item" />
             <span className="audio-card__action--item">{playCount}</span>
           </div>
