@@ -12,3 +12,14 @@ export const getAllPlaylists = async () => {
     return undefined;
   }
 };
+
+export const getUserPlaylists = async uid => {
+  const allPlaylists = await PlaylistModel.find({ creatorId: uid })
+    .populate('podcastList')
+    .catch(console.error);
+  if (allPlaylists) {
+    return JSON.parse(JSON.stringify(allPlaylists));
+  } else {
+    return [];
+  }
+};

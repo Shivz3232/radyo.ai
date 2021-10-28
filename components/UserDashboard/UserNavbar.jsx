@@ -16,8 +16,8 @@ const UserNavbar = ({ selectedTab }) => {
 
   return (
     <div>
-      <div className="w-full max-w-md px-4 py-5 sm:px-0 mx-auto">
-        <div className="flex p-1 space-x-1 bg-indigo-650 rounded-xl">
+      <div className="w-3/4 px-4 py-5 sm:px-0 mx-auto">
+        <div className="flex p-1 space-x-1 bg-indigo-650 rounded-xl ">
           <div
             className={classNames(
               tabStyles,
@@ -25,9 +25,7 @@ const UserNavbar = ({ selectedTab }) => {
             )}
           >
             <Link href={userMenuLinks[0].url}>
-              <a className="py-2 px-2 xs:px-4 sm:px-8">
-                {userMenuLinks[0].label}
-              </a>
+              <a className="py-2 px-2">{userMenuLinks[0].label}</a>
             </Link>
           </div>
 
@@ -38,9 +36,7 @@ const UserNavbar = ({ selectedTab }) => {
             )}
           >
             <Link href={userMenuLinks[1].url}>
-              <a className="py-2 px-2 xs:px-4 sm:px-8">
-                {userMenuLinks[1].label}
-              </a>
+              <a className="py-2 px-2">{userMenuLinks[1].label}</a>
             </Link>
           </div>
 
@@ -51,9 +47,17 @@ const UserNavbar = ({ selectedTab }) => {
             )}
           >
             <Link href={userMenuLinks[2].url}>
-              <a className="xs:px-1 xs:py-2 sm:px-2 sm:py-2">
-                {userMenuLinks[2].label}
-              </a>
+              <a className="py-2 px-2">{userMenuLinks[2].label}</a>
+            </Link>
+          </div>
+          <div
+            className={classNames(
+              tabStyles,
+              selected.myPlaylists ? 'bg-white shadow transition' : hoverStyles
+            )}
+          >
+            <Link href={userMenuLinks[3].url}>
+              <a className="py-2 px-2">{userMenuLinks[3].label}</a>
             </Link>
           </div>
         </div>

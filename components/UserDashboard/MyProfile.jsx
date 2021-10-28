@@ -151,9 +151,7 @@ const MyProfile = () => {
           <div>
             <div className="space-y-3 mx-auto text-gray-900 w-11/12 lg:w-4/6">
               <div className="bg-gray-200 text-center mx-auto p-2 rounded-md mb-2 flex flex-col">
-                <div className="text-gray-900">
-                  Public Profile Link
-                </div>
+                <div className="text-gray-900">Public Profile Link</div>
                 <div
                   className="text-indigo-650 break-all"
                   ref={profileLink}
