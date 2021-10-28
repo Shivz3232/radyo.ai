@@ -55,7 +55,7 @@ const SearchBar = ({ setData, category, data }) => {
       <div className="podcast-search-bar">
         <div className="search-input-field">
           <div className="flex w-full">
-            <div className="bg-white flex items-center rounded-xl shadow-2xl w-11/12 text-gray-700 leading-tight border-solid border-2 border-indigo-50">
+            <div className="bg-white flex items-center rounded-xl shadow-2xl w-10/12 text-gray-700 leading-tight border-solid border-2 border-indigo-50">
               <div className=" flex text-center text-blueGray-300  bg-transparent rounded text-lg items-center justify-center w-full ml-10 ">
                 {data.searched && (
                   <BiArrowBack
@@ -93,7 +93,7 @@ const SearchBar = ({ setData, category, data }) => {
               </div>
             </div>
 
-            <div className="flex items-center w-1/12 leading-tight float-right">
+            <div className="flex items-center w-2/12 leading-tight float-right">
               <button
                 type="button"
                 tooltip="Create new Playlist"
@@ -105,7 +105,11 @@ const SearchBar = ({ setData, category, data }) => {
                 }}
               >
                 <span>
-                  <RiPlayListAddLine color="white" className="w-8 h-8" />
+                  Add Playlist
+                  <RiPlayListAddLine
+                    color="white"
+                    className="inline w-4 h-4 ml-2"
+                  />
                 </span>
               </button>
             </div>

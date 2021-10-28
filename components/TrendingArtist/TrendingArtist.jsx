@@ -75,7 +75,7 @@ const TrendingArtist = ({ heading, data }) => {
           {!scrollArrowHide.left && (
             <button
               onClick={scrollLeft}
-              className="absolute p-1 rounded-full bg-indigo-650 opacity-80 mt-8 z-10 lg:-ml-8"
+              className="absolute p-1 rounded-full bg-gradient-to-l from-indigo-650 to-indigo-600 mt-8 z-10 lg:-ml-8"
             >
               <MdKeyboardArrowLeft fontSize="1.25rem" className="text-white" />
             </button>
@@ -83,7 +83,7 @@ const TrendingArtist = ({ heading, data }) => {
           {!scrollArrowHide.right && (
             <button
               onClick={scrollRight}
-              className="absolute text-white p-1 rounded-full bg-indigo-650 opacity-80 mt-8 right-0 z-10 lg:-mr-8"
+              className="absolute text-white p-1 rounded-full bg-gradient-to-l from-indigo-650 to-indigo-600 mt-8 right-0 z-10 lg:-mr-8"
             >
               <MdKeyboardArrowRight fontSize="1.25rem" className="text-white" />
             </button>

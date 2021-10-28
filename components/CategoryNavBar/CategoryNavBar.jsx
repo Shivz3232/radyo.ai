@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { categoryDataLinks } from './categoryData';
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from 'react-icons/md';
 import Link from 'next/link';
+import router from 'next/router';
 
 const CategoryNavBar = ({ category }) => {
   const navBarRef = useRef();
@@ -60,7 +61,7 @@ const CategoryNavBar = ({ category }) => {
         {!scrollArrowHide.left && (
           <button
             onClick={scrollLeft}
-            className="absolute p-1 rounded-full bg-indigo-650 opacity-80 mt-3 z-10 lg:-ml-8"
+            className="absolute p-1 rounded-full bg-gradient-to-l from-indigo-650 to-indigo-600 mt-3 z-10 lg:-ml-8"
           >
             <MdKeyboardArrowLeft fontSize="1.25rem" className="text-white" />
           </button>
@@ -68,7 +69,7 @@ const CategoryNavBar = ({ category }) => {
         {!scrollArrowHide.right && (
           <button
             onClick={scrollRight}
-            className="absolute text-white p-1 rounded-full bg-indigo-650 opacity-80 mt-3 right-0 z-10 lg:-mr-8"
+            className="absolute text-white p-1 rounded-full bg-gradient-to-l from-indigo-650 to-indigo-600 mt-3 right-0 z-10 lg:-mr-8"
           >
             <MdKeyboardArrowRight fontSize="1.25rem" className="text-white" />
           </button>
@@ -76,7 +77,7 @@ const CategoryNavBar = ({ category }) => {
         <div
           ref={navBarRef}
           onScroll={checkArrowAndHide}
-          className="no-scrollbar mx-1 py-2 z-10 whitespace-nowrap overflow-y-hidden  overflow-x-scroll"
+          className="no-scrollbar mx-1 py-2 z-10 whitespace-nowrap overflow-y-hidden overflow-x-scroll"
         >
           {categoryDataLinks.map((data, i) => {
             return (
@@ -85,15 +86,16 @@ const CategoryNavBar = ({ category }) => {
                 id={data.id}
                 className={`mx-2 rounded-md border border-indigo-650 px-2 py-1 ${
                   data.id === category
-                    ? 'text-white bg-indigo-650'
-                    : 'text-indigo-650 hover:bg-gray-100'
+                    ? 'text-white bg-gradient-to-l from-indigo-650 to-indigo-600 hover:shadow-2xl hover:text-indigo-50'
+                    : 'text-indigo-650 hover:bg-gradient-to-l from-gray-200 to-gray-100 hover:shadow-2xl'
                 }
                 ${data.id === 'all' ? 'w-20' : null}
                 `}
+                onClick={() => {
+                  router.push(data.url);
+                }}
               >
-                <Link href={data.url}>
-                  <a>{data.label}</a>
-                </Link>
+                <span>{data.label}</span>
               </button>
             );
           })}
