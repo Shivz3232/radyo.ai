@@ -3,7 +3,6 @@ import PodcastModel from '../../../models/podcast';
 
 const updateShareCount = async (req, res) => {
   if (req.method == 'POST') {
-    const { email } = await verifyIdToken(req.cookies.token);
     const id = req.query.AudioId;
     if (req.body.collection === 'playlist') {
       await PlaylistModel.findOneAndUpdate(

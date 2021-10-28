@@ -3,11 +3,9 @@ import PodcastModel from '../../../models/podcast';
 import PodcastCreatorModel from '../../../models/podcastCreator';
 import ContestModel from '../../../models/contest';
 import PlaylistModel from '../../../models/playlist';
-import { verifyIdToken } from '../../../utils/firebase/firebaseAdmin';
 
 const updatePlayCount = async (req, res) => {
   if (req.method == 'POST') {
-    const { email } = await verifyIdToken(req.cookies.token);
     const id = req.query.AudioId;
     if (req.body.collection === 'playlist') {
       await PlaylistModel.findOneAndUpdate(
