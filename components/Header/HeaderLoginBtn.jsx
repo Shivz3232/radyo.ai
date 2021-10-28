@@ -10,7 +10,7 @@ const HeaderLoginBtn = ({ data }) => {
     <UserMenu data={data} />
   ) : (
     <Link href="/login" passHref>
-      <button className="border border-indigo-650 rounded px-4 py-2 bg-indigo-650 text-white hover:bg-white hover:text-indigo-650 transition delay-75 ease-in-out cursor-pointer">
+      <button className="rounded px-4 py-2 bg-gradient-to-l from-indigo-650 to-indigo-600 text-white hover:text-indigo-100 hover:shadow-xl transition delay-75 ease-in-out cursor-pointer">
         Login / SignUp
       </button>
     </Link>

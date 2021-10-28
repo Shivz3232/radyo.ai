@@ -9,7 +9,7 @@ const OptionBlock = props => {
   if (props.playlistsOptions.length) {
     props.playlistsOptions.map((elem, i) => {
       cards.push(
-        <option key={i} value={elem._id}>
+        <option key={i} value={elem._id} className="bg-white">
           {elem.title}
         </option>
       );
@@ -18,13 +18,15 @@ const OptionBlock = props => {
 
   return (
     <select
-      className="shadow appearance-none border rounded w-3/4 py-2 px-3 text-grey-darker"
+      className="shadow bg-white border rounded w-3/4 py-2 px-3 text-grey-darker"
       id="chooseAddToPlaylist"
       onChange={e => {
         props.setAddToPlaylistName(['update', e.target.value]);
       }}
     >
-      <option value="0">Select a playlist name</option>
+      <option value="0" className="bg-white">
+        Select a playlist name
+      </option>
       {cards}
     </select>
   );
@@ -130,7 +132,7 @@ const CreatePlaylistModal = props => {
                 className="shadow appearance-none border rounded w-3/4 py-2 px-3 text-grey-darker"
                 id="playlistName"
                 type="text"
-                placeholder="New playlist"
+                placeholder="Create a new playlist"
                 onChange={e => {
                   setAddToPlaylistName(['add', e.target.value]);
                 }}
