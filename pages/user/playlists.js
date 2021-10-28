@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
 import MyPlaylists from '../../components/UserDashboard/MyPlaylists';
 import Navbar from '../../components/UserDashboard/UserNavbar';
-import nookies from 'nookies';
-//import { verifyIdToken } from '../../utils/firebase/firebaseAdmin';
-//import { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { initGA, trackPageView } from '../../components/Tracking/tracking';
-//import { getUserPlaylist } from '../api/getUserPlaylist';
 
 const Playlists = ({ redirect, props }) => {
   const router = useRouter();
