@@ -16,7 +16,7 @@ const UserNavbar = ({ selectedTab }) => {
 
   return (
     <div>
-      <div className="w-3/4 px-4 py-5 sm:px-0 mx-auto">
+      <div className="w-1/2 px-4 py-5 sm:px-0 mx-auto">
         <div className="flex p-1 space-x-1 bg-indigo-650 rounded-xl ">
           <div
             className={classNames(
@@ -50,6 +50,7 @@ const UserNavbar = ({ selectedTab }) => {
               <a className="py-2 px-2">{userMenuLinks[2].label}</a>
             </Link>
           </div>
+          {/* Turning off playlist in production
           <div
             className={classNames(
               tabStyles,
@@ -60,6 +61,7 @@ const UserNavbar = ({ selectedTab }) => {
               <a className="py-2 px-2">{userMenuLinks[3].label}</a>
             </Link>
           </div>
+          */}
         </div>
       </div>
     </div>
