@@ -55,8 +55,8 @@ const CreatorPage = props => {
       .get(`/api/hydrate/creator/get_creator?creatorId=${data._id}`)
       .then(res => {
         // console.log(res.data.allCreator[0]);
-        if (res.data.allCreator && res.data.allCreator.length) {
-          setData(res.data.allCreator[0]);
+        if (res.data.allCreator) {
+          setData(res.data.allCreator);
         }
       })
       .catch(err => {

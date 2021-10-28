@@ -1,20 +1,39 @@
 import connect from '../../../../utils/middleware/mongoClient';
 import PodcastCreatorModel from '../../../../models/podcastCreator';
+import PodcastModel from './../../../../models/podcast';
 
 const getCreators = async (req, res) => {
   if (req.method == 'GET') {
     const creatorId = req.query.creatorId;
     let filter = {};
     let limit = 15;
+    let allCreator;
     if (creatorId) {
       filter = { ...filter, _id: creatorId };
+      allCreator = await PodcastCreatorModel.findOne(filter)
+        .sort({ audiosPublished: -1 })
+        .limit(limit)
+        .catch(console.error);
+    } else {
+      allCreator = await PodcastCreatorModel.find(filter)
+        .sort({ audiosPublished: -1 })
+        .limit(limit)
+        .catch(console.error);
     }
 
-    const allCreator = await PodcastCreatorModel.find(filter)
-      .sort({ audiosPublished: -1 })
-      .limit(limit)
-      .catch(console.error);
-    if (allCreator) {
+    if (allCreators) {
+      if (creatorId) {
+        const audio = await PodcastModel.find({
+          creatorId: creatorId,
+          status: 'approved',
+        });
+        if (audio) {
+          if (allCreator.audiosPublished !== audio.length) {
+            allCreator.audiosPublished = audio.length;
+            allCreator.save().catch(console.error);
+          }
+        }
+      }
       res.json({
         allCreator,
       });
