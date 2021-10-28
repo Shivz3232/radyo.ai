@@ -100,7 +100,7 @@ const Listener = ({ month_url, year_url, contest }) => {
                   <div className="w-1/5 mobile:w-1/4  mr-2">Date</div>
                   <div className="w-4/5 mobile:w-3/4 ml-2">List</div>
                 </div>
-                {contest.contest_results.map((elem, i) => {
+                {contest.contest_results.reverse().map((elem, i) => {
                   return (
                     <div
                       key={i}
