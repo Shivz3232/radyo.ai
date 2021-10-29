@@ -68,16 +68,17 @@ const SearchBar = ({ setData, category, data }) => {
   }, [query]);
 
   return (
-    <>
+    <>{/* Turning off playlist in production
       <CreatePlaylistModal
         showModal={createPlaylist}
         setCreatePlaylist={setCreatePlaylist}
         playlistsOptions={[]}
       />
+      */}
       <div className="podcast-search-bar">
         <div className="search-input-field">
           <div className="flex w-full">
-            <div className="bg-white flex items-center rounded-xl shadow-2xl w-10/12 text-gray-700 leading-tight border-solid border-2 border-indigo-50">
+            <div className="bg-white flex items-center rounded-xl shadow-2xl w-full text-gray-700 leading-tight border-solid border-2 border-indigo-50">
               <div className=" flex text-center text-blueGray-300  bg-transparent rounded text-lg items-center justify-center w-full ml-10 ">
                 {data.searched && (
                   <BiArrowBack
@@ -115,7 +116,7 @@ const SearchBar = ({ setData, category, data }) => {
                 </div>
               </div>
             </div>
-
+            {/* Turning off playlist in production
             <div className="flex items-center w-2/12 leading-tight float-right">
               <button
                 type="button"
@@ -136,6 +137,7 @@ const SearchBar = ({ setData, category, data }) => {
                 </span>
               </button>
             </div>
+            */}
           </div>
         </div>
       </div>

@@ -39,9 +39,11 @@ export const userMenuLinks = [
     label: 'My Submissions',
     url: '/user/submissions',
   },
+  /*
   {
     id: 'my-playlists',
     label: 'My Playlists',
     url: '/user/playlists',
   },
+  */
 ];
