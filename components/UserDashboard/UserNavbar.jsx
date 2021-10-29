@@ -25,7 +25,9 @@ const UserNavbar = ({ selectedTab }) => {
             )}
           >
             <Link href={userMenuLinks[0].url}>
-              <a className="py-2 px-2">{userMenuLinks[0].label}</a>
+              <a className="py-2 px-2 xs:px-4 sm:px-8">
+                {userMenuLinks[0].label}
+              </a>
             </Link>
           </div>
 
@@ -36,7 +38,9 @@ const UserNavbar = ({ selectedTab }) => {
             )}
           >
             <Link href={userMenuLinks[1].url}>
-              <a className="py-2 px-2">{userMenuLinks[1].label}</a>
+              <a className="py-2 px-2 xs:px-4 sm:px-8">
+                {userMenuLinks[1].label}
+              </a>
             </Link>
           </div>
 
@@ -47,7 +51,9 @@ const UserNavbar = ({ selectedTab }) => {
             )}
           >
             <Link href={userMenuLinks[2].url}>
-              <a className="py-2 px-2">{userMenuLinks[2].label}</a>
+              <a className="xs:px-1 xs:py-2 sm:px-2 sm:py-2">
+                {userMenuLinks[2].label}
+              </a>
             </Link>
           </div>
           {/* Turning off playlist in production
