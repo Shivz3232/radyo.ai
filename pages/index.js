@@ -130,11 +130,12 @@ const Podcast = props => {
                   );
                 }
               })}
-
+              {/*Turning off playlist in production
               <PlaylistCards
                 categoryName="Trending Playlists"
                 cardItems={playlistCards.slice(0, 15)}
-              />
+              />*/
+              }
             </>
           ) : null}
         </div>
