@@ -10,12 +10,12 @@ const getCreators = async (req, res) => {
     let allCreator;
     if (creatorId) {
       filter = { ...filter, _id: creatorId };
-      allCreator = await PodcastCreatorModel.findOne(filter)
+      allCreator = await PodcastCreatorModel.findOne(filter, '-email')
         .sort({ audiosPublished: -1 })
         .limit(limit)
         .catch(console.error);
     } else {
-      allCreator = await PodcastCreatorModel.find(filter)
+      allCreator = await PodcastCreatorModel.find(filter, '-email')
         .sort({ audiosPublished: -1 })
         .limit(limit)
         .catch(console.error);

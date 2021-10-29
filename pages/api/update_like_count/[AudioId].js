@@ -60,9 +60,12 @@ const updateLikeCount = async (req, res) => {
       }
 
       if (updateCount) {
-        creator = await PodcastCreatorModel.findById({
-          _id: updateCount.creatorId,
-        }).catch(console.error);
+        creator = await PodcastCreatorModel.findById(
+          {
+            _id: updateCount.creatorId,
+          },
+          '-email'
+        ).catch(console.error);
       }
 
       if (updateCount && contests && creator) {
