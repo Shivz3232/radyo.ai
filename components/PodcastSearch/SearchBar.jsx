@@ -25,20 +25,6 @@ const SearchBar = ({ setData, category, data }) => {
   }
 
   function loadResults() {
-    if (query) {
-      axios
-        .get(`/api/search?query=${query}`)
-        .then(res => {
-          setData({
-            searched: true,
-            data: res.data.allAudio,
-            loading: false,
-            query: query,
-          });
-        })
-        .catch(err => console.log(err));
-    }
-    val.current.blur();
     var element = document.getElementById('searchbar');
     if (element) element.classList.remove('hidden');
     if (element)
@@ -57,6 +43,21 @@ const SearchBar = ({ setData, category, data }) => {
       if (element) element.classList.add('hidden');
       clearTimeout(time);
     }, 600);
+
+    if (query) {
+      axios
+        .get(`/api/search?query=${query}`)
+        .then(res => {
+          setData({
+            searched: true,
+            data: res.data.allAudio,
+            loading: false,
+            query: query,
+          });
+        })
+        .catch(err => console.log(err));
+    }
+    val.current.blur();
   }
 
   useEffect(() => {
@@ -87,6 +88,7 @@ const SearchBar = ({ setData, category, data }) => {
                       setQuery(null);
                       val.current.value = '';
                       val.current.blur();
+                      history.back();
                     }}
                   />
                 )}
