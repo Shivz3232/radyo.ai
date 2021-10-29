@@ -37,14 +37,35 @@ const SearchBar = ({ setData, category, data }) => {
           });
         })
         .catch(err => console.log(err));
-      val.current.blur();
-      val.current.scrollIntoView({
+    }
+    val.current.blur();
+    var element = document.getElementById('searchbar');
+    if (element) element.classList.remove('hidden');
+    if (element)
+      element.scrollIntoView({
         behavior: 'smooth',
         block: 'start',
         inline: 'nearest',
       });
-    }
+    // val.current.scrollIntoView({
+    //   behavior: 'smooth',
+    //   block: 'start',
+    //   inline: 'nearest',
+    // });
+    var time;
+    time = setTimeout(() => {
+      if (element) element.classList.add('hidden');
+      clearTimeout(time);
+    }, 600);
   }
+
+  useEffect(() => {
+    if (window.location.search) {
+      setQuery(window.location.search.split('?')[1]);
+      loadResults();
+    }
+  }, [query]);
+
   return (
     <>
       <CreatePlaylistModal
