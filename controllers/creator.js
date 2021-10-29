@@ -1,9 +1,12 @@
 import PodcastCreatorModel from '../models/podcastCreator';
 
 export const getCreatorAudio = async uid => {
-  const allAudio = await PodcastCreatorModel.find({
-    uid: uid,
-  }).catch(console.error);
+  const allAudio = await PodcastCreatorModel.find(
+    {
+      uid: uid,
+    },
+    '-email'
+  ).catch(console.error);
 
   if (allAudio) {
     let temp = JSON.stringify(allAudio[0]);
@@ -14,7 +17,7 @@ export const getCreatorAudio = async uid => {
 };
 
 export const getTrendingCreators = async () => {
-  const trendingCreator = await PodcastCreatorModel.find({}).catch(
+  const trendingCreator = await PodcastCreatorModel.find({}, '-email').catch(
     console.error
   );
   if (trendingCreator) {
@@ -50,5 +53,7 @@ export const getTrendingCreators = async () => {
 };
 
 export const getCreatorIds = async () => {
-  return await PodcastCreatorModel.find({}, 'uid -_id').catch(console.error);
+  return await PodcastCreatorModel.find({}, 'uid -email -_id').catch(
+    console.error
+  );
 };

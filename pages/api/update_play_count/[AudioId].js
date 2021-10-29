@@ -27,7 +27,7 @@ const updatePlayCount = async (req, res) => {
       if (updateCount && contests) {
         const creator = await PodcastCreatorModel.findById({
           _id: updateCount.creatorId,
-        }).catch(console.error);
+        },'-email').catch(console.error);
         if (creator) {
           creator.playCount += 1;
           contests.forEach(contest => {
