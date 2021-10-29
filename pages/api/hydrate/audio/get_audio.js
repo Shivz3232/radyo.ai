@@ -5,7 +5,7 @@ const getAudios = async (req, res) => {
   if (req.method == 'GET') {
     const audioId = req.query.audioId;
     const category = req.query.category;
-    // let sortBy = { createdAt: -1 };
+    let sortBy = { createdAt: -1 };
     // const sort = req.query.sortBy;
     // if (sort === 'LIKE') {
     //   sortBy = { likeCount: -1 };
