@@ -12,6 +12,8 @@ import {
 import dbConnect from '../../utils/dbConnect';
 import NoResult from '../../assets/NoResultsFound.png';
 import { initGA, trackPageView } from '../../components/Tracking/tracking';
+import { BiSortAlt2 } from 'react-icons/bi';
+import SortButton from '../../components/SortButton/SortButton';
 
 const PodcastCategory = props => {
   const [audioCards, setAudioCards] = useState(props.audioCards);
@@ -21,17 +23,20 @@ const PodcastCategory = props => {
     query: '',
     data: [],
   });
+  const [sort, setSort] = useState('');
 
   useEffect(() => {
     axios
-      .get(`/api/hydrate/audio/get_audio?category=${props.category}`)
+      .get(
+        `/api/hydrate/audio/get_audio?category=${props.category}&sortBy=${sort}`
+      )
       .then(res => {
         // console.log(res.data.allAudio);
-        if(res.data.allAudio && res.data.allAudio.length)
-        setAudioCards(res.data.allAudio);
+        if (res.data.allAudio && res.data.allAudio.length)
+          setAudioCards(res.data.allAudio);
       })
       .catch(err => console.log(err));
-  }, [props.category]);
+  }, [props.category, sort]);
 
   useEffect(() => {
     initGA();
@@ -42,15 +47,89 @@ const PodcastCategory = props => {
     if (audioCards.length) {
       const lastPodcastId = audioCards[audioCards.length - 1]._id;
       axios
-        .get(`/api/category/${props.category}?lastPodcastId=${lastPodcastId}`)
+        .get(
+          `/api/category/${props.category}?lastPodcastId=${lastPodcastId}&sortBy=${sort}`
+        )
         .then(response => {
           let d = response.data.allAudio;
-          // console.log(d);
-          setAudioCards(audioCards.concat(d));
+          console.log(d);
+          setAudioCards(
+            audioCards.concat(
+              d.sort((a, b) => {
+                if (sort === 'LIKE') {
+                  return by(a.likeCount, b.likeCount);
+                } else if (sort === 'LIKE-ASC') {
+                  return by(a.likeCount, b.likeCount, true);
+                } else if (sort === 'PLAY') {
+                  return by(a.playCount, b.playCount);
+                } else if (sort === 'PLAY-ASC') {
+                  return by(a.playCount, b.playCount, true);
+                } else if ('NEWEST') {
+                  return by(new Date(a.createdAt), new Date(b.playCount));
+                } else if ('OLDEST') {
+                  return by(new Date(a.createdAt), new Date(b.playCount), true);
+                } else return 0;
+              })
+            )
+          );
         })
         .catch(console.error);
     }
   }
+  const by = (a, b, asc = false) => {
+    if (asc === true) {
+      return a > b ? 1 : -1;
+    } else {
+      return a < b ? 1 : -1;
+    }
+  };
+
+  function sortBy(sortingFunc) {
+    if (sortingFunc === 'LIKE') {
+      setSort('LIKE');
+      setAudioCards(
+        audioCards.sort((a, b) => {
+          return by(a.likeCount, b.likeCount);
+        })
+      );
+    } else if (sortingFunc === 'PLAY') {
+      setSort('PLAY');
+      setAudioCards(
+        audioCards.sort((a, b) => {
+          return by(a.playCount, b.playCount);
+        })
+      );
+    } else if (sortingFunc === 'LIKE-ASC') {
+      setSort('LIKE-ASC');
+      setAudioCards(
+        audioCards.sort((a, b) => {
+          return by(a.likeCount, b.likeCount, true);
+        })
+      );
+    } else if (sortingFunc === 'PLAY-ASC') {
+      setSort('PLAY-ASC');
+      setAudioCards(
+        audioCards.sort((a, b) => {
+          return by(a.playCount, b.playCount, true);
+        })
+      );
+    } else if ('NEWEST') {
+      setSort('NEWEST');
+      setAudioCards(
+        audioCards.sort((a, b) => {
+          return by(new Date(a.createdAt), new Date(b.playCount));
+        })
+      );
+    } else if ('OLDEST') {
+      setSort('OLDEST');
+      setAudioCards(
+        audioCards.sort((a, b) => {
+          return by(new Date(a.createdAt), new Date(b.playCount), true);
+        })
+      );
+    }
+  }
+
   return (
     <div className="podcast-category-page">
       <CategoryNavBar category={props.category} />
@@ -69,6 +148,12 @@ const PodcastCategory = props => {
           />
         )}
       </div>
+      {/* <div
+        className="container flex items-center justify-end"
+        style={{ marginTop: '0', marginBottom: '0.25rem' }}
+      >
+        <SortButton sortBy={sortBy} />
+      </div> */}
       {!searchResults.searched && (
         <InfiniteScroll
           className="no-scrollbar"
@@ -81,7 +166,7 @@ const PodcastCategory = props => {
         >
           <div className="container">
             {audioCards && audioCards.length ? (
-              <AudioCardsVerticalScroll audioCards={audioCards} />
+              audioCards && <AudioCardsVerticalScroll audioCards={audioCards} />
             ) : (
               <div className="not-found">
                 <div className="flex items-center justify-center flex-row">

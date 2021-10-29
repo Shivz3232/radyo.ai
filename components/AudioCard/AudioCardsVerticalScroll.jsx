@@ -4,13 +4,19 @@ import NoResult from '../../assets/NoResultsFound.png';
 import AudioCard from './AudioCard';
 import Adcard from './../AdCard/Adcard';
 
-const AudioCardsVerticalScroll = ({ audioCards }) => {
+const AudioCardsVerticalScroll = props => {
+  const [audioCards, setAudioCards] = useState(props.audioCards);
   const { setContextPlaylist } = usePlaylist();
   const [origin, setOrigin] = useState();
 
   useEffect(() => {
     setOrigin(window.location.origin);
   }, []);
+
+  useEffect(() => {
+    setAudioCards(props.audioCards);
+  }, [props, audioCards]);
+
   function getMixedCards() {
     const cards = [];
 
@@ -41,7 +47,7 @@ const AudioCardsVerticalScroll = ({ audioCards }) => {
           setContextPlaylist(audioCards);
         }}
       >
-        {getMixedCards()}
+        {audioCards && getMixedCards()}
       </div>
     );
   else
