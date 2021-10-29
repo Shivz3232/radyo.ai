@@ -52,6 +52,11 @@ export const categoryDataLinks = [
     url: `${CATEGORY_ENDPOINT}/education`,
   },
   {
+    id: 'playlists',
+    label: 'Playlists',
+    url: `${CATEGORY_ENDPOINT}/playlists`,
+  },
+  {
     id: 'others',
     label: 'Others',
     url: `${CATEGORY_ENDPOINT}/others`,

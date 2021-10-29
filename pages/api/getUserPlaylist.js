@@ -1,8 +1,7 @@
 import connect from '../../utils/middleware/mongoClient';
-import mongoose from 'mongoose';
 import { verifyIdToken } from '../../utils/firebase/firebaseAdmin';
 import PlaylistModel from '../../models/playlist';
-import PodcastModel from '../../models/podcast';
+import { getuserdata } from '../../controllers/getuserdata';
 
 const getPlaylistFromDB = async uid => {
   let retval = {};
@@ -19,8 +18,8 @@ const getUserPlaylists = async (req, res) => {
   if (req.method === 'POST') {
     try {
       const { email } = await verifyIdToken(req.cookies.token);
-      const uid = email.split('@')[0];
-      const retval = await getPlaylistFromDB(uid, req.body.title);
+      const uinfo = await getuserdata(email);
+      const retval = await getPlaylistFromDB(uinfo._id, req.body.title);
       res.status(200).json({ playlists: retval });
       res.end();
     } catch (error) {

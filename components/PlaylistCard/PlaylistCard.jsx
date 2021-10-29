@@ -151,7 +151,7 @@ const PlaylistCard = ({ cardItemData, categoryName, origin }) => {
             />
           </div>
           <div className="audio-card__header--items">
-            <div className="audio-card__header--item audio-card__category Playlist">
+            <div className="audio-card__header--item audio-card__category playlist">
               Playlist
             </div>
             <Link href={`/audio/${cardItemData._id}`}>

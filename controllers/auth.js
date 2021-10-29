@@ -3,6 +3,7 @@ import nookies from 'nookies';
 import firebaseClient from '../utils/firebase/firebaseClient';
 import firebase from 'firebase/app';
 import 'firebase/auth';
+
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
@@ -10,6 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [username, setUserName] = useState(null);
   const [userid, setUserId] = useState(null);
   const [useremail, setUserEmail] = useState(null);
+
   useEffect(() => {
     return firebase.auth().onIdTokenChanged(async user => {
       if (!user) {
