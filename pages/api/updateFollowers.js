@@ -1,9 +1,9 @@
 import connect from '../../utils/middleware/mongoClient';
 import { verifyIdToken } from '../../utils/firebase/firebaseAdmin';
-import nookies from 'nookies';
 import PodcastCreatorModel from '../../models/podcastCreator';
 import ContestModel from '../../models/contest';
 import { findFollower } from '../../utils/findFollower';
+import { getuserdata } from '../../controllers/getuserdata';
 
 const removeFollower = (followers, followerIndex) => {
   followers.splice(followerIndex, 1);
@@ -19,15 +19,16 @@ const updateFollowers = async (req, res) => {
   if (req.method === 'POST') {
     try {
       const { email } = await verifyIdToken(req.cookies.token);
-      const uid = email.split('@')[0];
+      const uinfo = await getuserdata(email);
+      const uid = uinfo._id;
       let followers = await getFollowerList(req.body.creatorId);
       let triggerDbUpdate = false;
 
       const contests = await ContestModel.find({ active: true })
         .sort({ startDate: -1 })
         .catch(console.error);
-
       const followerIndex = findFollower(followers, uid);
+
       if (req.body.action === 'FOLLOW' && followerIndex === -1) {
         console.log(uid, 'Following', req.body.creatorId);
         followers.push({ uid: uid, timestamp: new Date().getTime() });

@@ -6,6 +6,7 @@ import PodcastReviewCards from '../../../components/PodcastReviewCard/PodcastRev
 import { classNames } from '../../../components/UserDashboard/UserNavbar';
 import { useUser } from '../../../utils/hooks';
 import { capitalizeFirstLetter } from '../../../components/AudioCard/AudioCard';
+import { emailUtil } from '../../../utils/emailUtil';
 
 const Dash = props => {
   // Check if authorized, else redirect to login
@@ -87,6 +88,11 @@ export default Dash;
 export function Inreview({ status }) {
   const [podcasts, setPodcasts] = useState([]);
   const [errMsg, setErrMsg] = useState('');
+  const [origin, setOrigin] = useState();
+
+  useEffect(() => {
+    setOrigin(window.location.origin);
+  }, []);
 
   useEffect(() => {
     axios
@@ -104,9 +110,15 @@ export function Inreview({ status }) {
   const approve = id => {
     axios
       .post('/api/inreview', { action: 'approve', id })
-      .then(() => {
+      .then((response) => {
         const temp = podcasts.filter(e => e._id != id);
         setPodcasts(temp);
+        emailUtil({
+          username: response.data.username,
+          useremail: response.data.useremail,
+          audiourl: `${origin}/${response.data.audiourl}`,
+          template: 'RADYO_PUBLISH',
+        });
       })
       .catch(err => {
         console.error(err);

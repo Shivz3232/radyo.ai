@@ -24,7 +24,15 @@ const PodcastCreatorSchema = new Schema({
   referrerCode: stringRequired,
   uid: stringRequired,
   email: stringRequired,
-  followers: stringArray,
+  followers: {
+    type: [
+      {
+        uid: mongoose.Types.ObjectId,
+        timestamp: { type: Number },
+      },
+    ],
+    default: [],
+  },
   creatorScore: {
     type: [
       {

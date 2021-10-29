@@ -1,11 +1,14 @@
 import mongoose, { Model, model, Schema, Document } from 'mongoose';
 import { stringRequired, numberRequired } from './schemaFieldTypes';
 import PodcastModel from './podcast';
+import PodcastCreatorSchema from './podcastCreator';
 import { generateShortId } from '../utils/generateShortId';
 
 const PlaylistSchema = new Schema({
-  creatorId: stringRequired,
-  creatorName: stringRequired,
+  creatorId: {
+    type: Schema.Types.ObjectId,
+    ref: PodcastCreatorSchema,
+  },
   podcastList: {
     type: [
       {
