@@ -215,7 +215,7 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
               </a>
             </Link>
             <div className="audio-card__header--item audio-card__author">
-              By:{creatorName}
+              By:{creatorId ? creatorId.creatorName : null}
             </div>
           </div>
         </div>
