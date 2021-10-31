@@ -6,7 +6,7 @@ import WelcomeModal from '../components/Modal/WelcomeModal';
 import { Result } from '../components/PodcastSearch/Result';
 import SearchBar from '../components/PodcastSearch/SearchBar';
 import { getAllAudio, getAudioCategories } from '../controllers/podcast';
-import { getAllPlaylists } from '../controllers/playlist';
+import { getTrendingPlaylists } from '../controllers/playlist';
 import { useSessionStorage } from '../hooks/sessionStorage';
 import dbConnect from '../utils/dbConnect';
 import HomeCarousel from './../components/HomeCarousel/HomeCarousel';
@@ -147,7 +147,7 @@ export async function getStaticProps() {
   await dbConnect();
   const audioCards = await getAllAudio().catch(console.error);
   const categories = await getAudioCategories().catch(console.error);
-  const playlistCards = await getAllPlaylists().catch(console.error);
+  const playlistCards = await getTrendingPlaylists().catch(console.error);
   const trendingCreators = await getTrendingCreators().catch(console.error);
   if (audioCards && categories && trendingCreators) {
     const allCategories = [];

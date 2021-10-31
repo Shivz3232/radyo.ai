@@ -1,4 +1,5 @@
 export const CATEGORY_ENDPOINT = '/category';
+export const PLAYLIST_ENDPOINT = '/playlists';
 
 export const FACEBOOK_APP_ID = '1459314287776121';
 

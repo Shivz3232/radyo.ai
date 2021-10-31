@@ -1,4 +1,5 @@
 import { CATEGORY_ENDPOINT } from '../../constants';
+import { PLAYLIST_ENDPOINT } from '../../constants';
 
 export const categoryDataLinks = [
   {
@@ -54,7 +55,7 @@ export const categoryDataLinks = [
   {
     id: 'playlists',
     label: 'Playlists',
-    url: `${CATEGORY_ENDPOINT}/playlists`,
+    url: `${PLAYLIST_ENDPOINT}/playlist`,
   },
   {
     id: 'others',
