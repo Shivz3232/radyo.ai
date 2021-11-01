@@ -10,7 +10,7 @@ const encryptMessage = message => {
 
 export const emailUtil = async payload => {
   try {
-    if (payload['username'] && payload['useremail'] && !payload['template']) {
+    if (payload['username'] && payload['useremail'] && payload['template']) {
       const data = { data: encryptMessage(payload) };
       await axios({
         method: 'POST',
