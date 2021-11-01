@@ -173,8 +173,7 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
           playlistsOptions={playlistsOptions}
         />
       )
-      */
-      }
+      */}
       <div
         className="audio-card mini generic-card"
         id={`${categoryName}-${cardItemData._id}`}
@@ -218,7 +217,13 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
               </a>
             </Link>
             <div className="audio-card__header--item audio-card__author">
-              By:{creatorId ? creatorId.creatorName : null}
+              <LinesEllipsis
+                text={decode(`By: ${creatorId ? creatorId.creatorName : null}`)}
+                maxLine="2"
+                ellipsis="..."
+                trimRight
+                basedOn="letters"
+              />
             </div>
           </div>
         </div>
