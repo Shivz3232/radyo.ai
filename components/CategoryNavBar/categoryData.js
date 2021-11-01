@@ -51,12 +51,12 @@ export const categoryDataLinks = [
     id: 'education',
     label: 'Education',
     url: `${CATEGORY_ENDPOINT}/education`,
-  },
+  } /* Commenting playlist in production
   {
     id: 'playlists',
     label: 'Playlists',
     url: `${PLAYLIST_ENDPOINT}/playlist`,
-  },
+  },*/,
   {
     id: 'others',
     label: 'Others',
