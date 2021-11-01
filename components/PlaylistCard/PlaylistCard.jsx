@@ -16,27 +16,22 @@ import { useAuth } from '../../controllers/auth';
 import Router from 'next/router';
 import { MdContentCopy } from 'react-icons/md';
 import { FcCheckmark } from 'react-icons/fc';
+import vinylRecord from '../../assets/vinylRecord.svg';
 
 const PlaylistCard = ({ cardItemData, categoryName, origin }) => {
   cardItemData['category'] = 'Playlist';
   const { setContextPlaylist } = usePlaylist();
   const { userid } = useAuth();
   const trackInfo = {
-    coverSrc: `${cardItemData.coverImage}`,
+    coverSrc: '/lovebytes/images/vinylRecord.svg',
     audioSrc: cardItemData.podcastList[0].audioSrc,
     title: cardItemData.podcastList[0].title,
   };
 
   const { playAudio, updatePlaylistCount } = usePlaylist();
-  const {
-    creatorId,
-    creatorName,
-    category,
-    title,
-    playCount,
-    shareCount,
-    coverImage,
-  } = cardItemData;
+  const { category, title, playCount, shareCount } = cardItemData;
+  const creatorId = cardItemData.creatorId.uid;
+  const creatorName = cardItemData.creatorId.creatorName;
 
   useEffect(() => {
     if (userid) {
@@ -132,11 +127,7 @@ const PlaylistCard = ({ cardItemData, categoryName, origin }) => {
           <div className="audio-card__header--image">
             <img
               className="audio-card__image"
-              src={
-                coverImage.length
-                  ? coverImage
-                  : '/lovebytes/images/Picture1.jpg'
-              }
+              src={'/lovebytes/images/vinylRecord.svg'}
               alt="Love"
             />
             <img
@@ -217,11 +208,7 @@ const PlaylistCard = ({ cardItemData, categoryName, origin }) => {
             <div className="w-full flex items-center justify-center flex-col mt-3">
               <img
                 className="h-24 w-24 object-fit shadow border"
-                src={
-                  coverImage.length
-                    ? coverImage
-                    : '/lovebytes/images/Picture1.jpg'
-                }
+                src={'/lovebytes/images/vinylRecord.svg'}
                 alt="cover"
               />
               <div className="mt-3">{title}</div>
