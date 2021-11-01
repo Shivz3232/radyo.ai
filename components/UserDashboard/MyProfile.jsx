@@ -5,6 +5,7 @@ import axios from 'axios';
 import { image_formats } from '../RecordAudio/fileFormats';
 import SuccessModal from './SuccessModal';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const MyProfile = () => {
   const router = useRouter();
@@ -28,6 +29,10 @@ const MyProfile = () => {
     savingMsg: 'Loading your Profile',
   });
   const profileLink = useRef();
+  const [origin, setOrigin] = useState();
+  useEffect(() => {
+    setOrigin(window.location.origin);
+  }, []);
 
   useEffect(() => {
     setTimeout(async () => {
@@ -152,10 +157,12 @@ const MyProfile = () => {
             <div className="space-y-3 mx-auto text-gray-900 w-11/12 lg:w-4/6">
               <div className="bg-gray-200 text-center mx-auto p-2 rounded-md mb-2 flex flex-col">
                 <div className="text-gray-900">Public Profile Link</div>
-                <div
-                  className="text-indigo-650 break-all"
-                  ref={profileLink}
-                >{`www.radyo.ai/creator/${inputData.uid}`}</div>
+                <Link href={`${origin}/creator/${inputData.uid}`}>
+                  <a
+                    className="text-indigo-650 break-all hover:scale-105 transform transition"
+                    ref={profileLink}
+                  >{`www.radyo.ai/creator/${inputData.uid}`}</a>
+                </Link>
                 <div>
                   <button
                     className="text-white text-sm mx-auto bg-indigo-650 m-2  rounded-md p-2 hover:scale-105 transform transition"
