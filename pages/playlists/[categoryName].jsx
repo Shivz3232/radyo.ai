@@ -24,8 +24,8 @@ const PlaylistCategory = props => {
     axios
       .get(`/api/hydrate/playlist/getplaylists`)
       .then(res => {
-        if (res.data.allPlaylists && res.data.allPlaylists.length) {
-          setPlaylistCards(res.data.allPlaylists);
+        if (res.data.playlists && res.data.playlists.length) {
+          setPlaylistCards(res.data.playlists);
         }
       })
       .catch(err => console.log(err));
