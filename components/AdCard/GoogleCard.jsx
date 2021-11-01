@@ -14,9 +14,9 @@ export const GoogleCard = props => {
         width: '100%',
         height: '100%',
         border: '1px solid red',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        // display: 'flex',
+        // alignItems: 'center',
+        // justifyContent: 'center',
       }}
     >
       {props.size && props.size !== 'RESPONSIVE' ? (

@@ -7,7 +7,7 @@ const Adcard = () => {
       style={{
         minWidth: '325px',
         minHeight: '205px',
-        width: 'min-content',
+        width: '325px',
         height: '205px',
       }}
     >
