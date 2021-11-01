@@ -23,7 +23,7 @@ const MySubmissions = () => {
         })
         .catch(error => console.log(error));
     }
-  }, []);
+  }, [useremail]);
 
   return (
     <>
