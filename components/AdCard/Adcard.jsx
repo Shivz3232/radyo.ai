@@ -21,7 +21,7 @@ const Adcard = () => {
         client={GAD_CLIENT_ID}
         slot={GAD_SLOT}
         style={{ display: 'inline-block', width: '100%', height: '100%' }}
-        format=""
+        format="fluid"
         // responsive="true"
         // layoutKey={GAD_LAYOUT_KEY}
       />
