@@ -219,7 +219,7 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
             <div className="audio-card__header--item audio-card__author">
               <LinesEllipsis
                 text={decode(`By: ${creatorId ? creatorId.creatorName : null}`)}
-                maxLine="2"
+                maxLine="1"
                 ellipsis="..."
                 trimRight
                 basedOn="letters"
