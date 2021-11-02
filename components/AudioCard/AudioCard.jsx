@@ -118,13 +118,13 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
 
   const getTelegramShareLink = () => {
     const url = encodeURIComponent(`${origin}/${cardItemData.shortId}`);
-    const text = `Hear ${cardItemData.title} on Radyo.ai : '${url}`;
+    const text = `Listen ${cardItemData.title} on Radyo.ai Click here ${url}`;
     return `https://telegram.me/share/url?url=${url}&text=${text}`;
   };
 
   const getWhatsAppShareLink = () => {
     const url = `${origin}/${cardItemData.shortId}`;
-    const text = `Hear ${cardItemData.title} on Radyo.ai : '${url}`;
+    const text = `Listen ${cardItemData.title} on Radyo.ai Click here ${url}`;
     return decode(`whatsapp://send?text=${text}`);
   };
 
@@ -132,7 +132,7 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
     try {
       const url = encodeURIComponent(`${origin}/${cardItemData.shortId}`);
       const text = encodeURIComponent(
-        `Hear ${cardItemData.title} on Radyo.ai : '${url}`
+        `Listen ${cardItemData.title} on Radyo.ai Click here ${url}`
       );
       return `https://www.facebook.com/sharer/sharer.php?u=${url}&display=popup&ref=plugin&src=like&kid_directed_site=0&app_id=${FACEBOOK_APP_ID}`;
     } catch (error) {
@@ -219,7 +219,7 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
             <div className="audio-card__header--item audio-card__author">
               <LinesEllipsis
                 text={decode(`By: ${creatorId ? creatorId.creatorName : null}`)}
-                maxLine="2"
+                maxLine="1"
                 ellipsis="..."
                 trimRight
                 basedOn="letters"

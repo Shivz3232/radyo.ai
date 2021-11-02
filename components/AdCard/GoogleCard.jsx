@@ -13,7 +13,7 @@ export const GoogleCard = props => {
       style={{
         width: '100%',
         height: '100%',
-        border: '1px solid red',
+        // border: '1px solid red',
         // display: 'flex',
         // alignItems: 'center',
         // justifyContent: 'center',

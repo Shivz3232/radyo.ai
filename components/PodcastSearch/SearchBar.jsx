@@ -68,7 +68,8 @@ const SearchBar = ({ setData, category, data }) => {
   }, [query]);
 
   return (
-    <>{/* Turning off playlist in production
+    <>
+      {/* Turning off playlist in production
       <CreatePlaylistModal
         showModal={createPlaylist}
         setCreatePlaylist={setCreatePlaylist}
@@ -85,11 +86,12 @@ const SearchBar = ({ setData, category, data }) => {
                     color="grey"
                     className="text-center text-blueGray-300 bg-transparent rounded items-center justify-center cursor-pointer mr-3"
                     onClick={() => {
-                      setData({ searched: false });
-                      setQuery(null);
-                      val.current.value = '';
-                      val.current.blur();
-                      history.back();
+                      router.push('/#searchbar').then(() => {
+                        setData({ searched: false });
+                        setQuery(null);
+                        val.current.value = '';
+                        val.current.blur();
+                      });
                     }}
                   />
                 )}

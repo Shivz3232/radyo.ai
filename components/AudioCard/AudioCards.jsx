@@ -83,10 +83,10 @@ const AudioCards = ({ cardItems, categoryName }) => {
             key={`google-card-${j}`}
             className="shadow-custom mx-2"
             style={{
-              minWidth: '325px',
-              minHeight: '205px',
-              width: '325px',
-              height: '205px',
+              // minWidth: '300px',
+              // minHeight: '180px',
+              width: '300px',
+              height: '180px',
             }}
             // className="audio-card mini generic-card p-0"
           >

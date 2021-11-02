@@ -16,7 +16,12 @@ const ArtistCard = ({ uid, id, avatar, name }) => {
       </div>
       <Link href={`/creator/${uid}`}>
         <a style={{ textDecoration: 'none', color: 'inherit' }}>
-          <div className="mt-2 text-center mobile:text-sm">{name}</div>
+          <div
+            className="mt-2 text-center mobile:text-sm  overflow-ellipsis overflow-hidden ..."
+            style={{ maxWidth: '120px' }}
+          >
+            {name}
+          </div>
         </a>
       </Link>
     </div>

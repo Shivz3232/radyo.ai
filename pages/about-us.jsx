@@ -136,7 +136,7 @@ const AboutUs = () => {
           <p className="text-2xl font-semibold text-indigo-650">Radyo.ai</p>
           <div className="py-2">
             <Link href="mailto:contact@nuzpapr.com">
-              <a className="text-blue-600">contact@radyo.ai.com</a>
+              <a className="text-blue-600">contact@nuzpapr.com</a>
             </Link>
           </div>
           <div className="pt-8 mobile:pt-8 pb-2">
