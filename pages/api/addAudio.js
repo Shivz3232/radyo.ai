@@ -79,7 +79,7 @@ uploader.post(async (req, res) => {
     let newPodcast = new PodcastModel({
       creatorId: creatorData[0]._id,
       creatorName: creatorData[0].creatorName,
-      coverImage: coverImg.url,
+      coverImage: coverImg.secure_url,
       category: req.body.cat,
       title: req.body.title,
       description: req.body.description,
@@ -89,8 +89,9 @@ uploader.post(async (req, res) => {
       shareCount: 0,
       language: req.body.lan,
       tags: createTagsArray(req.body.hashTags),
-      audioSrc: audioFile.url,
-      fileSize: `${Math.round(audioFile.bytes / 1000000)}MB`,
+      audioSrc: audioFile.secure_url.replace('.webm','.mp3'),
+      fileSize: `${(audioFile.bytes / 1000000).toFixed(2)} MB`,
+      // fileSize: `${Math.round(audioFile.bytes / 1000000) * 100}MB`,
       duration: Math.floor(audioFile.duration),
     });
     

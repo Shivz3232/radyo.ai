@@ -41,13 +41,13 @@ const CreatorCard = ({
 
   const getTelegramShareLink = () => {
     const url = encodeURIComponent(`${origin}/creator/${data.uid}`);
-    const text = `Check out wonderful creations from ${data.creatorName} on Radyo.ai ${url}`;
+    const text = `Check out wonderful creations from ${data.creatorName} on Radyo.ai Click here ${url}`;
     return `https://telegram.me/share/url?url=${url}&text=${text}`;
   };
 
   const getWhatsAppShareLink = () => {
     const url = `${origin}/creator/${data.uid}`;
-    const text = `Check out wonderful creations from ${data.creatorName} on Radyo.ai ${url}`;
+    const text = `Check out wonderful creations from ${data.creatorName} on Radyo.ai Click here ${url}`;
     return decode(`whatsapp://send?text=${text}`);
   };
 
@@ -55,7 +55,7 @@ const CreatorCard = ({
     try {
       const url = encodeURIComponent(`${origin}/creator/${data.uid}`);
       const text = encodeURIComponent(
-        `Check out wonderful creations from ${data.creatorName} on Radyo.ai ${url}`
+        `Check out wonderful creations from ${data.creatorName} on Radyo.ai Click here ${url}`
       );
       return `https://www.facebook.com/sharer/sharer.php?u=${url}&display=popup&ref=plugin&src=like&kid_directed_site=0&app_id=${FACEBOOK_APP_ID}`;
     } catch (error) {
