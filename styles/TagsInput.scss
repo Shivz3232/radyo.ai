@@ -1,7 +1,7 @@
 .tags-Input-Field {
   border-radius: 6px;
   border-width: 2px;
-  caret-color:grey;
+  caret-color:rgb(26, 25, 25);
   z-index: 0;
   --tag-pad: 0.3em;
   --tag-bg: #4527a0;
@@ -20,8 +20,9 @@
   --tag-remove-btn-bg--hover: #b61313;
   --placeholder-color: rgb(158, 157, 157);
   --placeholder-color-focus: rgb(158, 157, 157);
+  --tag--max-width: 150px;
 }
 
 .tagify__input{
-  padding: 0.4em 0.3em 0;
+  padding: 0.4em 0.4em 0;
 }
