@@ -29,7 +29,7 @@ const PodcastCategory = props => {
     axios
       .get(`/api/hydrate/audio/get_audio?category=${props.category}`)
       .then(res => {
-        console.log(res.data.allAudio);
+        // console.log(res.data.allAudio);
         setAudioCards(res.data.allAudio);
       })
       .catch(err => console.log(err));
