@@ -80,14 +80,14 @@ const AudioPageComponent = ({ data }) => {
   const getTelegramShareLink = () => {
     const url = encodeURIComponent(`${origin}/${data.shortId}`);
     // const url = encodeURIComponent(`${origin}/audio/${data._id}`);
-    const text = `Listen ${data.title} on Radyo.ai Click here ${url}`;
+    const text = `Listen ${data.title} by ${data.creatorName} on Radyo.ai Click here to listen ${url}`;
     return `https://telegram.me/share/url?url=${url}&text=${text}`;
   };
 
   const getWhatsAppShareLink = () => {
     const url = `${origin}/${data.shortId}`;
     // const url = `${origin}/audio/${data._id}`;
-    const text = `Listen ${data.title} on Radyo.ai Click here ${url}`;
+    const text = `Listen ${data.title} by ${data.creatorName} on Radyo.ai Click here to listen ${url}`;
     return decode(`whatsapp://send?text=${text}`);
   };
 
@@ -95,7 +95,7 @@ const AudioPageComponent = ({ data }) => {
     try {
       const url = encodeURIComponent(`${origin}/${data.shortId}`);
       const text = encodeURIComponent(
-        `Listen ${data.title} on Radyo.ai Click here ${url}`
+        `Listen ${data.title} by ${data.creatorName} on Radyo.ai Click here to listen ${url}`
         // const url = encodeURIComponent(`${origin}/audio/${data._id}`);
         // const text = encodeURIComponent(
         //   `${'Hear it on: '}${origin}/audio/${data._id}`

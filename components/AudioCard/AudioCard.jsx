@@ -118,13 +118,13 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
 
   const getTelegramShareLink = () => {
     const url = encodeURIComponent(`${origin}/${cardItemData.shortId}`);
-    const text = `Listen ${cardItemData.title} on Radyo.ai Click here ${url}`;
+    const text = `Listen ${cardItemData.title} by ${cardItemData.creatorName} on Radyo.ai Click here to listen${url}`;
     return `https://telegram.me/share/url?url=${url}&text=${text}`;
   };
 
   const getWhatsAppShareLink = () => {
     const url = `${origin}/${cardItemData.shortId}`;
-    const text = `Listen ${cardItemData.title} on Radyo.ai Click here ${url}`;
+    const text = `Listen ${cardItemData.title} by ${cardItemData.creatorName} on Radyo.ai Click here to listen${url}`;
     return decode(`whatsapp://send?text=${text}`);
   };
 
@@ -132,7 +132,7 @@ const AudioCard = ({ cardItemData, categoryName, origin }) => {
     try {
       const url = encodeURIComponent(`${origin}/${cardItemData.shortId}`);
       const text = encodeURIComponent(
-        `Listen ${cardItemData.title} on Radyo.ai Click here ${url}`
+        `Listen ${cardItemData.title} by ${cardItemData.creatorName} on Radyo.ai Click here to listen${url}`
       );
       return `https://www.facebook.com/sharer/sharer.php?u=${url}&display=popup&ref=plugin&src=like&kid_directed_site=0&app_id=${FACEBOOK_APP_ID}`;
     } catch (error) {
