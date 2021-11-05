@@ -6,6 +6,8 @@ export const audio_formats = [
   'audio/webm',
   'audio/ogg',
   'application/octet-stream',
+  'audio/x-m4a',
+  'audio/m4a,'
 ];
 
 // Allowed Image formats
