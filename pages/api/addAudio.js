@@ -30,6 +30,8 @@ const allowed_formats = [
   'audio/wav',
   'audio/webm',
   'audio/ogg',
+  'audio/x-m4a',
+  'audio/m4a',
   'application/octet-stream',
   'image/jpg',
   'image/png',
