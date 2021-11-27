@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../../components/UserDashboard/UserNavbar';
 import { useRouter } from 'next/router';
 import { initGA, trackPageView } from '../../components/Tracking/tracking';

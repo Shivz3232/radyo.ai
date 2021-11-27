@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PlaylistCardsVerticalScroll from '../../components/PlaylistCard/PlaylistCardsVerticalScroll';
 import PlaylistPageComponent from '../../components/PlaylistCard/PlaylistPage';
-import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
 import { initGA, trackPageView } from '../../components/Tracking/tracking';
 import {
   getUserPlaylists,

@@ -16,7 +16,6 @@ import { useAuth } from '../../controllers/auth';
 import Router from 'next/router';
 import { MdContentCopy } from 'react-icons/md';
 import { FcCheckmark } from 'react-icons/fc';
-import vinylRecord from '../../assets/vinylRecord.svg';
 
 const PlaylistCard = ({ cardItemData, categoryName, origin }) => {
   cardItemData['category'] = 'Playlist';
