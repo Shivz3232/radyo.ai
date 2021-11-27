@@ -133,7 +133,7 @@ const Podcast = props => {
 
               <PlaylistCards
                 categoryName="Trending Playlists"
-                cardItems={playlistCards.slice(0, 15)}
+                cardItems={playlistCards}
               />
             </>
           ) : null}

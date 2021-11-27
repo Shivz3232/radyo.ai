@@ -23,7 +23,7 @@ const PlaylistCard = ({ cardItemData, categoryName, origin }) => {
   const { setContextPlaylist } = usePlaylist();
   const { userid } = useAuth();
   const trackInfo = {
-    coverSrc: '/lovebytes/images/vinylRecord.svg',
+    coverSrc: cardItemData.podcastList[0].coverImage,
     audioSrc: cardItemData.podcastList[0].audioSrc,
     title: cardItemData.podcastList[0].title,
   };

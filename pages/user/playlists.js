@@ -1,15 +1,17 @@
-import React, { useEffect } from 'react';
-import MyPlaylists from '../../components/UserDashboard/MyPlaylists';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../../components/UserDashboard/UserNavbar';
 import { useRouter } from 'next/router';
 import { initGA, trackPageView } from '../../components/Tracking/tracking';
+import dbConnect from '../../utils/dbConnect';
+import { getCreatorInfo } from '../../controllers/creator';
+import { getUserPlaylists } from '../../controllers/playlist';
+import PlaylistAccordian from '../../components/PlaylistCard/PlaylistAccordian';
+import nookies from 'nookies';
+import { verifyIdToken } from '../../utils/firebase/firebaseAdmin';
+import { Accordion } from 'react-accessible-accordion';
 
-const Playlists = ({ redirect, props }) => {
+const Playlists = ({ playlistData }) => {
   const router = useRouter();
-  if (redirect) {
-    router.push(redirect.destination);
-  }
-
   const selectedTab = {
     profile: false,
     addAudio: false,
@@ -22,36 +24,45 @@ const Playlists = ({ redirect, props }) => {
   }, []);
 
   return (
-    <div className="bg-gray-100">
+    <div className="bg-gray-100 h-screen">
       <Navbar selectedTab={selectedTab} />
-      <MyPlaylists />
+      <div className="bg-white w-6/12 px-4 py-5 mx-auto">
+        <div className="px-4 py-5 sm:px-0 mx-auto rounded-md">
+          <Accordion>
+            {playlistData.map((key, elem) => {
+              return <PlaylistAccordian key={key} data={playlistData[elem]} />;
+            })}
+          </Accordion>
+        </div>
+      </div>
     </div>
   );
 };
-/*
-export const getStaticProps = async context => {
-  try {
-    const cookies = nookies.get(context);
-    const token = await verifyIdToken(cookies.token);
-    const { uid, email } = token;
-    if (uid) {
-      console.log('User authenticated');
-      const playlistData = await getUserPlaylists().catch(console.error);
 
-      return {
-        props: {},
-      };
-    }
-  } catch (err) {
-    console.log('User not authenticated');
+export async function getServerSideProps(context) {
+  const cookies = nookies.get(context);
+  const { email } = await verifyIdToken(cookies.token);
+  await dbConnect();
+  const userData = await getCreatorInfo(email).catch(console.error);
+  const playlistData = await getUserPlaylists(userData._id).catch(
+    console.error
+  );
+  if (playlistData) {
     return {
+      props: {
+        playlistData,
+      },
+    };
+  } else {
+    return {
+      props: {},
+
       redirect: {
         permanent: false,
         destination: '/login',
       },
-      props: {},
     };
   }
-};
-*/
+}
+
 export default Playlists;
