@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
-// import AdCard from '../../../components/AdCard/AdCard';
-import AudioCards from '../../components/AudioCard/AudioCards';
-import AudioCardsVerticalScroll from '../../components/AudioCard/AudioCardsVerticalScroll';
-import AudioPageComponent from '../../components/AudioPage/AudioPage';
-import AudioPlayer from '../../components/AudioPlayer/AudioPlayer';
+import PlaylistCardsVerticalScroll from '../../components/PlaylistCard/PlaylistCardsVerticalScroll';
+import PlaylistPageComponent from '../../components/PlaylistCard/PlaylistPage';
 import { initGA, trackPageView } from '../../components/Tracking/tracking';
-import { getAllAudio, getAudio, getAudioIds } from '../../controllers/podcast';
+import {
+  getUserPlaylists,
+  getTrendingPlaylists,
+  getPlaylist,
+  getPlaylistIds,
+} from '../../controllers/playlist';
 import dbConnect from '../../utils/dbConnect';
 import { FACEBOOK_APP_ID } from '../../constants';
 import axios from 'axios';
 import { usePlaylist } from './../../controllers/PlaylistProvider';
 
-const PodcastAudio = props => {
-  const { audioCards } = props;
+const PlaylistInfoPage = props => {
+  const { playlistCards, trendingPlaylistCards } = props;
   const [data, setData] = useState(props.data);
   const { playAudio } = usePlaylist();
   useEffect(() => {
@@ -32,6 +34,7 @@ const PodcastAudio = props => {
 
   useEffect(() => {
     if (window.location.hash === '#play' && data) {
+      // console.log(data);
       playAudio(
         {
           audioSrc: data.audioSrc,
@@ -47,24 +50,16 @@ const PodcastAudio = props => {
   return (
     <div className="audio-page" id="audioPage">
       <div className="container">
-        {data && <AudioPageComponent data={data} />}
+        {data && <PlaylistPageComponent data={data} />}
 
         <div className="heading">
-          {data && `All creations by ${data.creatorId.creatorName}`}
+          {data && `All playlists by ${data.creatorId.creatorName}`}
         </div>
-        {audioCards && (
-          <AudioCardsVerticalScroll
-            audioCards={audioCards.filter(
-              e => e.creatorId.creatorName === data.creatorId.creatorName
-            )}
-          />
-        )}
+        <PlaylistCardsVerticalScroll playlistCards={playlistCards} />
         <div className="heading" style={{ marginTop: '2rem' }}>
           You may also like
         </div>
-        <AudioCardsVerticalScroll
-          audioCards={audioCards.filter(e => e.category === data.category)}
-        />
+        <PlaylistCardsVerticalScroll playlistCards={trendingPlaylistCards} />
       </div>
     </div>
   );
@@ -72,12 +67,16 @@ const PodcastAudio = props => {
 
 export async function getStaticProps({ params }) {
   await dbConnect();
-  const data = await getAudio(params.audioId).catch(console.error);
-  const audioCards = await getAllAudio().catch(console.error);
+  const data = await getPlaylist(params.playlistId).catch(console.error);
+  const playlistCards = await getUserPlaylists(data.creatorId._id).catch(
+    console.error
+  );
+  const trendingPlaylistCards = await getTrendingPlaylists().catch(
+    console.error
+  );
 
-  if (audioCards && data) {
+  if (playlistCards && data) {
     const metaTags = [
-      // { name: 'og:url', content: window.location.href },
       {
         name: 'fb:app_id',
         content: FACEBOOK_APP_ID,
@@ -115,7 +114,8 @@ export async function getStaticProps({ params }) {
     return {
       props: {
         data: data,
-        audioCards,
+        playlistCards,
+        trendingPlaylistCards,
         metaTags,
       },
       revalidate: 60,
@@ -131,12 +131,11 @@ export async function getStaticProps({ params }) {
 export async function getStaticPaths() {
   await dbConnect();
 
-  const ids = await getAudioIds().catch(console.error);
+  const ids = await getPlaylistIds().catch(console.error);
   let paths = [];
   if (ids && typeof ids[0] === 'string') {
     paths = ids.map(elem => {
-      // console.log(elem);
-      return { params: { audioId: elem._id } };
+      return { params: { playlistId: elem._id } };
     });
     return {
       paths: paths,
@@ -145,10 +144,9 @@ export async function getStaticPaths() {
   } else {
     return {
       paths,
-      //////////////fall back false not working
       fallback: 'blocking',
     };
   }
 }
 
-export default PodcastAudio;
+export default PlaylistInfoPage;

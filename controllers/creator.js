@@ -57,3 +57,9 @@ export const getCreatorIds = async () => {
     console.error
   );
 };
+
+export const getCreatorInfo = async email => {
+  return await PodcastCreatorModel.findOne({ email: email }).catch(
+    console.error
+  );
+};

@@ -45,8 +45,11 @@ const PlaylistCards = ({ cardItems, categoryName }) => {
   useEffect(() => {
     setOrigin(window.location.origin);
   }, []);
+
   function checkArrowAndHide() {
-    const firstElement = document.getElementById(`${cardItems[0]._id}`);
+    const firstElement = document.getElementById(
+      `${categoryName}-${cardItems[0]._id}`
+    );
     const lastElement = document.getElementById(
       `${categoryName}-${cardItems[cardItems.length - 1]._id}`
     );

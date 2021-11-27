@@ -12,8 +12,6 @@ import {
 import dbConnect from '../../utils/dbConnect';
 import NoResult from '../../assets/NoResultsFound.png';
 import { initGA, trackPageView } from '../../components/Tracking/tracking';
-import { BiSortAlt2 } from 'react-icons/bi';
-import SortButton from '../../components/SortButton/SortButton';
 
 const PodcastCategory = props => {
   const [audioCards, setAudioCards] = useState(props.audioCards);

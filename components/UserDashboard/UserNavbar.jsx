@@ -16,8 +16,8 @@ const UserNavbar = ({ selectedTab }) => {
 
   return (
     <div>
-      <div className="w-full max-w-md px-4 py-5 sm:px-0 mx-auto">
-        <div className="flex p-1 space-x-1 bg-indigo-650 rounded-xl">
+      <div className="w-6/12 px-4 py-5 sm:px-0 mx-auto">
+        <div className="flex p-1 space-x-1 bg-indigo-650 rounded-xl ">
           <div
             className={classNames(
               tabStyles,

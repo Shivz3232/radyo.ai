@@ -16,14 +16,13 @@ import { useAuth } from '../../controllers/auth';
 import Router from 'next/router';
 import { MdContentCopy } from 'react-icons/md';
 import { FcCheckmark } from 'react-icons/fc';
-import vinylRecord from '../../assets/vinylRecord.svg';
 
 const PlaylistCard = ({ cardItemData, categoryName, origin }) => {
   cardItemData['category'] = 'Playlist';
   const { setContextPlaylist } = usePlaylist();
   const { userid } = useAuth();
   const trackInfo = {
-    coverSrc: '/lovebytes/images/vinylRecord.svg',
+    coverSrc: cardItemData.podcastList[0].coverImage,
     audioSrc: cardItemData.podcastList[0].audioSrc,
     title: cardItemData.podcastList[0].title,
   };
