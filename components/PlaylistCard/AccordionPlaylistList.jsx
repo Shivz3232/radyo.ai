@@ -3,9 +3,12 @@ import 'react-h5-audio-player/lib/styles.css';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import axios from 'axios';
 
-const AccordionPlaylistList = ({ playlistId, podcastList }) => {
-  const [audioList, setAudioList] = useState(podcastList);
-
+const AccordionPlaylistList = ({
+  playlistId,
+  podcastList,
+  audioList,
+  setAudioList,
+}) => {
   const audioIdIndex = audioId => {
     const itemCount = audioList.length;
     let audioIndexInList = -1;

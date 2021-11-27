@@ -28,11 +28,21 @@ const Playlists = ({ playlistData }) => {
       <Navbar selectedTab={selectedTab} />
       <div className="bg-white w-6/12 px-4 py-5 mx-auto">
         <div className="px-4 py-5 sm:px-0 mx-auto rounded-md">
-          <Accordion>
-            {playlistData.map((key, elem) => {
-              return <PlaylistAccordian key={key} data={playlistData[elem]} />;
-            })}
-          </Accordion>
+          {playlistData.length ? (
+            <Accordion>
+              {playlistData.map((key, elem) => {
+                return (
+                  <PlaylistAccordian key={key} data={playlistData[elem]} />
+                );
+              })}
+            </Accordion>
+          ) : (
+            <div className="bg-white w-6/12 px-4 py-5 mx-auto">
+              <div className="px-4 py-5 sm:px-0 mx-auto rounded-md text-center">
+                No Playlist available
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

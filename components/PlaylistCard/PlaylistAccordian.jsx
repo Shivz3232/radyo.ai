@@ -18,11 +18,15 @@ import AccordionPlaylistList from './AccordionPlaylistList';
 const PlaylistAccordian = ({ data }) => {
   const { setContextPlaylist, playAudio } = usePlaylist();
   const [origin, setOrigin] = useState();
-  const trackInfo = {
-    coverSrc: data.podcastList[0].coverImage,
-    audioSrc: data.podcastList[0].audioSrc,
-    title: data.podcastList[0].title,
-  };
+  const [audioList, setAudioList] = useState(data.podcastList);
+  let trackInfo = {};
+  if (audioList.length) {
+    trackInfo = {
+      coverSrc: data.podcastList[0].coverImage,
+      audioSrc: data.podcastList[0].audioSrc,
+      title: data.podcastList[0].title,
+    };
+  }
   useEffect(() => {
     setOrigin(window.location.origin);
   }, []);
@@ -65,53 +69,63 @@ const PlaylistAccordian = ({ data }) => {
         </AccordionItemButton>
       </AccordionItemHeading>
       <AccordionItemPanel>
-        <div className="button-row">
-          <button
-            className="play-btn"
-            onClick={() => {
-              playAudio(trackInfo, data._id.toString());
-              setContextPlaylist(data.podcastList);
-            }}
-          >
-            Play Now
-          </button>
-          <div className="share-btn flex border rounded p-2 mb-2">
-            <div className="mx-1">Share with Friends</div>
-            <div className="flex">
-              <div className="h-8 w-8 mx-1" onClick={updateShareCount}>
-                <a
-                  href={getFacebookShareLink()}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <FaFacebook size="small" color="#4267B2" />
-                </a>
-              </div>
-              <div className="h-8 w-8 mx-1" onClick={updateShareCount}>
-                <a
-                  href={getTelegramShareLink()}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <img src={logoTelegram.src} alt="Share on Telegram" />
-                </a>
-              </div>
-              <div className="h-8 w-8 mx-1" onClick={updateShareCount}>
-                <a
-                  href={getWhatsAppShareLink()}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <img src={logoWhatsapp.src} alt="Share on Whatsapp" />
-                </a>
+        {data.podcastList.length > 0 ? (
+          <>
+            <div className="button-row">
+              <button
+                className="play-btn"
+                onClick={() => {
+                  if (audioList.length) {
+                    playAudio(trackInfo, data._id.toString());
+                    setContextPlaylist(data.podcastList);
+                  }
+                }}
+              >
+                Play Now
+              </button>
+              <div className="share-btn flex border rounded p-2 mb-2">
+                <div className="mx-1">Share with Friends</div>
+                <div className="flex">
+                  <div className="h-8 w-8 mx-1" onClick={updateShareCount}>
+                    <a
+                      href={getFacebookShareLink()}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <FaFacebook size="small" color="#4267B2" />
+                    </a>
+                  </div>
+                  <div className="h-8 w-8 mx-1" onClick={updateShareCount}>
+                    <a
+                      href={getTelegramShareLink()}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <img src={logoTelegram.src} alt="Share on Telegram" />
+                    </a>
+                  </div>
+                  <div className="h-8 w-8 mx-1" onClick={updateShareCount}>
+                    <a
+                      href={getWhatsAppShareLink()}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <img src={logoWhatsapp.src} alt="Share on Whatsapp" />
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        <AccordionPlaylistList
-          playlistId={data._id}
-          podcastList={data.podcastList}
-        />
+            <AccordionPlaylistList
+              playlistId={data._id}
+              podcastList={data.podcastList}
+              audioList={audioList}
+              setAudioList={setAudioList}
+            />
+          </>
+        ) : (
+          <div> No Audio available </div>
+        )}
       </AccordionItemPanel>
     </AccordionItem>
   );
