@@ -56,7 +56,6 @@ const UserNavbar = ({ selectedTab }) => {
               </a>
             </Link>
           </div>
-          {/* Turning off playlist in production
           <div
             className={classNames(
               tabStyles,
@@ -67,7 +66,6 @@ const UserNavbar = ({ selectedTab }) => {
               <a className="py-2 px-2">{userMenuLinks[3].label}</a>
             </Link>
           </div>
-          */}
         </div>
       </div>
     </div>
