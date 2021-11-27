@@ -130,7 +130,7 @@ const Podcast = props => {
                   );
                 }
               })}
-              
+
               <PlaylistCards
                 categoryName="Trending Playlists"
                 cardItems={playlistCards}

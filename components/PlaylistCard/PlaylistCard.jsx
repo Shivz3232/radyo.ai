@@ -125,7 +125,7 @@ const PlaylistCard = ({ cardItemData, categoryName, origin }) => {
         <div className="audio-card__header">
           <div className="audio-card__header--image">
             <img
-              className="audio-card__image"
+              className="playlist-card__image"
               src={'/lovebytes/images/vinylRecord.svg'}
               alt="Love"
             />
