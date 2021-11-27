@@ -167,7 +167,7 @@ const Login = () => {
   */
   return (
     <>
-      <div className="relative flex-auto items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 bg-gray-100 bg-no-repeat bg-cover relative items-center">
+      <div className="h-screen relative flex-auto items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 bg-gray-100 bg-no-repeat bg-cover relative items-center">
         <div className="mt-2 items-center z-10">
           <form className="p-14 bg-white max-w-sm mx-auto rounded-xl shadow-xl overflow-hidden p-6 space-y-10">
             <h2 className="text-4xl font-bold text-center text-indigo-650">
