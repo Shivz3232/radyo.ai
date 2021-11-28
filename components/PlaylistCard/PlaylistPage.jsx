@@ -122,7 +122,7 @@ const PlaylistPageComponent = ({ data }) => {
 
           <div className="audioPage-card__header--image">
             <img
-              className="audioPage-card__roundedimage"
+              className="playlistPage-card__roundedimage"
               src={'/lovebytes/images/vinylRecord.svg'}
               alt="Love"
             />

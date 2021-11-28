@@ -74,7 +74,6 @@ export async function getStaticProps({ params }) {
   const trendingPlaylistCards = await getTrendingPlaylists().catch(
     console.error
   );
-
   if (playlistCards && data) {
     const metaTags = [
       {
