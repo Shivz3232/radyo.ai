@@ -13,7 +13,7 @@ export const USER_AGREEMENT_ENDPOINT = '/user-agreement';
 
 export const GAD_CLIENT_ID = 'ca-pub-3369394419363433';
 export const GAD_LAYOUT_KEY = '-ef+6k-30-ac+ty';
-export const GAD_SLOT = '7635189777';
+export const GAD_SLOT = '8310443788';
 export const GAD_SLOT_SIZE = {
   '980x100': '1017772546',
   '320x200': '7635189777',

@@ -27,10 +27,10 @@ const AudioCardsVerticalScroll = props => {
             key={`google-card-${j + i}`}
             // className="audio-card mini generic-card p-0"
             style={{
-              minWidth: '325px',
-              minHeight: '205px',
-              width: '325px',
-              height: '205px',
+              // minWidth: '300px',
+              // minHeight: '180px',
+              width: '300px',
+              height: '180px',
             }}
           >
             <Adcard />

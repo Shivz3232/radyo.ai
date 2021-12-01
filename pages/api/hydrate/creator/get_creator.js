@@ -7,7 +7,7 @@ const getCreators = async (req, res) => {
     const creatorId = req.query.creatorId;
     let filter = {};
     let limit = 15;
-    let allCreator;
+    let allCreator = undefined;
     if (creatorId) {
       filter = { ...filter, _id: creatorId };
       allCreator = await PodcastCreatorModel.findOne(filter, '-email')
@@ -21,7 +21,7 @@ const getCreators = async (req, res) => {
         .catch(console.error);
     }
 
-    if (allCreators) {
+    if (allCreator) {
       if (creatorId) {
         const audio = await PodcastModel.find({
           creatorId: creatorId,

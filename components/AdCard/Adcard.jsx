@@ -11,18 +11,18 @@ const Adcard = () => {
     <div
       style={{
         // minWidth: '325px',
-        // minHeight: '205px',
-        border: '1px red solid',
-        width: '325px',
-        height: '205px',
+        maxHeight: '180px',
+        // border: '1px red solid',
+        width: '300px',
+        height: '180px',
       }}
     >
       <AdSense.Google
         client={GAD_CLIENT_ID}
         slot={GAD_SLOT}
-        style={{ display: 'block' }}
-        format="auto"
-        responsive="true"
+        style={{ display: 'inline-block', width: '100%', height: '100%' }}
+        format="fluid"
+        // responsive="true"
         // layoutKey={GAD_LAYOUT_KEY}
       />
     </div>

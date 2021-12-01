@@ -21,20 +21,17 @@ const PodcastCategory = props => {
     query: '',
     data: [],
   });
-  const [sort, setSort] = useState('');
+  // const [sort, setSort] = useState('');
 
   useEffect(() => {
     axios
-      .get(
-        `/api/hydrate/audio/get_audio?category=${props.category}&sortBy=${sort}`
-      )
+      .get(`/api/hydrate/audio/get_audio?category=${props.category}`)
       .then(res => {
         // console.log(res.data.allAudio);
-        if (res.data.allAudio && res.data.allAudio.length)
-          setAudioCards(res.data.allAudio);
+        setAudioCards(res.data.allAudio);
       })
       .catch(err => console.log(err));
-  }, [props.category, sort]);
+  }, [props.category]);
 
   useEffect(() => {
     initGA();
@@ -45,88 +42,87 @@ const PodcastCategory = props => {
     if (audioCards.length) {
       const lastPodcastId = audioCards[audioCards.length - 1]._id;
       axios
-        .get(
-          `/api/category/${props.category}?lastPodcastId=${lastPodcastId}&sortBy=${sort}`
-        )
+        .get(`/api/category/${props.category}?lastPodcastId=${lastPodcastId}`)
         .then(response => {
           let d = response.data.allAudio;
-          console.log(d);
+          // console.log(d);
           setAudioCards(
             audioCards.concat(
-              d.sort((a, b) => {
-                if (sort === 'LIKE') {
-                  return by(a.likeCount, b.likeCount);
-                } else if (sort === 'LIKE-ASC') {
-                  return by(a.likeCount, b.likeCount, true);
-                } else if (sort === 'PLAY') {
-                  return by(a.playCount, b.playCount);
-                } else if (sort === 'PLAY-ASC') {
-                  return by(a.playCount, b.playCount, true);
-                } else if ('NEWEST') {
-                  return by(new Date(a.createdAt), new Date(b.playCount));
-                } else if ('OLDEST') {
-                  return by(new Date(a.createdAt), new Date(b.playCount), true);
-                } else return 0;
-              })
+              d
+              // .sort((a, b) => {
+              //   if (sort === 'LIKE') {
+              //     return by(a.likeCount, b.likeCount);
+              //   } else if (sort === 'LIKE-ASC') {
+              //     return by(a.likeCount, b.likeCount, true);
+              //   } else if (sort === 'PLAY') {
+              //     return by(a.playCount, b.playCount);
+              //   } else if (sort === 'PLAY-ASC') {
+              //     return by(a.playCount, b.playCount, true);
+              //   } else if ('NEWEST') {
+              //     return by(new Date(a.createdAt), new Date(b.playCount));
+              //   } else if ('OLDEST') {
+              //     return by(new Date(a.createdAt), new Date(b.playCount), true);
+              //   } else return 0;
+              // })
             )
           );
         })
         .catch(console.error);
     }
   }
-  const by = (a, b, asc = false) => {
-    if (asc === true) {
-      return a > b ? 1 : -1;
-    } else {
-      return a < b ? 1 : -1;
-    }
-  };
+  // const by = (a, b, asc = false) => {
+  //   if (asc === true) {
+  //     return a > b ? 1 : -1;
+  //   } else {
+  //     return a < b ? 1 : -1;
+  //   }
+  // };
 
-  function sortBy(sortingFunc) {
-    if (sortingFunc === 'LIKE') {
-      setSort('LIKE');
-      setAudioCards(
-        audioCards.sort((a, b) => {
-          return by(a.likeCount, b.likeCount);
-        })
-      );
-    } else if (sortingFunc === 'PLAY') {
-      setSort('PLAY');
-      setAudioCards(
-        audioCards.sort((a, b) => {
-          return by(a.playCount, b.playCount);
-        })
-      );
-    } else if (sortingFunc === 'LIKE-ASC') {
-      setSort('LIKE-ASC');
-      setAudioCards(
-        audioCards.sort((a, b) => {
-          return by(a.likeCount, b.likeCount, true);
-        })
-      );
-    } else if (sortingFunc === 'PLAY-ASC') {
-      setSort('PLAY-ASC');
-      setAudioCards(
-        audioCards.sort((a, b) => {
-          return by(a.playCount, b.playCount, true);
-        })
-      );
-    } else if ('NEWEST') {
-      setSort('NEWEST');
-      setAudioCards(
-        audioCards.sort((a, b) => {
-          return by(new Date(a.createdAt), new Date(b.playCount));
-        })
-      );
-    } else if ('OLDEST') {
-      setSort('OLDEST');
-      setAudioCards(
-        audioCards.sort((a, b) => {
-          return by(new Date(a.createdAt), new Date(b.playCount), true);
-        })
-      );
-    }
-  }
+  // function sortBy(sortingFunc) {
+  //   if (sortingFunc === 'LIKE') {
+  //     setSort('LIKE');
+  //     setAudioCards(
+  //       audioCards.sort((a, b) => {
+  //         return by(a.likeCount, b.likeCount);
+  //       })
+  //     );
+  //   } else if (sortingFunc === 'PLAY') {
+  //     setSort('PLAY');
+  //     setAudioCards(
+  //       audioCards.sort((a, b) => {
+  //         return by(a.playCount, b.playCount);
+  //       })
+  //     );
+  //   } else if (sortingFunc === 'LIKE-ASC') {
+  //     setSort('LIKE-ASC');
+  //     setAudioCards(
+  //       audioCards.sort((a, b) => {
+  //         return by(a.likeCount, b.likeCount, true);
+  //       })
+  //     );
+  //   } else if (sortingFunc === 'PLAY-ASC') {
+  //     setSort('PLAY-ASC');
+  //     setAudioCards(
+  //       audioCards.sort((a, b) => {
+  //         return by(a.playCount, b.playCount, true);
+  //       })
+  //     );
+  //   } else if ('NEWEST') {
+  //     setSort('NEWEST');
+  //     setAudioCards(
+  //       audioCards.sort((a, b) => {
+  //         return by(new Date(a.createdAt), new Date(b.playCount));
+  //       })
+  //     );
+  //   } else if ('OLDEST') {
+  //     setSort('OLDEST');
+  //     setAudioCards(
+  //       audioCards.sort((a, b) => {
+  //         return by(new Date(a.createdAt), new Date(b.playCount), true);
+  //       })
+  //     );
+  //   }
+  // }
 
   return (
     <div className="podcast-category-page">

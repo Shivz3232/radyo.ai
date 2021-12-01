@@ -9,9 +9,9 @@ import {
 } from '../../controllers/contest';
 import dbConnect from '../../utils/dbConnect';
 import Banner1 from '../../assets/Banner_Radyo.svg';
-import Banner2 from '../../assets/Banner_English_artist.svg';
-import Banner3 from '../../assets/Banner_English_Listener.svg';
-import Banner4 from '../../assets/Banner_Hindi_artist.svg';
+import Banner2 from '../../assets/Banner_English_artist.jpg';
+import Banner3 from '../../assets/Banner_English_Listener.jpg';
+import Banner4 from '../../assets/Banner_Hindi_artist.jpg';
 import contestRules from '../../contestRules.json';
 import WinnersList from '../../components/Contest/WinnersList';
 import { initGA, trackPageView } from './../../components/Tracking/tracking';
