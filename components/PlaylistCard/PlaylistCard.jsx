@@ -16,17 +16,19 @@ import { useAuth } from '../../controllers/auth';
 import Router from 'next/router';
 import { MdContentCopy } from 'react-icons/md';
 import { FcCheckmark } from 'react-icons/fc';
-import vinylRecord from '../../assets/vinylRecord.svg';
 
 const PlaylistCard = ({ cardItemData, categoryName, origin }) => {
   cardItemData['category'] = 'Playlist';
   const { setContextPlaylist } = usePlaylist();
   const { userid } = useAuth();
-  const trackInfo = {
-    coverSrc: '/lovebytes/images/vinylRecord.svg',
-    audioSrc: cardItemData.podcastList[0].audioSrc,
-    title: cardItemData.podcastList[0].title,
-  };
+  let trackInfo = {};
+  if (cardItemData.podcastList.length > 0) {
+    trackInfo = {
+      coverSrc: cardItemData.podcastList[0].coverImage,
+      audioSrc: cardItemData.podcastList[0].audioSrc,
+      title: cardItemData.podcastList[0].title,
+    };
+  }
 
   const { playAudio, updatePlaylistCount } = usePlaylist();
   const { category, title, playCount, shareCount } = cardItemData;
@@ -126,7 +128,7 @@ const PlaylistCard = ({ cardItemData, categoryName, origin }) => {
         <div className="audio-card__header">
           <div className="audio-card__header--image">
             <img
-              className="audio-card__image"
+              className="playlist-card__image"
               src={'/lovebytes/images/vinylRecord.svg'}
               alt="Love"
             />
@@ -145,7 +147,7 @@ const PlaylistCard = ({ cardItemData, categoryName, origin }) => {
             <div className="audio-card__header--item audio-card__category playlist">
               Playlist
             </div>
-            <Link href={`/audio/${cardItemData._id}`}>
+            <Link href={`/playlist/${cardItemData._id}`}>
               <a style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div className="audio-card__header--item audio-card__title">
                   <LinesEllipsis

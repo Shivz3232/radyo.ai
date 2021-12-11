@@ -17,7 +17,8 @@ export const getTrendingPlaylists = async () => {
 
 export const getAllPlaylists = async () => {
   const allPlaylists = await PlaylistModel.find({ podcastList: { $ne: [] } })
-    .populate('creatorId podcastList')
+    .populate('podcastList')
+    .populate('creatorId')
     .sort({ likeCount: -1 })
     .catch(console.error);
   if (allPlaylists) {
@@ -49,7 +50,7 @@ export const getPlaylistIds = async () => {
 
 export const getPlaylist = async playlistId => {
   const ids = await PlaylistModel.findOne({ _id: playlistId })
-    .populate('creatorId podcastList')
+    .populate('podcastList')
     .populate('creatorId')
     .limit(100)
     .catch(console.error);

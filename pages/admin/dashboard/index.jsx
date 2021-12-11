@@ -110,15 +110,15 @@ export function Inreview({ status }) {
   const approve = id => {
     axios
       .post('/api/inreview', { action: 'approve', id })
-      .then((response) => {
-        const temp = podcasts.filter(e => e._id != id);
-        setPodcasts(temp);
+      .then(response => {
         emailUtil({
           username: response.data.username,
           useremail: response.data.useremail,
           audiourl: `${origin}/${response.data.audiourl}`,
           template: 'RADYO_PUBLISH',
         });
+        const temp = podcasts.filter(e => e._id != id);
+        setPodcasts(temp);
       })
       .catch(err => {
         console.error(err);

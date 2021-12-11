@@ -10,7 +10,7 @@ const addPlaylistToDB = async (uid, uname, title, audioId) => {
     creatorId: uid,
     creatorName: uname,
     podcastList: audioId ? audioId : [],
-    coverImage: '',
+    coverImage: '/assets/vinylRecord.svg',
     title: title,
     description: '',
     playCount: 0,
