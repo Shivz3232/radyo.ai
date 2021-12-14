@@ -10,7 +10,7 @@ export const uploads = (file, folder) => {
   return new Promise((resolve, reject) => {
     cloudinary.v2.uploader.upload(
       file,
-      { folder: folder, resource_type: 'auto' },
+      { folder: folder, resource_type: 'auto', width: 400, height: 300, crop: 'limit' },
       (error, result) => {
         if (!error) {
           resolve(result);
