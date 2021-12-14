@@ -3,14 +3,14 @@ import cloudinary from 'cloudinary';
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  api_secret: process.env.CLO, UDINARY_API_SECRET,
 });
 
-export const uploads = (file, folder) => {
+export const uploads = (file, folder, options={}) => {
   return new Promise((resolve, reject) => {
     cloudinary.v2.uploader.upload(
       file,
-      { folder: folder, resource_type: 'auto', width: 400, height: 300, crop: 'limit' },
+      { folder: folder, resource_type: 'auto', ...options },
       (error, result) => {
         if (!error) {
           resolve(result);
