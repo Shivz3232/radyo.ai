@@ -65,7 +65,7 @@ uploader.post(async (req, res) => {
     let coverImgPath = req.files.coverImg[0].path;
 
     var audioFile = await uploads(audioFilePath, 'audio_files');
-    var coverImg = await uploads(coverImgPath, 'cover_images', { width: 400, height: 300, crop: 'limit' });
+    var coverImg = await uploads(coverImgPath, 'cover', { width: 400, height: 300, crop: 'limit' });
 
     let creatorData = await PodcastCreatorModel.find(
       { email: req.body.email },
