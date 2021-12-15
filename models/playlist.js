@@ -1,4 +1,4 @@
-import mongoose, { Model, model, Schema, Document } from 'mongoose';
+import mongoose, { model, Schema } from 'mongoose';
 import { stringRequired, numberRequired } from './schemaFieldTypes';
 import PodcastModel from './podcast';
 import PodcastCreatorSchema from './podcastCreator';

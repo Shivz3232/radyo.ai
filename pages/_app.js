@@ -29,6 +29,7 @@ import '../styles/AdminAuthPage.scss';
 import '../styles/AdminDashboard.scss';
 import '../styles/PodcastReviewCard.scss';
 import '../styles/welcomemodal.scss';
+import '../styles/Accordion.scss';
 import { AuthProvider } from '../controllers/auth';
 import { PlaylistProvider } from '../controllers/PlaylistProvider';
 import { DFPSlotsProvider, AdSlot } from 'react-dfp';
