@@ -4,6 +4,7 @@ import PodcastCreatorModel from '../../models/podcastCreator';
 import ContestModel from '../../models/contest';
 import { findFollower } from '../../utils/findFollower';
 import { getuserdata } from '../../controllers/getuserdata';
+import { emailUtil } from '../../utils/emailUtil';
 
 const removeFollower = (followers, followerIndex) => {
   followers.splice(followerIndex, 1);
@@ -42,6 +43,14 @@ const updateFollowers = async (req, res) => {
         let updateFollowers = await PodcastCreatorModel.findOne({
           uid: req.body.creatorId,
         });
+        if (req.body.action === 'FOLLOW') {
+          emailUtil({
+            username: updateFollowers.creatorName,
+            useremail: updateFollowers.email,
+            template: 'RADYO_FOLLOW',
+          });
+        }
+
         if (updateFollowers && contests) {
           updateFollowers.followers = followers;
           contests.forEach(contest => {

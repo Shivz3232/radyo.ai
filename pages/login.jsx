@@ -18,6 +18,7 @@ import {
   TERMS_AND_CONDITIONS_ENDPOINT,
   PRIVACY_POLICY_ENDPOINT,
 } from './../constants';
+import loginchill from '../assets/loginchill.png';
 
 export const getServerSideProps = async context => {
   try {
@@ -168,8 +169,8 @@ const Login = () => {
   return (
     <>
       <div className="h-screen relative flex-auto items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 bg-gray-100 bg-no-repeat bg-cover relative items-center">
-        <div className="mt-2 items-center z-10">
-          <form className="p-14 bg-white max-w-sm mx-auto rounded-xl shadow-xl overflow-hidden p-6 space-y-10">
+        <div className="sm:flex justify-center mt-2 z-10">
+          <form className="p-6 bg-white max-w-sm rounded-xl shadow-xl overflow-hidden space-y-10">
             <h2 className="text-4xl font-bold text-center text-indigo-650">
               Login
             </h2>
@@ -200,6 +201,18 @@ const Login = () => {
               .
             </div>
           </form>
+          <div className="pt-4 pb-4 max-w-sm ml-4">
+            <h2 className="h-1/6 text-l sm:text-2xl text-left text-black break-words mb-2 ">
+              Get famous and become leading social media influencer.
+            </h2>
+            <div className="h-5/6 bg-white">
+              <img
+                src={loginchill.src}
+                alt="chillradyo"
+                className="h-full shadow-xl"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </>
