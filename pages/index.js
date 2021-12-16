@@ -10,10 +10,10 @@ import { getTrendingPlaylists } from '../controllers/playlist';
 import { useSessionStorage } from '../hooks/sessionStorage';
 import dbConnect from '../utils/dbConnect';
 import HomeCarousel from './../components/HomeCarousel/HomeCarousel';
-import Banner1 from '../assets/Banner_Radyo.svg';
-import Banner2 from '../assets/Banner_English_artist.jpg';
-import Banner3 from '../assets/Banner_English_Listener.jpg';
-import Banner4 from '../assets/Banner_Hindi_artist.jpg';
+// import Banner1 from '../assets/Banner_Radyo.svg';
+// import Banner2 from '../assets/Banner_English_artist.jpg';
+// import Banner3 from '../assets/Banner_English_Listener.jpg';
+// import Banner4 from '../assets/Banner_Hindi_artist.jpg';
 import { initGA, trackPageView } from '../components/Tracking/tracking';
 import TrendingArtist from '../components/TrendingArtist/TrendingArtist';
 import { getTrendingCreators } from '../controllers/creator';
@@ -36,10 +36,10 @@ const Podcast = props => {
 
   const [showmodal, setShowModal] = useSessionStorage('endModalSession', false);
   const images = [
-    { img: Banner1.src, url: '/' },
-    { img: Banner2.src, url: '/contest' },
-    { img: Banner3.src, url: '/contest' },
-    { img: Banner4.src, url: '/contest' },
+    { img: "https://res.cloudinary.com/nuzpapr-tech/image/upload/v1639682690/banners/Banner_Radyo_b7xe4s.svg", url: '/' },
+    { img: "https://res.cloudinary.com/nuzpapr-tech/image/upload/v1639682718/banners/Banner_English_artist_kuaibk.png", url: '/contest' },
+    { img: "https://res.cloudinary.com/nuzpapr-tech/image/upload/v1639682717/banners/Banner_English_Listener_bsladt.png", url: '/contest' },
+    { img: "https://res.cloudinary.com/nuzpapr-tech/image/upload/v1639682717/banners/Banner_Hindi_artist_krypgj.png", url: '/contest' },
   ];
 
   useEffect(() => {
