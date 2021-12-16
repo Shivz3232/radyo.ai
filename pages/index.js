@@ -18,9 +18,12 @@ import { initGA, trackPageView } from '../components/Tracking/tracking';
 import TrendingArtist from '../components/TrendingArtist/TrendingArtist';
 import { getTrendingCreators } from '../controllers/creator';
 import PlaylistCards from '../components/PlaylistCard/PlaylistCards';
+import { checkforSW } from '../utils/pushNotification/pushNotification';
+import { useRouter } from 'next/router';
 
 import axios from 'axios';
 const Podcast = props => {
+  const router = useRouter();
   const [audioCards, setAudioCards] = useState(props.audioCards);
   const [playlistCards, setPlaylistCards] = useState(props.playlistCards);
   const [trendingCreators, setTrendingCreators] = useState(
@@ -68,6 +71,14 @@ const Podcast = props => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    router.events.on('routeChangeComplete', e => {
+      if (e === '/') {
+        checkforSW();
+      }
+    });
+  }, [router.events]);
 
   return (
     <>
