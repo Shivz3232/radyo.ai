@@ -18,7 +18,8 @@ import { initGA, trackPageView } from '../components/Tracking/tracking';
 import TrendingArtist from '../components/TrendingArtist/TrendingArtist';
 import { getTrendingCreators } from '../controllers/creator';
 import PlaylistCards from '../components/PlaylistCard/PlaylistCards';
-import { checkforSW } from '../utils/pushNotification/pushNotification';
+import dynamic from 'next/dynamic'
+const checkforSW = dynamic(() => import('../utils/pushNotification/pushNotification'));
 import { useRouter } from 'next/router';
 
 import axios from 'axios';
