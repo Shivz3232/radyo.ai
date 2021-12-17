@@ -18,7 +18,7 @@ import { initGA, trackPageView } from '../components/Tracking/tracking';
 import TrendingArtist from '../components/TrendingArtist/TrendingArtist';
 import { getTrendingCreators } from '../controllers/creator';
 import PlaylistCards from '../components/PlaylistCard/PlaylistCards';
-import dynamic from 'next/dynamic'
+import dynamic from 'next/dynamic';
 import { checkforSW } from '../utils/pushNotification/pushNotification';
 import { useRouter } from 'next/router';
 
@@ -37,13 +37,26 @@ const Podcast = props => {
     query: '',
     data: [],
   });
+  const [closingCounter, setclosingCounter] = useState(10);
 
   const [showmodal, setShowModal] = useSessionStorage('endModalSession', false);
   const images = [
-    { img: "https://res.cloudinary.com/nuzpapr-tech/image/upload/v1639682690/banners/Banner_Radyo_b7xe4s.svg", url: '/' },
-    { img: "https://res.cloudinary.com/nuzpapr-tech/image/upload/v1639682718/banners/Banner_English_artist_kuaibk.png", url: '/contest' },
-    { img: "https://res.cloudinary.com/nuzpapr-tech/image/upload/v1639682717/banners/Banner_English_Listener_bsladt.png", url: '/contest' },
-    { img: "https://res.cloudinary.com/nuzpapr-tech/image/upload/v1639682717/banners/Banner_Hindi_artist_krypgj.png", url: '/contest' },
+    {
+      img: 'https://res.cloudinary.com/nuzpapr-tech/image/upload/v1639682690/banners/Banner_Radyo_b7xe4s.svg',
+      url: '/',
+    },
+    {
+      img: 'https://res.cloudinary.com/nuzpapr-tech/image/upload/v1639682718/banners/Banner_English_artist_kuaibk.png',
+      url: '/contest',
+    },
+    {
+      img: 'https://res.cloudinary.com/nuzpapr-tech/image/upload/v1639682717/banners/Banner_English_Listener_bsladt.png',
+      url: '/contest',
+    },
+    {
+      img: 'https://res.cloudinary.com/nuzpapr-tech/image/upload/v1639682717/banners/Banner_Hindi_artist_krypgj.png',
+      url: '/contest',
+    },
   ];
 
   useEffect(() => {
@@ -68,10 +81,22 @@ const Podcast = props => {
       setShowModal(true);
       setTimeout(() => {
         setshowWelcomeModal('visible');
-      }, 2000);
+      }, 120000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (showWelcomeModal === 'visible') {
+        if (closingCounter == 1) {
+          setshowWelcomeModal('hidden');
+        } else {
+          setclosingCounter(closingCounter - 1);
+        }
+      }
+    }, 1000);
+  });
 
   useEffect(() => {
     checkforSW();
@@ -87,6 +112,7 @@ const Podcast = props => {
       <WelcomeModal
         showWelcomeModal={showWelcomeModal}
         setshowWelcomeModal={setshowWelcomeModal}
+        closingCounter={closingCounter}
       />
       <div className="podcast-page">
         <CategoryNavBar category="all" />
