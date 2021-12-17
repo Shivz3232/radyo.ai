@@ -19,7 +19,7 @@ import TrendingArtist from '../components/TrendingArtist/TrendingArtist';
 import { getTrendingCreators } from '../controllers/creator';
 import PlaylistCards from '../components/PlaylistCard/PlaylistCards';
 import dynamic from 'next/dynamic'
-const checkforSW = dynamic(() => import('../utils/pushNotification/pushNotification'));
+import { checkforSW } from '../utils/pushNotification/pushNotification';
 import { useRouter } from 'next/router';
 
 import axios from 'axios';
@@ -74,11 +74,12 @@ const Podcast = props => {
   }, []);
 
   useEffect(() => {
-    router.events.on('routeChangeComplete', e => {
-      if (e === '/') {
-        checkforSW();
-      }
-    });
+    checkforSW();
+    // router.events.on('routeChangeComplete', e => {
+    //   console.log("here2", e)
+    //   if (e === '/') {
+    //   }
+    // });
   }, [router.events]);
 
   return (
