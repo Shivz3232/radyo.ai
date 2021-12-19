@@ -5,7 +5,7 @@ import Podcast from "../../../models/podcast";
 import webpush from 'web-push';
 
 const sendNotification = async (req, res) => {
-  // Ask Nishanth about securing apis
+  // Ask Nishanth sir about securing apis
   const admin = true;
 
   if (req.method == 'GET') {

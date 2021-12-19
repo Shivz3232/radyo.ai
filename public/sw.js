@@ -53,7 +53,7 @@ self.addEventListener('push', event => {
 self.addEventListener('notificationclick', event => {
   event.notification.onclick(
     clients.openWindow(
-      `https://www.nuzpapr.com/news/id/${event.notification.data._id}?notifId=${event.notification.data.notif_id}`
+      `https://www.radyo.ai/audio/${event.notification.data._id}?notifId=${event.notification.data.notif_id}`
     )
   );
   event.notification.close();
