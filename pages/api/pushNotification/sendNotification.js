@@ -1,17 +1,12 @@
 import connect from '../../../utils/middleware/mongoClient';
 import SubscribedUserModel from '../../../models/notificationSubscription';
 import SentNotificationModel from '../../../models/sentNotification';
-// import NewsModel from '../../../models/news';
+import Podcast from "../../../models/podcast";
 import webpush from 'web-push';
-// import { getSession } from 'next-auth/react';
-// import UserModel from '../../../models/user';
 
 const sendNotification = async (req, res) => {
-  // const session = await getSession({ req });
-  // const [{ admin }] = await UserModel.find(
-  //   { email: session.user.email },
-  //   'admin -_id'
-  // );
+  // Ask Nishanth about securing apis
+  const admin = true;
 
   if (req.method == 'GET') {
     if (admin) {
@@ -21,30 +16,32 @@ const sendNotification = async (req, res) => {
         process.env.PRIVATE_VAPID_KEY
       );
 
-      // Fetching recent news from db
-      // const news = await NewsModel.find({})
-      //   .sort({ date_published: -1 })
-      //   .limit(1)
-      //   .catch(err => {
-      //     console.log(err);
-      //     return;
-      //   });
+      // Fetching recent approved podcast from db
+      const podcast = await Podcast.findOne({ status: "approved" }).sort({ updatedAt: -1 }).catch(console.error);
 
-      // Saving sent News to db
+      if (!podcast) {
+        res.status(500);
+        res.json({
+          message: "Failed to fetch latest approved podcast from DB"
+        });
+        return res.end();
+      }
+
+      // Saving sent podcast to db
       const newSentNotification = new SentNotificationModel({
         // sentBy: session.user.email,
-        // news_id: news[0]._id,
-        sent_date: new Date(),
-        click_count: 0,
+        podcastId: podcast._id,
+        sentDate: new Date(),
+        clickCount: 0,
       });
       const sentNotificationObjectId = await newSentNotification.save();
 
       const options = {
-        // body: news[0].title,
-        // image_url: news[0].image_url,
-        // _id: news[0]._id,
+        body: podcast.title,
+        image_url: podcast.coverImage,
+        _id: podcast._id,
         notif_id: sentNotificationObjectId._id,
-        // icon: '../../logo/logo.jpg',
+        icon: '../../../assets/radyologo.svg',
         title: 'Radyo',
       };
 

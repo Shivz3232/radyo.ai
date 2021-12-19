@@ -4,13 +4,13 @@ const sentNotificationSchema = new Schema({
   sentBy: {
     type: String,
   },
-  news_id: {
+  podcastId: {
     type: String,
   },
-  sent_date: {
+  sentDate: {
     type: Date,
   },
-  click_count: {
+  clickCount: {
     type: Number,
   },
 });
