@@ -28,7 +28,7 @@ const saveSubscription = async subscription => {
 self.addEventListener('activate', async () => {
   try {
     const applicationServerKey = urlBase64ToUint8Array(
-      'BC_iD4L7qoyat_lYoCDveCGLVTaIUqO9RIakLacCx_5fCAmaGemf03dI9eIRaDAxsFLzlvc_aW5wmNn9weVJkro'
+      'BLU8-vOfYG6aIS6ZdJkryFxgJxhtoEgqOwaXgOUtFaAb-2MvW6AZ-D8KGb5RB2OS1aG3ERfpLI8u7ZkIuDF9bfM'
     );
     const options = { applicationServerKey, userVisibleOnly: true };
     const subscription = await self.registration.pushManager.subscribe(options);
