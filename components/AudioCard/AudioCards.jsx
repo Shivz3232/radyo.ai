@@ -77,6 +77,7 @@ const AudioCards = ({ cardItems, categoryName }) => {
     const cards = [];
 
     for (var i = 0, j = 1; i < cardItems.length; i++, j++) {
+      /*
       if (j % 5 === 0) {
         cards.push(
           <div
@@ -94,7 +95,7 @@ const AudioCards = ({ cardItems, categoryName }) => {
           </div>
         );
       }
-
+      */
       cards.push(
         <AudioCard
           key={i}

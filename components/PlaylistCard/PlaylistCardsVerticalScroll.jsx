@@ -19,6 +19,7 @@ const PlaylistCardsVerticalScroll = props => {
     const cards = [];
 
     for (var i = 0, j = 1; i < playlistCards.length; i++, j++) {
+      /*
       if (j % 5 === 0) {
         cards.push(
           <div
@@ -29,7 +30,7 @@ const PlaylistCardsVerticalScroll = props => {
           </div>
         );
       }
-
+      */
       cards.push(
         <PlaylistCard key={i} origin={origin} cardItemData={playlistCards[i]} />
       );
