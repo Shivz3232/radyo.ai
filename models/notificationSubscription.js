@@ -1,8 +1,9 @@
-import mongoose, { Model, model, Schema, Document } from 'mongoose';
-import { PushSubscription } from 'web-push';
+import mongoose, { model, Schema } from 'mongoose';
 
-const subscribedUserSchema = new Schema<Subscription>({
-  subscriptionObject: PushSubscription,
+const subscribedUserSchema = new Schema({
+  subscriptionObject: {
+    type: Object
+  },
 });
 
 const SubscribedUserModel =
