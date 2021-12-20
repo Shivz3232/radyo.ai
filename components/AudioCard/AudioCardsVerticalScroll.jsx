@@ -21,6 +21,7 @@ const AudioCardsVerticalScroll = props => {
     const cards = [];
 
     for (var i = 0, j = 1; i < audioCards.length; i++, j++) {
+      /*
       if (j % 5 === 0) {
         cards.push(
           <div
@@ -37,7 +38,7 @@ const AudioCardsVerticalScroll = props => {
           </div>
         );
       }
-
+      */
       cards.push(
         <AudioCard key={i} origin={origin} cardItemData={audioCards[i]} />
       );

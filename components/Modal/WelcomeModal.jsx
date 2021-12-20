@@ -4,19 +4,8 @@ import { useRouter } from 'next/router';
 import { usePlaylist } from '../../controllers/PlaylistProvider';
 
 const WelcomeModal = props => {
-  const [closingCounter, setclosingCounter] = useState(12);
   const router = useRouter();
   const { contextPlaylist, playAudio } = usePlaylist();
-
-  useEffect(() => {
-    setTimeout(() => {
-      if (closingCounter == 1) {
-        props.setshowWelcomeModal('hidden');
-      } else {
-        setclosingCounter(closingCounter - 1);
-      }
-    }, 1000);
-  });
 
   return (
     <div
@@ -60,7 +49,7 @@ const WelcomeModal = props => {
           </button>
         </div>
         <div className="text-center text-sm text-white my-5">
-          Closing in next {closingCounter} seconds...
+          Closing in next {props.closingCounter} seconds...
         </div>
       </div>
     </div>

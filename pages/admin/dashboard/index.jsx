@@ -12,6 +12,8 @@ const Dash = props => {
   // Check if authorized, else redirect to login
   const user = useUser({ redirectTo: '/admin/login', redirectIfFound: false });
 
+  const [btnTxt, setBtnTxt] = useState("Send Notification");
+
   const logout = async e => {
     e.preventDefault();
 
@@ -19,6 +21,16 @@ const Dash = props => {
 
     Router.push('/admin/login');
   };
+
+  const sendNotification = async e => {
+    e.preventDefault();
+
+    setBtnTxt("Working")
+    await axios.get("/api/pushNotification/sendNotification");
+    setBtnTxt("Done");
+
+    setTimeout(() => setBtnTxt("Send Notification"), 2000)
+  }
 
   let [categories] = useState({
     'To be reviewed': {
@@ -47,11 +59,19 @@ const Dash = props => {
   return (
     <Tab.Group>
       <div className="w-full max-w-md px-4 py-5 md:mt-0 mt-8 sm:px-0 mx-auto">
-        <div
-          onClick={logout}
-          className="absolute right-8 top-20 rounded-md p-2 cursor-pointer border border-indigo-650 bg-indigo-650 text-white hover:bg-white hover:text-indigo-650"
-        >
-          Admin Logout
+        <div className="absolute right-8 top-20 flex gap-4 flex-row-reverse">
+          <div
+            onClick={logout}
+            className="rounded-md p-2 cursor-pointer border border-indigo-650 bg-indigo-650 text-white hover:bg-white hover:text-indigo-650"
+          >
+            Admin Logout
+          </div>
+          <div 
+            onClick={sendNotification}
+            className={`rounded-md p-2 cursor-pointer border border-indigo-650 ${ btnTxt == "Done" ? "bg-green-500" : "bg-indigo-650"} text-white hover:bg-white hover:text-indigo-650`}
+          >
+            {btnTxt}
+          </div>
         </div>
         <Tab.List className="flex p-1 space-x-1 bg-indigo-650 rounded-xl">
           {Object.keys(categories).map(category => (

@@ -10,17 +10,21 @@ import { getTrendingPlaylists } from '../controllers/playlist';
 import { useSessionStorage } from '../hooks/sessionStorage';
 import dbConnect from '../utils/dbConnect';
 import HomeCarousel from './../components/HomeCarousel/HomeCarousel';
-import Banner1 from '../assets/Banner_Radyo.svg';
-import Banner2 from '../assets/Banner_English_artist.jpg';
-import Banner3 from '../assets/Banner_English_Listener.jpg';
-import Banner4 from '../assets/Banner_Hindi_artist.jpg';
+// import Banner1 from '../assets/Banner_Radyo.svg';
+// import Banner2 from '../assets/Banner_English_artist.jpg';
+// import Banner3 from '../assets/Banner_English_Listener.jpg';
+// import Banner4 from '../assets/Banner_Hindi_artist.jpg';
 import { initGA, trackPageView } from '../components/Tracking/tracking';
 import TrendingArtist from '../components/TrendingArtist/TrendingArtist';
 import { getTrendingCreators } from '../controllers/creator';
 import PlaylistCards from '../components/PlaylistCard/PlaylistCards';
+import dynamic from 'next/dynamic';
+import { checkforSW } from '../utils/pushNotification/pushNotification';
+import { useRouter } from 'next/router';
 
 import axios from 'axios';
 const Podcast = props => {
+  const router = useRouter();
   const [audioCards, setAudioCards] = useState(props.audioCards);
   const [playlistCards, setPlaylistCards] = useState(props.playlistCards);
   const [trendingCreators, setTrendingCreators] = useState(
@@ -33,13 +37,26 @@ const Podcast = props => {
     query: '',
     data: [],
   });
+  const [closingCounter, setclosingCounter] = useState(10);
 
   const [showmodal, setShowModal] = useSessionStorage('endModalSession', false);
   const images = [
-    { img: Banner1.src, url: '/' },
-    { img: Banner2.src, url: '/contest' },
-    { img: Banner3.src, url: '/contest' },
-    { img: Banner4.src, url: '/contest' },
+    {
+      img: 'https://res.cloudinary.com/nuzpapr-tech/image/upload/v1639682690/banners/Banner_Radyo_b7xe4s.svg',
+      url: '/',
+    },
+    {
+      img: 'https://res.cloudinary.com/nuzpapr-tech/image/upload/v1639682718/banners/Banner_English_artist_kuaibk.png',
+      url: '/contest',
+    },
+    {
+      img: 'https://res.cloudinary.com/nuzpapr-tech/image/upload/v1639682717/banners/Banner_English_Listener_bsladt.png',
+      url: '/contest',
+    },
+    {
+      img: 'https://res.cloudinary.com/nuzpapr-tech/image/upload/v1639682717/banners/Banner_Hindi_artist_krypgj.png',
+      url: '/contest',
+    },
   ];
 
   useEffect(() => {
@@ -64,16 +81,38 @@ const Podcast = props => {
       setShowModal(true);
       setTimeout(() => {
         setshowWelcomeModal('visible');
-      }, 2000);
+      }, 120000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (showWelcomeModal === 'visible') {
+        if (closingCounter == 1) {
+          setshowWelcomeModal('hidden');
+        } else {
+          setclosingCounter(closingCounter - 1);
+        }
+      }
+    }, 1000);
+  });
+
+  useEffect(() => {
+    checkforSW();
+    // router.events.on('routeChangeComplete', e => {
+    //   console.log("here2", e)
+    //   if (e === '/') {
+    //   }
+    // });
+  }, [router.events]);
 
   return (
     <>
       <WelcomeModal
         showWelcomeModal={showWelcomeModal}
         setshowWelcomeModal={setshowWelcomeModal}
+        closingCounter={closingCounter}
       />
       <div className="podcast-page">
         <CategoryNavBar category="all" />
